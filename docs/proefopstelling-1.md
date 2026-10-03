@@ -69,6 +69,38 @@ Bij de lektest (T0) controleren we of de dichte stand echt dicht blijft.
 
 Bedoeld typenummer: **VQ110-5M-M5** of **VQ110-5L-M5**.
 
+**Hoe een spoel 50 Hz haalt.** De VQ110 is *direct bediend*: de spoel trekt een klein,
+licht ankertje een paar tienden van een millimeter op, en dat ankertje is zelf de klep.
+Grote ventielen zoals de 4V210 zijn *voorgestuurd*: de spoel opent een klein
+luchtkanaal en die lucht duwt dan een grote schuif om. Dat duurt 20–50 ms. Bij 50 Hz
+duurt één puls 20 ms en heeft de VQ110 ongeveer 5,5 ms nodig om open en weer dicht te
+gaan. Dat past ruim.
+
+Er zijn twee soorten PWM:
+
+- **Langzaam (20–50 Hz), wat deze opstelling doet.** De klep volgt elke puls: helemaal
+  open, helemaal dicht. De cilinder en de slangen werken als buffer en middelen de
+  stoten uit, zoals een emmer die je met korte scheuten vult. De pulsbreedte bepaalt
+  hoeveel lucht er gemiddeld doorgaat.
+  - Een puls korter dan de opentijd (ca. 3,5 ms) opent de klep niet. Bij 50 Hz is
+    daardoor ruwweg 20–85% pulsbreedte bruikbaar. De software compenseert die dode
+    zone.
+  - Een lagere frequentie geeft fijnere stappen, maar meer drukrimpel. T1 bepaalt de
+    frequentie.
+- **Snel (kHz) op de spoel.** De klep volgt dit niet. De spoel middelt de stroom
+  uit. Dit wordt gebruikt voor "peak-and-hold": vol aan om te openen, daarna minder
+  stroom om open te houden. Dat geeft minder warmte en de klep gaat sneller dicht.
+  Een aan/uit-klep kun je hiermee **niet** half open zetten; dat kan alleen een
+  proportioneel ventiel, dat anders gebouwd is (schuif tegen een veer). Voor nu niet
+  nodig.
+
+Varianten `M`/`L` hebben een ingebouwd lampje en een overspanningsbeveiliging. Die zijn
+gevoelig voor plus en min: rood aan +24 V, zwart aan de MOSFET.
+
+**Levensduur.** Bij 50 Hz schakelt een klep 180.000 keer per uur. Dat gebeurt alleen
+tijdens bewegen; bij stilstaan zijn de kleppen dicht. Voor de proef is dit geen
+probleem. Voor de arm wordt de levensduur een keuzecriterium bij de ventielen.
+
 **Waarom geen goedkopere 2/2-klep?** Gewone magneetkleppen zoals de 2V025 en 2W-serie
 (€5) reageren in 20–50 ms. Daarmee is PWM boven ongeveer 10 Hz niet mogelijk en wordt
 de regeling grof. De kleine "hoogfrequente" miniventielen van 10 mm zijn goedkoop
@@ -87,7 +119,7 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 5 | Snel 3/2-ventiel 24 V | SMC VQ110-5M-M5 | €8–30 per stuk |
+| 5 | Snel 3/2-ventiel 24 V | SMC VQ110-5M-M5 | €25–35 per stuk (origineel; distributeur ca. $30) |
 | 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm | MAL20x150 | €15–25 |
 | 1 | Lineaire potmeter 150 mm | KTC-150 / KPM-150 linear potentiometer | €20–40 |
 | 2 | Druksensor 0–1 MPa, 5 V, uitgang 0,5–4,5 V | pressure transducer 0-1.2MPa 5V G1/4 | €8–15 per stuk |
@@ -103,7 +135,7 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
 | – | Weerstanden voor spanningsdeler (2× 10 kΩ + 2× 20 kΩ), breadboard, draadjes | | €5 |
 | 1 | Compressor met tank, ±8 bar (als je er nog geen hebt) | | €100–150 |
 
-**Totaal zonder compressor: ongeveer €200–300.**
+**Totaal zonder compressor: ongeveer €250–350.**
 
 ## Elektrisch
 
