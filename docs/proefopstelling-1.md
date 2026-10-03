@@ -51,6 +51,10 @@ Voor kamer B gelden V3 en V4 op dezelfde manier.
 - Reactietijd: aan 3,5 ms, uit 2 ms. Snel genoeg voor PWM op 20–50 Hz.
 - Maximaal 0,7 MPa (7 bar), 24 V DC
 - Klein, en op AliExpress verkrijgbaar als origineel en als kloon
+- Doorstroming: Cv 0,02 (standaard) of 0,04 (optie "grote doorstroming"). Voor de
+  Ø20-proefcilinder is de standaard genoeg: een volle slag duurt dan ruwweg 0,5–1 s.
+- SMC vervangt de VQ100-serie door de V100-serie. Distributeurs hebben nog voorraad.
+  Voor de arm kiezen we hoe dan ook een ander, groter ventiel.
 
 Een 3/2-ventiel wordt een 2/2-ventiel door één poort dicht te draaien met een M5-blindplug:
 
