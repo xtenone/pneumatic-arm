@@ -73,6 +73,12 @@ De goedkopere versie zonder `-M5` (los ventiel voor een ventieleiland) past hier
 Een ventieleiland heeft een gezamenlijke P-aansluiting voor alle ventielen. De
 leegventielen hebben juist een eigen P nodig, want daar zit de kamer op.
 
+Twee eilanden lossen dat niet op: een vulblok met VQ110's en dichte gezamenlijke R, en
+een leegblok met VQ120's (normaal open) en dichte gezamenlijke P. Staan de ventielen
+uit, dan zijn kamer A en kamer B allebei met dat dichte gezamenlijke kanaal verbonden,
+en dus met elkaar. De drukken lopen gelijk en de cilinder zakt weg. Elk ventiel heeft
+een eigen dichte poort nodig, en dat kan alleen met een eigen aansluitblok.
+
 **Hoe een spoel 50 Hz haalt.** De VQ110 is *direct bediend*: de spoel trekt een klein,
 licht ankertje een paar tienden van een millimeter op, en dat ankertje is zelf de klep.
 Grote ventielen zoals de 4V210 zijn *voorgestuurd*: de spoel opent een klein
