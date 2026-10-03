@@ -69,6 +69,10 @@ Bij de lektest (T0) controleren we of de dichte stand echt dicht blijft.
 
 Bedoeld typenummer: **VQ110-5M-M5** of **VQ110-5L-M5**.
 
+De goedkopere versie zonder `-M5` (los ventiel voor een ventieleiland) past hier niet.
+Een ventieleiland heeft een gezamenlijke P-aansluiting voor alle ventielen. De
+leegventielen hebben juist een eigen P nodig, want daar zit de kamer op.
+
 **Hoe een spoel 50 Hz haalt.** De VQ110 is *direct bediend*: de spoel trekt een klein,
 licht ankertje een paar tienden van een millimeter op, en dat ankertje is zelf de klep.
 Grote ventielen zoals de 4V210 zijn *voorgestuurd*: de spoel opent een klein
@@ -159,6 +163,21 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
   ook tegen de zwaartekracht in werken, net als straks in de arm.
   - Rekenvoorbeeld: Ø20 op 3 bar duwt 94 N, ongeveer 9,5 kg. Dat geeft genoeg
     reserve.
+
+## Regeling in lagen
+
+- **Snelle laag, op de Pico:** leest positie en drukken en stuurt de ventielen, 200–500
+  keer per seconde. Deze laag houdt de cilinder op de gevraagde positie en stijfheid.
+  - Vertragingen in deze lus: klep 2–3,5 ms, een drukgolf door 1 m slang ca. 3 ms,
+    en het vullen van de kamer (tientallen ms).
+  - Feedforward vult de terugkoppeling aan, maar vervangt haar niet: de verwachte last
+    en de zwaartekracht worden vooraf meegestuurd.
+- **Langzame laag, op de pc (programma of AI):** geeft ongeveer 10 keer per seconde
+  een nieuwe doelpositie en stijfheid door.
+
+Ter vergelijking: bij een mens komt een bewuste reactie na ongeveer 0,1–0,2 s, een
+reflex via het ruggenmerg na enkele tientallen ms. Spieren geven daarbij van nature
+mee. De stijfheidsregeling, met druk in beide kamers tegelijk, doet hetzelfde.
 
 ## Proeven en wanneer ze geslaagd zijn
 
