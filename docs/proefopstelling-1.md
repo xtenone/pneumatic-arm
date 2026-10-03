@@ -170,8 +170,7 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
   keer per seconde. Deze laag houdt de cilinder op de gevraagde positie en stijfheid.
   - Vertragingen in deze lus: klep 2–3,5 ms, een drukgolf door 1 m slang ca. 3 ms,
     en het vullen van de kamer (tientallen ms).
-  - Feedforward vult de terugkoppeling aan, maar vervangt haar niet: de verwachte last
-    en de zwaartekracht worden vooraf meegestuurd.
+  - Bij deze snelheden is alleen terugkoppeling nodig, geen feedforward.
 - **Langzame laag, op de pc (programma of AI):** geeft ongeveer 10 keer per seconde
   een nieuwe doelpositie en stijfheid door.
 
