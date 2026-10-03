@@ -52,7 +52,10 @@ Voor kamer B gelden V3 en V4 op dezelfde manier.
 - Maximaal 0,7 MPa (7 bar), 24 V DC
 - Klein, en op AliExpress verkrijgbaar als origineel en als kloon
 - Doorstroming: Cv 0,02 (standaard) of 0,04 (optie "grote doorstroming"). Voor de
-  Ø20-proefcilinder is de standaard genoeg: een volle slag duurt dan ruwweg 0,5–1 s.
+  proef is gekozen voor de standaard: een volle slag van de Ø20-cilinder duurt dan
+  ruwweg 0,5–1 s. De kortste puls die de klep opent (ca. 4 ms) laat dan ongeveer
+  1–2 N krachtverschil op de zuiger toe. Met grote doorstroming is dat het dubbele,
+  en worden kleine correcties grover.
 - SMC vervangt de VQ100-serie door de V100-serie. Distributeurs hebben nog voorraad.
   Voor de arm kiezen we hoe dan ook een ander, groter ventiel.
 
