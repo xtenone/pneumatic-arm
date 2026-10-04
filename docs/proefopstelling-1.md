@@ -242,6 +242,50 @@ af; daarvoor zit de waterafscheider in de drukregelaar.
 | 5. Compressor | €195 |
 | **Met compressor** | **€500–575** |
 
+## Aansluitschema pneumatiek
+
+Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit.
+
+**Toevoer**
+
+| Van | Koppeling | Slang | Naar | Koppeling |
+|---|---|---|---|---|
+| Compressorslang (Euro-koppeling) | – | – | drukregelaar IN | insteeknippel G1/4 + PTFE-tape |
+| Drukregelaar UIT | PC6-02 | 6 mm | afsluitschuif IN | PC6-02 |
+| Afsluitschuif UIT | PC6-02 | 6 mm | hoofdventiel P | PC6-02 |
+| Hoofdventiel A | PC6-02 | 6 mm | Y-stuk 6 → 2× 4 | – |
+| Hoofdventiel R | G1/4-demper | – | – | – |
+| Y-stuk tak 1 | – | 4 mm, via smoorventiel | V1 P (vul A) | PC4-M5 |
+| Y-stuk tak 2 | – | 4 mm, via smoorventiel | V3 P (vul B) | PC4-M5 |
+
+**Per kamer (A met V1/V2, B met V3/V4)**
+
+| Van | Koppeling | Slang | Naar | Koppeling |
+|---|---|---|---|---|
+| Vulventiel A | PC4-M5 | 4 mm | T-stuk 1 | – |
+| T-stuk 1 | – | 4 mm | leegventiel P | PC4-M5 |
+| T-stuk 1 | – | 4 mm | T-stuk 2 | – |
+| T-stuk 2 | – | 4 mm | cilinderpoort | PC4-01 |
+| T-stuk 2 | – | 4 mm | druksensor | PCF4-02 |
+| Leegventiel A | M5-demper | – | – | – |
+| R van vul- en leegventiel | M5-blindplug | – | – | – |
+
+- **Korte slangen:** houd alle slangen tussen ventielen en cilinder korter dan
+  ongeveer 30 cm, en zet de druksensor dicht bij de cilinderpoort.
+- **Smoorventielen:** heeft het smoorventiel een pijl (eenrichtingsversie), laat die
+  dan naar het vulventiel wijzen. Helemaal open staat de klep op volle doorstroming.
+
+**Draadsoorten**
+
+- G1/8 en G1/4 zijn BSP-draad (ook PT of BSPT op AliExpress). Die passen in elkaar,
+  met PTFE-tape bij PT.
+- **Geen NPT kopen:** NPT heeft een andere spoed (27 in plaats van 28 gangen per inch)
+  en loopt vast of lekt in een G-poort. Let daar vooral op bij de druksensoren; die
+  worden vaak met 1/8 NPT verkocht.
+- M5 is overal M5×0,8.
+- **Slang:** 4 mm buitenmaat (4×2,5 of 4×2) en 6 mm buitenmaat (6×4) passen allebei op
+  de steekkoppelingen.
+
 ## Elektrisch
 
 - **Pico 2 → ULN2803A:** 4 PWM-pinnen, één per ventiel. De ULN2803A schakelt de
