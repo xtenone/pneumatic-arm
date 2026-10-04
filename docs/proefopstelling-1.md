@@ -189,7 +189,7 @@ domoticx.net, €0,87 per stuk).
 | 12 | Steekkoppeling recht M5 → 4 mm (8 nodig) | PC4-M5 | €6 samen |
 | 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
 | 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
-| 6 | T-stuk 4 mm (4 nodig) | PE4 union tee | €4 |
+| 6 | T-stuk 4 mm (5 nodig: 4 bij de kamers, 1 om de toevoer te splitsen) | PE4 union tee | €4 |
 | 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
 | 5 | Steekkoppeling recht G1/4 → 4 mm (3–5 nodig) | PC4-02 | €3 |
 | 1 | Insteeknippel G1/4 buitendraad, Euro-type (voor de compressorslang) | 1/4 male plug Euro coupler | €2 |
