@@ -151,44 +151,121 @@ regelsoftware en de meetgegevens om die keuze te maken.
 
 ## Onderdelenlijst
 
-Prijzen zijn een indicatie (AliExpress, oktober 2026).
+Prijzen zijn een indicatie (oktober 2026). Ingedeeld per bestelling.
+
+### 1. Ventielen (besteld, AliExpress)
+
+| # | Onderdeel | Type | Prijs |
+|---|---|---|---|
+| 5 | Snel 3/2-ventiel 24 V, grote doorstroming | SMC VQ110U-5M-M5 | €130,53 samen, incl. verzending |
+
+### 2. Pneumatiek en sensoren (AliExpress)
+
+Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
+slang en koppelingen eruit en koop die in Nederland (bijv. M5-koppelingen bij
+domoticx.net, €0,87 per stuk).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 5 | Snel 3/2-ventiel 24 V, grote doorstroming | SMC VQ110U-5M-M5 | €145 samen, incl. verzending |
-| 2 | Smoorventiel voor 4 mm slang (om een kleiner ventiel na te bootsen) | inline flow control valve 4mm | €3 per stuk |
-| 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm | MAL20x150 | €15–25 |
-| 1 | Lineaire potmeter 150 mm | KTC-150 / KPM-150 linear potentiometer | €20–40 |
-| 2 | Druksensor 0–1 MPa, 5 V, uitgang 0,5–4,5 V | pressure transducer 0-1.2MPa 5V G1/4 | €8–15 per stuk |
-| 1 | Raspberry Pi Pico 2 | | €6 |
-| 1 | 4-kanaals MOSFET-module, logic level (werkt op 3,3 V) | 4 channel MOSFET module AOD4184 | €4 |
-| 4 | Vrijloopdiode (als die niet op de module zit) | 1N4007 of SS34 | €1 |
-| 1 | Voeding 24 V, 2–3 A | | €15 |
-| 1 | Filter + drukregelaar met manometer | AFR2000 | €15–25 |
-| 1 | Afsluitschuif die de leiding achter zich drukloos maakt | HSV-08 hand slide valve | €8 |
-| 1 | Hoofdventiel 3/2, normaal gesloten, 24 V (hoeft niet snel te zijn) | 3V210-08 | €10 |
-| 1 | Noodstopknop met verbreekcontact | emergency stop button NC | €5 |
-| 6 | M5-blindplug | | €3 |
-| 2 | M5-geluiddemper | | €2 |
-| – | Steekkoppelingen M5→4 mm, 1/8"→4 mm, T-stukken 4 mm, adapter G1/4→4 mm voor de druksensoren, PU-slang 4 mm en 6 mm | | €25 |
-| – | Weerstanden voor spanningsdeler (2× 10 kΩ + 2× 20 kΩ), breadboard, draadjes | | €5 |
-| 1 | Compressor met tank, ±8 bar (als je er nog geen hebt) | | €100–150 |
+| 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm, zonder magneet | MAL20x150 | €15–25 |
+| 1 | Voetbevestiging voor MAL20 | MAL20 LB foot mount | €3 |
+| 1 | Stangkop (vorkkop) M8×1,25 voor MAL20 | MAL20 Y-joint / rod clevis | €3 |
+| 1 | Lineaire potmeter 150 mm, 5 kΩ | KTC-150 / KPM-150 linear potentiometer | €15–25 |
+| 2 | Druksensor 0–1,2 MPa, 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad | pressure transducer 0-1.2MPa 5V G1/4 | €8–12 per stuk |
+| 1 | Filter + drukregelaar met manometer, G1/4 | AFR-2000 | €12–18 |
+| 1 | Afsluitschuif, G1/4 | HSV-08 hand slide valve | €5–8 |
+| 1 | Hoofdventiel 3/2, normaal gesloten, 24 V DC, G1/4 | 3V210-08 DC24V | €8–10 |
+| 1 | Noodstopknop 22 mm met verbreekcontact (NC) | emergency stop button 22mm NC | €4–6 |
+| 2 | Smoorventiel voor 4 mm slang | inline flow control valve 4mm | €3 per stuk |
+| 10 | Steekkoppeling recht M5 → 4 mm (6 nodig) | PC4-M5 | €6–9 samen |
+| 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
+| 3 | M5-geluiddemper (2 nodig) | M5 silencer | €3 |
+| 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
+| 6 | T-stuk 4 mm (4 nodig) | PE4 union tee | €4 |
+| 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
+| 6 | Steekkoppeling recht G1/4 → 6 mm (5 nodig) | PC6-02 | €6 |
+| 1 | Y-stuk 6 mm → 2× 4 mm (toevoer naar de vulventielen) | PW6-4 Y reducer | €2 |
+| 1 | G1/4-geluiddemper (uitlaat hoofdventiel) | G1/4 silencer | €2 |
+| 1 | Insteeknippel G1/4 buitendraad, Euro-type (voor de compressorslang) | 1/4 male plug Euro coupler | €2 |
+| 5 m | PU-slang 4×2,5 mm | PU tube 4mm | €5 |
+| 5 m | PU-slang 6×4 mm | PU tube 6mm | €6 |
+| 1 | Slangschaar (rechte snede, anders lekt de koppeling) | tube cutter | €3 |
 
-**Totaal zonder compressor: ongeveer €230–330.**
+**Subtotaal: ongeveer €120–160.**
+
+### 3. Elektronica (Tinytronics, Eindhoven)
+
+| # | Onderdeel | Ca. prijs |
+|---|---|---|
+| 1 | Raspberry Pi Pico 2 (met headers, of headers zelf solderen) | €7,25 |
+| 1 | Micro-USB-kabel (data, niet alleen laden) | €3 |
+| 1 | ULN2803A, 8-kanaals schakel-IC met ingebouwde vrijloopdiodes | €1 |
+| 1 | Breadboard 830 gaten + set jumperdraden | €9 |
+| 2+2 | Weerstand 10 kΩ en 20 kΩ (spanningsdeler druksensoren) | €1 |
+| 1 | Stekkeradapter 24 V DC, 1–2 A, 5,5×2,1 mm plug | €12 |
+| 1 | DC-bus 5,5×2,1 mm naar schroefklem | €1 |
+| – | Montagedraad 0,5 mm² (rood/zwart) | €3 |
+
+**Subtotaal: ongeveer €35–40 plus verzending.**
+
+### 4. Bouwmarkt
+
+| # | Onderdeel | Ca. prijs |
+|---|---|---|
+| 1 | Multiplex 18 mm, ca. 60×30 cm (grondplaat) | €8 |
+| – | Aluminium hoekprofiel, M4-boutjes, houtschroeven (beugel potmeter) | €7 |
+| 1 | DIN-rail 35 mm, 30 cm (optioneel, om de ventielen netjes op te zetten) | €3 |
+| 1 | Multimeter (als je er nog geen hebt) | €15–25 |
+| 1 | PTFE-tape (voor de insteeknippel) | €1 |
+
+**Subtotaal: ongeveer €20, met multimeter €35–45.**
+
+### 5. Compressor
+
+| # | Onderdeel | Ca. prijs |
+|---|---|---|
+| 1 | Stille compressor 24 l, 8 bar, olievrij, bijv. Stanley Silent 24 l (59 dB, Gamma) | €195 |
+
+Een gewone compressor (ca. €100–130) werkt ook, maar maakt ruim 85 dB. Dat is
+vervelend bij urenlang testen binnen. Een olievrije compressor geeft condenswater
+af; daarvoor zit de waterafscheider in de drukregelaar.
+
+### Totaal
+
+| Bestelling | Ca. prijs |
+|---|---|
+| 1. Ventielen | €130,53 |
+| 2. Pneumatiek en sensoren | €120–160 |
+| 3. Elektronica | €35–45 |
+| 4. Bouwmarkt | €20–45 |
+| **Zonder compressor** | **€305–380** |
+| 5. Compressor | €195 |
+| **Met compressor** | **€500–575** |
 
 ## Elektrisch
 
-- **Pico 2 → MOSFET-module:** 4 PWM-pinnen, één per ventiel.
-- **24 V-voeding → ventielspoelen:** de MOSFET's schakelen de min-kant. Over elke spoel
-  komt een vrijloopdiode, anders gaat de MOSFET kapot.
+- **Pico 2 → ULN2803A:** 4 PWM-pinnen, één per ventiel. De ULN2803A schakelt de
+  min-kant van elke spoel. Een VQ110-spoel trekt maar ongeveer 40–60 mA, ruim binnen
+  wat de chip aankan (500 mA per kanaal). De vrijloopdiodes zitten in de chip: pin 10
+  (COM) aan +24 V.
   - Een diode vertraagt het dichtgaan van het ventiel een beetje. Als dat in T1
     meetbaar is, voegen we per spoel een zenerdiode toe.
+- **Spoelen:** rood aan +24 V, zwart aan een uitgang van de ULN2803A. Let op plus en
+  min: het ingebouwde lampje en de beveiliging werken maar in één richting.
+- **Noodstop en hoofdventiel:** de +24 V van de adapter gaat eerst door de noodstop.
+  Daarachter hangen het hoofdventiel (rechtstreeks, dus altijd aan zolang de noodstop
+  niet is ingedrukt) en de plus van de vier VQ110U-spoelen. Ingedrukt: alles valt af,
+  ook als de software vastloopt.
 - **Potmeter:** aan 3,3 V van de Pico, loper op ADC0 (GP26).
 - **Druksensoren:** aan 5 V (VBUS van de Pico). De uitgang gaat via een spanningsdeler
   10 kΩ/20 kΩ naar ADC1 (GP27) en ADC2 (GP28). Zo wordt 4,5 V omgezet naar 3,0 V, en
   dat kan de Pico aan.
+- **Massa:** de min van de 24 V-adapter, pin 9 (GND) van de ULN2803A en GND van de
+  Pico aan elkaar.
 - **De pc via USB:** levert stroom aan de Pico en ontvangt de meetgegevens
   (positie, twee drukken, ventielstanden). Dat gebeurt honderden keren per seconde.
+- **Geen 230 V aan de opstelling:** een gesloten stekkeradapter, geen losse
+  netvoeding met schroefklemmen.
 
 ## Mechanisch
 
