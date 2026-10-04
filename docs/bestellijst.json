@@ -150,7 +150,7 @@
     {
       "naam": "3. Elektronica (Tinytronics, Eindhoven)",
       "status": "samengesteld, nog niet besteld",
-      "noot": "Tinytronics blokkeert automatisch zoeken; ULN2803 kon ik niet bevestigen. Niet op voorraad? Een ULN2003 (7 kanalen) werkt ook, of de ULN2803APG bij domoticx (€0,68).",
+      "noot": "ULN2803 in DIP-vorm heeft Tinytronics niet; die komt van Kiwi Electronics (3b).",
       "regels": [
         {
           "url": "https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350",
@@ -182,13 +182,6 @@
           "prijs": 1.21
         },
         {
-          "wat": "ULN2803A (DIP-18), of ULN2003 (DIP-16, 7 kanalen)",
-          "variant": "DIP, zodat hij in het breadboard past",
-          "aantal": 1,
-          "prijs": 1.0,
-          "schatting": true
-        },
-        {
           "wat": "Breadboard 830 gaten + jumperdraden male-male",
           "variant": "",
           "aantal": 1,
@@ -215,6 +208,21 @@
           "aantal": 1,
           "prijs": 3.0,
           "schatting": true
+        }
+      ]
+    },
+    {
+      "naam": "3b. Schakel-IC (Kiwi Electronics)",
+      "status": "samengesteld, nog niet besteld",
+      "noot": "Kijk bij Kiwi of je er meer elektronica kunt halen, dan scheelt het een verzending.",
+      "regels": [
+        {
+          "url": "https://www.kiwi-electronics.com/nl/uln2803a-darlington-array-615",
+          "wat": "ULN2803A Darlington-array (DIP-18)",
+          "variant": "",
+          "aantal": 2,
+          "prijs": 2.41,
+          "noot": "Eén reserve"
         }
       ]
     },
