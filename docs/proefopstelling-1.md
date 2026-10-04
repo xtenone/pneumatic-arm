@@ -165,9 +165,9 @@ Gekozen artikelen (AliExpress-artikelnummers):
 
 | Onderdeel | Artikel | Te kiezen variant |
 |---|---|---|
-| Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5 (met aansluitblok) |
-| Lineaire potmeter | 1005006230077162 | 175 mm |
-| Druksensoren | 1005010385122677 | G1/4, 100 psi, 5 V, 0,5–4,5 V |
+| Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5. Volgens de bestelcode op de productfoto's: U = grote doorstroming, 5 = 24 V DC, M = M-stekker met kabel, M5 = met aansluitblok |
+| Lineaire potmeter | 1005006230077162 | 175 mm, gewone weerstandsversie (5 kΩ, KTC), **niet** de versie met 4–20 mA-uitgang (LWF); type B (kogelkop aan de stang) |
+| Druksensoren | 1005010385122677 | 0–100 psi (#4), uitgang 0,5–4,5 V (niet 0–5 V) |
 | Cilinder | 1005010583152545 | Ø20, slag 150 mm, standaard (niet CA), zonder magneet |
 
 Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
