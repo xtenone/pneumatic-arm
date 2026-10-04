@@ -167,7 +167,6 @@ Gekozen artikelen (AliExpress-artikelnummers):
 |---|---|---|
 | Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5. Volgens de bestelcode op de productfoto's: U = grote doorstroming, 5 = 24 V DC, M = M-stekker met kabel, M5 = met aansluitblok |
 | Lineaire potmeter | 1005006230077162 | 175 mm, gewone weerstandsversie (5 kΩ, KTC), **niet** de versie met 4–20 mA-uitgang (LWF); type B (kogelkop aan de stang) |
-| Druksensoren | 1005010385122677 | 0–100 psi (#4), uitgang 0,5–4,5 V (niet 0–5 V) |
 | Cilinder | 1005010583152545 | Ø20, slag 150 mm, standaard (niet CA), zonder magneet |
 
 Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
@@ -180,7 +179,6 @@ domoticx.net, €0,87 per stuk).
 | 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
 | 2 | Moer M8 (gewone M8 is M8×1,25), bouwmarkt: klemt het beugeltje van de potmeter op de stang | – | €0,50 |
 | 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
-| 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
 | 1 | Filter + drukregelaar met manometer, G1/4, handmatige aftap | AFR-2000 | €8–9 |
 | 1 | Afsluitschuif, G1/4, bij voorkeur één kant buitendraad (direct in de drukregelaar) | HSV-08 hand slide valve | €4–10 |
 | 1 | Hoofdventiel 3/2, normaal gesloten (NC), 24 V DC, G1/4. Voorgestuurd: schakelt pas vanaf ca. 1,5 bar | 3V210-08 NC DC24V | €8–9 |
@@ -198,7 +196,14 @@ domoticx.net, €0,87 per stuk).
 
 **Subtotaal: ongeveer €120–160.**
 
-### 3. Elektronica (Tinytronics, Eindhoven)
+### 3. Elektronica en druksensoren (domoticx.net, Mariënheem)
+
+De actuele lijst met links staat in `docs/bestellijst.json`. Druksensoren: 0–12 bar, 5 V,
+uitgang 0,5–4,5 V, 1/4" BSPP (G1/4), €14,94 per stuk. Het grotere meetbereik geeft
+ongeveer 1,7× grovere stappen dan een 100 psi-sensor; voor de proef is dat ruim genoeg
+(ca. 4 mbar per ADC-stap). De 100 psi-versie van domoticx heeft 1/8 NPT en past niet.
+
+Oorspronkelijke opzet:
 
 | # | Onderdeel | Ca. prijs |
 |---|---|---|
