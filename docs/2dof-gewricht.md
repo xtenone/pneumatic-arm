@@ -41,6 +41,15 @@ actuatoren naast elkaar op een kruiskoppeling.
 4. **Geen zijkracht op de stangen:** de kruiskoppeling vangt de zijkrachten op, niet
    de cilinders.
 
+## Vasthouden bij een slangbreuk
+
+De cilinders moeten hun positie vasthouden. Dichte ventielen doen dat zolang de slangen
+heel blijven. Breekt of schiet een slang los tussen ventiel en cilinder, dan loopt die
+kamer leeg en zakt de arm met zijn last. Daarom komen er bij de arm ontgrendelbare
+terugslagkleppen direct op de cilinderpoorten. Die laten lucht alleen uit de kamer als
+er stuurdruk op staat; zonder stuurdruk zit de lucht opgesloten in de cilinder. Voor de
+proef is dit niet nodig.
+
 ## Krachtberekening schouder (eerste ruwe berekening)
 
 Uitgangspunten van de klant: 15 kg op 1 m van het scharnier, cilinders 50 cm lang en

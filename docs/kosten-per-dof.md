@@ -26,8 +26,10 @@ Elke besparing hangt af van een meting in de proef:
 |---|---|---|
 | Hoeksensor AS5600 op het gewricht in plaats van een lineaire potmeter | €16–25 → ~€3 | Nauwkeurigheid van de AS5600 op het gewricht (bij het scharnier) |
 | Losse druksensorchips (bijv. XGZP6847A, 0–1000 kPa, 0,5–4,5 V) in plaats van roestvrije transducers | €25–32 → ~€6–10 | Of de druksensoren nodig zijn (T3/T6 met en zonder drukterugkoppeling) |
-| 2 ventielen per cilinder in plaats van 4 | €104 → €52 | T8: is de vasthoudstand het waard? |
-| VQ110-klonen (€7–13) in plaats van originelen | €104 → ~€40 | T0/T1 met een kloon naast een origineel |
 
-Met alle besparingen samen: ongeveer €80–120 per DOF, plus de grotere cilinders voor
+Met beide besparingen samen: ongeveer €150 per DOF, plus de grotere cilinders voor
 schouder en elleboog.
+
+Vier ventielen per cilinder blijven nodig: de cilinder moet om veiligheidsredenen zijn
+positie kunnen vasthouden. Goedkope "VQ110"-aanbiedingen van €7–13 zijn lokprijzen voor
+een ander artikel, geen echt alternatief.
