@@ -1,6 +1,6 @@
 # Plan
 
-Wat er gedaan is en wat er nog moet gebeuren. Bijgewerkt: 2026-10-04.
+Wat er gedaan is en wat er nog moet gebeuren. Bijgewerkt: 2026-10-05.
 
 Afkortingen: **K** = klant (bouwt, koopt, meet), **E** = engineering (ontwerp, software,
 documentatie, controle).
@@ -13,7 +13,7 @@ documentatie, controle).
 
 ## Fase 1 — Proefopstelling ontwerpen ✅
 
-- [x] Principe: één cilinder, 4 snelle 2/2-functies (vullen/legen per kamer) met PWM — [proefopstelling-1.md](proefopstelling-1.md)
+- [x] Principe: één cilinder, 4 snelle 2/2-functies (vullen/legen per kamer) met PWM — [test1/docs/ontwerp.md](../test1/docs/ontwerp.md)
 - [x] Ventielkeuze: SMC VQ110U (grote doorstroming), los aansluitblok (geen eiland: dat verbindt de kamers)
 - [x] Sensoren: lineaire potmeter KTC 175 mm, 2 druksensoren G1/4
 - [x] Elektronica: Pico 2, ULN2803A, LM7805C voor de sensoren, noodstop die de 24 V onderbreekt
@@ -32,24 +32,34 @@ documentatie, controle).
 Bestellijst: [bestellijst.json](bestellijst.json), klikbaar op
 `http://192.168.1.22:8200/pneumatic-arm/bestellijst.html`.
 
+## Fase 3a — Test 1 als compleet pakket ✅
+
+- [x] Test 1 = arm met één vrijheidsgraad (cilinder tilt een arm met last) — [test1/](../test1/README.md)
+- [x] Eén parameterbestand (`test1/params.py`) voor CAD, simulatie, firmware en tekeningen
+- [x] CAD (CadQuery): STEP, STL, DXF, GLB
+- [x] MuJoCo-simulatie met pneumatiekmodel; regeling afgesteld, T3 geslaagd in simulatie
+- [x] Firmware (MicroPython, Pico 2) en pc-programma's (logger, proeven T0–T7), getest met nagebootste hardware
+- [x] Tekeningen: zijaanzicht, wang, arm, elektrisch schema, aansluitlijst, pneumatisch schema
+- [x] Handleiding, ontwerp, stuklijst; bundel `dist/test1-pakket.zip` en HTML op de webmap
+
 ## Fase 3 — Voorbereiden terwijl de pakketten onderweg zijn
 
-- [ ] Ontvangstcontrole per onderdeel, vóór "ontvangst bevestigen" op AliExpress (E)
+- [x] Ontvangstcontrole per onderdeel — in de handleiding, hoofdstuk 1 (E)
   - ventielen: etiket VQ110U-5M-M5, spoelweerstand (alle vijf gelijk), klikken op 24 V, lektest
   - druksensoren: uitgang op 0 bar (0,5 V of 0 V), draad G1/4
   - potmeter: weerstand 5 kΩ over de uiteinden, loper loopt gelijkmatig mee
   - cilinder: poorten PT1/8, stang loopt soepel
   - ULN2803A: elke uitgang los testen met een LED of ventiel
-- [ ] Bouwhandleiding stap voor stap, met foto-controlemomenten (E)
-- [ ] Pico-software, eerste versie (E)
+- [x] Bouwhandleiding stap voor stap, met foto-controlemomenten (E)
+- [x] Pico-software, eerste versie (E)
   - sensoren uitlezen en kalibreren (0 bar + manometer)
   - ventielen los aansturen, verboden standen geblokkeerd, alles uit bij fout of USB-verlies
   - meetgegevens naar de pc (CSV)
-- [ ] Pc-kant: logger en een eenvoudige grafiek per proef (E)
+- [x] Pc-kant: logger, proevenscript en grafiek per proef (E)
 
 ## Fase 4 — Bouwen (K, met controle door E)
 
-- [ ] Grondplaat, cilinder op 2 voetbevestigingen, potmeter evenwijdig via vorkkop en beugel
+- [ ] Staander, arm op lagers, cilinder scharnierend tussen staander en arm, potmeter op de cilinder (handleiding 3–6)
 - [ ] Pneumatiek volgens het aansluitschema; slangen tussen ventiel en cilinder < 30 cm
 - [ ] Elektronica op het breadboard; eerst zonder lucht testen (ventielen klikken, sensoren lezen)
 - [ ] Veiligheid: noodstop, afsluitschuif, eerst op 2–3 bar

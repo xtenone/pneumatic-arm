@@ -51,8 +51,9 @@ oppakken en er een muur mee bouwen.
 Het volledige plan met wat gedaan is en wat nog moet: [docs/plan.md](docs/plan.md).
 
 
-- **Proefopstelling 1 (één cilinder, 4 snelle ventielen met PWM)**: ontwerp in
-  [docs/proefopstelling-1.md](docs/proefopstelling-1.md). AliExpress-onderdelen besteld op
+- **Test 1 (arm met één vrijheidsgraad: één cilinder, 4 snelle ventielen met PWM)**: compleet
+  pakket in [test1/](test1/README.md) (CAD, simulatie, firmware, handleiding, stuklijst); ontwerp in
+  [test1/docs/ontwerp.md](test1/docs/ontwerp.md). AliExpress-onderdelen besteld op
   2026-10-04; elektronica (Tinytronics) en compressor (Lidl) nog te bestellen. Bestellijst:
   [docs/bestellijst.json](docs/bestellijst.json).
 - **2-DOF-scharnier**: schets ontvangen en eerste analyse in

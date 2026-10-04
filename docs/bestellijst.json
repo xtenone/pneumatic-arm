@@ -129,7 +129,8 @@
           "wat": "Voetbevestiging (LB) voor MAL20",
           "variant": "LB, 20 mm",
           "aantal": 2,
-          "prijs": 4.49
+          "prijs": 4.49,
+          "noot": "Niet nodig voor test 1 (de cilinder scharniert); reserve voor een vaste opstelling"
         },
         {
           "id": "1005007235783406",
@@ -161,7 +162,7 @@
           "variant": "Y/MA MAL20",
           "aantal": 1,
           "prijs": 3.85,
-          "noot": "Ook bruikbaar om later het scharnier te testen"
+          "noot": "Verbindt de cilinderstang met de arm (test 1)"
         },
         {
           "id": "1005004014973967",
