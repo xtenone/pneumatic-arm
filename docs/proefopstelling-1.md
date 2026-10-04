@@ -180,7 +180,7 @@ domoticx.net, €0,87 per stuk).
 | 10 | Steekkoppeling recht M5 → 4 mm (6 nodig) | PC4-M5 | €6–9 samen |
 | 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
 | 3 | M5-geluiddemper (2 nodig) | M5 silencer | €3 |
-| 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
+| 2 | Steekkoppeling recht 1/8 → 4 mm (cilinderpoorten), **zelfde draadsoort als de cilinder**: G/PT 1/8 of 1/8 NPT | PC4-01 (G/PT) of PC4-N01 (NPT) | €2 |
 | 6 | T-stuk 4 mm (4 nodig) | PE4 union tee | €4 |
 | 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
 | 6 | Steekkoppeling recht G1/4 → 6 mm (5 nodig) | PC6-02 | €6 |
