@@ -185,12 +185,31 @@
           "prijs": 7.25
         },
         {
-          "wat": "Spanningsregelaar 7805 (L7805CV, TO-220) + condensatoren 0,33 µF en 0,1 µF",
+          "url": "https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar",
+          "wat": "LM7805C 5 V-spanningsregelaar (TO-220)",
           "variant": "",
           "aantal": 1,
-          "prijs": 1.0,
+          "prijs": 0.6,
           "schatting": true,
-          "noot": "Lineaire regelaar: rustigere 5 V voor de sensoren dan een schakelende step-down. Alternatief: LM2596-module (Tinytronics, €3), op 5,0 V instellen."
+          "noot": "Voeding van de druksensoren, vóór de noodstop"
+        },
+        {
+          "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v",
+          "wat": "Keramische condensator 1 µF, 50 V",
+          "variant": "",
+          "aantal": 2,
+          "prijs": 0.15,
+          "schatting": true,
+          "noot": "Ingang 7805 (1 + 1 reserve)"
+        },
+        {
+          "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator",
+          "wat": "Keramische condensator 100 nF, 50 V",
+          "variant": "",
+          "aantal": 6,
+          "prijs": 0.1,
+          "schatting": true,
+          "noot": "Uitgang 7805 + 3 ADC-ingangen + 2 reserve"
         },
         {
           "url": "https://www.tinytronics.nl/nl/power/voedingen/24v/sunshine-voedingsadapter-met-dc-jack-5.5-2.1mm-24v-5a",
@@ -215,10 +234,10 @@
           "schatting": true
         },
         {
-          "wat": "Weerstanden 10 kΩ (2) en 15 kΩ (2), condensatoren 100 nF (3)",
+          "wat": "Weerstanden 10 kΩ (2) en 15 kΩ (2)",
           "variant": "",
           "aantal": 1,
-          "prijs": 1.5,
+          "prijs": 0.5,
           "schatting": true,
           "noot": "10k/15k-deler: 5 V → 3,0 V, dus veilig voor de Pico, wat de sensoruitgang ook is"
         },
