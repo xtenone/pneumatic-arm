@@ -150,13 +150,29 @@
           "prijs": 3.82
         },
         {
-          "id": "",
-          "wat": "Voetbevestiging MAL20 (LB) en vorkkop M8×1,25",
-          "variant": "vraag bij de cilinderverkoper",
-          "aantal": 3,
-          "prijs": 3.0,
+          "id": "1005007235783406",
+          "wat": "Voetbevestiging (LB) voor MAL20",
+          "variant": "LB, 20 mm",
+          "aantal": 2,
+          "prijs": 2.5,
+          "schatting": true
+        },
+        {
+          "id": "1005007235783406",
+          "wat": "Vorkkop (Y) voor MAL20",
+          "variant": "Y, 20 mm (M8×1,25)",
+          "aantal": 1,
+          "prijs": 2.0,
+          "schatting": true
+        },
+        {
+          "id": "1005007235783406",
+          "wat": "Moer M22×1,5",
+          "variant": "M22×1,5 (MAL20/25)",
+          "aantal": 1,
+          "prijs": 1.0,
           "schatting": true,
-          "noot": "Nog te zoeken; liefst bij dezelfde verkoper als de cilinder"
+          "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
         }
       ]
     }
