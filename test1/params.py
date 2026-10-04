@@ -12,7 +12,7 @@ import math
 BASE = dict(length=400.0, width=300.0, thickness=18.0)    # multiplex, x × y
 BASE_X = (-150.0, 250.0)     # x-bereik; de arm steekt over de tafelrand (vastzetten met 2 lijmklemmen)
 CHEEK = dict(height=450.0, depth=120.0, thickness=18.0)   # 2 wangen, multiplex
-CHEEK_GAP = 40.0             # binnenruimte tussen de wangen (cilinder, arm, potmeter)
+CHEEK_GAP = 36.0             # binnenruimte tussen de wangen = 2 lagen multiplex (afstandsblok)
 CHEEK_X = (-60.0, 60.0)      # x-bereik van de wangen (achterkant, voorkant)
 SPACER_BLOCK = dict(length=60.0, height=60.0)  # houten blok achter-onder tussen de wangen
 
