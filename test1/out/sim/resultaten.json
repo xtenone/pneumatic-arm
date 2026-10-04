@@ -1,0 +1,92 @@
+{
+  "T3_pwm": {
+    "omhoog_0_naar_30": {
+      "doorschot_mm": 0.84,
+      "insteltijd_s": 0.92,
+      "restfout_mm": 0.4,
+      "geslaagd": true
+    },
+    "omlaag_30_naar_min5": {
+      "doorschot_mm": 0.92,
+      "insteltijd_s": 0.584,
+      "restfout_mm": 0.12,
+      "geslaagd": true
+    },
+    "luchtverbruik_g": 0.79
+  },
+  "T2_aanuit": {
+    "omhoog_0_naar_30": {
+      "doorschot_mm": 18.69,
+      "insteltijd_s": 1.998,
+      "restfout_mm": 26.7,
+      "geslaagd": false
+    },
+    "omlaag_30_naar_min5": {
+      "doorschot_mm": 33.42,
+      "insteltijd_s": 1.998,
+      "restfout_mm": 9.34,
+      "geslaagd": false
+    },
+    "luchtverbruik_g": 1.36
+  },
+  "T7_belasting": [
+    {
+      "last_kg": 0.5,
+      "belasting_pct": 14,
+      "doorschot_mm": 1.49,
+      "insteltijd_s": 1.588,
+      "restfout_mm": 0.46,
+      "geslaagd": false
+    },
+    {
+      "last_kg": 1.5,
+      "belasting_pct": 35,
+      "doorschot_mm": 0.84,
+      "insteltijd_s": 0.92,
+      "restfout_mm": 0.4,
+      "geslaagd": true
+    },
+    {
+      "last_kg": 2.5,
+      "belasting_pct": 57,
+      "doorschot_mm": 2.09,
+      "insteltijd_s": 1.914,
+      "restfout_mm": 0.48,
+      "geslaagd": false
+    },
+    {
+      "last_kg": 3.5,
+      "belasting_pct": 78,
+      "doorschot_mm": 1.34,
+      "insteltijd_s": 1.27,
+      "restfout_mm": 0.31,
+      "geslaagd": false
+    },
+    {
+      "last_kg": 4.5,
+      "belasting_pct": 100,
+      "doorschot_mm": 0.0,
+      "insteltijd_s": 1.998,
+      "restfout_mm": 52.67,
+      "geslaagd": false
+    },
+    {
+      "last_kg": 5.5,
+      "belasting_pct": 122,
+      "doorschot_mm": 0.0,
+      "insteltijd_s": 1.998,
+      "restfout_mm": 105.43,
+      "geslaagd": false
+    }
+  ],
+  "T6_stijfheid": [
+    {
+      "kamerdruk_som_bar": 2.0,
+      "uitwijking_graden": 14.13
+    },
+    {
+      "kamerdruk_som_bar": 5.0,
+      "uitwijking_graden": 9.77
+    }
+  ]
+}
