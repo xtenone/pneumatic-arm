@@ -1,0 +1,145 @@
+{
+  "titel": "Bestellijst proefopstelling 1",
+  "bestellingen": [
+    {
+      "naam": "1. Ventielen (AliExpress)",
+      "status": "klaar om te bestellen",
+      "regels": [
+        {
+          "id": "1005013133472109",
+          "wat": "5× snel 3/2-ventiel",
+          "variant": "VQ110U-5M-M5",
+          "aantal": 1,
+          "prijs": 130.53,
+          "noot": "Incl. verzending (winkel met 11 pagina's beoordelingen)"
+        }
+      ]
+    },
+    {
+      "naam": "2. Pneumatiek en sensoren (AliExpress)",
+      "status": "samengesteld, nog niet besteld",
+      "noot": "Houd de productwaarde (zonder verzending) onder €150.",
+      "regels": [
+        {
+          "id": "1005010583152545",
+          "wat": "Cilinder MAL20×150",
+          "variant": "boring 20, slag 150, standaard (niet CA), zonder magneet",
+          "aantal": 1,
+          "prijs": 9.49
+        },
+        {
+          "id": "1005006230077162",
+          "wat": "Lineaire potmeter KTC",
+          "variant": "175 mm, gewone weerstandsversie 5 kΩ (niet 4–20 mA / LWF), type B (kogelkop)",
+          "aantal": 1,
+          "prijs": 20.0,
+          "schatting": true
+        },
+        {
+          "id": "1005010385122677",
+          "wat": "Druksensor",
+          "variant": "#4 0–100 psi, uitgang 0,5–4,5 V",
+          "aantal": 2,
+          "prijs": 15.59
+        },
+        {
+          "id": "1005005324116810",
+          "wat": "Filter + drukregelaar AFR-2000",
+          "variant": "G1/4, met manometer",
+          "aantal": 1,
+          "prijs": 7.69
+        },
+        {
+          "id": "1005010563686803",
+          "wat": "Afsluitschuif HSV-08",
+          "variant": "HSV-08 (G1/4), bij voorkeur één kant buitendraad",
+          "aantal": 1,
+          "prijs": 3.8
+        },
+        {
+          "id": "1005007341961878",
+          "wat": "Hoofdventiel 3V210-08",
+          "variant": "NC, DC24V",
+          "aantal": 1,
+          "prijs": 8.79
+        },
+        {
+          "id": "1005007426280923",
+          "wat": "Noodstopknop 22 mm",
+          "variant": "verbreekcontact (NC), draaien om te ontgrendelen",
+          "aantal": 1,
+          "prijs": 3.19,
+          "noot": "Plus een 1-gats kastje 22 mm (BX1-22), nog te zoeken"
+        },
+        {
+          "id": "1005008810108635",
+          "wat": "Smoorventiel inline 4 mm (2 stuks)",
+          "variant": "4 mm",
+          "aantal": 1,
+          "prijs": 3.59
+        },
+        {
+          "id": "4001278366484",
+          "wat": "Steekkoppelingen recht (10 per zak)",
+          "variant": "PC4-M5, PC4-01 en PC6-02: van elk één zak",
+          "aantal": 3,
+          "prijs": 3.6,
+          "schatting": true
+        },
+        {
+          "id": "1005004886533500",
+          "wat": "M5-blindplug (10 stuks)",
+          "variant": "M5",
+          "aantal": 1,
+          "prijs": 3.25
+        },
+        {
+          "id": "1005004014973967",
+          "wat": "Geluiddemper",
+          "variant": "3× M5 en 1× 1/4",
+          "aantal": 4,
+          "prijs": 0.52,
+          "schatting": true
+        },
+        {
+          "id": "1005006534920138",
+          "wat": "T-stuk 4 mm",
+          "variant": "PE4, 10 stuks",
+          "aantal": 1,
+          "prijs": 3.0,
+          "schatting": true
+        },
+        {
+          "id": "1005001840320838",
+          "wat": "Steekkoppeling binnendraad (druksensoren)",
+          "variant": "4 mm – 1/4 (PCF4-02)",
+          "aantal": 2,
+          "prijs": 1.02
+        },
+        {
+          "id": "1005006314933118",
+          "wat": "Y-stuk verloop 6 → 2× 4 mm",
+          "variant": "PW6-4",
+          "aantal": 1,
+          "prijs": 1.8
+        },
+        {
+          "id": "1005007992615899",
+          "wat": "PU-slang 5 m",
+          "variant": "4×2,5 mm en 6×4 mm, elk 5 m",
+          "aantal": 2,
+          "prijs": 3.82
+        },
+        {
+          "id": "",
+          "wat": "Voetbevestiging MAL20 (LB) en vorkkop M8×1,25",
+          "variant": "vraag bij de cilinderverkoper",
+          "aantal": 3,
+          "prijs": 3.0,
+          "schatting": true,
+          "noot": "Nog te zoeken; liefst bij dezelfde verkoper als de cilinder"
+        }
+      ]
+    }
+  ]
+}
