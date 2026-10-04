@@ -244,6 +244,12 @@ af; daarvoor zit de waterafscheider in de drukregelaar.
 | 5. Compressor | €195 |
 | **Met compressor** | **€500–575** |
 
+**Waarom geen afstandssensor met licht (VL6180X, VL53L-serie)?** Die meet zonder
+contact, en dat is aantrekkelijk. Maar de VL6180X is opgegeven tot 100 mm, de slag is
+150 mm. De ruis is enkele millimeters bij een doel van ±1 mm. Een meting duurt ongeveer
+10 ms: bij 0,6 m/s is de cilinder dan al 6 mm verder voordat de meting binnen is. Voor
+een snelle regellus is dat te traag.
+
 ## Aansluitschema pneumatiek
 
 Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit.
