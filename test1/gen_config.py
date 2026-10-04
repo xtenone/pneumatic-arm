@@ -11,7 +11,7 @@ def config_dict():
         # regeling
         p_sum=P.P_SUM, p_deadband=P.P_DEADBAND, kp_pressure=P.KP_PRESSURE,
         d_min=round(P.VALVE["t_on"] * P.PWM_HZ * 1.15, 3),   # kortste puls die het ventiel echt opent
-        kp_force=P.KP_FORCE, ki_force=P.KI_FORCE, kd_force=P.KD_FORCE, i_limit=3.0, i_zone=4.0,
+        kp_force=P.KP_FORCE, ki_force=P.KI_FORCE, kd_force=P.KD_FORCE, i_limit=2.0, i_zone=6.0,
         v_filter_hz=10.0, bangbang_deadband=3.0, soft_limit=P.SOFT_LIMIT,
         p_supply=P.P_SUPPLY, p_max=P.P_MAX, p_max_time=0.5,
         v_max=P.V_MAX, pos_deadband=0.3, pos_deadband_out=0.6, v_hold=5.0,
