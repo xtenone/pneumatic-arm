@@ -211,7 +211,7 @@ Oorspronkelijke opzet:
 | 1 | Micro-USB-kabel (data, niet alleen laden) | €3 |
 | 1 | ULN2803A, 8-kanaals schakel-IC met ingebouwde vrijloopdiodes | €1 |
 | 1 | Breadboard 830 gaten + set jumperdraden | €9 |
-| 2+2 | Weerstand 10 kΩ en 20 kΩ (spanningsdeler druksensoren) | €1 |
+| 2+2 | Weerstand 10 kΩ en 15 kΩ (spanningsdeler druksensoren) | €1 |
 | 3 | Condensator 100 nF (ruisfilter ADC-ingangen) | €1 |
 | 1 | Stekkeradapter 24 V DC, 1–2 A, 5,5×2,1 mm plug | €12 |
 | 1 | DC-bus 5,5×2,1 mm naar schroefklem | €1 |
@@ -324,8 +324,11 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 - **Druksensoren:** aan 5 V uit een step-down-module die op de 24 V zit, niet aan de
   USB-5 V. De uitgang van deze sensoren schaalt mee met hun voedingsspanning, en de
   USB-spanning schommelt tot ±5%. Dat zou direct ±5% meetfout geven. De uitgang gaat via
-  een spanningsdeler 10 kΩ/20 kΩ naar ADC1 (GP27) en ADC2 (GP28). Zo wordt 4,5 V omgezet
-  naar 3,0 V, en dat kan de Pico aan. De step-down-module zit vóór de noodstop, zodat de
+  een spanningsdeler 10 kΩ (boven) / 15 kΩ (onder) naar ADC1 (GP27) en ADC2 (GP28). Zo
+  wordt 5,0 V omgezet naar 3,0 V. Dat is veilig voor de Pico, of de sensor nu 0,5–4,5 V of
+  0–5 V geeft. Welke van de twee het is, blijkt bij de eerste meting: op 0 bar geeft hij
+  ongeveer 0,5 V of ongeveer 0 V. De software kalibreert op 0 bar en op een bekende druk
+  (de manometer van de drukregelaar). De step-down-module zit vóór de noodstop, zodat de
   sensoren blijven meten als de noodstop is ingedrukt.
 - **Ruis:** een condensator van 100 nF van elke ADC-ingang naar GND.
 - **Massa:** de min van de 24 V-adapter, pin 9 (GND) van de ULN2803A en GND van de
