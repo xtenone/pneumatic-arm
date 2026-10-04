@@ -41,15 +41,49 @@ actuatoren naast elkaar op een kruiskoppeling.
 4. **Geen zijkracht op de stangen:** de kruiskoppeling vangt de zijkrachten op, niet
    de cilinders.
 
+## Krachtberekening schouder (eerste ruwe berekening)
+
+Uitgangspunten van de klant: 15 kg op 1 m van het scharnier, cilinders 50 cm lang en
+maximaal 37 cm van het scharnier aangegrepen, 5 bar, twee cilinders die samen duwen
+met het volle zuigeroppervlak.
+
+| Geval | Koppel | Kracht totaal (hefboom 0,37 m) | Ø per cilinder, minimaal |
+|---|---|---|---|
+| Gewichtloze arm, 15 kg op 1 m | 147 Nm | 398 N | 2,3–2,4 cm |
+| Plus arm van 30 kg met zwaartepunt op 0,5 m | 294 Nm | 795 N | 3,2–3,4 cm |
+
+Dit is de statische ondergrens: cilinder haaks op de hefboom, geen versnelling, geen
+wrijving. Voor een werkende regeling komt daar marge bij:
+
+- **Hefboom onder een hoek:** de werkzame hefboom is 0,37 m · sin(hoek tussen
+  cilinder en hefboom). Bij 45° scheef is de benodigde kracht 1,4× zo groot.
+- **Regelruimte:** om te kunnen versnellen en afremmen mag de statische last maar een
+  deel van de beschikbare kracht gebruiken. Ook de tegendruk in de andere kamer en de
+  drukval over de ventielen bij bewegen gaan van de kracht af. Hoeveel marge nodig
+  is, meet proef T7.
+- **Draaien onder last:** bij roll draagt één cilinder meer dan de helft.
+- **Standaardmaten:** Ø25, 32, 40, 50. Met Ø40 gebruikt de statische last 63% van de
+  beschikbare kracht (2× 628 N bij 5 bar), met Ø50 40% (2× 982 N).
+
+**Kracht tegenover bereik.** Een grote hefboom geeft veel kracht, maar weinig hoek per
+centimeter slag. De hoek is ruwweg slag / hefboom (in radialen): 20 cm slag op 37 cm
+hefboom geeft ongeveer 30°. Meer hoek vraagt een kortere hefboom en dus een dikkere
+cilinder.
+
 ## Open vragen
 
 - Waar komt dit gewricht in de arm: schouder, elleboog of pols?
 - Is "draaien" bedoeld als draaien om de eigen as van de arm (zoals een pols die een
   sleutel omdraait), of als zijwaarts zwaaien (links-rechts)? De schets geeft het
   eerste. Voor zijwaarts zwaaien moet de tweede as van de kruiskoppeling anders staan.
-- Gewenst bereik in graden voor op en neer en voor draaien.
+- Gewenst bereik in graden voor op en neer en voor draaien. Dit bepaalt samen met de
+  slag de hefboomlengte.
+- Slag van de 50 cm-cilinders.
 - Afmetingen: lengte van de hefbomen, en waar de cilinders aan de onderkant vastzitten.
 
 ## Status
 
-Schets ontvangen op 2026-10-04. Nog niet uitgewerkt of doorgerekend.
+Schets ontvangen op 2026-10-04. Het gewricht wordt gebruikt voor de schouder en de
+elleboog, met verschillende cilindermaten. Eerste krachtberekening voor de schouder
+hierboven. Uitwerking en simulatie wachten tot de proefopstelling bewijst dat
+pneumatiek werkt.
