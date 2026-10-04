@@ -172,10 +172,10 @@ domoticx.net, €0,87 per stuk).
 | 1 | Stangkop (vorkkop) M8×1,25 voor MAL20 | MAL20 Y-joint / rod clevis | €3 |
 | 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
 | 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
-| 1 | Filter + drukregelaar met manometer, G1/4 | AFR-2000 | €12–18 |
-| 1 | Afsluitschuif, G1/4 | HSV-08 hand slide valve | €5–8 |
-| 1 | Hoofdventiel 3/2, normaal gesloten, 24 V DC, G1/4 | 3V210-08 DC24V | €8–10 |
-| 1 | Noodstopknop 22 mm met verbreekcontact (NC) | emergency stop button 22mm NC | €4–6 |
+| 1 | Filter + drukregelaar met manometer, G1/4, handmatige aftap | AFR-2000 | €8–9 |
+| 1 | Afsluitschuif, G1/4, bij voorkeur één kant buitendraad (direct in de drukregelaar) | HSV-08 hand slide valve | €4–10 |
+| 1 | Hoofdventiel 3/2, normaal gesloten (NC), 24 V DC, G1/4. Voorgestuurd: schakelt pas vanaf ca. 1,5 bar | 3V210-08 NC DC24V | €8–9 |
+| 1 | Noodstopknop 22 mm, paddenstoel, vergrendelend (draaien om te ontgrendelen), verbreekcontact (NC), in een kastje | emergency stop button 22mm NC with box | €5–8 |
 | 2 | Smoorventiel voor 4 mm slang | inline flow control valve 4mm | €3 per stuk |
 | 10 | Steekkoppeling recht M5 → 4 mm (6 nodig) | PC4-M5 | €6–9 samen |
 | 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
@@ -259,7 +259,7 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 | Van | Koppeling | Slang | Naar | Koppeling |
 |---|---|---|---|---|
 | Compressorslang (Euro-koppeling) | – | – | drukregelaar IN | insteeknippel G1/4 + PTFE-tape |
-| Drukregelaar UIT | PC6-02 | 6 mm | afsluitschuif IN | PC6-02 |
+| Drukregelaar UIT | – | – | afsluitschuif IN | buitendraad van de schuif direct in de regelaar (anders PC6-02 + slang + PC6-02) |
 | Afsluitschuif UIT | PC6-02 | 6 mm | hoofdventiel P | PC6-02 |
 | Hoofdventiel A | PC6-02 | 6 mm | Y-stuk 6 → 2× 4 | – |
 | Hoofdventiel R | G1/4-demper | – | – | – |
