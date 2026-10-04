@@ -167,8 +167,8 @@ domoticx.net, €0,87 per stuk).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm, zonder magneet | MAL20x150 | €15–25 |
-| 1 | Voetbevestiging voor MAL20 | MAL20 LB foot mount | €3 |
+| 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm, zonder magneet. Stang M8×1,25, beide deksels M22×1,5, poorten G1/8 | MAL20x150 | €9,49 |
+| 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
 | 1 | Stangkop (vorkkop) M8×1,25 voor MAL20 | MAL20 Y-joint / rod clevis | €3 |
 | 1 | Lineaire potmeter 150 mm, 5 kΩ | KTC-150 / KPM-150 linear potentiometer | €15–25 |
 | 2 | Druksensor 0–1,2 MPa, 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad | pressure transducer 0-1.2MPa 5V G1/4 | €8–12 per stuk |
