@@ -30,8 +30,8 @@ def main():
     # 2D-profielen voor zagen en boren (zijaanzicht, x-z-vlak)
     export_profiles()
     assy = parts.assemble(0.0)
-    assy.save(os.path.join(OUT, "test1_samenstelling.step"))
-    assy.save(os.path.join(OUT, "test1_samenstelling.glb"))
+    assy.export(os.path.join(OUT, "test1_samenstelling.step"))
+    assy.export(os.path.join(OUT, "test1_samenstelling.glb"))
     export_sim_meshes()
     print("CAD geëxporteerd naar", OUT)
 

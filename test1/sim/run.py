@@ -181,6 +181,34 @@ def render_stills():
     return paths
 
 
+def write_markdown(res):
+    """Leesbare samenvatting van de simulatie (out/sim/resultaten.md)."""
+    def row(name, m):
+        return (f"| {name} | {m['doorschot_mm']} | {m['insteltijd_s']} | {m['restfout_mm']} | "
+                f"{'ja' if m['geslaagd'] else 'nee'} |")
+    lines = ["# Simulatie test 1 — resultaten", "",
+             f"Last {P.TIP_MASS} kg, voeding {P.P_SUPPLY} bar, afstelling uit `params.py`. "
+             "Criteria T3: doorschot < 5 mm, ingesteld (binnen ±1 mm) binnen 1 s, restfout < 1 mm.", "",
+             "## T3 PWM-regeling en T2 aan/uit-regeling", "",
+             "| Sprong | Doorschot (mm) | Insteltijd (s) | Restfout (mm) | Geslaagd |", "|---|---|---|---|---|"]
+    for key, label in (("T3_pwm", "PWM"), ("T2_aanuit", "aan/uit (3 bar)")):
+        lines.append(row(f"{label}: 0° → 30°", res[key]["omhoog_0_naar_30"]))
+        lines.append(row(f"{label}: 30° → −5°", res[key]["omlaag_30_naar_min5"]))
+    lines += ["", "![PWM-regeling](sprong.png)", "", "![aan/uit-regeling](aanuit.png)", "",
+              "## T7 belastingsgraad", "",
+              "| Last (kg) | Belasting (%) | Doorschot (mm) | Insteltijd (s) | Restfout (mm) | Geslaagd |",
+              "|---|---|---|---|---|---|"]
+    for r in res["T7_belasting"]:
+        lines.append(f"| {r['last_kg']} | {r['belasting_pct']} | {r['doorschot_mm']} | {r['insteltijd_s']} | "
+                     f"{r['restfout_mm']} | {'ja' if r['geslaagd'] else 'nee'} |")
+    lines += ["", "## T6 stijfheid (ventielen dicht, 15 N extra aan de last)", "",
+              "| Som kamerdrukken (bar) | Uitwijking (graden) |", "|---|---|"]
+    for r in res["T6_stijfheid"]:
+        lines.append(f"| {r['kamerdruk_som_bar']} | {r['uitwijking_graden']} |")
+    with open(os.path.join(OUT, "resultaten.md"), "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     res = {}
@@ -190,6 +218,7 @@ def main():
     res["T6_stijfheid"] = scenario_stijfheid()
     with open(os.path.join(OUT, "resultaten.json"), "w") as f:
         json.dump(res, f, indent=2)
+    write_markdown(res)
     print(json.dumps(res, indent=2))
     if "--render" in sys.argv:
         render_stills()
