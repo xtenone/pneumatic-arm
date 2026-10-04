@@ -142,6 +142,13 @@ de regeling grof. De kleine "hoogfrequente" miniventielen van 10 mm zijn goedkoo
 (€5–8), maar opgegeven voor 30 Hz en met heel weinig doorstroming. Voor een eerste test
 zijn ze bruikbaar, maar voor een armgewricht niet.
 
+**Waarom geen VT307?** Ook SMC, direct bediend, met veel meer doorstroming en
+"universele poorten": druk mag op elke poort staan, dus dezelfde klep kan als
+normaal gesloten, normaal open of verdeelventiel gebruikt worden. Maar de reactietijd
+is ongeveer 20 ms, ruim vijf keer trager dan de VQ110. PWM gaat daarmee tot ongeveer
+10 Hz, te grof voor deze regeling. Voor de arm is hij wel een kandidaat als *grof*
+ventiel voor snelle bewegingen, naast een klein snel ventiel voor de fijne regeling.
+
 **Vooruitblik:** de VQ110 is groot genoeg voor deze proefcilinder (Ø20), niet voor de
 cilinders van de uiteindelijke arm. Die worden Ø40–63, omdat 15 kg op armlengte
 honderden tot meer dan duizend newton aan cilinderkracht vraagt. Daar komen grotere
