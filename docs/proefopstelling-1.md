@@ -167,9 +167,9 @@ domoticx.net, €0,87 per stuk).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm, zonder magneet. Stang M8×1,25, beide deksels M22×1,5, poorten G1/8 | MAL20x150 | €9,49 |
-| 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
-| 1 | Stangkop (vorkkop) M8×1,25 voor MAL20 | MAL20 Y-joint / rod clevis | €3 |
+| 1 | Dubbelwerkende rondcilinder volgens **ISO 6432**, Ø20, slag 150 mm. De norm legt de maten vast: poorten G1/8, stang M8×1,25, deksels M22×1,5 | ISO 6432 / DSNU-20-150 (Festo-compatibel) / AirTAC MI20x150 | €14–25 |
+| 2 | Voetbevestiging voor Ø20 ISO 6432 (voor en achter, op de M22-draad) | foot mount ISO 6432 20 / HBN-20 | €3 per stuk |
+| 1 | Stangkop (vorkkop) M8×1,25 | rod clevis M8x1.25 / SG-M8 | €3 |
 | 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
 | 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
 | 1 | Filter + drukregelaar met manometer, G1/4, handmatige aftap | AFR-2000 | €8–9 |
@@ -180,7 +180,7 @@ domoticx.net, €0,87 per stuk).
 | 10 | Steekkoppeling recht M5 → 4 mm (6 nodig) | PC4-M5 | €6–9 samen |
 | 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
 | 3 | M5-geluiddemper (2 nodig) | M5 silencer | €3 |
-| 2 | Steekkoppeling recht 1/8 → 4 mm (cilinderpoorten), **zelfde draadsoort als de cilinder**: G/PT 1/8 of 1/8 NPT | PC4-01 (G/PT) of PC4-N01 (NPT) | €2 |
+| 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
 | 6 | T-stuk 4 mm (4 nodig) | PE4 union tee | €4 |
 | 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
 | 6 | Steekkoppeling recht G1/4 → 6 mm (5 nodig) | PC6-02 | €6 |
