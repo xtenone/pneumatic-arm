@@ -1,9 +1,13 @@
-# Proefopstelling 1: één cilinder met vier snelle ventielen
+# Test 1 — ontwerp: arm met één vrijheidsgraad, één cilinder, vier snelle ventielen
+
+Dit document legt uit wat er gekozen is en waarom. Hoe je het bouwt en test staat in
+[handleiding.md](handleiding.md); alle maten staan in `../params.py`.
 
 ## Wat deze proef moet bewijzen
 
 Kan een gewone pneumatische cilinder met goedkope aan/uit-ventielen en een
-microcontroller naar een gekozen positie gestuurd worden en daar blijven staan? En hoe
+microcontroller een arm naar een gekozen hoek sturen en daar laten blijven, ook met een
+last eraan? En hoe
 precies lukt dat? Elke kamer van de cilinder krijgt een eigen druksensor. Daarmee kan
 het programma naast de positie ook de stijfheid regelen: hoe hard de cilinder
 terugduwt als je eraan trekt.
@@ -152,7 +156,7 @@ regelsoftware en de meetgegevens om die keuze te maken.
 ## Onderdelenlijst
 
 De actuele lijst met artikelen, varianten, aantallen en prijzen staat in
-[bestellijst.json](bestellijst.json). `tools/bestellijst.py` maakt daar een klikbare pagina
+[bestellijst.json](../../docs/bestellijst.json). `tools/bestellijst.py` maakt daar een klikbare pagina
 van in de gedeelde webmap (`hosted/pneumatic-arm/bestellijst.html`).
 
 Samengevat:
@@ -266,45 +270,97 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
   Verbruik: 4 ventielspoelen max. ~250 mA, hoofdventiel ~125 mA, 7805 + sensoren
   ~25 mA; samen ~400 mA in het slechtste geval.
 
-## Mechanisch
+## Mechanisch: de arm
 
-- **Eerst liggend:** cilinder en potmeter evenwijdig op een plank, stang en potmeter
-  aan elkaar gekoppeld met een beugeltje.
-- **Daarna staand:** de cilinder tilt een gewicht van 2–5 kg. Zo moet de regeling
-  ook tegen de zwaartekracht in werken, net als straks in de arm.
-  - Rekenvoorbeeld: Ø20 op 3 bar duwt 94 N, ongeveer 9,5 kg. Dat geeft genoeg
-    reserve.
+De cilinder tilt een arm, zoals straks in de schouder. Zo test je meteen wat er in de
+echte arm gebeurt: een kracht die met de hoek verandert, een last aan het eind, en de
+omrekening van cilinderlengte naar hoek. Zie `out/tekeningen/zijaanzicht.pdf`.
 
-## Regeling in lagen
+- **Staander:** twee wangen van multiplex 18 mm met een afstandsblok van 36 mm (twee lagen
+  hetzelfde multiplex) ertussen, op een grondplaat van 40 × 30 cm. De opstelling staat
+  op de tafelrand met twee lijmklemmen; de last hangt naast de tafel.
+- **Scharnier:** bout M8 door twee kogellagers 608 (skatelagers) in de wangen, 420 mm
+  boven de grondplaat. Goedkoop, overal te krijgen, en zonder speling.
+- **Arm:** aluminium strip 40×5 mm, 450 mm. De vorkkop van de cilinder grijpt aan op
+  150 mm van het scharnier, de last hangt op 400 mm.
+- **Cilinder:** draait achter op een bout M8, 320 mm recht onder het scharnier. Pen-pen
+  311–461 mm geeft een armhoek van −17° tot +66°.
+- **Potmeter:** met slangklemmen op de cilinderbuis, de stang via een beugeltje aan de
+  cilinderstang. Hij meet de cilinderlengte; de software rekent die om naar de hoek.
 
-- **Snelle laag, op de Pico:** leest positie en drukken en stuurt de ventielen, 200–500
-  keer per seconde. Deze laag houdt de cilinder op de gevraagde positie en stijfheid.
-  - Vertragingen in deze lus: klep 2–3,5 ms, een drukgolf door 1 m slang ca. 3 ms,
-    en het vullen van de kamer (tientallen ms).
-  - Bij deze snelheden is alleen terugkoppeling nodig, geen feedforward.
-- **Langzame laag, op de pc (programma of AI):** geeft ongeveer 10 keer per seconde
-  een nieuwe doelpositie en stijfheid door.
+| Armhoek | Hefboom cilinder | Max. koppel bij 5 bar | Zwaartekracht (arm + 1,5 kg) | Belasting |
+|---|---|---|---|---|
+| −17° | 148 mm | 23,2 Nm | 6,1 Nm | 26% |
+| 0° | 136 mm | 21,3 Nm | 6,4 Nm | 30% |
+| 40° | 85 mm | 13,4 Nm | 4,9 Nm | 37% |
+| 66° | 43 mm | 6,7 Nm | 2,6 Nm | 39% |
 
-Ter vergelijking: bij een mens komt een bewuste reactie na ongeveer 0,1–0,2 s, een
-reflex via het ruggenmerg na enkele tientallen ms. Spieren geven daarbij van nature
-mee. De stijfheidsregeling, met druk in beide kamers tegelijk, doet hetzelfde.
+Hoe hoger de arm, hoe kleiner de hefboom van de cilinder: dat is hetzelfde effect als
+straks in het 2-DOF-gewricht (zie `docs/2dof-gewricht.md` in de hoofdmap).
 
-## Proeven en wanneer ze geslaagd zijn
+## Regeling
 
-Elke proef levert een logbestand op (CSV) en de getallen hieronder. Een proef is pas
-geslaagd als het getal gemeten is, niet als het er goed uitziet. De grenswaarden zijn
-een voorstel en worden na T1 bijgesteld als dat nodig is.
+Het algoritme staat in `firmware/control.py` en draait **ongewijzigd** op de Pico én in de
+simulatie. De afstelling uit de simulatie is dus precies wat er op de Pico komt.
 
-| Proef | Wat | Geslaagd als |
-|---|---|---|
-| T0 Lektest | Kamer vullen tot 3 bar, alle ventielen dicht, 60 s wachten | Drukval < 0,1 bar in 60 s |
-| T1 Ventielen | Eén ventiel 10 ms aan; drukverloop in de kamer meten | Druk begint < 10 ms na het signaal te stijgen; PWM-frequentie gekozen |
-| T2 Aan/uit-regeling | Naar 75 mm sturen met alleen vol open/dicht, met dode zone | Komt tot stilstand binnen ±3 mm |
-| T3 PWM-regeling | Sprong van 20 → 80 mm en terug | Doorschot < 5 mm, stil binnen 1 s, restfout < ±1 mm |
-| T4 Herhaalbaarheid | 10× van wisselende kanten naar 50 mm | Spreiding < ±1 mm |
-| T5 Last | Staand, 2–5 kg, sprong 20 → 80 mm, dan vasthouden | Zelfde als T3; zakt < 1 mm in 60 s |
-| T6 Stijfheid | Op 50 mm, stijfheid laag/hoog, met de hand of een gewicht duwen | Meetbaar verschil in uitwijking bij dezelfde kracht |
-| T7 Belastingsgraad | Staand, 5 bar, gewicht stap voor stap verhogen (Ø20 kan statisch ca. 16 kg tillen) | Bij elke stap T3 herhalen. Uitkomst: het hoogste percentage van de statische kracht waarbij T3 nog slaagt. Dat getal bepaalt de cilindermaten van de arm. |
+**Lagen:**
+
+- **Snelle laag, op de Pico (500 keer per seconde):** leest positie en drukken en stuurt
+  de ventielen.
+  1. **Doel met begrensde snelheid:** het doel loopt met maximaal 250 mm/s naar de
+     gevraagde stand. Een volle slag duurt zo ca. 0,6 s, zonder sprong in de regelfout.
+  2. **Positieregelaar (PID) → gewenste kracht.**
+     - De integrerende term werkt alleen dicht bij het doel (binnen 6 mm) of als de arm
+       stilstaat. Zo overwint hij wrijving en last zonder doorschot.
+  3. **Kracht → kamerdrukken:** de gewenste kracht wordt verdeeld over kamer A en B, met de
+     som van beide drukken als **stijfheid** (instelbaar, standaard 4 bar).
+  4. **Drukregelaar per kamer → PWM-duty:** vullen, legen of vasthouden. Vullen en legen
+     van dezelfde kamer tegelijk kan niet. Een minimale pulsduur zorgt dat het ventiel
+     echt opent.
+  5. **In positie:** fout < 0,3 mm, de arm staat stil en de drukken zitten op hun doel.
+     Dan gaan alle ventielen dicht en houdt de opgesloten lucht de arm vast. Dat spaart
+     lucht en ventielen; pas bij > 0,6 mm regelt hij weer.
+  6. **Ontlasten:** komt een kamer boven 6 bar (bijv. lucht die bij doorschieten wordt
+     samengedrukt), dan gaat het leegventiel van die kamer open. Duurt het langer dan
+     0,5 s, dan volgt een fout: de drukregelaar staat te hoog.
+- **Langzame laag, op de pc (programma of AI):** geeft doelhoek en stijfheid door, en
+  stuurt elke 0,2 s een `ping`. Mist de Pico die een halve seconde, dan gaan alle
+  ventielen dicht.
+
+Er is geen feedforward nodig. De vertragingen in de lus zijn klein: klep 2–3,5 ms, een
+drukgolf door 30 cm slang ca. 1 ms, en het vullen van een kamer tientallen ms.
+
+## Simulatie
+
+`sim/run.py` simuleert de arm in MuJoCo, met een model van de pneumatiek:
+- doorstroming van de ventielen volgens ISO 6358
+- opening- en sluitvertraging van de ventielen
+- kamerdrukken, wrijving van de afdichtingen
+- ruis en ADC-stappen van de sensoren
+
+Uitkomst met de huidige afstelling (`out/sim/resultaten.json`, grafieken in `out/sim/`):
+
+| Proef (simulatie) | Uitkomst |
+|---|---|
+| T3 sprong 0° → 30° | doorschot 1,0 mm, ingesteld in 0,9 s, restfout 0,3 mm — geslaagd |
+| T3 sprong 30° → −5° | doorschot 1,2 mm, ingesteld in 0,5 s, restfout 0,1 mm — geslaagd |
+| T2 aan/uit-regeling (3 bar) | slingert 20–30 mm rond het doel: de PWM-regeling is nodig |
+| T6 stijfheid (15 N extra, ventielen dicht) | 14° uitwijking bij 2 bar kamerdruk, 10° bij 5 bar |
+| T7 belasting | doel gehaald tot 3,5 kg (78% belasting), maar alleen rond de afstellast (1,5 kg) binnen 1 s; bij 100% niet meer |
+
+Exacte getallen per run: [`../out/sim/resultaten.md`](../out/sim/resultaten.md).
+Uit T7 blijkt al dat de afstelling bij de last hoort. Voor de arm is waarschijnlijk een
+afstelling nodig die meeschaalt met de last of de stand.
+
+Het model is een schatting. Wrijving, dode volumes en de doorstroming van deze
+ventielen worden in T1–T4 gemeten; daarna wordt het model bijgesteld en de regeling
+opnieuw afgesteld.
+
+## Proeven
+
+De proeven T0–T7, met criteria, staan in [handleiding.md](handleiding.md), hoofdstuk 11.
+`host/proeven.py` voert ze uit en beoordeelt ze met dezelfde analyse als de simulatie
+(`host/analyse.py`).
 
 ## Veiligheid
 
@@ -323,6 +379,9 @@ een voorstel en worden na T1 bijgesteld als dat nodig is.
 - **Cilinder drukloos maken:** eerst de afsluitschuif dicht, dan de leegventielen V2 en
   V4 openen, via de software of met de handbediening (drukknopje) op het ventiel zelf.
   Pas daarna aan de opstelling sleutelen.
+- **Arm:** handen weg tussen arm en staander. Zet de grondplaat met twee lijmklemmen op
+  de tafelrand; de last hangt naast de tafel.
+- **Ontlasten:** boven 6 bar opent de software het leegventiel van die kamer.
 - **Pneumatiek is niet ongevaarlijk:** Ø20 op 6 bar duwt bijna 19 kg, en de cilinders
   van de arm worden vele malen sterker. De veiligheid van de arm moet uit het ontwerp
   komen: begrensde druk, begrensde snelheid en meegeven. Het medium zelf maakt hem
