@@ -208,6 +208,13 @@
           "aantal": 1,
           "prijs": 3.0,
           "schatting": true
+        },
+        {
+          "wat": "Montagedraad 0,5 mm², rood en zwart (24 V, noodstop, ventielen)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 3.0,
+          "schatting": true
         }
       ]
     },
@@ -249,6 +256,14 @@
           "aantal": 1,
           "prijs": 15.0,
           "schatting": true
+        },
+        {
+          "wat": "Multimeter (als je er nog geen hebt)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 20.0,
+          "schatting": true,
+          "noot": "Nodig om de step-down op 5,0 V te zetten en de ventielspoelen te meten"
         }
       ]
     },
