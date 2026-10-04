@@ -262,13 +262,13 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 
 | Van | Koppeling | Slang | Naar | Koppeling |
 |---|---|---|---|---|
-| Vulventiel A | PC4-M5 | 4 mm | T-stuk 1 | – |
-| T-stuk 1 | – | 4 mm | leegventiel P | PC4-M5 |
+| Vulventiel, poort A | PC4-M5 | 4 mm | T-stuk 1 | – |
+| T-stuk 1 | – | 4 mm | leegventiel, poort P | PC4-M5 |
 | T-stuk 1 | – | 4 mm | T-stuk 2 | – |
 | T-stuk 2 | – | 4 mm | cilinderpoort | PC4-01 |
 | T-stuk 2 | – | 4 mm | druksensor | PCF4-02 |
-| Leegventiel A | M5-demper | – | – | – |
-| R van vul- en leegventiel | M5-blindplug | – | – | – |
+| Leegventiel, poort A | M5-demper | – | – | – |
+| Poort R van vul- en leegventiel | M5-blindplug | – | – | – |
 
 - **Korte slangen:** houd alle slangen tussen ventielen en cilinder korter dan
   ongeveer 30 cm, en zet de druksensor dicht bij de cilinderpoort.
