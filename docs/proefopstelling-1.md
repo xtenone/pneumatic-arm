@@ -124,7 +124,7 @@ Er zijn twee soorten PWM:
   nodig.
 
 Varianten `M`/`L` hebben een ingebouwd lampje en een overspanningsbeveiliging. Die zijn
-gevoelig voor plus en min: rood aan +24 V, zwart aan de MOSFET.
+gevoelig voor plus en min: rood aan +24 V, zwart aan een uitgang van de ULN2803A.
 
 **Levensduur.** Bij 50 Hz schakelt een klep 180.000 keer per uur. Dat gebeurt alleen
 tijdens bewegen; bij stilstaan zijn de kleppen dicht. Voor de proef is dit geen
@@ -241,24 +241,30 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
   niet is ingedrukt) en de plus van de vier VQ110U-spoelen. Ingedrukt: alles valt af,
   ook als de software vastloopt.
 - **Potmeter:** aan 3,3 V van de Pico, loper op ADC0 (GP26).
-- **Druksensoren:** aan 5 V uit een lineaire 7805-regelaar die op de 24 V zit, niet aan de
-  USB-5 V. De twee sensoren trekken samen ca. 20 mA; de 7805 verstookt dan (24 − 5) V ×
-  0,02 A ≈ 0,4 W, dat kan zonder koelplaatje. Een lineaire regelaar geeft een rustigere
-  spanning dan een schakelende step-down, en dat is beter voor analoge metingen. De uitgang van deze sensoren schaalt mee met hun voedingsspanning, en de
-  USB-spanning schommelt tot ±5%. Dat zou direct ±5% meetfout geven. De uitgang gaat via
-  een spanningsdeler 10 kΩ (boven) / 15 kΩ (onder) naar ADC1 (GP27) en ADC2 (GP28). Zo
-  wordt 5,0 V omgezet naar 3,0 V. Dat is veilig voor de Pico, of de sensor nu 0,5–4,5 V of
-  0–5 V geeft. Welke van de twee het is, blijkt bij de eerste meting: op 0 bar geeft hij
-  ongeveer 0,5 V of ongeveer 0 V. De software kalibreert op 0 bar en op een bekende druk
-  (de manometer van de drukregelaar). De 7805 zit vóór de noodstop, zodat de
-  sensoren blijven meten als de noodstop is ingedrukt.
+- **Druksensoren:** aan 5 V uit een LM7805C die op de 24 V zit, niet aan de USB-5 V.
+  - De uitgang van deze sensoren schaalt mee met hun voedingsspanning. De USB-spanning
+    schommelt tot ±5%, en dat zou direct ±5% meetfout geven.
+  - De twee sensoren trekken samen ca. 20 mA; de 7805 verstookt dan (24 − 5) V × 0,02 A
+    ≈ 0,4 W. Dat kan zonder koelplaatje. Een lineaire regelaar geeft een rustigere
+    spanning dan een schakelende step-down, en dat is beter voor analoge metingen.
+  - Condensatoren: 1 µF tussen IN en GND, 100 nF tussen OUT en GND, dicht bij de pootjes.
+  - De 7805 zit vóór de noodstop, zodat de sensoren blijven meten als de noodstop is
+    ingedrukt.
+  - Elke sensoruitgang gaat via een spanningsdeler 10 kΩ (boven) / 15 kΩ (onder) naar
+    ADC1 (GP27) en ADC2 (GP28). Zo wordt 5,0 V omgezet naar 3,0 V. Dat is veilig voor de
+    Pico, of de sensor nu 0,5–4,5 V of 0–5 V geeft.
+  - Welke uitgang het is, blijkt bij de eerste meting: op 0 bar geeft hij ongeveer 0,5 V
+    of ongeveer 0 V. De software kalibreert op 0 bar en op een bekende druk (de
+    manometer van de drukregelaar).
 - **Ruis:** een condensator van 100 nF van elke ADC-ingang naar GND.
 - **Massa:** de min van de 24 V-adapter, pin 9 (GND) van de ULN2803A en GND van de
   Pico aan elkaar.
 - **De pc via USB:** levert stroom aan de Pico en ontvangt de meetgegevens
   (positie, twee drukken, ventielstanden). Dat gebeurt honderden keren per seconde.
-- **Geen 230 V aan de opstelling:** een gesloten stekkeradapter, geen losse
-  netvoeding met schroefklemmen.
+- **Voeding:** een gesloten 24 V-stekkeradapter (minimaal 0,5 A, liever 1–2 A), geen
+  losse netvoeding met schroefklemmen. Zo zit er geen 230 V aan de opstelling.
+  Verbruik: 4 ventielspoelen max. ~250 mA, hoofdventiel ~125 mA, 7805 + sensoren
+  ~25 mA; samen ~400 mA in het slechtste geval.
 
 ## Mechanisch
 
