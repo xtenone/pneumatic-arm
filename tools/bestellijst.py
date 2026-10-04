@@ -73,8 +73,9 @@ for b in data["bestellingen"]:
         parts.append(f"<tr><td>{pic}</td><td>{naam}{noot}</td><td>{e(r['variant'])}</td>"
                      f"<td class='n'>{r['aantal']}</td><td class='n'>{euro(r['prijs'])}{schat}</td><td class='n'>{euro(sub)}</td></tr>")
     parts.append(f"<tr><th colspan='5'>Totaal</th><th class='n'>{euro(totaal)}</th></tr></table>")
-    totaal_alles += totaal
-parts.append(f"<h2>Totaal alle bestellingen: {euro(totaal_alles)}</h2>")
+    if b.get('status') != 'uitgesteld':
+        totaal_alles += totaal
+parts.append(f"<h2>Totaal (zonder uitgestelde onderdelen): {euro(totaal_alles)}</h2>")
 parts.append("<p class='noot'>Prijzen zijn de laagste prijs uit de zoekresultaten, tenzij anders vermeld. De echte prijs per variant zie je pas in je winkelwagen.</p></body></html>")
 open(os.path.join(OUT, "bestellijst.html"), "w").write("\n".join(parts))
 print(os.path.join(OUT, "bestellijst.html"), euro(totaal_alles))

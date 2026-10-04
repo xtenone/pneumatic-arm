@@ -178,26 +178,22 @@ domoticx.net, €0,87 per stuk).
 |---|---|---|---|
 | 1 | Dubbelwerkende minicilinder MAL20×150, standaarduitvoering (beide deksels met draad, geen CA-scharnieroog achter). Volgens de maattekening van de verkoper: poorten PT1/8, stang M8×1,25, voordeksel M22×1,5, lengte ingeschoven 131 mm + slag = 281 mm ([maattekening](schetsen/mal-cilinder-maattekening.jpg)) | MAL20x150 | €9,49 |
 | 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
-| 1 | Stangkop (vorkkop) M8×1,25 | rod clevis M8x1.25 / SG-M8 | €3 |
+| 2 | Moer M8 (gewone M8 is M8×1,25), bouwmarkt: klemt het beugeltje van de potmeter op de stang | – | €0,50 |
 | 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
 | 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
 | 1 | Filter + drukregelaar met manometer, G1/4, handmatige aftap | AFR-2000 | €8–9 |
 | 1 | Afsluitschuif, G1/4, bij voorkeur één kant buitendraad (direct in de drukregelaar) | HSV-08 hand slide valve | €4–10 |
 | 1 | Hoofdventiel 3/2, normaal gesloten (NC), 24 V DC, G1/4. Voorgestuurd: schakelt pas vanaf ca. 1,5 bar | 3V210-08 NC DC24V | €8–9 |
 | 1 | Noodstopknop 22 mm, paddenstoel, vergrendelend (draaien om te ontgrendelen), verbreekcontact (NC), in een kastje | emergency stop button 22mm NC with box | €5–8 |
-| 2 | Smoorventiel voor 4 mm slang | inline flow control valve 4mm | €3 per stuk |
-| 10 | Steekkoppeling recht M5 → 4 mm (6 nodig) | PC4-M5 | €6–9 samen |
+| 2 | Smoorventiel voor 4 mm slang (later, pas nodig om een kleiner ventiel na te bootsen) | inline flow control valve 4mm | €3 per stuk |
+| 12 | Steekkoppeling recht M5 → 4 mm (8 nodig) | PC4-M5 | €6 samen |
 | 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
-| 3 | M5-geluiddemper (2 nodig) | M5 silencer | €3 |
 | 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
 | 6 | T-stuk 4 mm (4 nodig) | PE4 union tee | €4 |
 | 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
-| 6 | Steekkoppeling recht G1/4 → 6 mm (5 nodig) | PC6-02 | €6 |
-| 1 | Y-stuk 6 mm → 2× 4 mm (toevoer naar de vulventielen) | PW6-4 Y reducer | €2 |
-| 1 | G1/4-geluiddemper (uitlaat hoofdventiel) | G1/4 silencer | €2 |
+| 5 | Steekkoppeling recht G1/4 → 4 mm (3–5 nodig) | PC4-02 | €3 |
 | 1 | Insteeknippel G1/4 buitendraad, Euro-type (voor de compressorslang) | 1/4 male plug Euro coupler | €2 |
-| 5 m | PU-slang 4×2,5 mm | PU tube 4mm | €5 |
-| 5 m | PU-slang 6×4 mm | PU tube 6mm | €6 |
+| 10 m | PU-slang 4×2,5 mm (alles in 4 mm) | PU tube 4mm | €8 |
 | 1 | Slangschaar (rechte snede, anders lekt de koppeling) | tube cutter | €3 |
 
 **Subtotaal: ongeveer €120–160.**
@@ -268,12 +264,12 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 | Van | Koppeling | Slang | Naar | Koppeling |
 |---|---|---|---|---|
 | Compressorslang (Euro-koppeling) | – | – | drukregelaar IN | insteeknippel G1/4 + PTFE-tape |
-| Drukregelaar UIT | – | – | afsluitschuif IN | buitendraad van de schuif direct in de regelaar (anders PC6-02 + slang + PC6-02) |
-| Afsluitschuif UIT | PC6-02 | 6 mm | hoofdventiel P | PC6-02 |
-| Hoofdventiel A | PC6-02 | 6 mm | Y-stuk 6 → 2× 4 | – |
-| Hoofdventiel R | G1/4-demper | – | – | – |
-| Y-stuk tak 1 | – | 4 mm, via smoorventiel | V1 P (vul A) | PC4-M5 |
-| Y-stuk tak 2 | – | 4 mm, via smoorventiel | V3 P (vul B) | PC4-M5 |
+| Drukregelaar UIT | – | – | afsluitschuif IN | buitendraad van de schuif direct in de regelaar (anders PC4-02 + slang + PC4-02) |
+| Afsluitschuif UIT | PC4-02 | 4 mm | hoofdventiel P | PC4-02 |
+| Hoofdventiel A | PC4-02 | 4 mm | T-stuk 4 mm | – |
+| Hoofdventiel R | open laten (blaast alleen bij een noodstop de toevoerleiding leeg) | – | – | – |
+| T-stuk tak 1 | – | 4 mm (later via smoorventiel) | V1 P (vul A) | PC4-M5 |
+| T-stuk tak 2 | – | 4 mm (later via smoorventiel) | V3 P (vul B) | PC4-M5 |
 
 **Per kamer (A met V1/V2, B met V3/V4)**
 
@@ -284,7 +280,7 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 | T-stuk 1 | – | 4 mm | T-stuk 2 | – |
 | T-stuk 2 | – | 4 mm | cilinderpoort | PC4-01 |
 | T-stuk 2 | – | 4 mm | druksensor | PCF4-02 |
-| Leegventiel, poort A | M5-demper | – | – | – |
+| Leegventiel, poort A | PC4-M5 + 10 cm open slang als uitlaat | – | – | – |
 | Poort R van vul- en leegventiel | M5-blindplug | – | – | – |
 
 - **Korte slangen:** houd alle slangen tussen ventielen en cilinder korter dan
@@ -300,8 +296,10 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
   en loopt vast of lekt in een G-poort. Let daar vooral op bij de druksensoren; die
   worden vaak met 1/8 NPT verkocht.
 - M5 is overal M5×0,8.
-- **Slang:** 4 mm buitenmaat (4×2,5 of 4×2) en 6 mm buitenmaat (6×4) passen allebei op
-  de steekkoppelingen.
+- **Slang:** alles in 4 mm (4×2,5). Bij één bewegingsrichting staat maar één vulventiel
+  open (ca. 40 Nl/min); daarvoor is 4 mm slang ruim genoeg.
+- **Invoerheffing:** AliExpress rekent €3 per variant, ongeacht het aantal. Daarom zo
+  min mogelijk verschillende varianten: geen 6 mm slang, geen dempers, geen Y-stuk.
 
 ## Elektrisch
 
