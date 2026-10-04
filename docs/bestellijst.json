@@ -64,12 +64,12 @@
           "prijs": 8.79
         },
         {
-          "id": "1005007426280923",
-          "wat": "Noodstopknop 22 mm",
-          "variant": "verbreekcontact (NC), draaien om te ontgrendelen",
+          "id": "1005005858101621",
+          "wat": "Noodstop, gemonteerd in kastje",
+          "variant": "kunststof kastje met geel STOP-label, zonder klepje of kap; contact NC (of 1NO+1NC)",
           "aantal": 1,
-          "prijs": 3.19,
-          "noot": "Plus een 1-gats kastje 22 mm (BX1-22), nog te zoeken"
+          "prijs": 8.29,
+          "schatting": true
         },
         {
           "id": "1005008810108635",
