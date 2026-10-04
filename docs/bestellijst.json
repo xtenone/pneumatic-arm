@@ -148,60 +148,66 @@
       ]
     },
     {
-      "naam": "3. Elektronica (domoticx.net, Mariënheem)",
+      "naam": "3. Elektronica (Tinytronics, Eindhoven)",
       "status": "samengesteld, nog niet besteld",
-      "noot": "Nederlandse webshop: geen douane.",
+      "noot": "Tinytronics blokkeert automatisch zoeken; ULN2803 kon ik niet bevestigen. Niet op voorraad? Een ULN2003 (7 kanalen) werkt ook, of de ULN2803APG bij domoticx (€0,68).",
       "regels": [
         {
-          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
-          "wat": "Raspberry Pi Pico 2W (RP2350)",
+          "url": "https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350",
+          "wat": "Raspberry Pi Pico 2 (RP2350)",
           "variant": "",
           "aantal": 1,
-          "prijs": 9.2
+          "prijs": 7.25
         },
         {
-          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
-          "wat": "ULN2803APG (DIP-18, past in breadboard)",
-          "variant": "DIP-18, niet SOP-18",
-          "aantal": 1,
-          "prijs": 0.68
-        },
-        {
-          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
-          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
+          "url": "https://www.tinytronics.nl/nl/power/spanningsconverters/buck-(step-down)-converters/mini-dc-dc-verstelbare-step-down-buck-converter-1a-mp1584",
+          "wat": "Step-down MP1584 (24 V → 5 V, instelbaar)",
           "variant": "met multimeter op 5,0 V instellen",
           "aantal": 1,
-          "prijs": 1.43
+          "prijs": 1.5
         },
         {
-          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
-          "wat": "Breadboard 830 gaten",
-          "variant": "MB-102",
+          "url": "https://www.tinytronics.nl/nl/power/voedingen/24v/sunshine-voedingsadapter-met-dc-jack-5.5-2.1mm-24v-5a",
+          "wat": "Voedingsadapter 24 V, DC-plug 5,5/2,1 mm",
+          "variant": "5 A is ruim; een lichtere 24 V-adapter met 5,5/2,1-plug mag ook",
           "aantal": 1,
-          "prijs": 4.76
+          "prijs": 18.0,
+          "schatting": true
         },
         {
-          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
-          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
-          "variant": "24VDC 3A met 5,5×2,5 mm plug",
-          "aantal": 1,
-          "prijs": 13.94
-        },
-        {
-          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
-          "variant": "5,5×2,5 (moet passen op de adapter)",
-          "aantal": 1,
-          "prijs": 1.0,
-          "schatting": true,
-          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
-        },
-        {
-          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
+          "url": "https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block",
+          "wat": "DC-bus 5,5/2,1 mm naar schroefklem",
           "variant": "",
           "aantal": 1,
-          "prijs": 6.0,
-          "schatting": true,
-          "noot": "Nog per stuk opzoeken"
+          "prijs": 1.21
+        },
+        {
+          "wat": "ULN2803A (DIP-18), of ULN2003 (DIP-16, 7 kanalen)",
+          "variant": "DIP, zodat hij in het breadboard past",
+          "aantal": 1,
+          "prijs": 1.0,
+          "schatting": true
+        },
+        {
+          "wat": "Breadboard 830 gaten + jumperdraden male-male",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 8.0,
+          "schatting": true
+        },
+        {
+          "wat": "Weerstanden 10 kΩ (2) en 20 kΩ (2), condensatoren 100 nF (3)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 1.5,
+          "schatting": true
+        },
+        {
+          "wat": "Micro-USB-kabel (data, niet alleen laden)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 3.0,
+          "schatting": true
         }
       ]
     },
@@ -341,6 +347,64 @@
           "variant": "",
           "aantal": 1,
           "prijs": 7.99
+        }
+      ]
+    },
+    {
+      "naam": "Alternatief: elektronica via domoticx.net",
+      "status": "alternatief",
+      "noot": "Nederlandse webshop: geen douane.",
+      "regels": [
+        {
+          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
+          "wat": "Raspberry Pi Pico 2W (RP2350)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 9.2
+        },
+        {
+          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
+          "wat": "ULN2803APG (DIP-18, past in breadboard)",
+          "variant": "DIP-18, niet SOP-18",
+          "aantal": 1,
+          "prijs": 0.68
+        },
+        {
+          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
+          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
+          "variant": "met multimeter op 5,0 V instellen",
+          "aantal": 1,
+          "prijs": 1.43
+        },
+        {
+          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
+          "wat": "Breadboard 830 gaten",
+          "variant": "MB-102",
+          "aantal": 1,
+          "prijs": 4.76
+        },
+        {
+          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
+          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
+          "variant": "24VDC 3A met 5,5×2,5 mm plug",
+          "aantal": 1,
+          "prijs": 13.94
+        },
+        {
+          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
+          "variant": "5,5×2,5 (moet passen op de adapter)",
+          "aantal": 1,
+          "prijs": 1.0,
+          "schatting": true,
+          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
+        },
+        {
+          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 6.0,
+          "schatting": true,
+          "noot": "Nog per stuk opzoeken"
         }
       ]
     }
