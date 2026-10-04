@@ -21,9 +21,9 @@ ventielen gaan tientallen keren per seconde open en dicht (PWM). Door ze langer 
 korter open te zetten, regelt het programma hoe snel een kamer vult of leegloopt.
 
 ```
-compressor ── filter + drukregelaar ── afsluitschuif ──┬──────────────────┐
-                                                       │                  │
-                                                  [V1 vul A]         [V3 vul B]
+compressor ── filter + drukregelaar ── afsluitschuif ── hoofdventiel ──┬──────────────────┐
+                                                                       │                  │
+                                                                  [V1 vul A]         [V3 vul B]
                                                        │                  │
                        druksensor pA ── kamer A ═══ CILINDER ═══ kamer B ── druksensor pB
                                                        │                  │
@@ -171,6 +171,8 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
 | 1 | Voeding 24 V, 2–3 A | | €15 |
 | 1 | Filter + drukregelaar met manometer | AFR2000 | €15–25 |
 | 1 | Afsluitschuif die de leiding achter zich drukloos maakt | HSV-08 hand slide valve | €8 |
+| 1 | Hoofdventiel 3/2, normaal gesloten, 24 V (hoeft niet snel te zijn) | 3V210-08 | €10 |
+| 1 | Noodstopknop met verbreekcontact | emergency stop button NC | €5 |
 | 6 | M5-blindplug | | €3 |
 | 2 | M5-geluiddemper | | €2 |
 | – | Steekkoppelingen M5→4 mm, 1/8"→4 mm, T-stukken 4 mm, adapter G1/4→4 mm voor de druksensoren, PU-slang 4 mm en 6 mm | | €25 |
@@ -236,13 +238,19 @@ een voorstel en worden na T1 bijgesteld als dat nodig is.
 
 - **Druk:** begin op 2–3 bar en ga nooit boven de 6 bar (de grens van de ventielen
   is 7 bar).
-- **Afsluitschuif:** binnen handbereik. Na het dichtschuiven is alles achter de schuif
-  drukloos.
+- **Afsluitschuif:** binnen handbereik. Na het dichtschuiven is de toevoerleiding
+  drukloos. De cilinderkamers niet: daar zit de lucht achter dichte ventielen.
+- **Noodstop:** onderbreekt de 24 V naar alle ventielen. Alle vul- en leegventielen
+  gaan dicht, dus de cilinder houdt zijn lucht vast en zakt niet weg. Het hoofdventiel
+  sluit de toevoer af en ontlucht die. Blijft een vulventiel hangen, dan komt er toch
+  geen lucht meer bij.
 - **Bij elke opstart:** draag een veiligheidsbril, houd je handen weg van de stang en
   het beugeltje, en zet de slangen vast. Een losschietende slang zwiept.
 - **Software:** zet bij een fout, bij het opstarten en als het USB-contact wegvalt
-  alle ventielen uit. In uit-stand houdt de cilinder zijn lucht vast. Ontluchten gaat
-  met de afsluitschuif.
+  alle ventielen uit. In uit-stand houdt de cilinder zijn lucht vast.
+- **Cilinder drukloos maken:** eerst de afsluitschuif dicht, dan de leegventielen V2 en
+  V4 openen, via de software of met de handbediening (drukknopje) op het ventiel zelf.
+  Pas daarna aan de opstelling sleutelen.
 - **Pneumatiek is niet ongevaarlijk:** Ø20 op 6 bar duwt bijna 19 kg, en de cilinders
   van de arm worden vele malen sterker. De veiligheid van de arm moet uit het ontwerp
   komen: begrensde druk, begrensde snelheid en meegeven. Het medium zelf maakt hem
