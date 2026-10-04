@@ -25,22 +25,21 @@
           "wat": "Cilinder MAL20×150",
           "variant": "boring 20, slag 150, standaard (niet CA), zonder magneet",
           "aantal": 1,
-          "prijs": 9.49
+          "prijs": 12.99
         },
         {
           "id": "1005006230077162",
           "wat": "Lineaire potmeter KTC",
           "variant": "175 mm, gewone weerstandsversie 5 kΩ (niet 4–20 mA / LWF), type B (kogelkop)",
           "aantal": 1,
-          "prijs": 20.0,
-          "schatting": true
+          "prijs": 28.19
         },
         {
           "id": "1005010385122677",
           "wat": "Druksensor",
           "variant": "#4 0–100 psi, uitgang 0,5–4,5 V",
           "aantal": 2,
-          "prijs": 15.59
+          "prijs": 14.89
         },
         {
           "id": "1005005324116810",
@@ -52,16 +51,16 @@
         {
           "id": "1005010563686803",
           "wat": "Afsluitschuif HSV-08",
-          "variant": "HSV-08 (G1/4), bij voorkeur één kant buitendraad",
+          "variant": "HSV-08 (G1/4), niet HSV-06",
           "aantal": 1,
-          "prijs": 3.8
+          "prijs": 3.59
         },
         {
           "id": "1005007341961878",
           "wat": "Hoofdventiel 3V210-08",
           "variant": "NC, DC24V",
           "aantal": 1,
-          "prijs": 8.79
+          "prijs": 8.19
         },
         {
           "id": "1005005858101621",
@@ -77,7 +76,6 @@
           "variant": "4 mm – M5 (PC4-M5)",
           "aantal": 12,
           "prijs": 0.49,
-          "schatting": true,
           "noot": "6 voor de ventielen, 2 als uitlaat van de leegventielen, rest reserve"
         },
         {
@@ -85,8 +83,7 @@
           "wat": "Steekkoppeling recht, per stuk",
           "variant": "4 mm – 1/8 (PC4-01)",
           "aantal": 3,
-          "prijs": 0.49,
-          "schatting": true,
+          "prijs": 0.61,
           "noot": "2 nodig, 1 reserve"
         },
         {
@@ -94,8 +91,7 @@
           "wat": "Steekkoppeling recht, per stuk",
           "variant": "4 mm – 1/4 (PC4-02)",
           "aantal": 5,
-          "prijs": 0.49,
-          "schatting": true,
+          "prijs": 0.7,
           "noot": "Drukregelaar, afsluitschuif, hoofdventiel (3–5 nodig)"
         },
         {
@@ -103,29 +99,28 @@
           "wat": "M5-blindplug (10 stuks)",
           "variant": "M5",
           "aantal": 1,
-          "prijs": 3.25
+          "prijs": 3.05
         },
         {
           "id": "1005006534920138",
           "wat": "T-stuk 4 mm",
           "variant": "PE4, 10 stuks",
           "aantal": 1,
-          "prijs": 3.0,
-          "schatting": true
+          "prijs": 2.8
         },
         {
           "id": "1005001840320838",
           "wat": "Steekkoppeling binnendraad (druksensoren)",
           "variant": "4 mm – 1/4 (PCF4-02)",
           "aantal": 2,
-          "prijs": 1.02
+          "prijs": 1.18
         },
         {
           "id": "1005007992615899",
           "wat": "PU-slang 5 m",
-          "variant": "4×2,5 mm, 5 m",
+          "variant": "4×2,5 mm, 5 m (transparant)",
           "aantal": 2,
-          "prijs": 3.82,
+          "prijs": 2.52,
           "noot": "Alles in 4 mm slang; 6 mm is niet nodig"
         },
         {
@@ -133,16 +128,14 @@
           "wat": "Voetbevestiging (LB) voor MAL20",
           "variant": "LB, 20 mm",
           "aantal": 2,
-          "prijs": 2.5,
-          "schatting": true
+          "prijs": 4.49
         },
         {
           "id": "1005007235783406",
           "wat": "Moer M22×1,5",
           "variant": "M22×1,5 (MAL20/25)",
           "aantal": 1,
-          "prijs": 1.0,
-          "schatting": true,
+          "prijs": 3.11,
           "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
         },
         {
@@ -150,9 +143,16 @@
           "wat": "ULN2803A Darlington-array (DIP-18), 10 stuks",
           "variant": "ULN2803APG DIP-18",
           "aantal": 1,
-          "prijs": 3.0,
-          "noot": "Alleen de ULN2803 in deze aanbieding, geen verwarring met 2802/2804",
-          "schatting": true
+          "prijs": 2.23,
+          "noot": "Alleen de ULN2803 in deze aanbieding, geen verwarring met 2802/2804"
+        },
+        {
+          "id": "1005008810108635",
+          "wat": "Smoorventiel inline 4 mm (2 stuks)",
+          "variant": "4 mm",
+          "aantal": 1,
+          "prijs": 3.36,
+          "noot": "Pas nodig om een kleiner ventiel na te bootsen; meebestellen met een volgende bestelling"
         }
       ]
     },
@@ -280,20 +280,6 @@
           "aantal": 1,
           "prijs": 99.99,
           "noot": "Koppeling bekijken bij ontvangst; insteeknippel op de drukregelaar moet daarop passen"
-        }
-      ]
-    },
-    {
-      "naam": "Later (niet nodig voor de eerste proeven)",
-      "status": "uitgesteld",
-      "regels": [
-        {
-          "id": "1005008810108635",
-          "wat": "Smoorventiel inline 4 mm (2 stuks)",
-          "variant": "4 mm",
-          "aantal": 1,
-          "prijs": 3.59,
-          "noot": "Pas nodig om een kleiner ventiel na te bootsen; meebestellen met een volgende bestelling"
         }
       ]
     },
