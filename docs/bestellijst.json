@@ -270,6 +270,20 @@
       ]
     },
     {
+      "naam": "5. Compressor (Lidl)",
+      "status": "gekozen, nog niet besteld",
+      "regels": [
+        {
+          "url": "https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873",
+          "wat": "Parkside stille compressor PSKO 248 B1",
+          "variant": "24 l, 8 bar, 71,9 dB, olievrij, 117 l/min bij 4 bar",
+          "aantal": 1,
+          "prijs": 99.99,
+          "noot": "Koppeling bekijken bij ontvangst; insteeknippel op de drukregelaar moet daarop passen"
+        }
+      ]
+    },
+    {
       "naam": "Later (niet nodig voor de eerste proeven)",
       "status": "uitgesteld",
       "regels": [
