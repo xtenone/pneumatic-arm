@@ -212,19 +212,12 @@
           "noot": "Uitgang 7805 + 3 ADC-ingangen + 2 reserve"
         },
         {
-          "url": "https://www.tinytronics.nl/nl/power/voedingen/24v/sunshine-voedingsadapter-met-dc-jack-5.5-2.1mm-24v-5a",
-          "wat": "Voedingsadapter 24 V, DC-plug 5,5/2,1 mm",
-          "variant": "5 A is ruim; een lichtere 24 V-adapter met 5,5/2,1-plug mag ook",
-          "aantal": 1,
-          "prijs": 18.0,
-          "schatting": true
-        },
-        {
           "url": "https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block",
           "wat": "DC-bus 5,5/2,1 mm naar schroefklem",
-          "variant": "",
+          "variant": "passend op de plug van je eigen 24 V-adapter (5,5/2,1 of 5,5/2,5)",
           "aantal": 1,
-          "prijs": 1.21
+          "prijs": 1.21,
+          "noot": "Eigen adapter: 24 V DC, minimaal 0,5 A (liever 1–2 A)"
         },
         {
           "wat": "Breadboard 830 gaten + jumperdraden male-male",

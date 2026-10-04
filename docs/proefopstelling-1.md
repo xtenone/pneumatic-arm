@@ -151,108 +151,28 @@ regelsoftware en de meetgegevens om die keuze te maken.
 
 ## Onderdelenlijst
 
-Prijzen zijn een indicatie (oktober 2026). Ingedeeld per bestelling.
+De actuele lijst met artikelen, varianten, aantallen en prijzen staat in
+[bestellijst.json](bestellijst.json). `tools/bestellijst.py` maakt daar een klikbare pagina
+van in de gedeelde webmap (`hosted/pneumatic-arm/bestellijst.html`).
 
-### 1. Ventielen (AliExpress, winkel met 11 pagina's beoordelingen)
+Samengevat:
 
-| # | Onderdeel | Type | Prijs |
-|---|---|---|---|
-| 5 | Snel 3/2-ventiel 24 V, grote doorstroming | SMC VQ110U-5M-M5 | €130,53 samen, incl. verzending |
+- **Pneumatiek (AliExpress):** 5× VQ110U-5M-M5, cilinder MAL20×150 (poorten PT1/8) met
+  2 voetbevestigingen, moer M22×1,5 en vorkkop M8, drukregelaar AFR-2000 met vezelfilter,
+  afsluitschuif HSV-08, hoofdventiel 3V210-08 (NC, 24 V DC), noodstop in kastje,
+  steekkoppelingen 4 mm (M5, 1/8, 1/4), PCF4-02 voor de druksensoren, T-stukken 4 mm,
+  M5-blindpluggen, M5-dempers, 2 smoorventielen, 10 m PU-slang 4×2,5 mm.
+- **Sensoren (AliExpress):** lineaire potmeter KTC 175 mm (5 kΩ, type B), 2 druksensoren
+  0–100 psi G1/4 (uitgang 0,5–4,5 V of 0–5 V; de deler 10k/15k is voor beide veilig).
+- **Elektronica:** ULN2803A (AliExpress, 10 stuks); Pico 2, LM7805C, condensatoren
+  1 µF en 100 nF, weerstanden 10 kΩ en 15 kΩ, breadboard, DC-bus, USB-kabel en draad
+  (Tinytronics); eigen 24 V-adapter.
+- **Bouwmarkt:** insteeknippel G1/4 passend op de compressor, slangschaar, PTFE-tape,
+  multiplex grondplaat, aluminium hoekje, eventueel een multimeter.
+- **Compressor:** Parkside PSKO 248 B1 (Lidl), 24 l, 8 bar, 71,9 dB.
 
-### 2. Pneumatiek en sensoren (AliExpress)
-
-Gekozen artikelen (AliExpress-artikelnummers):
-
-| Onderdeel | Artikel | Te kiezen variant |
-|---|---|---|
-| Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5. Volgens de bestelcode op de productfoto's: U = grote doorstroming, 5 = 24 V DC, M = M-stekker met kabel, M5 = met aansluitblok |
-| Lineaire potmeter | 1005006230077162 | 175 mm, gewone weerstandsversie (5 kΩ, KTC), **niet** de versie met 4–20 mA-uitgang (LWF); type B (kogelkop aan de stang) |
-| Cilinder | 1005010583152545 | Ø20, slag 150 mm, standaard (niet CA), zonder magneet |
-
-Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
-slang en koppelingen eruit en koop die in Nederland (bijv. M5-koppelingen bij
-domoticx.net, €0,87 per stuk).
-
-| # | Onderdeel | Zoekterm / type | Ca. prijs |
-|---|---|---|---|
-| 1 | Dubbelwerkende minicilinder MAL20×150, standaarduitvoering (beide deksels met draad, geen CA-scharnieroog achter). Volgens de maattekening van de verkoper: poorten PT1/8, stang M8×1,25, voordeksel M22×1,5, lengte ingeschoven 131 mm + slag = 281 mm ([maattekening](schetsen/mal-cilinder-maattekening.jpg)) | MAL20x150 | €9,49 |
-| 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
-| 2 | Moer M8 (gewone M8 is M8×1,25), bouwmarkt: klemt het beugeltje van de potmeter op de stang | – | €0,50 |
-| 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
-| 1 | Filter + drukregelaar met manometer, G1/4, handmatige aftap | AFR-2000 | €8–9 |
-| 1 | Afsluitschuif, G1/4, bij voorkeur één kant buitendraad (direct in de drukregelaar) | HSV-08 hand slide valve | €4–10 |
-| 1 | Hoofdventiel 3/2, normaal gesloten (NC), 24 V DC, G1/4. Voorgestuurd: schakelt pas vanaf ca. 1,5 bar | 3V210-08 NC DC24V | €8–9 |
-| 1 | Noodstopknop 22 mm, paddenstoel, vergrendelend (draaien om te ontgrendelen), verbreekcontact (NC), in een kastje | emergency stop button 22mm NC with box | €5–8 |
-| 2 | Smoorventiel voor 4 mm slang (later, pas nodig om een kleiner ventiel na te bootsen) | inline flow control valve 4mm | €3 per stuk |
-| 12 | Steekkoppeling recht M5 → 4 mm (8 nodig) | PC4-M5 | €6 samen |
-| 6 | M5-blindplug (4 nodig) | M5 blanking plug | €3 |
-| 2 | Steekkoppeling recht G1/8 → 4 mm (cilinderpoorten) | PC4-01 | €2 |
-| 6 | T-stuk 4 mm (5 nodig: 4 bij de kamers, 1 om de toevoer te splitsen) | PE4 union tee | €4 |
-| 2 | Steekkoppeling binnendraad G1/4 → 4 mm (voor de druksensoren) | PCF4-02 | €3 |
-| 5 | Steekkoppeling recht G1/4 → 4 mm (3–5 nodig) | PC4-02 | €3 |
-| 1 | Insteeknippel G1/4 buitendraad, Euro-type (voor de compressorslang) | 1/4 male plug Euro coupler | €2 |
-| 10 m | PU-slang 4×2,5 mm (alles in 4 mm) | PU tube 4mm | €8 |
-| 1 | Slangschaar (rechte snede, anders lekt de koppeling) | tube cutter | €3 |
-
-**Subtotaal: ongeveer €120–160.**
-
-### 3. Elektronica en druksensoren (domoticx.net, Mariënheem)
-
-De actuele lijst met links staat in `docs/bestellijst.json`. Druksensoren: 0–12 bar, 5 V,
-uitgang 0,5–4,5 V, 1/4" BSPP (G1/4), €14,94 per stuk. Het grotere meetbereik geeft
-ongeveer 1,7× grovere stappen dan een 100 psi-sensor; voor de proef is dat ruim genoeg
-(ca. 4 mbar per ADC-stap). De 100 psi-versie van domoticx heeft 1/8 NPT en past niet.
-
-Oorspronkelijke opzet:
-
-| # | Onderdeel | Ca. prijs |
-|---|---|---|
-| 1 | Raspberry Pi Pico 2 (met headers, of headers zelf solderen) | €7,25 |
-| 1 | Micro-USB-kabel (data, niet alleen laden) | €3 |
-| 1 | ULN2803A, 8-kanaals schakel-IC met ingebouwde vrijloopdiodes | €1 |
-| 1 | Breadboard 830 gaten + set jumperdraden | €9 |
-| 2+2 | Weerstand 10 kΩ en 15 kΩ (spanningsdeler druksensoren) | €1 |
-| 3 | Condensator 100 nF (ruisfilter ADC-ingangen) | €1 |
-| 1 | Stekkeradapter 24 V DC, 1–2 A, 5,5×2,1 mm plug | €12 |
-| 1 | DC-bus 5,5×2,1 mm naar schroefklem | €1 |
-| 1 | Step-down-module 24 V → 5 V (voeding druksensoren), instelbaar of vast 5 V | €2–4 |
-| – | Montagedraad 0,5 mm² (rood/zwart) | €3 |
-
-**Subtotaal: ongeveer €35–40 plus verzending.**
-
-### 4. Bouwmarkt
-
-| # | Onderdeel | Ca. prijs |
-|---|---|---|
-| 1 | Multiplex 18 mm, ca. 60×30 cm (grondplaat) | €8 |
-| – | Aluminium hoekprofiel, M4-boutjes, houtschroeven (beugel potmeter) | €7 |
-| 1 | DIN-rail 35 mm, 30 cm (optioneel, om de ventielen netjes op te zetten) | €3 |
-| 1 | Multimeter (als je er nog geen hebt) | €15–25 |
-| 1 | PTFE-tape (voor de insteeknippel) | €1 |
-
-**Subtotaal: ongeveer €20, met multimeter €35–45.**
-
-### 5. Compressor
-
-| # | Onderdeel | Ca. prijs |
-|---|---|---|
-| 1 | Stille compressor 24 l, 8 bar, olievrij, bijv. Stanley Silent 24 l (59 dB, Gamma) | €195 |
-
-Een gewone compressor (ca. €100–130) werkt ook, maar maakt ruim 85 dB. Dat is
-vervelend bij urenlang testen binnen. Een olievrije compressor geeft condenswater
-af; daarvoor zit de waterafscheider in de drukregelaar.
-
-### Totaal
-
-| Bestelling | Ca. prijs |
-|---|---|
-| 1. Ventielen | €130,53 |
-| 2. Pneumatiek en sensoren | €120–160 |
-| 3. Elektronica | €35–45 |
-| 4. Bouwmarkt | €20–45 |
-| **Zonder compressor** | **€305–380** |
-| 5. Compressor | €195 |
-| **Met compressor** | **€500–575** |
+Invoerheffing (sinds 1 juli 2026): €3 + btw per productcategorie per zending. Artikelen die
+AliExpress zelf verzendt, worden samen in categorieën ingedeeld.
 
 **Waarom geen afstandssensor met licht (VL6180X, VL53L-serie)?** Die meet zonder
 contact, en dat is aantrekkelijk. Maar de VL6180X is opgegeven tot 100 mm, de slag is
@@ -285,7 +205,7 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 | T-stuk 1 | – | 4 mm | T-stuk 2 | – |
 | T-stuk 2 | – | 4 mm | cilinderpoort | PC4-01 |
 | T-stuk 2 | – | 4 mm | druksensor | PCF4-02 |
-| Leegventiel, poort A | PC4-M5 + 10 cm open slang als uitlaat | – | – | – |
+| Leegventiel, poort A | M5-demper | – | – | – |
 | Poort R van vul- en leegventiel | M5-blindplug | – | – | – |
 
 - **Korte slangen:** houd alle slangen tussen ventielen en cilinder korter dan
@@ -303,8 +223,8 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
 - M5 is overal M5×0,8.
 - **Slang:** alles in 4 mm (4×2,5). Bij één bewegingsrichting staat maar één vulventiel
   open (ca. 40 Nl/min); daarvoor is 4 mm slang ruim genoeg.
-- **Invoerheffing:** AliExpress rekent €3 per variant, ongeacht het aantal. Daarom zo
-  min mogelijk verschillende varianten: geen 6 mm slang, geen dempers, geen Y-stuk.
+- **Invoerheffing:** €3 + btw per productcategorie per zending. Daarom zo min mogelijk
+  verschillende soorten: geen 6 mm slang en geen Y-stuk.
 
 ## Elektrisch
 
