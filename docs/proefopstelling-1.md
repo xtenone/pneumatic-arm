@@ -170,8 +170,8 @@ domoticx.net, €0,87 per stuk).
 | 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm, zonder magneet. Stang M8×1,25, beide deksels M22×1,5, poorten G1/8 | MAL20x150 | €9,49 |
 | 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
 | 1 | Stangkop (vorkkop) M8×1,25 voor MAL20 | MAL20 Y-joint / rod clevis | €3 |
-| 1 | Lineaire potmeter 150 mm, 5 kΩ | KTC-150 / KPM-150 linear potentiometer | €15–25 |
-| 2 | Druksensor 0–1,2 MPa, 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad | pressure transducer 0-1.2MPa 5V G1/4 | €8–12 per stuk |
+| 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
+| 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
 | 1 | Filter + drukregelaar met manometer, G1/4 | AFR-2000 | €12–18 |
 | 1 | Afsluitschuif, G1/4 | HSV-08 hand slide valve | €5–8 |
 | 1 | Hoofdventiel 3/2, normaal gesloten, 24 V DC, G1/4 | 3V210-08 DC24V | €8–10 |
@@ -202,8 +202,10 @@ domoticx.net, €0,87 per stuk).
 | 1 | ULN2803A, 8-kanaals schakel-IC met ingebouwde vrijloopdiodes | €1 |
 | 1 | Breadboard 830 gaten + set jumperdraden | €9 |
 | 2+2 | Weerstand 10 kΩ en 20 kΩ (spanningsdeler druksensoren) | €1 |
+| 3 | Condensator 100 nF (ruisfilter ADC-ingangen) | €1 |
 | 1 | Stekkeradapter 24 V DC, 1–2 A, 5,5×2,1 mm plug | €12 |
 | 1 | DC-bus 5,5×2,1 mm naar schroefklem | €1 |
+| 1 | Step-down-module 24 V → 5 V (voeding druksensoren), instelbaar of vast 5 V | €2–4 |
 | – | Montagedraad 0,5 mm² (rood/zwart) | €3 |
 
 **Subtotaal: ongeveer €35–40 plus verzending.**
@@ -301,9 +303,13 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
   niet is ingedrukt) en de plus van de vier VQ110U-spoelen. Ingedrukt: alles valt af,
   ook als de software vastloopt.
 - **Potmeter:** aan 3,3 V van de Pico, loper op ADC0 (GP26).
-- **Druksensoren:** aan 5 V (VBUS van de Pico). De uitgang gaat via een spanningsdeler
-  10 kΩ/20 kΩ naar ADC1 (GP27) en ADC2 (GP28). Zo wordt 4,5 V omgezet naar 3,0 V, en
-  dat kan de Pico aan.
+- **Druksensoren:** aan 5 V uit een step-down-module die op de 24 V zit, niet aan de
+  USB-5 V. De uitgang van deze sensoren schaalt mee met hun voedingsspanning, en de
+  USB-spanning schommelt tot ±5%. Dat zou direct ±5% meetfout geven. De uitgang gaat via
+  een spanningsdeler 10 kΩ/20 kΩ naar ADC1 (GP27) en ADC2 (GP28). Zo wordt 4,5 V omgezet
+  naar 3,0 V, en dat kan de Pico aan. De step-down-module zit vóór de noodstop, zodat de
+  sensoren blijven meten als de noodstop is ingedrukt.
+- **Ruis:** een condensator van 100 nF van elke ADC-ingang naar GND.
 - **Massa:** de min van de 24 V-adapter, pin 9 (GND) van de ULN2803A en GND van de
   Pico aan elkaar.
 - **De pc via USB:** levert stroom aan de Pico en ontvangt de meetgegevens
