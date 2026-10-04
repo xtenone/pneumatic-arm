@@ -146,12 +146,13 @@
           "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
         },
         {
-          "id": "1005003109260349",
-          "wat": "ULN2803A Darlington-array (DIP-18)",
-          "variant": "ULN2803A (niet ULN2802A of ULN2804A)",
-          "aantal": 2,
-          "prijs": 0.78,
-          "noot": "De ULN2804 schakelt niet op 3,3 V van de Pico"
+          "id": "1005006852404177",
+          "wat": "ULN2803A Darlington-array (DIP-18), 10 stuks",
+          "variant": "ULN2803APG DIP-18",
+          "aantal": 1,
+          "prijs": 3.0,
+          "noot": "Alleen de ULN2803 in deze aanbieding, geen verwarring met 2802/2804",
+          "schatting": true
         }
       ]
     },
