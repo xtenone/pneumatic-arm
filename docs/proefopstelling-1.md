@@ -21,15 +21,17 @@ ventielen gaan tientallen keren per seconde open en dicht (PWM). Door ze langer 
 korter open te zetten, regelt het programma hoe snel een kamer vult of leegloopt.
 
 ```
-compressor ── filter + drukregelaar ── afsluitschuif ── hoofdventiel ──┬──────────────────┐
-                                                                       │                  │
-                                                                  [V1 vul A]         [V3 vul B]
-                                                       │                  │
-                       druksensor pA ── kamer A ═══ CILINDER ═══ kamer B ── druksensor pB
-                                                       │                  │
-                                                  [V2 leeg A]        [V4 leeg B]
-                                                       │                  │
-                                                   demper             demper
+compressor ── filter + drukregelaar ── afsluitschuif ── hoofdventiel ──┐
+                                                                       │
+                                     ┌─────────────────────────────────┤
+                                     │                                 │
+                                [V1 vul A]                        [V3 vul B]
+                                     │                                 │
+          druksensor pA ──── kamer A ═══════ CILINDER ═══════ kamer B ──── druksensor pB
+                                     │                                 │
+                                [V2 leeg A]                       [V4 leeg B]
+                                     │                                 │
+                                  demper                            demper
 
              lineaire potmeter langs de stang ── positie x
 ```
