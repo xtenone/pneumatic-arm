@@ -16,8 +16,252 @@
       ]
     },
     {
-      "naam": "2. Pneumatiek en sensoren (AliExpress)",
+      "naam": "2. Potmeter en cilindertoebehoren (AliExpress)",
       "status": "samengesteld, nog niet besteld",
+      "noot": "Alleen wat op Amazon.de duur of niet te vinden is: 3 varianten = €9 heffing.",
+      "regels": [
+        {
+          "id": "1005006230077162",
+          "wat": "Lineaire potmeter KTC",
+          "variant": "175 mm, gewone weerstandsversie 5 kΩ (niet 4–20 mA / LWF), type B (kogelkop)",
+          "aantal": 1,
+          "prijs": 20.0,
+          "schatting": true
+        },
+        {
+          "id": "1005007235783406",
+          "wat": "Voetbevestiging (LB) voor MAL20",
+          "variant": "LB, 20 mm",
+          "aantal": 2,
+          "prijs": 2.5,
+          "schatting": true
+        },
+        {
+          "id": "1005007235783406",
+          "wat": "Moer M22×1,5",
+          "variant": "M22×1,5 (MAL20/25)",
+          "aantal": 1,
+          "prijs": 1.0,
+          "schatting": true,
+          "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
+        }
+      ]
+    },
+    {
+      "naam": "2b. Pneumatiek (Amazon.de)",
+      "status": "samengesteld, nog niet besteld",
+      "noot": "Geen douane. Controleer per artikel dat 'Versand durch Amazon' of een EU-verkoper erbij staat; artikelen 'Versand aus China' kunnen alsnog heffing krijgen.",
+      "regels": [
+        {
+          "url": "https://www.amazon.de/dp/B06Y638W3R",
+          "wat": "Cilinder MAL20×150, PT1/8, M8×1,25 (Heschen)",
+          "variant": "20 mm, 150 mm",
+          "aantal": 1,
+          "prijs": 13.49
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0CQ492KRK",
+          "wat": "Drukregelaar 1/4\" met waterafscheider en manometer",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 13.88
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0DMVZLD8W",
+          "wat": "Afsluitschuif HSV-08, 1/4\" (TAILONZ)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 12.99
+        },
+        {
+          "url": "https://www.amazon.de/dp/B072ZX8QNF",
+          "wat": "Hoofdventiel 3V210-08, 24 V DC, NC, PT1/4 (Heschen)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 10.89
+        },
+        {
+          "url": "https://www.amazon.de/dp/B07LFXB8PF",
+          "wat": "Noodstop IP65 in kastje, 1NO+1NC (Heschen)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 10.29
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0912JC8BV",
+          "wat": "Steekkoppeling M5 → 4 mm (5 stuks)",
+          "variant": "M5 x 4mm",
+          "aantal": 2,
+          "prijs": 4.99
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0912WCVHR",
+          "wat": "Steekkoppeling G1/8 → 4 mm (5 stuks)",
+          "variant": "G1/8 x 4mm",
+          "aantal": 1,
+          "prijs": 6.29
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0108HHH14",
+          "wat": "Steekkoppeling G1/4 → 4 mm (5 stuks)",
+          "variant": "G 1/4 x 4mm",
+          "aantal": 1,
+          "prijs": 9.99
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0BGY4XSRT",
+          "wat": "Steekkoppeling binnendraad 1/4\" → 4 mm (4 stuks, voor de druksensoren)",
+          "variant": "1/4\" - 4mm",
+          "aantal": 1,
+          "prijs": 10.5
+        },
+        {
+          "url": "https://www.amazon.de/dp/B0F13RYWJ5",
+          "wat": "T-stuk 4 mm (15 stuks)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 6.45
+        },
+        {
+          "url": "https://www.amazon.de/dp/B096349CR1",
+          "wat": "PU-slang 4×2,5 mm, 10 m",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 7.99
+        }
+      ]
+    },
+    {
+      "naam": "3. Elektronica en druksensoren (domoticx.net, Mariënheem)",
+      "status": "samengesteld, nog niet besteld",
+      "noot": "Nederlandse webshop: geen douane. Druksensoren hier zijn goedkoper dan AliExpress + €3 heffing.",
+      "regels": [
+        {
+          "url": "https://domoticx.net/webshop/druk-sensor-tot-12-bar-12-mpa-174-psi-1-4bspp-dn8-5vdc-rvs/",
+          "wat": "Druksensor 0–12 bar, 5 V, 0,5–4,5 V, 1/4\" BSPP (G1/4)",
+          "variant": "zonder JST-stekker",
+          "aantal": 2,
+          "prijs": 14.94,
+          "noot": "Niet de 100 psi-versie hier: die is 1/8 NPT"
+        },
+        {
+          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
+          "wat": "Raspberry Pi Pico 2W (RP2350)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 9.2
+        },
+        {
+          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
+          "wat": "ULN2803APG (DIP-18, past in breadboard)",
+          "variant": "DIP-18, niet SOP-18",
+          "aantal": 1,
+          "prijs": 0.68
+        },
+        {
+          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
+          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
+          "variant": "met multimeter op 5,0 V instellen",
+          "aantal": 1,
+          "prijs": 1.43
+        },
+        {
+          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
+          "wat": "Breadboard 830 gaten",
+          "variant": "MB-102",
+          "aantal": 1,
+          "prijs": 4.76
+        },
+        {
+          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
+          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
+          "variant": "24VDC 3A met 5,5×2,5 mm plug",
+          "aantal": 1,
+          "prijs": 13.94
+        },
+        {
+          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
+          "variant": "5,5×2,5 (moet passen op de adapter)",
+          "aantal": 1,
+          "prijs": 1.0,
+          "schatting": true,
+          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
+        },
+        {
+          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 6.0,
+          "schatting": true,
+          "noot": "Nog per stuk opzoeken"
+        }
+      ]
+    },
+    {
+      "naam": "4. Bouwmarkt",
+      "status": "nog te kopen",
+      "regels": [
+        {
+          "wat": "Inbusbout M5×6 + koperen of nylon dichtring M5 (als blindplug voor de ventielen)",
+          "variant": "",
+          "aantal": 4,
+          "prijs": 0.3,
+          "schatting": true
+        },
+        {
+          "wat": "Moer M8 (gewone M8 = M8×1,25) voor het beugeltje van de potmeter",
+          "variant": "",
+          "aantal": 2,
+          "prijs": 0.2,
+          "schatting": true
+        },
+        {
+          "wat": "Insteeknippel G1/4 buitendraad, passend op de compressorkoppeling",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 3.0,
+          "schatting": true
+        },
+        {
+          "wat": "Slangschaar",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 5.0,
+          "schatting": true
+        },
+        {
+          "wat": "PTFE-tape",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 1.5,
+          "schatting": true
+        },
+        {
+          "wat": "Multiplex 18 mm ca. 60×30 cm, aluminium hoekje, schroeven",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 15.0,
+          "schatting": true
+        }
+      ]
+    },
+    {
+      "naam": "Later (niet nodig voor de eerste proeven)",
+      "status": "uitgesteld",
+      "regels": [
+        {
+          "id": "1005008810108635",
+          "wat": "Smoorventiel inline 4 mm (2 stuks)",
+          "variant": "4 mm",
+          "aantal": 1,
+          "prijs": 3.59,
+          "noot": "Pas nodig om een kleiner ventiel na te bootsen; meebestellen met een volgende bestelling"
+        }
+      ]
+    },
+    {
+      "naam": "Alternatief: alles via AliExpress (16 varianten = ca. €48 heffing)",
+      "status": "alternatief",
       "noot": "Invoerheffing: €3 per variant (aantal maakt niet uit). Daarom zo min mogelijk verschillende varianten, en van elke variant gerust wat extra.",
       "regels": [
         {
@@ -137,86 +381,6 @@
           "prijs": 1.0,
           "schatting": true,
           "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
-        }
-      ]
-    },
-    {
-      "naam": "3. Elektronica en druksensoren (domoticx.net, Mariënheem)",
-      "status": "samengesteld, nog niet besteld",
-      "noot": "Nederlandse webshop: geen douane. Druksensoren hier zijn goedkoper dan AliExpress + €3 heffing.",
-      "regels": [
-        {
-          "url": "https://domoticx.net/webshop/druk-sensor-tot-12-bar-12-mpa-174-psi-1-4bspp-dn8-5vdc-rvs/",
-          "wat": "Druksensor 0–12 bar, 5 V, 0,5–4,5 V, 1/4\" BSPP (G1/4)",
-          "variant": "zonder JST-stekker",
-          "aantal": 2,
-          "prijs": 14.94,
-          "noot": "Niet de 100 psi-versie hier: die is 1/8 NPT"
-        },
-        {
-          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
-          "wat": "Raspberry Pi Pico 2W (RP2350)",
-          "variant": "",
-          "aantal": 1,
-          "prijs": 9.2
-        },
-        {
-          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
-          "wat": "ULN2803APG (DIP-18, past in breadboard)",
-          "variant": "DIP-18, niet SOP-18",
-          "aantal": 1,
-          "prijs": 0.68
-        },
-        {
-          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
-          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
-          "variant": "met multimeter op 5,0 V instellen",
-          "aantal": 1,
-          "prijs": 1.43
-        },
-        {
-          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
-          "wat": "Breadboard 830 gaten",
-          "variant": "MB-102",
-          "aantal": 1,
-          "prijs": 4.76
-        },
-        {
-          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
-          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
-          "variant": "24VDC 3A met 5,5×2,5 mm plug",
-          "aantal": 1,
-          "prijs": 13.94
-        },
-        {
-          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
-          "variant": "5,5×2,5 (moet passen op de adapter)",
-          "aantal": 1,
-          "prijs": 1.0,
-          "schatting": true,
-          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
-        },
-        {
-          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
-          "variant": "",
-          "aantal": 1,
-          "prijs": 6.0,
-          "schatting": true,
-          "noot": "Nog per stuk opzoeken"
-        }
-      ]
-    },
-    {
-      "naam": "Later (niet nodig voor de eerste proeven)",
-      "status": "uitgesteld",
-      "regels": [
-        {
-          "id": "1005008810108635",
-          "wat": "Smoorventiel inline 4 mm (2 stuks)",
-          "variant": "4 mm",
-          "aantal": 1,
-          "prijs": 3.59,
-          "noot": "Pas nodig om een kleiner ventiel na te bootsen; meebestellen met een volgende bestelling"
         }
       ]
     }
