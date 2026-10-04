@@ -47,7 +47,7 @@ Voor kamer B gelden V3 en V4 op dezelfde manier.
 
 ## De ventielen
 
-**Keuze: SMC VQ110, 5 stuks: 3× standaard (VQ110) en 2× grote doorstroming (VQ110U).**
+**Keuze: SMC VQ110U (grote doorstroming), 5 stuks: 4 plus 1 reserve.**
 
 - 3/2-ventiel, direct bediend (poppet), normaal gesloten
 - Reactietijd: aan 3,5 ms, uit 2 ms. Snel genoeg voor PWM op 20–50 Hz.
@@ -60,25 +60,17 @@ Voor kamer B gelden V3 en V4 op dezelfde manier.
 | Volle slag Ø20-cilinder, ruwweg | 0,5–1 s | 0,25–0,5 s |
 | Kleinste krachtstap per puls (ca. 4 ms) | 1–2 N | 3–4 N |
 
-**Indeling:** de twee VQ110U's zitten op de snelle richting, de drie standaard
-ventielen op de andere richting en als reserve.
+Alle vier de plekken krijgen de VQ110U. Een cilinder is zo snel als het langzaamste
+ventiel in de lus: bij elke beweging vult de ene kamer en loopt de andere leeg. Eén
+standaard ventiel in die lus remt de hele beweging. Met vier grote ventielen is de
+cilinder in beide richtingen snel. De grotere krachtstappen (3–4 N) liggen naar
+verwachting onder de wrijving van de afdichtingen (5–10 N), die de precisie toch al
+begrenst.
 
-| Ventiel | Functie | Type |
-|---|---|---|
-| V1 | vul kamer A (stang uit, heffen) | VQ110U |
-| V4 | leeg kamer B (stang uit, heffen) | VQ110U |
-| V2 | leeg kamer A (stang in, zakken) | VQ110 |
-| V3 | vul kamer B (stang in, zakken) | VQ110 |
-| – | reserve | VQ110 |
-
-Staand gemonteerd tilt de snelle richting de last omhoog, tegen de zwaartekracht in.
-Omlaag helpt de zwaartekracht mee en is de standaard doorstroming genoeg. In één
-opstelling zijn zo beide ventielmaten te meten: snelheid en precisie bij heffen
-(groot) tegenover zakken (standaard). Die metingen sturen de ventielkeuze voor de arm.
-De reserve past alleen op de standaardplekken; valt een VQ110U uit, dan draait de
-proef tijdelijk met een standaard ventiel op die plek.
-- SMC vervangt de VQ100-serie door de V100-serie. Distributeurs hebben nog voorraad.
-  Voor de arm kiezen we hoe dan ook een ander, groter ventiel.
+Om toch een kleiner ventiel te kunnen nabootsen, komt er op elk vulventiel een
+smoorventiel in serie. Dichtgedraaid gedraagt het vulventiel zich als een kleiner
+ventiel, traploos instelbaar. Zo is te meten bij welke doorstroming snelheid en
+precisie het best samengaan; die meting stuurt de ventielkeuze voor de arm.
 
 Een 3/2-ventiel wordt een 2/2-ventiel door één poort dicht te draaien met een M5-blindplug:
 
@@ -94,7 +86,7 @@ Bij de lektest (T0) controleren we of de dichte stand echt dicht blijft.
 - `-M5` = losse klep op een aansluitblok met M5-draad. Zonder `-M5` is het een
   klep voor een ventieleiland, en dan heb je er nog een blok bij nodig.
 
-Bedoelde typenummers: **VQ110-5M-M5** (3×) en **VQ110U-5M-M5** (2×).
+Bedoeld typenummer: **VQ110U-5M-M5** (5×).
 
 De goedkopere versie zonder `-M5` (los ventiel voor een ventieleiland) past hier niet.
 Een ventieleiland heeft een gezamenlijke P-aansluiting voor alle ventielen. De
@@ -163,7 +155,8 @@ Prijzen zijn een indicatie (AliExpress, oktober 2026).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 3 + 2 | Snel 3/2-ventiel 24 V | SMC VQ110-5M-M5 (3×) en VQ110U-5M-M5 (2×) | €134,80 samen, incl. verzending |
+| 5 | Snel 3/2-ventiel 24 V, grote doorstroming | SMC VQ110U-5M-M5 | €145 samen, incl. verzending |
+| 2 | Smoorventiel voor 4 mm slang (om een kleiner ventiel na te bootsen) | inline flow control valve 4mm | €3 per stuk |
 | 1 | Dubbelwerkende minicilinder Ø20, slag 150 mm | MAL20x150 | €15–25 |
 | 1 | Lineaire potmeter 150 mm | KTC-150 / KPM-150 linear potentiometer | €20–40 |
 | 2 | Druksensor 0–1 MPa, 5 V, uitgang 0,5–4,5 V | pressure transducer 0-1.2MPa 5V G1/4 | €8–15 per stuk |
