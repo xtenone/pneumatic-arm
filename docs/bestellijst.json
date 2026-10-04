@@ -3,7 +3,7 @@
   "bestellingen": [
     {
       "naam": "1. Ventielen (AliExpress)",
-      "status": "gecontroleerd, klaar om af te rekenen (2026-10-04)",
+      "status": "besteld (2026-10-04)",
       "regels": [
         {
           "id": "1005013133472109",
@@ -17,8 +17,8 @@
     },
     {
       "naam": "2. Pneumatiek, sensoren en schakel-IC (AliExpress)",
-      "status": "gecontroleerd, klaar om af te rekenen (2026-10-04)",
-      "noot": "Invoerheffing: €3 per variant (aantal maakt niet uit).",
+      "status": "besteld (2026-10-04)",
+      "noot": "Heffing: €3 + btw per productcategorie (douanetarief) per zending. Artikelen die AliExpress zelf verzendt, worden samen in categorieën ingedeeld: bij deze bestelling scheelde dat €11.",
       "regels": [
         {
           "id": "1005010583152545",

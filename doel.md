@@ -49,6 +49,8 @@ oppakken en er een muur mee bouwen.
 ## Status (bijgewerkt zodra dit verandert)
 
 - **Proefopstelling 1 (één cilinder, 4 snelle ventielen met PWM)**: ontwerp in
-  [docs/proefopstelling-1.md](docs/proefopstelling-1.md), nog niet besteld.
+  [docs/proefopstelling-1.md](docs/proefopstelling-1.md). AliExpress-onderdelen besteld op
+  2026-10-04; elektronica (Tinytronics) en compressor (Lidl) nog te bestellen. Bestellijst:
+  [docs/bestellijst.json](docs/bestellijst.json).
 - **2-DOF-scharnier**: schets ontvangen en eerste analyse in
   [docs/2dof-gewricht.md](docs/2dof-gewricht.md); nog niet doorgerekend.
