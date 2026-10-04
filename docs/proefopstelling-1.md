@@ -168,7 +168,7 @@ Gekozen artikelen (AliExpress-artikelnummers):
 | Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5 (met aansluitblok) |
 | Lineaire potmeter | 1005006230077162 | 175 mm |
 | Druksensoren | 1005010385122677 | G1/4, 100 psi, 5 V, 0,5–4,5 V |
-| Cilinder | 1005010583152545 | Ø20, slag 150 mm (draadsoort poorten nog bevestigen) |
+| Cilinder | 1005010583152545 | Ø20, slag 150 mm, standaard (niet CA), zonder magneet |
 
 Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
 slang en koppelingen eruit en koop die in Nederland (bijv. M5-koppelingen bij
@@ -176,8 +176,8 @@ domoticx.net, €0,87 per stuk).
 
 | # | Onderdeel | Zoekterm / type | Ca. prijs |
 |---|---|---|---|
-| 1 | Dubbelwerkende rondcilinder volgens **ISO 6432**, Ø20, slag 150 mm. De norm legt de maten vast: poorten G1/8, stang M8×1,25, deksels M22×1,5 | ISO 6432 / DSNU-20-150 (Festo-compatibel) / AirTAC MI20x150 | €14–25 |
-| 2 | Voetbevestiging voor Ø20 ISO 6432 (voor en achter, op de M22-draad) | foot mount ISO 6432 20 / HBN-20 | €3 per stuk |
+| 1 | Dubbelwerkende minicilinder MAL20×150, standaarduitvoering (beide deksels met draad, geen CA-scharnieroog achter). Volgens de maattekening van de verkoper: poorten PT1/8, stang M8×1,25, voordeksel M22×1,5, lengte ingeschoven 131 mm + slag = 281 mm ([maattekening](schetsen/mal-cilinder-maattekening.jpg)) | MAL20x150 | €9,49 |
+| 2 | Voetbevestiging voor MAL20 (voor en achter, op de M22-draad) | MAL20 LB foot mount | €3 per stuk |
 | 1 | Stangkop (vorkkop) M8×1,25 | rod clevis M8x1.25 / SG-M8 | €3 |
 | 1 | Lineaire potmeter, slag 175 mm (langer dan de cilinderslag, zodat hij nooit op zijn eindaanslag komt), 5 kΩ, met kogelkopjes aan de uiteinden | KTC-175 linear displacement sensor | €16–25 |
 | 2 | Druksensor 0–100 psi (0–6,9 bar), 5 V, uitgang 0,5–4,5 V, G1/4 buitendraad (geen NPT) | pressure transducer 5V G1/4 0.5-4.5V 100psi | €12–16 per stuk |
