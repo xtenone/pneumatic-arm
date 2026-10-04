@@ -305,6 +305,7 @@ een voorstel en worden na T1 bijgesteld als dat nodig is.
 | T4 Herhaalbaarheid | 10× van wisselende kanten naar 50 mm | Spreiding < ±1 mm |
 | T5 Last | Staand, 2–5 kg, sprong 20 → 80 mm, dan vasthouden | Zelfde als T3; zakt < 1 mm in 60 s |
 | T6 Stijfheid | Op 50 mm, stijfheid laag/hoog, met de hand of een gewicht duwen | Meetbaar verschil in uitwijking bij dezelfde kracht |
+| T7 Belastingsgraad | Staand, 5 bar, gewicht stap voor stap verhogen (Ø20 kan statisch ca. 16 kg tillen) | Bij elke stap T3 herhalen. Uitkomst: het hoogste percentage van de statische kracht waarbij T3 nog slaagt. Dat getal bepaalt de cilindermaten van de arm. |
 
 ## Veiligheid
 
