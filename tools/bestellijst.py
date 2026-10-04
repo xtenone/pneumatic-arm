@@ -64,8 +64,8 @@ for b in data["bestellingen"]:
     for r in b["regels"]:
         sub = r["aantal"] * r["prijs"]
         totaal += sub
-        img = foto(r["id"]) if r["id"] else None
-        link = f"https://nl.aliexpress.com/item/{r['id']}.html" if r["id"] else None
+        img = foto(r["id"]) if r.get("id") else None
+        link = r.get("url") or (f"https://nl.aliexpress.com/item/{r['id']}.html" if r.get("id") else None)
         naam = f"<a href='{link}' target='_blank'>{e(r['wat'])}</a>" if link else e(r["wat"])
         noot = f"<div class='noot'>{e(r['noot'])}</div>" if r.get("noot") else ""
         schat = " <span class='s'>(schatting)</span>" if r.get("schatting") else ""

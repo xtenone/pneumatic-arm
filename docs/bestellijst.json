@@ -36,13 +36,6 @@
           "schatting": true
         },
         {
-          "id": "1005010385122677",
-          "wat": "Druksensor",
-          "variant": "#4 0–100 psi, uitgang 0,5–4,5 V",
-          "aantal": 2,
-          "prijs": 15.59
-        },
-        {
           "id": "1005005324116810",
           "wat": "Filter + drukregelaar AFR-2000",
           "variant": "G1/4, met manometer",
@@ -144,6 +137,72 @@
           "prijs": 1.0,
           "schatting": true,
           "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
+        }
+      ]
+    },
+    {
+      "naam": "3. Elektronica en druksensoren (domoticx.net, Mariënheem)",
+      "status": "samengesteld, nog niet besteld",
+      "noot": "Nederlandse webshop: geen douane. Druksensoren hier zijn goedkoper dan AliExpress + €3 heffing.",
+      "regels": [
+        {
+          "url": "https://domoticx.net/webshop/druk-sensor-tot-12-bar-12-mpa-174-psi-1-4bspp-dn8-5vdc-rvs/",
+          "wat": "Druksensor 0–12 bar, 5 V, 0,5–4,5 V, 1/4\" BSPP (G1/4)",
+          "variant": "zonder JST-stekker",
+          "aantal": 2,
+          "prijs": 14.94,
+          "noot": "Niet de 100 psi-versie hier: die is 1/8 NPT"
+        },
+        {
+          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
+          "wat": "Raspberry Pi Pico 2W (RP2350)",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 9.2
+        },
+        {
+          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
+          "wat": "ULN2803APG (DIP-18, past in breadboard)",
+          "variant": "DIP-18, niet SOP-18",
+          "aantal": 1,
+          "prijs": 0.68
+        },
+        {
+          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
+          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
+          "variant": "met multimeter op 5,0 V instellen",
+          "aantal": 1,
+          "prijs": 1.43
+        },
+        {
+          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
+          "wat": "Breadboard 830 gaten",
+          "variant": "MB-102",
+          "aantal": 1,
+          "prijs": 4.76
+        },
+        {
+          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
+          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
+          "variant": "24VDC 3A met 5,5×2,5 mm plug",
+          "aantal": 1,
+          "prijs": 13.94
+        },
+        {
+          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
+          "variant": "5,5×2,5 (moet passen op de adapter)",
+          "aantal": 1,
+          "prijs": 1.0,
+          "schatting": true,
+          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
+        },
+        {
+          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
+          "variant": "",
+          "aantal": 1,
+          "prijs": 6.0,
+          "schatting": true,
+          "noot": "Nog per stuk opzoeken"
         }
       ]
     },
