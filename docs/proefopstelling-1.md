@@ -153,7 +153,7 @@ regelsoftware en de meetgegevens om die keuze te maken.
 
 Prijzen zijn een indicatie (oktober 2026). Ingedeeld per bestelling.
 
-### 1. Ventielen (besteld, AliExpress)
+### 1. Ventielen (AliExpress, winkel met 11 pagina's beoordelingen)
 
 | # | Onderdeel | Type | Prijs |
 |---|---|---|---|
