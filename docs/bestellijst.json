@@ -16,7 +16,7 @@
       ]
     },
     {
-      "naam": "2. Pneumatiek en sensoren (AliExpress)",
+      "naam": "2. Pneumatiek, sensoren en schakel-IC (AliExpress)",
       "status": "samengesteld, nog niet besteld",
       "noot": "Invoerheffing: €3 per variant (aantal maakt niet uit).",
       "regels": [
@@ -144,13 +144,21 @@
           "prijs": 1.0,
           "schatting": true,
           "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
+        },
+        {
+          "id": "1005003109260349",
+          "wat": "ULN2803A Darlington-array (DIP-18)",
+          "variant": "ULN2803A (niet ULN2802A of ULN2804A)",
+          "aantal": 2,
+          "prijs": 0.78,
+          "noot": "De ULN2804 schakelt niet op 3,3 V van de Pico"
         }
       ]
     },
     {
       "naam": "3. Elektronica (Tinytronics, Eindhoven)",
       "status": "samengesteld, nog niet besteld",
-      "noot": "ULN2803 in DIP-vorm heeft Tinytronics niet; die komt van Kiwi Electronics (3b).",
+      "noot": "De ULN2803A komt mee met de AliExpress-bestelling.",
       "regels": [
         {
           "url": "https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350",
@@ -208,21 +216,6 @@
           "aantal": 1,
           "prijs": 3.0,
           "schatting": true
-        }
-      ]
-    },
-    {
-      "naam": "3b. Schakel-IC (Kiwi Electronics)",
-      "status": "samengesteld, nog niet besteld",
-      "noot": "Kijk bij Kiwi of je er meer elektronica kunt halen, dan scheelt het een verzending.",
-      "regels": [
-        {
-          "url": "https://www.kiwi-electronics.com/nl/uln2803a-darlington-array-615",
-          "wat": "ULN2803A Darlington-array (DIP-18)",
-          "variant": "",
-          "aantal": 2,
-          "prijs": 2.41,
-          "noot": "Eén reserve"
         }
       ]
     },
