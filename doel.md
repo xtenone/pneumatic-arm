@@ -48,6 +48,9 @@ oppakken en er een muur mee bouwen.
 
 ## Status (bijgewerkt zodra dit verandert)
 
+Het volledige plan met wat gedaan is en wat nog moet: [docs/plan.md](docs/plan.md).
+
+
 - **Proefopstelling 1 (één cilinder, 4 snelle ventielen met PWM)**: ontwerp in
   [docs/proefopstelling-1.md](docs/proefopstelling-1.md). AliExpress-onderdelen besteld op
   2026-10-04; elektronica (Tinytronics) en compressor (Lidl) nog te bestellen. Bestellijst:
