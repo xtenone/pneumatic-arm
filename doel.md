@@ -50,4 +50,5 @@ oppakken en er een muur mee bouwen.
 
 - **Proefopstelling 1 (één cilinder, 4 snelle ventielen met PWM)**: ontwerp in
   [docs/proefopstelling-1.md](docs/proefopstelling-1.md), nog niet besteld.
-- **2-DOF-scharnier**: ontwerp bestaat bij de klant, nog niet ontvangen of besproken.
+- **2-DOF-scharnier**: schets ontvangen en eerste analyse in
+  [docs/2dof-gewricht.md](docs/2dof-gewricht.md); nog niet doorgerekend.
