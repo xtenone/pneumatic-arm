@@ -321,14 +321,16 @@ Elke regel is één verbinding. De aantallen in de onderdelenlijst komen hieruit
   niet is ingedrukt) en de plus van de vier VQ110U-spoelen. Ingedrukt: alles valt af,
   ook als de software vastloopt.
 - **Potmeter:** aan 3,3 V van de Pico, loper op ADC0 (GP26).
-- **Druksensoren:** aan 5 V uit een step-down-module die op de 24 V zit, niet aan de
-  USB-5 V. De uitgang van deze sensoren schaalt mee met hun voedingsspanning, en de
+- **Druksensoren:** aan 5 V uit een lineaire 7805-regelaar die op de 24 V zit, niet aan de
+  USB-5 V. De twee sensoren trekken samen ca. 20 mA; de 7805 verstookt dan (24 − 5) V ×
+  0,02 A ≈ 0,4 W, dat kan zonder koelplaatje. Een lineaire regelaar geeft een rustigere
+  spanning dan een schakelende step-down, en dat is beter voor analoge metingen. De uitgang van deze sensoren schaalt mee met hun voedingsspanning, en de
   USB-spanning schommelt tot ±5%. Dat zou direct ±5% meetfout geven. De uitgang gaat via
   een spanningsdeler 10 kΩ (boven) / 15 kΩ (onder) naar ADC1 (GP27) en ADC2 (GP28). Zo
   wordt 5,0 V omgezet naar 3,0 V. Dat is veilig voor de Pico, of de sensor nu 0,5–4,5 V of
   0–5 V geeft. Welke van de twee het is, blijkt bij de eerste meting: op 0 bar geeft hij
   ongeveer 0,5 V of ongeveer 0 V. De software kalibreert op 0 bar en op een bekende druk
-  (de manometer van de drukregelaar). De step-down-module zit vóór de noodstop, zodat de
+  (de manometer van de drukregelaar). De 7805 zit vóór de noodstop, zodat de
   sensoren blijven meten als de noodstop is ingedrukt.
 - **Ruis:** een condensator van 100 nF van elke ADC-ingang naar GND.
 - **Massa:** de min van de 24 V-adapter, pin 9 (GND) van de ULN2803A en GND van de

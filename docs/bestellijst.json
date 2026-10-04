@@ -185,11 +185,12 @@
           "prijs": 7.25
         },
         {
-          "url": "https://www.tinytronics.nl/nl/power/spanningsconverters/buck-(step-down)-converters/mini-dc-dc-verstelbare-step-down-buck-converter-1a-mp1584",
-          "wat": "Step-down MP1584 (24 V → 5 V, instelbaar)",
-          "variant": "met multimeter op 5,0 V instellen",
+          "wat": "Spanningsregelaar 7805 (L7805CV, TO-220) + condensatoren 0,33 µF en 0,1 µF",
+          "variant": "",
           "aantal": 1,
-          "prijs": 1.5
+          "prijs": 1.0,
+          "schatting": true,
+          "noot": "Lineaire regelaar: rustigere 5 V voor de sensoren dan een schakelende step-down. Alternatief: LM2596-module (Tinytronics, €3), op 5,0 V instellen."
         },
         {
           "url": "https://www.tinytronics.nl/nl/power/voedingen/24v/sunshine-voedingsadapter-met-dc-jack-5.5-2.1mm-24v-5a",
