@@ -161,6 +161,15 @@ Prijzen zijn een indicatie (oktober 2026). Ingedeeld per bestelling.
 
 ### 2. Pneumatiek en sensoren (AliExpress)
 
+Gekozen artikelen (AliExpress-artikelnummers):
+
+| Onderdeel | Artikel | Te kiezen variant |
+|---|---|---|
+| Ventielen (bestelling 1) | 1005013133472109 | VQ110U-5M-M5 (met aansluitblok) |
+| Lineaire potmeter | 1005006230077162 | 175 mm |
+| Druksensoren | 1005010385122677 | G1/4, 100 psi, 5 V, 0,5–4,5 V |
+| Cilinder | 1005010583152545 | Ø20, slag 150 mm (draadsoort poorten nog bevestigen) |
+
 Houd de productwaarde (zonder verzending) onder €150. Komt het erboven, haal dan
 slang en koppelingen eruit en koop die in Nederland (bijv. M5-koppelingen bij
 domoticx.net, €0,87 per stuk).
