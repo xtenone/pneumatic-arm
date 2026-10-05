@@ -1,125 +1,121 @@
-# 2-DOF-gewricht met twee cilinders
+# 2-DOF joint with two cylinders
 
-![Schets van de klant](schetsen/2dof-gewricht-klant-2026-10-04.jpg)
+![Sketch](sketches/2dof-joint-customer-2026-10-04.jpg)
 
-## Het principe
+## The principle
 
-Een kruiskoppeling (cardan) in het midden draagt de arm. Aan weerszijden van het
-midden zit een hefboom, en aan het eind van elke hefboom een cilinder.
+A universal joint (cardan joint) in the middle carries the arm. On each side of the
+middle there is a lever, and at the end of each lever a cylinder.
 
-- **Beide cilinders dezelfde kant op:** de arm kantelt op en neer (pitch).
-- **Eén cilinder uit, de andere in:** de arm draait om de as die van de kijker af
-  loopt in de onderste schetsen (roll).
+- **Both cylinders in the same direction:** the arm tilts up and down (pitch).
+- **One cylinder out, the other in:** the arm rotates about the axis pointing away from
+  the viewer in the bottom sketches (roll).
 
-Hetzelfde principe zit in de enkels en polsen van veel humanoïde robots: twee lineaire
-actuatoren naast elkaar op een kruiskoppeling.
+The same principle is used in the ankles and wrists of many humanoid robots: two linear
+actuators side by side on a universal joint.
 
-## Eigenschappen
+## Properties
 
-- **Voor op en neer werken de cilinders samen:** samen leveren ze het koppel tegen de
-  zwaartekracht. De zware as krijgt dus de kracht van twee cilinders.
-- **Koppel:** pitch = (F1 + F2) · r, roll = (F1 − F2) · b. Daarbij is r de afstand
-  van de pitch-as tot de aangrijppunten, en b de halve afstand tussen de twee
-  aangrijppunten.
-- **Draaien onder last:** de cilinders delen het werk. Bij maximale last voor op en
-  neer blijft er minder over om te draaien.
-- **Bewegingen zijn gekoppeld en niet-lineair:** de gewenste hoeken worden in software
-  omgerekend naar twee cilinderlengtes (inverse kinematica).
+- **For up and down the cylinders work together:** together they provide the torque
+  against gravity, so the heavy axis gets the force of two cylinders.
+- **Torque:** pitch = (F1 + F2) · r, roll = (F1 − F2) · b, where r is the distance from
+  the pitch axis to the attachment points and b half the distance between the two
+  attachment points.
+- **Rotating under load:** the cylinders share the work. At maximum load for up and
+  down, less is left for rotating.
+- **Coupled, non-linear motion:** the software converts the desired angles into two
+  cylinder lengths (inverse kinematics).
 
-## Wat in het ontwerp opgelost moet worden
+## What the design has to solve
 
-1. **Middelste gewricht:** een kruiskoppeling, met de twee assen elkaar snijdend. Die
-   draagt al het gewicht en alle zijkrachten van de arm en moet dus stevig zijn.
-2. **Cilinderuiteinden:** de aangrijppunten bewegen in drie dimensies. Beide uiteinden
-   van elke cilinder hebben dus een kogelgewricht of kruiskoppeling nodig. Gewone
-   kogelkoppen (rod end bearings) halen maar ongeveer ±13–15° scheefstand. Bij grote
-   hoeken lopen ze vast; dan zijn kogelkoppen voor grote hoeken of kleine
-   kruiskoppelingen nodig.
-3. **Hefboomwerking aan de randen:** het koppel is het grootst als cilinder en hefboom
-   haaks op elkaar staan, en neemt af naarmate ze in één lijn komen. Het
-   bewegingsbereik wordt zo gekozen dat ze binnen ongeveer ±30–40° van haaks blijven.
-4. **Geen zijkracht op de stangen:** de kruiskoppeling vangt de zijkrachten op, niet
-   de cilinders.
+1. **Centre joint:** a universal joint with intersecting axes. It carries all weight and
+   all side loads of the arm, so it must be sturdy.
+2. **Cylinder ends:** the attachment points move in three dimensions, so both ends of
+   each cylinder need a ball joint or universal joint. Ordinary rod end bearings only
+   allow about ±13–15° of misalignment. At larger angles they bind; then high-angle rod
+   ends or small universal joints are needed.
+3. **Leverage at the extremes:** torque is highest when cylinder and lever are at right
+   angles and drops as they line up. The range of motion is chosen so they stay within
+   about ±30–40° of perpendicular.
+4. **No side loads on the rods:** the universal joint takes the side loads, not the
+   cylinders.
 
-## Vasthouden bij een slangbreuk
+## Holding position when a tube breaks
 
-De cilinders moeten hun positie vasthouden. Dichte ventielen doen dat zolang de slangen
-heel blijven. Breekt of schiet een slang los tussen ventiel en cilinder, dan loopt die
-kamer leeg en zakt de arm met zijn last. Daarom komen er bij de arm ontgrendelbare
-terugslagkleppen direct op de cilinderpoorten. Die laten lucht alleen uit de kamer als
-er stuurdruk op staat; zonder stuurdruk zit de lucht opgesloten in de cilinder. Voor de
-proef is dit niet nodig.
+The cylinders must hold their position. Closed valves do that as long as the tubes stay
+intact. If a tube between valve and cylinder breaks or comes loose, that chamber empties
+and the arm sags with its load. The arm therefore gets pilot-operated check valves
+directly on the cylinder ports. They only let air out of the chamber when pilot pressure
+is applied; without it the air stays trapped in the cylinder. Not needed for the test rig.
 
-## Vasthouden onder een hogere kracht (voor later)
+## Holding position under a higher force (for later)
 
-Dichte ventielen houden de lucht vast, maar lucht veert. Duwt er een extra kracht op de
-arm, dan wordt de lucht samengedrukt en geeft de arm mee, ook als de ventielen perfect
-dicht blijven. Bij test 1 is dat ca. 10° uitwijking bij 15 N extra aan de last (simulatie,
-5 bar). Ook stijgt de druk in de samengedrukte kamer; de ventielen moeten die blijven
-tegenhouden.
+Closed valves hold the air, but air is springy. If an extra force pushes on the arm,
+the air is compressed and the arm gives way, even if the valves stay perfectly closed. In
+test 1 that is about 10° of deflection for 15 N extra on the load (simulation, 5 bar).
+The pressure in the compressed chamber also rises, and the valves have to keep holding
+it.
 
-| Maatregel | Wat het doet | Opmerking |
+| Measure | What it does | Note |
 |---|---|---|
-| Hogere kamerdruk (stijfheid) | minder meegeven | begrensd door de zwakste component (nu 0,7 MPa) |
-| Ventielen met hogere druk | houden ook bij een drukpiek dicht | snelle direct bediende ventielen gaan tot ca. 8 bar, zie hieronder |
-| Ontgrendelbare terugslagkleppen op de cilinderpoorten | lucht kan de cilinder niet uit, ook niet bij slangbreuk | goedkoop; maakt de fijnregeling wel lastiger |
-| **Mechanische rem of stangklem** | arm staat écht vast, onafhankelijk van de lucht | bijv. veerbelaste schijfrem op het gewricht die met lucht lost: valt de lucht of stroom weg, dan remt hij |
+| Higher chamber pressure (stiffness) | gives way less | limited by the weakest component (now 0.7 MPa) |
+| Valves rated for higher pressure | stay closed during a pressure peak | fast direct-operated valves go up to about 8 bar, see below |
+| Pilot-operated check valves on the cylinder ports | air cannot leave the cylinder, not even when a tube breaks | cheap; makes fine control harder |
+| **Mechanical brake or rod lock** | the arm really stays put, independent of the air | e.g. a spring-applied disc brake on the joint, released by air: if air or power fails, it brakes |
 
-Snelle ventielen met een hogere druk dan de VQ110U:
+Fast valves rated for higher pressure than the VQ110U:
 
-| Ventiel | Max. druk | Schakeltijd | Opmerking |
+| Valve | Max. pressure | Switching time | Note |
 |---|---|---|---|
-| SMC VQ110U (huidig) | 0,7 MPa | 3,5 / 2 ms | grote doorstroming (0,7 mm²) |
-| SMC VQ110 hogedrukversie | 0,8 MPa | ≤ 6,5 ms | kleinere doorstroming (0,3 mm²) |
-| Festo MHE2 | 0,8 MPa | 1,7–2 ms, tot 330 Hz | duurder; ook als MHE3 met meer doorstroming |
-| Gewone magneetventielen 1 MPa (2V-, 4V-serie) | 0,8–1,0 MPa | 20–50 ms | te traag voor fijne PWM; wel bruikbaar als grof ventiel |
+| SMC VQ110U (current) | 0.7 MPa | 3.5 / 2 ms | large flow (0.7 mm²) |
+| SMC VQ110 high-pressure type | 0.8 MPa | ≤ 6.5 ms | smaller flow (0.3 mm²) |
+| Festo MHE2 | 0.8 MPa | 1.7–2 ms, up to 330 Hz | more expensive; MHE3 has more flow |
+| Ordinary 1 MPa solenoid valves (2V, 4V series) | 0.8–1.0 MPa | 20–50 ms | too slow for fine PWM; usable as a coarse valve |
 
-Boven ca. 8 bar zijn snelle, direct bediende ventielen zeldzaam. Echt vasthouden onder
-overbelasting komt daarom eerder van een mechanische rem dan van hogere luchtdruk.
+Fast direct-operated valves above about 8 bar are rare. Really holding position under
+overload is therefore more likely to come from a mechanical brake than from higher air
+pressure.
 
-## Krachtberekening schouder (eerste ruwe berekening)
+## Shoulder force calculation (first rough estimate)
 
-Uitgangspunten van de klant: 15 kg op 1 m van het scharnier, cilinders 50 cm lang en
-maximaal 37 cm van het scharnier aangegrepen, 5 bar, twee cilinders die samen duwen
-met het volle zuigeroppervlak.
+Assumptions: 15 kg at 1 m from the hinge, cylinders 50 cm long and attached at most
+37 cm from the hinge, 5 bar, two cylinders pushing together with the full piston area.
 
-| Geval | Koppel | Kracht totaal (hefboom 0,37 m) | Ø per cilinder, minimaal |
+| Case | Torque | Total force (lever 0.37 m) | Minimum Ø per cylinder |
 |---|---|---|---|
-| Gewichtloze arm, 15 kg op 1 m | 147 Nm | 398 N | 2,3–2,4 cm |
-| Plus arm van 30 kg met zwaartepunt op 0,5 m | 294 Nm | 795 N | 3,2–3,4 cm |
+| Weightless arm, 15 kg at 1 m | 147 Nm | 398 N | 2.3–2.4 cm |
+| Plus a 30 kg arm with its centre of mass at 0.5 m | 294 Nm | 795 N | 3.2–3.4 cm |
 
-Dit is de statische ondergrens: cilinder haaks op de hefboom, geen versnelling, geen
-wrijving. Voor een werkende regeling komt daar marge bij:
+This is the static lower bound: cylinder perpendicular to the lever, no acceleration,
+no friction. A working control needs margin on top:
 
-- **Hefboom onder een hoek:** de werkzame hefboom is 0,37 m · sin(hoek tussen
-  cilinder en hefboom). Bij 45° scheef is de benodigde kracht 1,4× zo groot.
-- **Regelruimte:** om te kunnen versnellen en afremmen mag de statische last maar een
-  deel van de beschikbare kracht gebruiken. Ook de tegendruk in de andere kamer en de
-  drukval over de ventielen bij bewegen gaan van de kracht af. Hoeveel marge nodig
-  is, meet proef T7.
-- **Draaien onder last:** bij roll draagt één cilinder meer dan de helft.
-- **Standaardmaten:** Ø25, 32, 40, 50. Met Ø40 gebruikt de statische last 63% van de
-  beschikbare kracht (2× 628 N bij 5 bar), met Ø50 40% (2× 982 N).
+- **Lever at an angle:** the effective lever is 0.37 m · sin(angle between cylinder and
+  lever). At 45° off the required force is 1.4× higher.
+- **Control headroom:** to accelerate and brake, the static load may only use part of
+  the available force. The back pressure in the other chamber and the pressure drop over
+  the valves while moving also reduce the force. Test T7 measures how much margin is
+  needed.
+- **Rotating under load:** in roll one cylinder carries more than half.
+- **Standard sizes:** Ø25, 32, 40, 50. With Ø40 the static load uses 63% of the
+  available force (2× 628 N at 5 bar), with Ø50 40% (2× 982 N).
 
-**Kracht tegenover bereik.** Een grote hefboom geeft veel kracht, maar weinig hoek per
-centimeter slag. De hoek is ruwweg slag / hefboom (in radialen): 20 cm slag op 37 cm
-hefboom geeft ongeveer 30°. Meer hoek vraagt een kortere hefboom en dus een dikkere
-cilinder.
+**Force versus range.** A long lever gives a lot of force but little angle per
+centimetre of stroke. The angle is roughly stroke / lever (in radians): 20 cm of stroke
+on a 37 cm lever gives about 30°. More angle needs a shorter lever and therefore a
+thicker cylinder.
 
-## Open vragen
+## Open questions
 
-- Waar komt dit gewricht in de arm: schouder, elleboog of pols?
-- Is "draaien" bedoeld als draaien om de eigen as van de arm (zoals een pols die een
-  sleutel omdraait), of als zijwaarts zwaaien (links-rechts)? De schets geeft het
-  eerste. Voor zijwaarts zwaaien moet de tweede as van de kruiskoppeling anders staan.
-- Gewenst bereik in graden voor op en neer en voor draaien. Dit bepaalt samen met de
-  slag de hefboomlengte.
-- Slag van de 50 cm-cilinders.
-- Afmetingen: lengte van de hefbomen, en waar de cilinders aan de onderkant vastzitten.
+- Is "rotate" meant as rotation about the arm's own axis (like a wrist turning a key) or
+  as swinging sideways (left–right)? The sketch shows the first. For swinging sideways
+  the second axis of the universal joint has to be oriented differently.
+- Desired range in degrees for up/down and for rotation. Together with the stroke this
+  sets the lever length.
+- Stroke of the 50 cm cylinders.
+- Dimensions: lever lengths, and where the cylinders are attached at the bottom.
 
 ## Status
 
-Schets ontvangen op 2026-10-04. Het gewricht wordt gebruikt voor de schouder en de
-elleboog, met verschillende cilindermaten. Eerste krachtberekening voor de schouder
-hierboven. Uitwerking en simulatie wachten tot de proefopstelling bewijst dat
-pneumatiek werkt.
+The joint is meant for both the shoulder and the elbow, with different cylinder sizes.
+First force calculation for the shoulder above. Detailed design and simulation wait until
+the test rig proves that pneumatics work.

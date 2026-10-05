@@ -1,60 +1,56 @@
-# Doel
+# Goal
 
-Stap 1 t/m 4 van [werkwijze-fysieke-projecten](../werkwijze-fysieke-projecten/CLAUDE.md),
-voor dit project. Eerste versie, wordt aangevuld na de intake.
+Steps 1–4 of the stepwise method this project follows: a goal in plain words, the
+approach, a concrete target, and a one-sentence presentation that makes it testable.
+Each step is the cheapest way to answer a question before taking the next, more
+expensive one (text → drawing → simulation → physical test).
 
-## 1. Doel-tekst
+## 1. Goal
 
-Een toegankelijke robotarm maken: met algemeen verkrijgbare onderdelen te bouwen, en
-met terugkoppeling (feedback) aangestuurd door een programma of AI. Hij hoeft geen
-industriële snelheid of precisie te halen: de helft van wat een mens met zijn arm kan,
-is genoeg.
+Build an accessible robot arm: made from commonly available parts, and controlled with
+feedback by a program or AI. It does not need industrial speed or precision: half of
+what a human arm can do is enough.
 
-## 2. Aanpak-keuze
+## 2. Approach
 
-De gewrichten worden bewogen door cilinders of lineaire actuatoren, zoals spieren een
-menselijke arm bewegen, in plaats van door motoren met tandwielkasten in het gewricht.
-De eerste kandidaat is pneumatiek: perslucht geeft mee bij een botsing en de kracht is
-te begrenzen met de druk.
+The joints are moved by cylinders or linear actuators, the way muscles move a human arm,
+instead of by motors with gearboxes in the joint. Pneumatics is the first candidate:
+compressed air gives way in a collision, and the force can be limited by the pressure.
 
-Eerst wordt met een simpele proefopstelling bewezen dat een cilinder met terugkoppeling
-te regelen is. Daarna komen er stap voor stap gewrichten bij, te beginnen met een
-scharnier met twee vrijheidsgraden (2-DOF) dat door cilinders bewogen wordt.
+A simple test rig proves first that a cylinder can be controlled with feedback. Joints
+are then added step by step, starting with a two-degree-of-freedom (2-DOF) joint moved
+by cylinders.
 
-## 3. Doel-keuze
+## 3. Target
 
-Een arm die stenen oppakt en tot een muur stapelt.
+An arm that picks up blocks and stacks them into a wall.
 
-## 4. Doelpresentatie
+## 4. Presentation
 
-Ik wil met een zelfgebouwde, door cilinders bewogen arm stenen van ongeveer 15 kg
-oppakken en er een muur mee bouwen.
+A home-built, cylinder-driven arm picks up blocks of about 15 kg and builds a wall
+with them.
 
-## Eisen
+## Requirements
 
-- Last: ongeveer 15 kg per arm.
-- Veiligheid: een fout mag geen levensgevaarlijke klap opleveren; kracht en snelheid
-  moeten begrensd zijn.
-- Onderdelen zijn gewoon te koop (webshops, AliExpress), geen speciale industriële
-  motoren of op maat gemaakte aandrijvingen.
+- Payload: about 15 kg per arm.
+- Safety: a fault must not cause a dangerous blow; force and speed must be limited.
+- Parts can be bought normally (web shops, AliExpress): no special industrial motors or
+  custom drives.
 
-## Open vragen
+## Open questions
 
-- Reikwijdte en nauwkeurigheid van de arm: hoe ver moet hij reiken, en hoe precies moet
-  een steen geplaatst worden?
-- Budget voor de proefopstelling (wordt zo laag mogelijk gehouden).
-- Verhouding tot [robotic-arm-sim](../robotic-arm-sim/): hetzelfde einddoel (muur
-  bouwen), maar een apart project met een eigen arm.
+- Reach and accuracy of the arm: how far must it reach, and how precisely must a block be
+  placed?
+- Keep the cost of the test rigs as low as possible.
 
-## Status (bijgewerkt zodra dit verandert)
+## Status (updated when it changes)
 
-Het volledige plan met wat gedaan is en wat nog moet: [docs/plan.md](docs/plan.md).
+The full plan with what is done and what is left: [docs/plan.md](docs/plan.md).
 
-
-- **Test 1 (arm met één vrijheidsgraad: één cilinder, 4 snelle ventielen met PWM)**: compleet
-  pakket in [test1/](test1/README.md) (CAD, simulatie, firmware, handleiding, stuklijst); ontwerp in
-  [test1/docs/ontwerp.md](test1/docs/ontwerp.md). AliExpress-onderdelen besteld op
-  2026-10-04; elektronica (Tinytronics) en compressor (Lidl) nog te bestellen. Bestellijst:
-  [docs/bestellijst.json](docs/bestellijst.json).
-- **2-DOF-scharnier**: schets ontvangen en eerste analyse in
-  [docs/2dof-gewricht.md](docs/2dof-gewricht.md); nog niet doorgerekend.
+- **Test 1 (arm with one degree of freedom: one cylinder, 4 fast valves with PWM)**:
+  complete package in [test1/](test1/README.md) (CAD, simulation, firmware, manual, bill
+  of materials); design in [test1/docs/design.md](test1/docs/design.md). AliExpress parts
+  ordered on 2026-10-04; electronics and compressor still to order. Order list:
+  [docs/order-list.json](docs/order-list.json).
+- **2-DOF joint**: sketch and first analysis in [docs/2dof-joint.md](docs/2dof-joint.md);
+  not yet worked out.

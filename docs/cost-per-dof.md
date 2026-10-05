@@ -1,35 +1,34 @@
-# Kosten per DOF
+# Cost per DOF
 
-Een DOF (vrijheidsgraad) is hier één cilinder met zijn ventielen, sensoren en
-besturing. Gedeelde onderdelen (compressor, drukregelaar, voeding) tellen niet mee.
+A DOF (degree of freedom) here is one cylinder with its valves, sensors and controller.
+Shared parts (compressor, regulator, power supply) are not included.
 
-## Proefopstelling (oktober 2026)
+## Test rig (October 2026)
 
-| Onderdeel | Prijs |
+| Part | Price |
 |---|---|
 | 4× SMC VQ110U | €104 |
-| Cilinder MAL20 | €10 |
-| Lineaire potmeter KTC-175 | €16–25 |
-| 2× druksensor (roestvrij, G1/4) | €25–32 |
-| Koppelingen, slang, dempers | ~€10 |
+| Cylinder MAL20 | €10 |
+| Linear potentiometer KTC-175 | €16–28 |
+| 2× pressure sensor (stainless, G1/4) | €25–32 |
+| Fittings, tube, silencers | ~€10 |
 | Raspberry Pi Pico 2 | €7 |
-| **Totaal** | **ca. €175–190** |
+| **Total** | **approx. €175–190** |
 
-De ventielen zijn ongeveer 58% van het bedrag. De proef houdt alle sensoren en vier
-ventielen, omdat hij moet uitwijzen wat de arm echt nodig heeft.
+The valves are about 58% of the cost. The test rig keeps all sensors and four valves,
+because it has to show what the arm really needs.
 
-## Mogelijke besparingen voor de arm
+## Possible savings for the arm
 
-Elke besparing hangt af van een meting in de proef:
+Each saving depends on a measurement in the test rig:
 
-| Besparing | Van → naar | Beslist door |
+| Saving | From → to | Decided by |
 |---|---|---|
-| Hoeksensor AS5600 op het gewricht in plaats van een lineaire potmeter | €16–25 → ~€3 | Nauwkeurigheid van de AS5600 op het gewricht (bij het scharnier) |
-| Losse druksensorchips (bijv. XGZP6847A, 0–1000 kPa, 0,5–4,5 V) in plaats van roestvrije transducers | €25–32 → ~€6–10 | Of de druksensoren nodig zijn (T3/T6 met en zonder drukterugkoppeling) |
+| AS5600 angle sensor on the joint instead of a linear potentiometer | €16–28 → ~€3 | Accuracy of the AS5600 on the joint |
+| Bare pressure sensor chips (e.g. XGZP6847A, 0–1000 kPa, 0.5–4.5 V) instead of stainless transducers | €25–32 → ~€6–10 | Whether pressure feedback is needed (T3/T6 with and without) |
 
-Met beide besparingen samen: ongeveer €150 per DOF, plus de grotere cilinders voor
-schouder en elleboog.
+With both savings: about €150 per DOF, plus the larger cylinders for shoulder and elbow.
 
-Vier ventielen per cilinder blijven nodig: de cilinder moet om veiligheidsredenen zijn
-positie kunnen vasthouden. Goedkope "VQ110"-aanbiedingen van €7–13 zijn lokprijzen voor
-een ander artikel, geen echt alternatief.
+Four valves per cylinder remain necessary: the cylinder has to be able to hold its
+position for safety. Cheap "VQ110" listings at €7–13 are bait prices for a different
+item, not a real alternative.

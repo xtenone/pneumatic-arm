@@ -1,540 +1,482 @@
 {
-  "titel": "Bestellijst proefopstelling 1",
-  "bestellingen": [
+  "title": "Order list — test 1",
+  "orders": [
     {
-      "naam": "1. Ventielen (AliExpress)",
-      "status": "besteld (2026-10-04)",
-      "regels": [
+      "name": "1. Valves (AliExpress)",
+      "status": "ordered (2026-10-04)",
+      "items": [
         {
           "id": "1005013133472109",
-          "wat": "5× snel 3/2-ventiel",
+          "what": "5× fast 3/2 valve",
           "variant": "VQ110U-5M-M5",
-          "aantal": 1,
-          "prijs": 130.53,
-          "noot": "Incl. verzending (winkel met 11 pagina's beoordelingen)"
+          "qty": 1,
+          "price": 130.53,
+          "note": "Including shipping (store with 11 pages of reviews)"
         }
       ]
     },
     {
-      "naam": "2. Pneumatiek, sensoren en schakel-IC (AliExpress)",
-      "status": "besteld (2026-10-04)",
-      "noot": "Heffing: €3 + btw per productcategorie (douanetarief) per zending. Artikelen die AliExpress zelf verzendt, worden samen in categorieën ingedeeld: bij deze bestelling scheelde dat €11.",
-      "regels": [
+      "name": "2. Pneumatics, sensors and driver IC (AliExpress)",
+      "status": "ordered (2026-10-04)",
+      "note": "EU import duty: €3 + VAT per product category (tariff code) per consignment. Items shipped by AliExpress itself are grouped by category, which saved €11 on this order.",
+      "items": [
         {
           "id": "1005010583152545",
-          "wat": "Cilinder MAL20×150",
-          "variant": "boring 20, slag 150, standaard (niet CA), zonder magneet",
-          "aantal": 1,
-          "prijs": 12.99
+          "what": "Cylinder MAL20×150",
+          "variant": "bore 20, stroke 150, standard (not CA), no magnet",
+          "qty": 1,
+          "price": 12.99
         },
         {
           "id": "1005006230077162",
-          "wat": "Lineaire potmeter KTC",
-          "variant": "175 mm, gewone weerstandsversie 5 kΩ (niet 4–20 mA / LWF), type B (kogelkop)",
-          "aantal": 1,
-          "prijs": 28.19
+          "what": "Linear potentiometer KTC",
+          "variant": "175 mm, plain resistive 5 kΩ version (not 4–20 mA / LWF), type B (ball joint)",
+          "qty": 1,
+          "price": 28.19
         },
         {
           "id": "1005010385122677",
-          "wat": "Druksensor",
-          "variant": "#4 0–100 psi, uitgang 0,5–4,5 V",
-          "aantal": 2,
-          "prijs": 14.89
+          "what": "Pressure sensor",
+          "variant": "#4 0–100 psi, output 0.5–4.5 V",
+          "qty": 2,
+          "price": 14.89
         },
         {
           "id": "1005005324116810",
-          "wat": "Filter + drukregelaar AFR-2000",
-          "variant": "G1/4, met manometer",
-          "aantal": 1,
-          "prijs": 7.69
+          "what": "Filter + regulator AFR-2000",
+          "variant": "G1/4, with gauge",
+          "qty": 1,
+          "price": 7.69
         },
         {
           "id": "1005010563686803",
-          "wat": "Afsluitschuif HSV-08",
-          "variant": "HSV-08 (G1/4), niet HSV-06",
-          "aantal": 1,
-          "prijs": 4.09
+          "what": "Shut-off slide valve HSV-08",
+          "variant": "HSV-08 (G1/4), not HSV-06",
+          "qty": 1,
+          "price": 4.09
         },
         {
           "id": "1005007341961878",
-          "wat": "Hoofdventiel 3V210-08",
+          "what": "Main valve 3V210-08",
           "variant": "NC, DC24V",
-          "aantal": 1,
-          "prijs": 8.19
+          "qty": 1,
+          "price": 8.19
         },
         {
           "id": "1005005858101621",
-          "wat": "Noodstop, gemonteerd in kastje",
-          "variant": "kunststof kastje met geel STOP-label, zonder klepje of kap; contact NC (of 1NO+1NC)",
-          "aantal": 1,
-          "prijs": 8.29,
-          "schatting": true
+          "what": "Emergency stop, mounted in a box",
+          "variant": "plastic box with yellow STOP label, no lid or guard; NC contact (or 1NO+1NC)",
+          "qty": 1,
+          "price": 8.29,
+          "estimate": true
         },
         {
           "id": "1005002796005278",
-          "wat": "Steekkoppeling recht, per stuk (4000+ verkocht)",
+          "what": "Straight push-in fitting, per piece (4000+ sold)",
           "variant": "4 mm – M5 (PC4-M5)",
-          "aantal": 8,
-          "prijs": 0.49,
-          "noot": "6 voor de ventielen, 2 als uitlaat van de leegventielen, rest reserve"
+          "qty": 8,
+          "price": 0.49,
+          "note": "6 for the valves, 2 spare"
         },
         {
           "id": "1005002796005278",
-          "wat": "Steekkoppeling recht, per stuk",
+          "what": "Straight push-in fitting, per piece",
           "variant": "4 mm – 1/8 (PC4-01)",
-          "aantal": 3,
-          "prijs": 0.61,
-          "noot": "2 nodig, 1 reserve"
+          "qty": 3,
+          "price": 0.61,
+          "note": "2 needed, 1 spare"
         },
         {
           "id": "1005002796005278",
-          "wat": "Steekkoppeling recht, per stuk",
+          "what": "Straight push-in fitting, per piece",
           "variant": "4 mm – 1/4 (PC4-02)",
-          "aantal": 5,
-          "prijs": 0.69,
-          "noot": "Drukregelaar, afsluitschuif, hoofdventiel (3–5 nodig)"
+          "qty": 5,
+          "price": 0.69,
+          "note": "Regulator, slide valve, main valve (3–5 needed)"
         },
         {
           "id": "1005004886533500",
-          "wat": "M5-blindplug (10 stuks)",
+          "what": "M5 blanking plug (10 pieces)",
           "variant": "M5",
-          "aantal": 1,
-          "prijs": 3.05
+          "qty": 1,
+          "price": 3.05
         },
         {
           "id": "1005006534920138",
-          "wat": "T-stuk 4 mm",
-          "variant": "PE4, 10 stuks",
-          "aantal": 1,
-          "prijs": 2.8
+          "what": "Tee 4 mm",
+          "variant": "PE4, 10 pieces",
+          "qty": 1,
+          "price": 2.8
         },
         {
           "id": "32830226405",
-          "wat": "Steekkoppeling binnendraad 1/4\" → 4 mm (zakje van 10, voor de druksensoren)",
+          "what": "Push-in fitting, female 1/4\" → 4 mm (bag of 10, for the pressure sensors)",
           "variant": "PCF4-02",
-          "aantal": 1,
-          "prijs": 6.49,
-          "noot": "Rc 1/4 (taps); de G1/4-sensor dicht af met PTFE-tape"
+          "qty": 1,
+          "price": 6.49,
+          "note": "Rc 1/4 (tapered); seal the G1/4 sensor with PTFE tape"
         },
         {
           "id": "1005007992615899",
-          "wat": "PU-slang 5 m",
-          "variant": "4×2,5 mm, 5 m (transparant)",
-          "aantal": 2,
-          "prijs": 2.42,
-          "noot": "Alles in 4 mm slang; 6 mm is niet nodig"
+          "what": "PU tube 5 m",
+          "variant": "4×2.5 mm, 5 m (clear)",
+          "qty": 2,
+          "price": 2.42,
+          "note": "Everything in 4 mm tube; 6 mm is not needed"
         },
         {
           "id": "1005007235783406",
-          "wat": "Voetbevestiging (LB) voor MAL20",
+          "what": "Foot mount (LB) for MAL20",
           "variant": "LB, 20 mm",
-          "aantal": 2,
-          "prijs": 4.49,
-          "noot": "Niet nodig voor test 1 (de cilinder scharniert); reserve voor een vaste opstelling"
+          "qty": 2,
+          "price": 4.49,
+          "note": "Not needed for test 1 (the cylinder pivots); spare for a fixed set-up"
         },
         {
           "id": "1005007235783406",
-          "wat": "Moer M22×1,5",
-          "variant": "M22×1,5 (MAL20/25)",
-          "aantal": 1,
-          "prijs": 3.11,
-          "noot": "Voor het achterdeksel; de cilinder heeft meestal maar één moer"
+          "what": "Nut M22×1.5",
+          "variant": "M22×1.5 (MAL20/25)",
+          "qty": 1,
+          "price": 3.11,
+          "note": "For the rear cover; the cylinder usually comes with one nut only"
         },
         {
           "id": "1005006852404177",
-          "wat": "ULN2803A Darlington-array (DIP-18), 10 stuks",
+          "what": "ULN2803A Darlington array (DIP-18), 10 pieces",
           "variant": "ULN2803APG DIP-18",
-          "aantal": 1,
-          "prijs": 2.23,
-          "noot": "Alleen de ULN2803 in deze aanbieding, geen verwarring met 2802/2804"
+          "qty": 1,
+          "price": 2.23,
+          "note": "Only the ULN2803 in this listing, no mix-up with 2802/2804 (the 2804 does not switch on 3.3 V)"
         },
         {
           "id": "1005008810108635",
-          "wat": "Smoorventiel inline 4 mm (2 stuks)",
+          "what": "Inline flow restrictor 4 mm (2 pieces)",
           "variant": "4 mm",
-          "aantal": 1,
-          "prijs": 3.36,
-          "noot": "Pas nodig om een kleiner ventiel na te bootsen; meebestellen met een volgende bestelling"
+          "qty": 1,
+          "price": 3.36,
+          "note": "Used after T7 to mimic a smaller valve"
         },
         {
           "id": "1005007235783406",
-          "wat": "Vorkkop (Y) voor MAL20",
+          "what": "Rod clevis (Y) for MAL20",
           "variant": "Y/MA MAL20",
-          "aantal": 1,
-          "prijs": 3.85,
-          "noot": "Verbindt de cilinderstang met de arm (test 1)"
+          "qty": 1,
+          "price": 3.85,
+          "note": "Connects the cylinder rod to the arm (test 1)"
         },
         {
           "id": "1005004014973967",
-          "wat": "M5-uitlaatdemper (5 stuks)",
+          "what": "M5 exhaust silencer (5 pieces)",
           "variant": "Short M5/5PCS",
-          "aantal": 1,
-          "prijs": 1.64
+          "qty": 1,
+          "price": 1.64
         }
       ]
     },
     {
-      "naam": "3. Elektronica (Tinytronics, Eindhoven)",
-      "status": "samengesteld, nog niet besteld",
-      "noot": "De ULN2803A komt mee met de AliExpress-bestelling.",
-      "regels": [
+      "name": "3. Electronics (Tinytronics, NL)",
+      "status": "compiled, not ordered yet",
+      "note": "The ULN2803A comes with the AliExpress order (Tinytronics has no DIP version).",
+      "items": [
         {
           "url": "https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350",
-          "wat": "Raspberry Pi Pico 2 (RP2350)",
+          "what": "Raspberry Pi Pico 2 (RP2350)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 7.25
+          "qty": 1,
+          "price": 7.25
         },
         {
           "url": "https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar",
-          "wat": "LM7805C 5 V-spanningsregelaar (TO-220)",
+          "what": "LM7805C 5 V voltage regulator (TO-220)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 0.6,
-          "schatting": true,
-          "noot": "Voeding van de druksensoren, vóór de noodstop"
+          "qty": 1,
+          "price": 0.6,
+          "estimate": true,
+          "note": "Supply for the pressure sensors, before the e-stop"
         },
         {
           "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v",
-          "wat": "Keramische condensator 1 µF, 50 V",
+          "what": "Ceramic capacitor 1 µF, 50 V",
           "variant": "",
-          "aantal": 2,
-          "prijs": 0.15,
-          "schatting": true,
-          "noot": "Ingang 7805 (1 + 1 reserve)"
+          "qty": 2,
+          "price": 0.15,
+          "estimate": true,
+          "note": "7805 input (1 + 1 spare)"
         },
         {
           "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator",
-          "wat": "Keramische condensator 100 nF, 50 V",
+          "what": "Ceramic capacitor 100 nF, 50 V",
           "variant": "",
-          "aantal": 6,
-          "prijs": 0.1,
-          "schatting": true,
-          "noot": "Uitgang 7805 + 3 ADC-ingangen + 2 reserve"
+          "qty": 6,
+          "price": 0.1,
+          "estimate": true,
+          "note": "7805 output + 3 ADC inputs + 2 spare"
         },
         {
           "url": "https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block",
-          "wat": "DC-bus 5,5/2,1 mm naar schroefklem",
-          "variant": "passend op de plug van je eigen 24 V-adapter (5,5/2,1 of 5,5/2,5)",
-          "aantal": 1,
-          "prijs": 1.21,
-          "noot": "Eigen adapter: 24 V DC, minimaal 0,5 A (liever 1–2 A)"
+          "what": "DC jack 5.5/2.1 mm to screw terminal",
+          "variant": "matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5)",
+          "qty": 1,
+          "price": 1.21,
+          "note": "Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred)"
         },
         {
-          "wat": "Breadboard 830 gaten + jumperdraden male-male",
+          "what": "Breadboard 830 holes + male-male jumper wires",
           "variant": "",
-          "aantal": 1,
-          "prijs": 8.0,
-          "schatting": true
+          "qty": 1,
+          "price": 8.0,
+          "estimate": true
         },
         {
-          "wat": "Weerstanden 10 kΩ (2) en 15 kΩ (2)",
+          "what": "Resistors 10 kΩ (2) and 15 kΩ (2)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 0.5,
-          "schatting": true,
-          "noot": "10k/15k-deler: 5 V → 3,0 V, dus veilig voor de Pico, wat de sensoruitgang ook is"
+          "qty": 1,
+          "price": 0.5,
+          "estimate": true,
+          "note": "10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type"
         },
         {
-          "wat": "Micro-USB-kabel (data, niet alleen laden)",
+          "what": "Micro-USB cable (data, not charge-only)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 3.0,
-          "schatting": true
+          "qty": 1,
+          "price": 3.0,
+          "estimate": true
         },
         {
-          "wat": "Montagedraad 0,5 mm², rood en zwart (24 V, noodstop, ventielen)",
+          "what": "Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 3.0,
-          "schatting": true
+          "qty": 1,
+          "price": 3.0,
+          "estimate": true
         }
       ]
     },
     {
-      "naam": "4. Bouwmarkt",
-      "status": "nog te kopen",
-      "regels": [
+      "name": "4. DIY store",
+      "status": "still to buy",
+      "items": [
         {
-          "wat": "Multiplex 18 mm: grondplaat 400×300, 2 wangen 450×120, 2 blokjes 60×60 (afstandsblok)",
-          "variant": "vaak op maat te zagen in de bouwmarkt",
-          "aantal": 1,
-          "prijs": 15.0,
-          "schatting": true
+          "what": "Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",
+          "variant": "DIY stores often cut to size",
+          "qty": 1,
+          "price": 15.0,
+          "estimate": true
         },
         {
-          "wat": "Aluminium platstrip 40×5 mm (of 40×4), 50 cm — de arm",
+          "what": "Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm",
           "variant": "",
-          "aantal": 1,
-          "prijs": 8.0,
-          "schatting": true
+          "qty": 1,
+          "price": 8.0,
+          "estimate": true
         },
         {
-          "wat": "Aluminium strip 20×3 mm (of 20×2), 30 cm — beugel potmeter + montagestrip",
+          "what": "Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",
           "variant": "",
-          "aantal": 1,
-          "prijs": 3.0,
-          "schatting": true
+          "qty": 1,
+          "price": 3.0,
+          "estimate": true
         },
         {
-          "wat": "Aluminium buisje 10×1 mm (binnen 8 mm), 50 cm — afstandsbusjes",
+          "what": "Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves",
           "variant": "",
-          "aantal": 1,
-          "prijs": 4.0,
-          "schatting": true
+          "qty": 1,
+          "price": 4.0,
+          "estimate": true
         },
         {
-          "wat": "Kogellager 608-2RS (8×22×7) — scharnier arm",
-          "variant": "skatelager",
-          "aantal": 2,
-          "prijs": 1.5,
-          "schatting": true
+          "what": "Ball bearing 608-2RS (8×22×7) — arm hinge",
+          "variant": "skateboard bearing",
+          "qty": 2,
+          "price": 1.5,
+          "estimate": true
         },
         {
-          "wat": "Bout M8×80 + 2 sluitringen + borgmoer M8 — scharnier en achterste draaipunt",
+          "what": "Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot",
           "variant": "",
-          "aantal": 2,
-          "prijs": 1.0,
-          "schatting": true
+          "qty": 2,
+          "price": 1.0,
+          "estimate": true
         },
         {
-          "wat": "Moer M8 (gewone M8 = M8×1,25) — beugel potmeter op de stang",
+          "what": "Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod",
           "variant": "",
-          "aantal": 2,
-          "prijs": 0.2,
-          "schatting": true
+          "qty": 2,
+          "price": 0.2,
+          "estimate": true
         },
         {
-          "wat": "Boutje M5×16 + moer — potmeterstang aan de beugel",
+          "what": "Bolt M5×16 + nut — potentiometer rod to the bracket",
           "variant": "",
-          "aantal": 2,
-          "prijs": 0.2,
-          "schatting": true
+          "qty": 2,
+          "price": 0.2,
+          "estimate": true
         },
         {
-          "wat": "Slangklem 20–32 mm — potmeter op de cilinder",
+          "what": "Hose clamp 20–32 mm — potentiometer on the cylinder",
           "variant": "",
-          "aantal": 2,
-          "prijs": 0.8,
-          "schatting": true
+          "qty": 2,
+          "price": 0.8,
+          "estimate": true
         },
         {
-          "wat": "Hoekijzer 40×40 + houtschroeven 4×30 / 4×40",
-          "variant": "wangen en blok op de grondplaat",
-          "aantal": 4,
-          "prijs": 0.8,
-          "schatting": true
+          "what": "Angle bracket 40×40 + wood screws 4×30 / 4×40",
+          "variant": "cheeks and block onto the base plate",
+          "qty": 4,
+          "price": 0.8,
+          "estimate": true
         },
         {
-          "wat": "Lijmklem — opstelling op de tafelrand vastzetten",
+          "what": "F-clamp — clamp the rig to the table edge",
           "variant": "",
-          "aantal": 2,
-          "prijs": 6.0,
-          "schatting": true
+          "qty": 2,
+          "price": 6.0,
+          "estimate": true
         },
         {
-          "wat": "Fles water 1,5 l + S-haak of touw — last; voor T7 extra flessen of zakjes zand",
+          "what": "1.5 l water bottle + S-hook or string — the load; for T7 extra bottles or bags of sand",
           "variant": "",
-          "aantal": 1,
-          "prijs": 1.5,
-          "schatting": true
+          "qty": 1,
+          "price": 1.5,
+          "estimate": true
         },
         {
-          "wat": "Insteeknippel G1/4 buitendraad, passend op de compressorkoppeling",
-          "variant": "pas na de compressor kopen",
-          "aantal": 1,
-          "prijs": 3.0,
-          "schatting": true
+          "what": "Plug nipple G1/4 male, matching the compressor coupler",
+          "variant": "buy after the compressor arrives",
+          "qty": 1,
+          "price": 3.0,
+          "estimate": true
         },
         {
-          "wat": "Slangschaar",
+          "what": "Tube cutter",
           "variant": "",
-          "aantal": 1,
-          "prijs": 5.0,
-          "schatting": true
+          "qty": 1,
+          "price": 5.0,
+          "estimate": true
         },
         {
-          "wat": "PTFE-tape",
+          "what": "PTFE tape",
           "variant": "",
-          "aantal": 1,
-          "prijs": 1.5,
-          "schatting": true
+          "qty": 1,
+          "price": 1.5,
+          "estimate": true
         },
         {
-          "wat": "Multimeter (als je er nog geen hebt)",
+          "what": "Multimeter (if you do not have one)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 20.0,
-          "schatting": true,
-          "noot": "Nodig voor ontvangstcontrole, spoelen meten en kalibratie"
+          "qty": 1,
+          "price": 20.0,
+          "estimate": true,
+          "note": "Needed for the incoming inspection, coil checks and calibration"
         }
       ]
     },
     {
-      "naam": "5. Compressor (Lidl)",
-      "status": "gekozen, nog niet besteld",
-      "regels": [
+      "name": "5. Compressor (Lidl)",
+      "status": "chosen, not ordered yet",
+      "items": [
         {
           "url": "https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873",
-          "wat": "Parkside stille compressor PSKO 248 B1",
-          "variant": "24 l, 8 bar, 71,9 dB, olievrij, 117 l/min bij 4 bar",
-          "aantal": 1,
-          "prijs": 99.99,
-          "noot": "Koppeling bekijken bij ontvangst; insteeknippel op de drukregelaar moet daarop passen"
+          "what": "Parkside silent compressor PSKO 248 B1",
+          "variant": "24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar",
+          "qty": 1,
+          "price": 99.99,
+          "note": "Check the coupler on arrival; the plug nipple on the regulator must match it"
         }
       ]
     },
     {
-      "naam": "Alternatief: pneumatiek via Amazon.de (ongeveer even duur, sneller)",
-      "status": "alternatief",
-      "noot": "Geen douane. Controleer per artikel dat 'Versand durch Amazon' of een EU-verkoper erbij staat; artikelen 'Versand aus China' kunnen alsnog heffing krijgen.",
-      "regels": [
+      "name": "Alternative: pneumatics via Amazon.de (about the same cost, faster)",
+      "status": "alternative",
+      "note": "No customs. Check per item that it ships from Amazon or an EU seller; items shipped from China can still attract import duty.",
+      "items": [
         {
           "url": "https://www.amazon.de/dp/B06Y638W3R",
-          "wat": "Cilinder MAL20×150, PT1/8, M8×1,25 (Heschen)",
+          "what": "Cylinder MAL20×150, PT1/8, M8×1.25 (Heschen)",
           "variant": "20 mm, 150 mm",
-          "aantal": 1,
-          "prijs": 13.49
+          "qty": 1,
+          "price": 13.49
         },
         {
           "url": "https://www.amazon.de/dp/B0CQ492KRK",
-          "wat": "Drukregelaar 1/4\" met waterafscheider en manometer",
+          "what": "Regulator 1/4\" with water separator and gauge",
           "variant": "",
-          "aantal": 1,
-          "prijs": 13.88
+          "qty": 1,
+          "price": 13.88
         },
         {
           "url": "https://www.amazon.de/dp/B0DMVZLD8W",
-          "wat": "Afsluitschuif HSV-08, 1/4\" (TAILONZ)",
+          "what": "Shut-off slide valve HSV-08, 1/4\" (TAILONZ)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 12.99
+          "qty": 1,
+          "price": 12.99
         },
         {
           "url": "https://www.amazon.de/dp/B072ZX8QNF",
-          "wat": "Hoofdventiel 3V210-08, 24 V DC, NC, PT1/4 (Heschen)",
+          "what": "Main valve 3V210-08, 24 V DC, NC, PT1/4 (Heschen)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 10.89
+          "qty": 1,
+          "price": 10.89
         },
         {
           "url": "https://www.amazon.de/dp/B07LFXB8PF",
-          "wat": "Noodstop IP65 in kastje, 1NO+1NC (Heschen)",
+          "what": "Emergency stop IP65 in a box, 1NO+1NC (Heschen)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 10.29
+          "qty": 1,
+          "price": 10.29
         },
         {
           "url": "https://www.amazon.de/dp/B0912JC8BV",
-          "wat": "Steekkoppeling M5 → 4 mm (5 stuks)",
+          "what": "Push-in fitting M5 → 4 mm (5 pieces)",
           "variant": "M5 x 4mm",
-          "aantal": 2,
-          "prijs": 4.99
+          "qty": 2,
+          "price": 4.99
         },
         {
           "url": "https://www.amazon.de/dp/B0912WCVHR",
-          "wat": "Steekkoppeling G1/8 → 4 mm (5 stuks)",
+          "what": "Push-in fitting G1/8 → 4 mm (5 pieces)",
           "variant": "G1/8 x 4mm",
-          "aantal": 1,
-          "prijs": 6.29
+          "qty": 1,
+          "price": 6.29
         },
         {
           "url": "https://www.amazon.de/dp/B0108HHH14",
-          "wat": "Steekkoppeling G1/4 → 4 mm (5 stuks)",
+          "what": "Push-in fitting G1/4 → 4 mm (5 pieces)",
           "variant": "G 1/4 x 4mm",
-          "aantal": 1,
-          "prijs": 9.99
+          "qty": 1,
+          "price": 9.99
         },
         {
           "url": "https://www.amazon.de/dp/B0BGY4XSRT",
-          "wat": "Steekkoppeling binnendraad 1/4\" → 4 mm (4 stuks, voor de druksensoren)",
+          "what": "Push-in fitting female 1/4\" → 4 mm (4 pieces, for the pressure sensors)",
           "variant": "1/4\" - 4mm",
-          "aantal": 1,
-          "prijs": 10.5
+          "qty": 1,
+          "price": 10.5
         },
         {
           "url": "https://www.amazon.de/dp/B0F13RYWJ5",
-          "wat": "T-stuk 4 mm (15 stuks)",
+          "what": "Tee 4 mm (15 pieces)",
           "variant": "",
-          "aantal": 1,
-          "prijs": 6.45
+          "qty": 1,
+          "price": 6.45
         },
         {
           "url": "https://www.amazon.de/dp/B096349CR1",
-          "wat": "PU-slang 4×2,5 mm, 10 m",
+          "what": "PU tube 4×2.5 mm, 10 m",
           "variant": "",
-          "aantal": 1,
-          "prijs": 7.99
-        }
-      ]
-    },
-    {
-      "naam": "Alternatief: elektronica via domoticx.net",
-      "status": "alternatief",
-      "noot": "Nederlandse webshop: geen douane.",
-      "regels": [
-        {
-          "url": "https://domoticx.net/webshop/raspberry-pi-pico-2w-rp2350-arm-microcontroller-micro-usb-wifi-and-bluetooth/",
-          "wat": "Raspberry Pi Pico 2W (RP2350)",
-          "variant": "",
-          "aantal": 1,
-          "prijs": 9.2
-        },
-        {
-          "url": "https://domoticx.net/webshop/darlington-transistor-array-8x-npn-500ma-uln2803apg-dip-18/",
-          "wat": "ULN2803APG (DIP-18, past in breadboard)",
-          "variant": "DIP-18, niet SOP-18",
-          "aantal": 1,
-          "prijs": 0.68
-        },
-        {
-          "url": "https://domoticx.net/webshop/spanningsregelaar-module-dc-dc-step-down-max-28v-naar-0-8-20v-instelbaar-max-3a-mp1584en/",
-          "wat": "Step-down 24 V → 5 V (MP1584EN, instelbaar)",
-          "variant": "met multimeter op 5,0 V instellen",
-          "aantal": 1,
-          "prijs": 1.43
-        },
-        {
-          "url": "https://domoticx.net/webshop/breadboard-830-gaten-mb-102/",
-          "wat": "Breadboard 830 gaten",
-          "variant": "MB-102",
-          "aantal": 1,
-          "prijs": 4.76
-        },
-        {
-          "wat": "Stekkeradapter 24 V DC 3 A, plug 5,5×2,5 mm",
-          "url": "https://domoticx.net/?s=adapter+24V&post_type=product",
-          "variant": "24VDC 3A met 5,5×2,5 mm plug",
-          "aantal": 1,
-          "prijs": 13.94
-        },
-        {
-          "wat": "DC-bus 5,5×2,5 mm naar schroefklem",
-          "variant": "5,5×2,5 (moet passen op de adapter)",
-          "aantal": 1,
-          "prijs": 1.0,
-          "schatting": true,
-          "noot": "Niet bij domoticx gevonden; Tinytronics of AliExpress"
-        },
-        {
-          "wat": "Jumperdraden male-male, weerstanden 10 kΩ + 20 kΩ (2+2), condensatoren 100 nF (3), micro-USB-datakabel",
-          "variant": "",
-          "aantal": 1,
-          "prijs": 6.0,
-          "schatting": true,
-          "noot": "Nog per stuk opzoeken"
+          "qty": 1,
+          "price": 7.99
         }
       ]
     }
   ],
-  "gereedschap": [
-    "Decoupeerzaag of handzaag (hout)",
-    "IJzerzaag en vijl (aluminium)",
-    "Boormachine met houtboren 5 en 8,5 mm, metaalboren 5,5 en 8,5 mm, Forstnerboor 22 mm",
-    "Schroevendraaier, steeksleutels 8, 10, 13 mm, inbussleutels",
-    "Striptang, kleine schroevendraaier voor schroefklemmen",
-    "Soldeerbout (alleen als de Pico zonder pinnen komt)",
-    "Veiligheidsbril",
-    "Rolmaat, winkelhaak, priem of centerpons"
+  "tools": [
+    "Jigsaw or hand saw (wood)",
+    "Hacksaw and file (aluminium)",
+    "Drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm, 22 mm Forstner bit",
+    "Screwdrivers, spanners 8, 10, 13 mm, hex keys",
+    "Wire stripper, small screwdriver for screw terminals",
+    "Soldering iron (only if the Pico comes without header pins)",
+    "Safety glasses",
+    "Tape measure, try square, awl or centre punch"
   ]
 }

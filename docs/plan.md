@@ -1,90 +1,73 @@
 # Plan
 
-Wat er gedaan is en wat er nog moet gebeuren. Bijgewerkt: 2026-10-05.
+What is done and what is left. Updated: 2026-10-05.
 
-Afkortingen: **K** = klant (bouwt, koopt, meet), **E** = engineering (ontwerp, software,
-documentatie, controle).
+Roles: **(B)** = build, buy, measure; **(D)** = design, software, documentation, review.
 
-## Fase 0 — Intake en doel ✅
+## Phase 0 — Goal ✅
 
-- [x] Intake: doel, eisen (15 kg per arm, muur bouwen, veilig, gewone onderdelen) — [doel.md](../doel.md)
-- [x] Keuze aandrijving: cilinders, pneumatiek als eerste kandidaat
-- [x] Schets 2-DOF-gewricht ontvangen en eerste analyse — [2dof-gewricht.md](2dof-gewricht.md)
+- [x] Goal and requirements (15 kg per arm, build a wall, safe, ordinary parts) — [goal.md](../goal.md)
+- [x] Actuation: cylinders, pneumatics as the first candidate
+- [x] 2-DOF joint sketch and first analysis — [2dof-joint.md](2dof-joint.md)
 
-## Fase 1 — Proefopstelling ontwerpen ✅
+## Phase 1 — Test rig design ✅
 
-- [x] Principe: één cilinder, 4 snelle 2/2-functies (vullen/legen per kamer) met PWM — [test1/docs/ontwerp.md](../test1/docs/ontwerp.md)
-- [x] Ventielkeuze: SMC VQ110U (grote doorstroming), los aansluitblok (geen eiland: dat verbindt de kamers)
-- [x] Sensoren: lineaire potmeter KTC 175 mm, 2 druksensoren G1/4
-- [x] Elektronica: Pico 2, ULN2803A, LM7805C voor de sensoren, noodstop die de 24 V onderbreekt
-- [x] Aansluitschema pneumatiek, alles in 4 mm slang
-- [x] Proeven T0–T7 met meetbare criteria
-- [x] Kosten per DOF — [kosten-per-dof.md](kosten-per-dof.md)
+- [x] Principle: one cylinder, 4 fast 2/2 functions (fill/vent per chamber) with PWM — [test1/docs/design.md](../test1/docs/design.md)
+- [x] Valves: SMC VQ110U (large flow), each on its own sub-plate (a manifold would connect the chambers)
+- [x] Sensors: KTC linear potentiometer 175 mm, 2 pressure sensors G1/4
+- [x] Electronics: Pico 2, ULN2803A, LM7805C for the sensors, emergency stop that cuts the 24 V
+- [x] Pneumatic connections, everything in 4 mm tube
+- [x] Tests T0–T7 with measurable criteria
+- [x] Cost per DOF — [cost-per-dof.md](cost-per-dof.md)
 
-## Fase 2 — Inkopen (bezig)
+## Phase 2 — Purchasing (in progress)
 
-- [x] AliExpress: ventielen, pneumatiek, sensoren, ULN2803A — besteld 2026-10-04 (K)
-- [ ] Tinytronics: Pico 2, LM7805C, condensatoren, weerstanden 10k/15k, breadboard, DC-bus passend op de eigen adapter, USB-kabel, draad (K)
-- [ ] Eigen 24 V-adapter controleren: DC (geen AC), minimaal 0,5 A, plugmaat (5,5/2,1 of 5,5/2,5) (K)
-- [ ] Lidl: compressor Parkside PSKO 248 B1 (K)
-- [ ] Bouwmarkt, ná de compressor: insteeknippel G1/4 passend op de compressorkoppeling, slangschaar, PTFE-tape, multiplex, aluminium hoekje, eventueel multimeter (K)
+- [x] AliExpress: valves, pneumatics, sensors, ULN2803A — ordered 2026-10-04 (B)
+- [ ] Electronics: Pico 2, LM7805C, capacitors, 10k/15k resistors, breadboard, DC jack matching the 24 V adapter, USB cable, wire (B)
+- [ ] Check the 24 V adapter: DC (not AC), at least 0.5 A, plug size (5.5/2.1 or 5.5/2.5) (B)
+- [ ] Compressor Parkside PSKO 248 B1 (B)
+- [ ] DIY store, after the compressor: plug nipple G1/4 matching its coupler, tube cutter, PTFE tape, plywood, aluminium, bearings, bolts, multimeter if needed (B)
 
-Bestellijst: [bestellijst.json](bestellijst.json); `tools/bestellijst.py` maakt er een klikbare
-pagina van.
+Order list: [order-list.json](order-list.json); `tools/order_list.py` turns it into a
+clickable page.
 
-## Fase 3a — Test 1 als compleet pakket ✅
+## Phase 3 — Test 1 as a complete package ✅
 
-- [x] Test 1 = arm met één vrijheidsgraad (cilinder tilt een arm met last) — [test1/](../test1/README.md)
-- [x] Eén parameterbestand (`test1/params.py`) voor CAD, simulatie, firmware en tekeningen
+- [x] Test 1 = arm with one degree of freedom (a cylinder lifts an arm with a load) — [test1/](../test1/README.md)
+- [x] One parameter file (`test1/params.py`) for CAD, simulation, firmware and drawings
 - [x] CAD (CadQuery): STEP, STL, DXF, GLB
-- [x] MuJoCo-simulatie met pneumatiekmodel; regeling afgesteld, T3 geslaagd in simulatie
-- [x] Firmware (MicroPython, Pico 2) en pc-programma's (logger, proeven T0–T7), getest met nagebootste hardware
-- [x] Tekeningen: zijaanzicht, wang, arm, elektrisch schema, aansluitlijst, pneumatisch schema
-- [x] Handleiding, ontwerp, stuklijst; bundel `dist/test1-pakket.zip` en HTML op de webmap
+- [x] MuJoCo simulation with a pneumatics model; control tuned, T3 passes in simulation
+- [x] Firmware (MicroPython, Pico 2) and PC tools (logger, tests T0–T7), tested with simulated hardware
+- [x] Drawings: side view, cheek, arm, wiring diagram, connection list, pneumatic diagram
+- [x] Manual (incl. incoming inspection), design, bill of materials; bundle `dist/test1-package.zip`
 
-## Fase 3 — Voorbereiden terwijl de pakketten onderweg zijn
+## Phase 4 — Build (B, reviewed by D)
 
-- [x] Ontvangstcontrole per onderdeel — in de handleiding, hoofdstuk 1 (E)
-  - ventielen: etiket VQ110U-5M-M5, spoelweerstand (alle vijf gelijk), klikken op 24 V, lektest
-  - druksensoren: uitgang op 0 bar (0,5 V of 0 V), draad G1/4
-  - potmeter: weerstand 5 kΩ over de uiteinden, loper loopt gelijkmatig mee
-  - cilinder: poorten PT1/8, stang loopt soepel
-  - ULN2803A: elke uitgang los testen met een LED of ventiel
-- [x] Bouwhandleiding stap voor stap, met foto-controlemomenten (E)
-- [x] Pico-software, eerste versie (E)
-  - sensoren uitlezen en kalibreren (0 bar + manometer)
-  - ventielen los aansturen, verboden standen geblokkeerd, alles uit bij fout of USB-verlies
-  - meetgegevens naar de pc (CSV)
-- [x] Pc-kant: logger, proevenscript en grafiek per proef (E)
+- [ ] Upright, arm on bearings, cylinder pivoting between upright and arm, potentiometer on the cylinder (manual 3–6)
+- [ ] Pneumatics according to the connection tables; tubes between valve and cylinder < 30 cm
+- [ ] Electronics on the breadboard; test without air first (valves click, sensors read)
+- [ ] Safety: emergency stop, shut-off slide, start at 2–3 bar
 
-## Fase 4 — Bouwen (K, met controle door E)
+## Phase 5 — Tests and measurements
 
-- [ ] Staander, arm op lagers, cilinder scharnierend tussen staander en arm, potmeter op de cilinder (handleiding 3–6)
-- [ ] Pneumatiek volgens het aansluitschema; slangen tussen ventiel en cilinder < 30 cm
-- [ ] Elektronica op het breadboard; eerst zonder lucht testen (ventielen klikken, sensoren lezen)
-- [ ] Veiligheid: noodstop, afsluitschuif, eerst op 2–3 bar
+- [ ] T0 leak test
+- [ ] T1 valve response, choose the PWM frequency
+- [ ] T2 on/off control
+- [ ] T3 PWM control (0° → 30° → −5°)
+- [ ] T4 repeatability
+- [ ] T5 holding with load
+- [ ] T6 stiffness
+- [ ] T7 load ratio (how much of the static force the control can use)
+- [ ] Comparison with flow restrictors: smaller flow versus speed and precision
 
-## Fase 5 — Proeven en meten
+## Phase 6 — Decide
 
-- [ ] T0 lektest
-- [ ] T1 reactietijd ventielen, PWM-frequentie kiezen
-- [ ] T2 aan/uit-regeling
-- [ ] T3 PWM-regeling (sprong 20 → 80 mm)
-- [ ] T4 herhaalbaarheid
-- [ ] T5 staand met last
-- [ ] T6 stijfheid
-- [ ] T7 belastingsgraad (hoeveel van de statische kracht de regeling kan gebruiken)
-- [ ] Vergelijking met smoorventielen: kleinere doorstroming tegenover snelheid en precisie
+- [ ] Does pneumatic feedback control work well enough for the arm? Based on T3–T7.
+- [ ] If so: size the shoulder and elbow cylinders with the outcome of T7
+- [ ] Choose valves for the large cylinders (flow, possibly coarse + fine)
 
-## Fase 6 — Beslissen
+## After that
 
-- [ ] Werkt pneumatiek met terugkoppeling goed genoeg voor de arm? Op basis van T3–T7.
-- [ ] Zo ja: cilindermaten schouder en elleboog vastleggen met de uitkomst van T7
-- [ ] Ventielen voor de grote cilinders kiezen (doorstroming, eventueel grof + fijn)
-
-## Daarna
-
-- 2-DOF-gewricht uitwerken (kruiskoppeling, kogelgewrichten, ontgrendelbare
-  terugslagkleppen tegen wegzakken bij slangbreuk), eerst virtueel volgens de
-  [werkwijze](../../werkwijze-fysieke-projecten/CLAUDE.md), dan bouwen
-- Hoeksensoren op de gewrichten (bijv. AS5600) in plaats van lineaire potmeters
+- Work out the 2-DOF joint (universal joint, ball joints, pilot-operated check valves
+  against sagging when a tube breaks), first in simulation, then build it
+- Angle sensors on the joints (e.g. AS5600) instead of linear potentiometers

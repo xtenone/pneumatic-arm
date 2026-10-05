@@ -1,26 +1,25 @@
-pneumatic-arm — licenties
+pneumatic-arm — licences
 
-Copyright (c) 2026 xtenone en de bijdragers aan pneumatic-arm
+Copyright (c) 2026 xtenone and the pneumatic-arm contributors
 
-Dit project is open en copyleft: je mag alles gebruiken, nabouwen, aanpassen en
-verspreiden, op voorwaarde dat je aangepaste versies onder dezelfde licentie open deelt.
+This project is open and copyleft: you may use, build, modify and distribute
+everything, provided that you share modified versions openly under the same licence.
 
 1. Hardware — CERN-OHL-S-2.0 (CERN Open Hardware Licence v2, Strongly Reciprocal)
-   Het ontwerp van de arm en de proefopstellingen: CAD-bronbestanden en -exports
-   (test1/cad/, test1/out/cad/), tekeningen (test1/out/tekeningen/), maten en
-   parameters (test1/params.py), stuklijsten en bestellijsten, schetsen, en de
-   documentatie die het ontwerp beschrijft (doel.md, docs/, test1/README.md,
-   test1/docs/).
-   Volledige tekst: LICENSES/CERN-OHL-S-2.0.txt
+   The design of the arm and the test rigs: CAD sources and exports (test1/cad/,
+   test1/out/cad/), drawings (test1/out/drawings/), dimensions and parameters
+   (test1/params.py), bills of materials and order lists, sketches, and the
+   documentation describing the design (goal.md, docs/, test1/README.md, test1/docs/).
+   Full text: LICENSES/CERN-OHL-S-2.0.txt
 
-2. Software — GPL-3.0-or-later (GNU General Public License v3 of later)
-   Alle programmacode: firmware (test1/firmware/), pc-programma's (test1/host/),
-   simulatie (test1/sim/), tests (test1/tests/), en de hulpscripts (test1/*.py
-   behalve params.py, tools/).
-   Volledige tekst: LICENSES/GPL-3.0-or-later.txt
+2. Software — GPL-3.0-or-later (GNU General Public License v3 or later)
+   All program code: firmware (test1/firmware/), PC tools (test1/host/), simulation
+   (test1/sim/), tests (test1/tests/), and the helper scripts (test1/*.py except
+   params.py, tools/).
+   Full text: LICENSES/GPL-3.0-or-later.txt
 
-Bij twijfel over een bestand: ontwerp en documentatie vallen onder CERN-OHL-S-2.0,
-uitvoerbare code onder GPL-3.0-or-later.
+When in doubt about a file: design and documentation fall under CERN-OHL-S-2.0,
+executable code under GPL-3.0-or-later.
 
-Er wordt geen garantie gegeven. Werken met perslucht is gevaarlijk; lees de
-veiligheidsaanwijzingen in test1/docs/handleiding.md.
+No warranty is given. Working with compressed air is dangerous; read the safety
+instructions in test1/docs/manual.md.
