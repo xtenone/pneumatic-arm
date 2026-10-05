@@ -1,0 +1,92 @@
+{
+  "T3_pwm": {
+    "up_0_to_30": {
+      "overshoot_mm": 1.04,
+      "settling_s": 0.92,
+      "error_mm": 0.27,
+      "passed": true
+    },
+    "down_30_to_minus5": {
+      "overshoot_mm": 1.17,
+      "settling_s": 0.508,
+      "error_mm": 0.11,
+      "passed": true
+    },
+    "air_used_g": 0.67
+  },
+  "T2_onoff": {
+    "up_0_to_30": {
+      "overshoot_mm": 15.09,
+      "settling_s": 1.998,
+      "error_mm": 21.6,
+      "passed": false
+    },
+    "down_30_to_minus5": {
+      "overshoot_mm": 24.77,
+      "settling_s": 1.998,
+      "error_mm": 13.32,
+      "passed": false
+    },
+    "air_used_g": 1.42
+  },
+  "T7_load": [
+    {
+      "load_kg": 0.5,
+      "load_pct": 14,
+      "overshoot_mm": 1.74,
+      "settling_s": 1.936,
+      "error_mm": 0.46,
+      "passed": false
+    },
+    {
+      "load_kg": 1.5,
+      "load_pct": 35,
+      "overshoot_mm": 1.04,
+      "settling_s": 0.92,
+      "error_mm": 0.27,
+      "passed": true
+    },
+    {
+      "load_kg": 2.5,
+      "load_pct": 57,
+      "overshoot_mm": 3.04,
+      "settling_s": 1.982,
+      "error_mm": 0.45,
+      "passed": false
+    },
+    {
+      "load_kg": 3.5,
+      "load_pct": 78,
+      "overshoot_mm": 2.24,
+      "settling_s": 1.998,
+      "error_mm": 1.2,
+      "passed": false
+    },
+    {
+      "load_kg": 4.5,
+      "load_pct": 100,
+      "overshoot_mm": 0.0,
+      "settling_s": 1.998,
+      "error_mm": 53.69,
+      "passed": false
+    },
+    {
+      "load_kg": 5.5,
+      "load_pct": 122,
+      "overshoot_mm": 0.0,
+      "settling_s": 1.998,
+      "error_mm": 105.49,
+      "passed": false
+    }
+  ],
+  "T6_stiffness": [
+    {
+      "pressure_sum_bar": 2.0,
+      "deflection_deg": 14.13
+    },
+    {
+      "pressure_sum_bar": 5.0,
+      "deflection_deg": 10.44
+    }
+  ]
+}
