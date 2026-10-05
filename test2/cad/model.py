@@ -1,6 +1,7 @@
-"""CadQuery concept model of test 2: universal joint, arm with crossbar, two cylinders.
+"""CadQuery concept model of test 2 (concept B): universal joint, hub with two hinged
+bars, vertical cylinders with sliding sleeves.
 
-pose(pitch, roll) returns the parts placed for a given arm attitude (degrees).
+pose(pitch, roll) returns the parts placed for one arm attitude (degrees).
 """
 import math
 import os
@@ -27,27 +28,35 @@ def rot_matrix(pitch, roll):
     return Ry @ Rx
 
 
-def attach_points(pitch, roll):
-    """World positions of the two crossbar ball joints (left, right)."""
+def hinge_points(pitch, roll):
+    """World positions of the two bar hinges on the hub (left, right)."""
     R = rot_matrix(pitch, roll)
     J = np.array(P.JOINT)
-    out = []
-    for s in (1, -1):
-        local = np.array([P.LEVER_X, s * P.LEVER_HALF, -P.LEVER_DROP])
-        out.append(J + R @ local)
-    return out
+    return [J + R @ np.array([P.HUB_X, s * P.HUB_R, 0.0]) for s in (1, -1)]
 
 
-def rear_points():
-    return [np.array([P.REAR_PIVOTS_X, s * P.LEVER_HALF, P.REAR_PIVOTS_Z]) for s in (1, -1)]
+def sleeve_points(pitch, roll):
+    """Where each bar passes through its cylinder sleeve: same x and z as the hinge
+    (the bar is horizontal, along y), at y = ±BAR_Y."""
+    return [np.array([h[0], s * P.BAR_Y, h[2]]) for h, s in zip(hinge_points(pitch, roll), (1, -1))]
+
+
+def lower_points():
+    x, z = P.LOWER_PIVOT
+    return [np.array([x, s * P.BAR_Y, z]) for s in (1, -1)]
 
 
 def cylinder_lengths(pitch, roll):
-    return [float(np.linalg.norm(a - b)) for a, b in zip(attach_points(pitch, roll), rear_points())]
+    return [float(np.linalg.norm(a - b)) for a, b in zip(sleeve_points(pitch, roll), lower_points())]
+
+
+def bar_reach_ok(pitch, roll):
+    """The bar must still pass through the sleeve: |sleeve y − hinge y| ≤ bar length − margin."""
+    return all(abs(s[1] - h[1]) <= P.BAR_LENGTH - P.SLEEVE["length"] / 2
+               for s, h in zip(sleeve_points(pitch, roll), hinge_points(pitch, roll)))
 
 
 def place(shape, R, t):
-    """Apply rotation matrix R (3×3) and translation t to a CadQuery shape."""
     m = cq.Matrix([[R[0, 0], R[0, 1], R[0, 2], t[0]],
                    [R[1, 0], R[1, 1], R[1, 2], t[1]],
                    [R[2, 0], R[2, 1], R[2, 2], t[2]]])
@@ -55,98 +64,108 @@ def place(shape, R, t):
 
 
 def align_x_to(u):
-    """Rotation matrix that maps +x onto unit vector u (keeps the local z roughly up)."""
+    """Rotation matrix mapping +x onto u, with local y kept along world y where possible."""
     x = u / np.linalg.norm(u)
-    z0 = np.array([0.0, 0.0, 1.0])
-    y = np.cross(z0, x)
-    if np.linalg.norm(y) < 1e-6:
-        y = np.array([0.0, 1.0, 0.0])
-    y /= np.linalg.norm(y)
-    z = np.cross(x, y)
+    y0 = np.array([0.0, 1.0, 0.0])
+    z = np.cross(x, y0)
+    if np.linalg.norm(z) < 1e-6:
+        z = np.array([0.0, 0.0, 1.0])
+    z /= np.linalg.norm(z)
+    y = np.cross(z, x)
     return np.column_stack([x, y, z])
 
 
 # --- parts -----------------------------------------------------------------------
 def yoke():
-    """Pitch yoke: turns about y between the cheeks, carries the roll shaft along x."""
     w, h, d = P.YOKE["width"], P.YOKE["height"], P.YOKE["depth"]
     y = cq.Workplane("XY").box(d, w, h)
-    y = y.cut(cq.Workplane("XZ").circle(4.25).extrude(w, both=True))          # pitch bolt
-    y = y.cut(cq.Workplane("YZ").circle(P.ROLL_SHAFT_D / 2 + 0.5).extrude(d, both=True))  # roll shaft
+    y = y.cut(cq.Workplane("XZ").circle(4.25).extrude(w, both=True))
+    y = y.cut(cq.Workplane("YZ").circle(P.ROLL_SHAFT_D / 2 + 0.5).extrude(d, both=True))
     return y
 
 
 def arm():
-    """Arm in its own frame: roll axis along +x through the origin (the joint centre)."""
+    """Arm in its own frame: roll axis along +x through the joint centre (origin)."""
     L = P.ARM_LENGTH
-    hub = cq.Workplane("YZ").circle(14).extrude(70).translate((P.YOKE["depth"] / 2 + 2, 0, 0))
-    shaft = cq.Workplane("YZ").circle(P.ROLL_SHAFT_D / 2).extrude(P.YOKE["depth"] + 80).translate((-P.YOKE["depth"] / 2 - 8, 0, 0))
-    bar = cq.Workplane("XY").box(L - 60, 5, 40).translate((60 + (L - 60) / 2, 0, 0))
-    cross = cq.Workplane("XY").box(20, 2 * P.LEVER_HALF + 30, 6).translate((P.LEVER_X, 0, -P.LEVER_DROP))
-    web = cq.Workplane("XY").box(20, 5, P.LEVER_DROP).translate((P.LEVER_X, 0, -P.LEVER_DROP / 2))
-    balls = None
+    shaft = cq.Workplane("YZ").circle(P.ROLL_SHAFT_D / 2).extrude(P.YOKE["depth"] + 40).translate((-P.YOKE["depth"] / 2 - 8, 0, 0))
+    tube = cq.Workplane("YZ").circle(12).circle(9).extrude(L - 40).translate((40, 0, 0))
+    hub = cq.Workplane("YZ").circle(P.HUB_R + 8).extrude(16).translate((P.HUB_X - 8, 0, 0))
+    lugs = None
     for s in (1, -1):
-        b = cq.Workplane("XY").sphere(7).translate((P.LEVER_X, s * P.LEVER_HALF, -P.LEVER_DROP - 10))
-        stud = cq.Workplane("XY").circle(4).extrude(10).translate((P.LEVER_X, s * P.LEVER_HALF, -P.LEVER_DROP - 10))
-        balls = b.union(stud) if balls is None else balls.union(b).union(stud)
-    return hub.union(shaft).union(bar).union(cross).union(web).union(balls)
+        lug = (cq.Workplane("XY").box(16, 14, 14).translate((P.HUB_X, s * P.HUB_R, 0))
+               .union(cq.Workplane("YZ").circle(3).extrude(24).translate((P.HUB_X - 12, s * P.HUB_R, 0))))
+        lugs = lug if lugs is None else lugs.union(lug)
+    return shaft.union(tube).union(hub).union(lugs)
 
 
-def outrigger(side):
-    """Bracket on the outside of a cheek carrying a lower cylinder ball joint."""
-    t = P.OUTRIGGER["thickness"]
-    y_cheek_out = T1.CHEEK_GAP / 2 + T1.CHEEK["thickness"]
-    width = P.LEVER_HALF - y_cheek_out + 15
-    plate = cq.Workplane("XY").box(P.OUTRIGGER["length"], width, t).translate(
-        (P.REAR_PIVOTS_X, side * (y_cheek_out + width / 2), P.REAR_PIVOTS_Z - 20))
-    ball = cq.Workplane("XY").sphere(7).translate((P.REAR_PIVOTS_X, side * P.LEVER_HALF, P.REAR_PIVOTS_Z))
-    post = cq.Workplane("XY").circle(4).extrude(20).translate((P.REAR_PIVOTS_X, side * P.LEVER_HALF, P.REAR_PIVOTS_Z - 20))
-    return plate.union(ball).union(post)
+def bar(side):
+    """Horizontal bar along ±y, hinge eye at the origin (on the hub hinge)."""
+    eye = cq.Workplane("YZ").circle(7).circle(3.2).extrude(8, both=True)
+    rod = cq.Workplane("XZ").circle(P.BAR_D / 2).extrude(-side * P.BAR_LENGTH)
+    return eye.union(rod)
 
 
-def cylinder_parts(rear, attach):
-    """Cylinder body + rod (with ball-joint eye) placed between two points."""
-    u = attach - rear
-    L = float(np.linalg.norm(u))
-    ext = max(0.0, min(P.CYL["stroke"], L - P.PIN_TO_PIN_MIN))
-    R = align_x_to(u)
-    body = place(T1parts.cylinder_body(), R, rear)
-    rod = T1parts.rod_assembly().translate((ext, 0, 0))
-    # ball-joint eye instead of the clevis: a ring at the pin
-    eye = (cq.Workplane("XZ").circle(10).circle(7.5).extrude(5, both=True)
-           .translate((P.PIN_TO_PIN_MIN + ext, 0, 0)))
-    rod_world = place(rod, R, rear)
-    eye_world = place(eye, R, rear)
-    return body, rod_world, eye_world, L, ext
+def sleeve():
+    """Sleeve block on the cylinder rod end; the bar runs through along y."""
+    s = cq.Workplane("XZ").circle(P.SLEEVE["outer"] / 2).circle(P.BAR_D / 2 + 0.3).extrude(P.SLEEVE["length"] / 2, both=True)
+    neck = cq.Workplane("XY").circle(6).extrude(16).translate((0, 0, -P.SLEEVE["outer"] / 2 - 14))
+    return s.union(neck)
+
+
+def lower_bracket(side):
+    """Clevis on the base plate: the cylinder tilts about y."""
+    x, z = P.LOWER_PIVOT
+    base = cq.Workplane("XY").box(50, 40, 6).translate((x, side * P.BAR_Y, 3))
+    cheeks = None
+    for k in (1, -1):
+        c = cq.Workplane("XY").box(30, 5, z + 10).translate((x, side * P.BAR_Y + k * 14, (z + 10) / 2))
+        cheeks = c if cheeks is None else cheeks.union(c)
+    pin = cq.Workplane("XZ").circle(4).extrude(20, both=True).translate((x, side * P.BAR_Y, z))
+    return base.union(cheeks).union(pin)
 
 
 def pose(pitch=0.0, roll=0.0):
-    """Assembly (list of (name, shape, rgba)) for one arm attitude."""
+    """Assembly (list of (name, shape, rgba)) for one arm attitude, plus cylinder lengths."""
     wood = (0.82, 0.68, 0.47, 1)
     alu = (0.75, 0.77, 0.80, 1)
     steel = (0.45, 0.45, 0.48, 1)
     red = (0.75, 0.25, 0.2, 1)
+    blue = (0.2, 0.4, 0.75, 1)
     items = [
         ("base_plate", T1parts.base_plate().val(), wood),
         ("cheek_left", T1parts.cheek().translate((0, T1.CHEEK_GAP / 2, 0)).val(), wood),
         ("cheek_right", T1parts.cheek().mirror("XZ").translate((0, -T1.CHEEK_GAP / 2, 0)).val(), wood),
         ("spacer_block", T1parts.spacer_block().val(), wood),
-        ("outrigger_left", outrigger(1).val(), alu),
-        ("outrigger_right", outrigger(-1).val(), alu),
     ]
     J = np.array(P.JOINT)
-    Rp = rot_matrix(pitch, 0.0)
-    items.append(("yoke", place(yoke(), Rp, J), red))
-    R = rot_matrix(pitch, roll)
-    items.append(("arm", place(arm(), R, J), alu))
+    items.append(("yoke", place(yoke(), rot_matrix(pitch, 0.0), J), red))
+    items.append(("arm", place(arm(), rot_matrix(pitch, roll), J), alu))
     lengths = []
-    for i, (rear, att) in enumerate(zip(rear_points(), attach_points(pitch, roll))):
-        body, rod, eye, L, ext = cylinder_parts(rear, att)
+    for i, (side, h, s, low) in enumerate(zip((1, -1), hinge_points(pitch, roll),
+                                              sleeve_points(pitch, roll), lower_points())):
+        # bar: horizontal along y through the hinge; it only tilts with the pitch about its own axis
+        Rb = rot_matrix(pitch, 0.0)
+        items.append((f"bar_{i}", place(bar(side), Rb, h), steel))
+        items.append((f"lower_bracket_{i}", lower_bracket(side).val(), alu))
+        u = s - low
+        L = float(np.linalg.norm(u))
         lengths.append(L)
-        items += [(f"cylinder_{i}", body, alu), (f"rod_{i}", rod, steel), (f"eye_{i}", eye, steel)]
+        ext = max(0.0, min(P.CYL["stroke"], L - P.PIN_TO_PIN_MIN))
+        Rc = align_x_to(u)
+        items.append((f"cylinder_{i}", place(T1parts.cylinder_body(), Rc, low), alu))
+        rod = T1parts.rod_assembly().translate((ext, 0, 0))
+        items.append((f"rod_{i}", place(rod, Rc, low), steel))
+        # sleeve at the top, local z along the cylinder axis
+        Rs = Rc @ np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
+        items.append((f"sleeve_{i}", place(sleeve(), Rs, s), blue))
     return items, lengths
 
 
 if __name__ == "__main__":
-    for pr in ((0, 0), (30, 0), (0, 20), (0, -20), (-15, 0), (45, 15)):
-        print(pr, [round(x, 1) for x in cylinder_lengths(*pr)], "range", round(P.PIN_TO_PIN_MIN), "–", round(P.PIN_TO_PIN_MAX))
+    lo, hi = P.PIN_TO_PIN_MIN, P.PIN_TO_PIN_MAX
+    print(f"cylinder pin-to-pin range {lo:.0f}–{hi:.0f} mm")
+    for p in range(-40, 41, 10):
+        rs = [r for r in range(0, 91, 5)
+              if all(lo + 2 <= L <= hi - 2 for L in cylinder_lengths(p, r) + cylinder_lengths(p, -r))
+              and bar_reach_ok(p, r) and bar_reach_ok(p, -r)]
+        print(f"pitch {p:4d}°: roll ±{max(rs) if rs else '—'}°   L at roll 0: {[round(x) for x in cylinder_lengths(p, 0)]}")
