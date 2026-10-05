@@ -85,15 +85,24 @@ def base_plate():
 def cheek(side):
     """Plywood cheek (y from GAP/2 outward) with the joint hole; cut back at the front."""
     x0, x1 = P.CHEEK_X
-    t = T1.CHEEK["thickness"]
-    c = cq.Workplane("XY").box(x1 - x0, t, T1.CHEEK["height"]).translate(
-        ((x0 + x1) / 2, side * (T1.CHEEK_GAP + t) / 2, T1.CHEEK["height"] / 2))
+    t, h = T1.CHEEK["thickness"], P.CHEEK_HEIGHT
+    c = cq.Workplane("XY").box(x1 - x0, t, h).translate(((x0 + x1) / 2, side * (T1.CHEEK_GAP + t) / 2, h / 2))
     return c.cut(cq.Workplane("XZ").center(P.JOINT[0], P.JOINT[2]).circle(5.0).extrude(100, both=True))
 
 
 def spacer_block():
     L, H = T1.SPACER_BLOCK["length"], T1.SPACER_BLOCK["height"]
     return cq.Workplane("XY").box(L, T1.CHEEK_GAP, H).translate((P.CHEEK_X[0] + L / 2, 0, H / 2))
+
+
+def t2_cylinder(fn):
+    """Build a test 1 cylinder part with the test 2 cylinder dimensions."""
+    keep = T1.CYL, T1.PIN_TO_PIN_MIN
+    T1.CYL, T1.PIN_TO_PIN_MIN = P.CYL, P.PIN_TO_PIN_MIN
+    try:
+        return fn()
+    finally:
+        T1.CYL, T1.PIN_TO_PIN_MIN = keep
 
 
 def yoke():
@@ -173,8 +182,8 @@ def pose(pitch=0.0, roll=0.0):
         lengths.append(L)
         ext = max(0.0, min(P.CYL["stroke"], L - P.PIN_TO_PIN_MIN))
         Rc = align_x_to(u)
-        items.append((f"cylinder_{i}", place(T1parts.cylinder_body(), Rc, low), alu))
-        rod = T1parts.rod_assembly().translate((ext, 0, 0))
+        items.append((f"cylinder_{i}", place(t2_cylinder(T1parts.cylinder_body), Rc, low), alu))
+        rod = t2_cylinder(T1parts.rod_assembly).translate((ext, 0, 0))
         items.append((f"rod_{i}", place(rod, Rc, low), steel))
         # sleeve at the top, local z along the cylinder axis
         Rs = Rc @ np.array([[0, 0, 1], [0, 1, 0], [-1, 0, 0]])
@@ -219,7 +228,7 @@ if __name__ == "__main__":
     lo, hi = P.PIN_TO_PIN_MIN, P.PIN_TO_PIN_MAX
     force = 2 * P.T1.P_SUPPLY * 0.1 * P.T1.AREA_A       # N, both cylinders pushing
     print(f"cylinder pin-to-pin range {lo:.0f}–{hi:.0f} mm, both cylinders {force:.0f} N at {P.T1.P_SUPPLY} bar")
-    for p in range(-10, 96, 10):
+    for p in range(-60, 91, 15):
         rs = [r for r in range(0, 91, 5) if reachable(p, r) and reachable(p, -r)]
         u = sleeve_points(p, 0)[0] - lower_points()[0]
         lean = math.degrees(math.atan2(abs(u[0]), u[2]))
