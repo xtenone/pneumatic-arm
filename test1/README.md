@@ -1,74 +1,74 @@
-# Test 1 — pneumatische arm met één vrijheidsgraad
+# Test 1 — pneumatic arm with one degree of freedom
 
-![Test 1](out/sim/render_arm_horizontaal_schuin.png)
+![Test 1](out/sim/render_arm_horizontal_oblique.png)
 
-## Projectomschrijving
+## Project description
 
-Dit is de eerste en kleinste test van het [pneumatic-arm](../doel.md)-project: een
-toegankelijke robotarm die met cilinders werkt, zoals spieren, en met terugkoppeling
-wordt aangestuurd door een programma of AI.
+This is the first and smallest test of the [pneumatic-arm](../README.md) project: an
+accessible robot arm that works with cylinders, like muscles, and is controlled with
+feedback by a program or AI.
 
-Test 1 beantwoordt één vraag: **kan een gewone pneumatische cilinder met goedkope
-aan/uit-ventielen een arm naar een gekozen hoek sturen en daar laten staan, snel en op
-de millimeter, ook met een last eraan?**
+Test 1 answers one question: **can an ordinary pneumatic cylinder with cheap on/off
+valves move an arm to a chosen angle and keep it there, fast and to the millimetre, also
+with a load on it?**
 
-**De opstelling:**
-- een arm van 45 cm op een scharnier, bewogen door één cilinder Ø20 × 150 mm;
-- per cilinderkamer een vulventiel en een leegventiel (SMC VQ110U, 4 stuks), aangestuurd
-  met PWM;
-- een lineaire potmeter voor de positie, een druksensor per kamer, en een Raspberry
-  Pi Pico 2 die 500 keer per seconde regelt.
+**The set-up:**
+- a 45 cm arm on a hinge, moved by one Ø20 × 150 mm cylinder;
+- per cylinder chamber a fill valve and a vent valve (SMC VQ110U, 4 pieces), driven with
+  PWM;
+- a linear potentiometer for the position, a pressure sensor per chamber, and a
+  Raspberry Pi Pico 2 that controls everything 500 times per second.
 
-**Wat het oplevert:**
-- het antwoord of pneumatiek werkt voor deze arm;
-- het getal dat bepaalt hoe groot de cilinders van schouder en elleboog moeten worden
-  (proef T7);
-- de regelsoftware die straks meegaat naar de echte arm.
+**What it delivers:**
+- the answer whether pneumatics work for this arm;
+- the number that sets how big the shoulder and elbow cylinders have to be (test T7);
+- the control software that carries over to the real arm.
 
-**Doelen in getallen** (proef T3): doorschot < 5 mm, binnen 1 s stil, restfout < 1 mm.
-De simulatie haalt dat met de huidige afstelling; zie [resultaten](out/sim/resultaten.md).
+**Targets** (test T3): overshoot < 5 mm, settled within 1 s, error < 1 mm. The
+simulation meets them with the current tuning; see the [results](out/sim/results.md).
 
-## Wat er in dit pakket zit
+## What is in this package
 
-| Map / bestand | Inhoud |
+| Folder / file | Contents |
 |---|---|
-| [`docs/handleiding.md`](docs/handleiding.md) | **Begin hier.** Ontvangstcontrole, bouwen, aansluiten, software, kalibreren, proeven T0–T7, problemen oplossen |
-| [`docs/ontwerp.md`](docs/ontwerp.md) | Waarom zo: ventielkeuze, pneumatiek, elektronica, mechanica, regeling, simulatie |
-| [`docs/stuklijst.md`](docs/stuklijst.md) | Stuklijst (BOM) met artikelen, varianten, aantallen en prijzen; ook als CSV |
-| `out/tekeningen/` | Zijaanzicht, maattekening wang en arm, elektrisch schema, aansluitlijst, pneumatisch schema (PNG + PDF) |
-| `out/cad/` | CAD: STEP per onderdeel en van de samenstelling, STL, DXF-profielen, GLB (3D in de browser) |
-| `out/sim/` | Simulatieresultaten, grafieken en renders |
-| `params.py` | **Alle maten en instellingen.** Al het andere wordt hieruit gegenereerd |
-| `cad/` | CadQuery-model (`parts.py`) en export (`export.py`) |
-| `sim/` | MuJoCo-model (`model.py`), pneumatiekmodel (`pneumatics.py`), scenario's (`run.py`) |
-| `firmware/` | MicroPython voor de Pico 2: `main.py`, `control.py` (regeling), `hw.py`, `config.py` (gegenereerd) |
-| `host/` | Pc-programma's: `logger.py` (handbediening + opname), `proeven.py` (T0–T7 automatisch), `analyse.py` |
-| `tests/test_firmware.py` | Draait de firmware op de pc met nagebootste hardware |
-| `build.py` | Genereert alles opnieuw en maakt de bundel |
+| [`docs/manual.md`](docs/manual.md) | **Start here.** Incoming inspection, building, wiring, software, calibration, tests T0–T7, troubleshooting |
+| [`docs/design.md`](docs/design.md) | Why it is built this way: valves, pneumatics, electronics, mechanics, control, simulation |
+| [`docs/bom.md`](docs/bom.md) | Bill of materials with items, variants, quantities and prices; also as CSV |
+| `out/drawings/` | Side view, cheek and arm dimension drawings, wiring diagram, connection list, pneumatic diagram (PNG + PDF) |
+| `out/cad/` | CAD: STEP per part and of the assembly, STL, DXF profiles, GLB (3D in a browser) |
+| `out/sim/` | Simulation results, plots and renders |
+| `params.py` | **All dimensions and settings.** Everything else is generated from it |
+| `cad/` | CadQuery model (`parts.py`) and export (`export.py`) |
+| `sim/` | MuJoCo model (`model.py`), pneumatics model (`pneumatics.py`), scenarios (`run.py`) |
+| `firmware/` | MicroPython for the Pico 2: `main.py`, `control.py` (controller), `hw.py`, `config.py` (generated) |
+| `host/` | PC tools: `logger.py` (manual control + recording), `tests_t0_t7.py` (tests T0–T7, automated), `analysis.py` |
+| `tests/test_firmware.py` | Runs the firmware on a PC with simulated hardware |
+| `build.py` | Regenerates everything and builds the bundle |
 
-## Snel aan de slag
+## Quick start
 
-- **Bouwen:** volg [de handleiding](docs/handleiding.md) van boven naar beneden.
-- **Simulatie draaien:**
+- **Build:** follow [the manual](docs/manual.md) from top to bottom.
+- **Run the simulation:**
   ```
   pip install -r requirements.txt
   python sim/run.py --render
   ```
-- **Iets veranderen** (een maat, een versterking): pas `params.py` aan en draai
-  `python build.py`. CAD, simulatie, firmware-instellingen, tekeningen en stuklijst
-  lopen dan weer gelijk.
+- **Change something** (a dimension, a gain): edit `params.py` and run
+  `python build.py`. CAD, simulation, firmware settings, drawings and bill of materials
+  are then in sync again.
 
 ## Status
 
-| Onderdeel | Stand |
+| Part | Status |
 |---|---|
-| Ontwerp, CAD, tekeningen | klaar |
-| Simulatie en afstelling | klaar; T3 geslaagd in simulatie |
-| Firmware en pc-programma's | klaar, getest met nagebootste hardware; nog niet op de echte Pico |
-| Onderdelen | AliExpress besteld 2026-10-04; elektronica, compressor en bouwmarkt nog te kopen |
-| Bouwen en proeven T0–T7 | nog te doen |
+| Design, CAD, drawings | done |
+| Simulation and tuning | done; T3 passes in simulation |
+| Firmware and PC tools | done, tested with simulated hardware; not yet on a real Pico |
+| Parts | AliExpress ordered 2026-10-04; electronics, compressor and DIY-store parts still to buy |
+| Build and tests T0–T7 | to do |
 
-## Licentie en delen
+## Open and free to rebuild
 
-Ontworpen om na te bouwen met gewone onderdelen. Alle bronbestanden (CadQuery, MuJoCo,
-MicroPython, Python) zijn tekst en open; er is geen betaalde software nodig.
+Designed to be rebuilt with ordinary parts. All sources (CadQuery, MuJoCo, MicroPython,
+Python) are plain text and open; no paid software is needed. See the
+[licence](../LICENSE).

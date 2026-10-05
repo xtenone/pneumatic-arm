@@ -1,0 +1,48 @@
+order,part,variant,qty,price,estimate,link,note,status
+1. Valves (AliExpress),5× fast 3/2 valve,VQ110U-5M-M5,1,130.53,False,https://www.aliexpress.com/item/1005013133472109.html,Including shipping (store with 11 pages of reviews),ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Cylinder MAL20×150,"bore 20, stroke 150, standard (not CA), no magnet",1,12.99,False,https://www.aliexpress.com/item/1005010583152545.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Linear potentiometer KTC,"175 mm, plain resistive 5 kΩ version (not 4–20 mA / LWF), type B (ball joint)",1,28.19,False,https://www.aliexpress.com/item/1005006230077162.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Pressure sensor,"#4 0–100 psi, output 0.5–4.5 V",2,14.89,False,https://www.aliexpress.com/item/1005010385122677.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Filter + regulator AFR-2000,"G1/4, with gauge",1,7.69,False,https://www.aliexpress.com/item/1005005324116810.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Shut-off slide valve HSV-08,"HSV-08 (G1/4), not HSV-06",1,4.09,False,https://www.aliexpress.com/item/1005010563686803.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Main valve 3V210-08,"NC, DC24V",1,8.19,False,https://www.aliexpress.com/item/1005007341961878.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","Emergency stop, mounted in a box","plastic box with yellow STOP label, no lid or guard; NC contact (or 1NO+1NC)",1,8.29,True,https://www.aliexpress.com/item/1005005858101621.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","Straight push-in fitting, per piece (4000+ sold)",4 mm – M5 (PC4-M5),8,0.49,False,https://www.aliexpress.com/item/1005002796005278.html,"6 for the valves, 2 spare",ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","Straight push-in fitting, per piece",4 mm – 1/8 (PC4-01),3,0.61,False,https://www.aliexpress.com/item/1005002796005278.html,"2 needed, 1 spare",ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","Straight push-in fitting, per piece",4 mm – 1/4 (PC4-02),5,0.69,False,https://www.aliexpress.com/item/1005002796005278.html,"Regulator, slide valve, main valve (3–5 needed)",ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",M5 blanking plug (10 pieces),M5,1,3.05,False,https://www.aliexpress.com/item/1005004886533500.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Tee 4 mm,"PE4, 10 pieces",1,2.8,False,https://www.aliexpress.com/item/1005006534920138.html,,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","Push-in fitting, female 1/4"" → 4 mm (bag of 10, for the pressure sensors)",PCF4-02,1,6.49,False,https://www.aliexpress.com/item/32830226405.html,Rc 1/4 (tapered); seal the G1/4 sensor with PTFE tape,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",PU tube 5 m,"4×2.5 mm, 5 m (clear)",2,2.42,False,https://www.aliexpress.com/item/1005007992615899.html,Everything in 4 mm tube; 6 mm is not needed,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Foot mount (LB) for MAL20,"LB, 20 mm",2,4.49,False,https://www.aliexpress.com/item/1005007235783406.html,Not needed for test 1 (the cylinder pivots); spare for a fixed set-up,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Nut M22×1.5,M22×1.5 (MAL20/25),1,3.11,False,https://www.aliexpress.com/item/1005007235783406.html,For the rear cover; the cylinder usually comes with one nut only,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)","ULN2803A Darlington array (DIP-18), 10 pieces",ULN2803APG DIP-18,1,2.23,False,https://www.aliexpress.com/item/1005006852404177.html,"Only the ULN2803 in this listing, no mix-up with 2802/2804 (the 2804 does not switch on 3.3 V)",ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Inline flow restrictor 4 mm (2 pieces),4 mm,1,3.36,False,https://www.aliexpress.com/item/1005008810108635.html,Used after T7 to mimic a smaller valve,ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",Rod clevis (Y) for MAL20,Y/MA MAL20,1,3.85,False,https://www.aliexpress.com/item/1005007235783406.html,Connects the cylinder rod to the arm (test 1),ordered (2026-10-04)
+"2. Pneumatics, sensors and driver IC (AliExpress)",M5 exhaust silencer (5 pieces),Short M5/5PCS,1,1.64,False,https://www.aliexpress.com/item/1005004014973967.html,,ordered (2026-10-04)
+"3. Electronics (Tinytronics, NL)",Raspberry Pi Pico 2 (RP2350),,1,7.25,False,https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350,,"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)",LM7805C 5 V voltage regulator (TO-220),,1,0.6,True,https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar,"Supply for the pressure sensors, before the e-stop","compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)","Ceramic capacitor 1 µF, 50 V",,2,0.15,True,https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v,7805 input (1 + 1 spare),"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)","Ceramic capacitor 100 nF, 50 V",,6,0.1,True,https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator,7805 output + 3 ADC inputs + 2 spare,"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)",DC jack 5.5/2.1 mm to screw terminal,matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5),1,1.21,False,https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block,"Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred)","compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)",Breadboard 830 holes + male-male jumper wires,,1,8.0,True,,,"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)",Resistors 10 kΩ (2) and 15 kΩ (2),,1,0.5,True,,"10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type","compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)","Micro-USB cable (data, not charge-only)",,1,3.0,True,,,"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)","Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves)",,1,3.0,True,,,"compiled, not ordered yet"
+4. DIY store,"Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",DIY stores often cut to size,1,15.0,True,,,still to buy
+4. DIY store,"Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm",,1,8.0,True,,,still to buy
+4. DIY store,"Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",,1,3.0,True,,,still to buy
+4. DIY store,"Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves",,1,4.0,True,,,still to buy
+4. DIY store,Ball bearing 608-2RS (8×22×7) — arm hinge,skateboard bearing,2,1.5,True,,,still to buy
+4. DIY store,Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot,,2,1.0,True,,,still to buy
+4. DIY store,Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod,,2,0.2,True,,,still to buy
+4. DIY store,Bolt M5×16 + nut — potentiometer rod to the bracket,,2,0.2,True,,,still to buy
+4. DIY store,Hose clamp 20–32 mm — potentiometer on the cylinder,,2,0.8,True,,,still to buy
+4. DIY store,Angle bracket 40×40 + wood screws 4×30 / 4×40,cheeks and block onto the base plate,4,0.8,True,,,still to buy
+4. DIY store,F-clamp — clamp the rig to the table edge,,2,6.0,True,,,still to buy
+4. DIY store,1.5 l water bottle + S-hook or string — the load; for T7 extra bottles or bags of sand,,1,1.5,True,,,still to buy
+4. DIY store,"Plug nipple G1/4 male, matching the compressor coupler",buy after the compressor arrives,1,3.0,True,,,still to buy
+4. DIY store,Tube cutter,,1,5.0,True,,,still to buy
+4. DIY store,PTFE tape,,1,1.5,True,,,still to buy
+4. DIY store,Multimeter (if you do not have one),,1,20.0,True,,"Needed for the incoming inspection, coil checks and calibration",still to buy
+5. Compressor (Lidl),Parkside silent compressor PSKO 248 B1,"24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar",1,99.99,False,https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873,Check the coupler on arrival; the plug nipple on the regulator must match it,"chosen, not ordered yet"

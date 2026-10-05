@@ -1,377 +1,372 @@
-# Handleiding test 1 — arm met één vrijheidsgraad
+# Manual for test 1 — arm with one degree of freedom
 
-Deze handleiding neemt je stap voor stap mee: onderdelen controleren, bouwen,
-aansluiten, software installeren, kalibreren en de proeven T0–T7 doen.
+This manual takes you step by step through checking the parts, building, wiring,
+installing the software, calibrating and running tests T0–T7.
 
-Bij 📷 maak je een foto en stuur je die op, voordat je verdergaat. Dan kijkt iemand
-mee voordat er lucht of stroom op komt.
+At 📷 take a photo before you continue. It lets someone check your work before air or
+power goes on; post it in an issue if you want feedback.
 
-Alle maten komen uit `params.py` en staan ook in de tekeningen in `out/tekeningen/`.
-
----
-
-## 0. Veiligheid — eerst lezen
-
-- **Veiligheidsbril op** zodra er perslucht op de opstelling staat. Een losschietende
-  slang zwiept en kan je oog raken.
-- **Begin op 2–3 bar.** Pas naar 5 bar als T0 tot en met T2 goed zijn gegaan. Nooit
-  boven de 6 bar: de ventielen kunnen 7 bar aan, de druksensoren 6,9 bar.
-- **Handen weg tussen arm en staander.** De cilinder duwt op 5 bar 157 N, en bij het
-  scharnier is dat genoeg om vingers te pletten.
-- **Noodstop binnen handbereik.** Ingedrukt: de 24 V gaat eraf, alle ventielen gaan
-  dicht en het hoofdventiel laat de toevoerleiding leeglopen. De cilinder houdt dan
-  zijn lucht vast; de arm blijft staan en valt niet.
-- **Drukloos maken voordat je sleutelt:**
-  1. afsluitschuif dicht (toevoer drukloos);
-  2. in de software `klep 0 1 0 1` (beide kamers leeg laten lopen), of het knopje
-     (handbediening) op de leegventielen V2 en V4 indrukken;
-  3. de manometers van de drukregelaar en de meting van de druksensoren moeten 0 bar
-     tonen.
-- **Opstelling vastzetten.** De arm steekt over de tafelrand. Zet de grondplaat met twee
-  lijmklemmen vast, anders kan het geheel kantelen bij een snelle beweging.
-- **Geen 230 V aan de opstelling.** Alleen de gesloten 24 V-stekkeradapter.
+All dimensions come from `params.py` and are also in the drawings in `out/drawings/`.
 
 ---
 
-## 1. Ontvangstcontrole
+## 0. Safety — read this first
 
-Doe dit per pakket, **voordat** je op AliExpress "ontvangst bevestigen" drukt. Is er
-iets mis, open dan een geschil met foto's.
+- **Safety glasses on** as soon as there is compressed air on the rig. A tube that comes
+  loose whips around and can hit your eye.
+- **Start at 2–3 bar.** Only go to 5 bar after T0 to T2 went well. Never above 6 bar: the
+  valves are rated for 7 bar, the pressure sensors for 6.9 bar.
+- **Hands out from between the arm and the upright.** At 5 bar the cylinder pushes 157 N,
+  which at the hinge is enough to crush fingers.
+- **Emergency stop within reach.** Pressed: the 24 V drops out, all valves close and the
+  main valve vents the supply line. The cylinder keeps its air; the arm stays where it is
+  and does not fall.
+- **Depressurise before working on the rig:**
+  1. close the shut-off slide (supply depressurised);
+  2. in the software `valve 0 1 0 1` (vent both chambers), or press the manual override
+     button on vent valves V2 and V4;
+  3. the regulator gauge and the pressure sensor readings must show 0 bar.
+- **Clamp the rig down.** The arm reaches past the table edge. Clamp the base plate with
+  two F-clamps, or the whole thing can tip over in a fast move.
+- **No mains voltage on the rig.** Only the closed 24 V plug-in adapter.
 
-| Onderdeel | Controle | Goed als |
+---
+
+## 1. Incoming inspection
+
+Do this per parcel, **before** you confirm receipt on AliExpress. If something is wrong,
+open a dispute with photos.
+
+| Part | Check | Good if |
 |---|---|---|
-| 5× VQ110U-5M-M5 | etiket | er staat VQ110U-5M-M5 op, met aansluitblok (wit blokje met poorten) |
-| | spoelweerstand (multimeter Ω, rode en zwarte draad) | alle vijf ongeveer gelijk: ca. 380–600 Ω (1–1,5 W op 24 V) |
-| | 24 V er kort op (rood +, zwart −) | duidelijke tik, het lampje in de stekker brandt |
-| | blazen op P (fietspomp of mond), spoel uit/aan | uit: dicht, aan: lucht komt uit A |
-| Cilinder MAL20×150 | stang met de hand in- en uitschuiven | loopt gelijkmatig, zonder haperen |
-| | poorten | draad 1/8; een PC4-01 draait er met de hand soepel een paar slagen in |
-| | maten (meten!) | pen-pen-lengte ingeschoven noteren — zie stap 5 |
-| Potmeter KTC-175 | weerstand tussen de pinnen | twee pinnen geven vast ca. 5 kΩ (de uiteinden); de derde is de loper |
-| | loper bewegen | weerstand loper–uiteinde verandert gelijkmatig met de stang |
-| 2× druksensor | 5 V erop (rood +, zwart −), signaal meten | 0 bar: ca. 0,5 V (of ca. 0 V bij een 0–5 V-type) |
-| | draad | buitendraad G1/4 (past in de PCF4-02) |
-| ULN2803A | — | test volgt in stap 8 |
-| Drukregelaar, schuif, hoofdventiel | draadmaten | G1/4 (de PC4-02-koppelingen passen) |
-| Noodstop | multimeter op piep, op de NC-aansluitingen | piept als de knop uit is, stil als hij is ingedrukt |
+| 5× VQ110U-5M-M5 | label | says VQ110U-5M-M5, with sub-plate (white block with ports) |
+| | coil resistance (multimeter Ω, red and black wire) | all five about equal: approx. 380–600 Ω (1–1.5 W at 24 V) |
+| | 24 V on it briefly (red +, black −) | a clear click, the LED in the plug lights up |
+| | blow into P (bicycle pump or mouth), coil off/on | off: closed, on: air comes out of A |
+| Cylinder MAL20×150 | push the rod in and out by hand | moves evenly, without sticking |
+| | ports | 1/8 thread; a PC4-01 screws in smoothly by hand for a few turns |
+| | dimensions (measure!) | note the retracted pin-to-pin length — see step 5 |
+| KTC-175 potentiometer | resistance between the pins | two pins give a fixed ~5 kΩ (the ends); the third is the wiper |
+| | move the wiper | resistance wiper–end changes evenly with the rod |
+| 2× pressure sensor | 5 V on it (red +, black −), measure the signal | 0 bar: approx. 0.5 V (or approx. 0 V for a 0–5 V type) |
+| | thread | male G1/4 (fits the PCF4-02) |
+| ULN2803A | — | tested in step 8 |
+| Regulator, slide, main valve | thread sizes | G1/4 (the PC4-02 fittings fit) |
+| Emergency stop | multimeter in beep mode, on the NC terminals | beeps when released, silent when pressed |
 
-📷 Foto van alle onderdelen naast elkaar, met de etiketten van de ventielen leesbaar.
+📷 Photo of all parts side by side, with the valve labels readable.
 
 ---
 
-## 2. Gereedschap
+## 2. Tools
 
-- decoupeerzaag of handzaag (hout), ijzerzaag en vijl (aluminium)
-- boormachine met houtboren 5 en 8,5 mm, metaalboren 5,5 en 8,5 mm, Forstnerboor 22 mm
-- schroevendraaiers, steeksleutels 8, 10, 13 mm, inbussleutels
-- striptang, kleine schroevendraaier voor schroefklemmen
-- rolmaat, winkelhaak, priem of centerpons
+- jigsaw or hand saw (wood), hacksaw and file (aluminium)
+- drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm, 22 mm Forstner bit
+- screwdrivers, spanners 8, 10, 13 mm, hex keys
+- wire stripper, small screwdriver for screw terminals
+- tape measure, try square, awl or centre punch
 - multimeter
-- veiligheidsbril
+- safety glasses
 
 ---
 
-## 3. Houtwerk: grondplaat, wangen en afstandsblok
+## 3. Woodwork: base plate, cheeks and spacer block
 
-Tekeningen: `out/tekeningen/wang.pdf` en `out/tekeningen/zijaanzicht.pdf`.
+Drawings: `out/drawings/cheek.pdf` and `out/drawings/side_view.pdf`.
 
-1. **Zagen** uit multiplex 18 mm. De bouwmarkt zaagt vaak gratis op maat.
-   - grondplaat 400 × 300 mm
-   - 2 wangen 450 × 120 mm
-   - 2 blokjes 60 × 60 mm (samen het afstandsblok van 36 mm)
-2. **Gaten aftekenen op beide wangen.** Leg ze precies op elkaar en zet ze vast met
-   een klem. Zo komen de gaten in beide wangen exact recht tegenover elkaar.
-   - scharnier: midden van de breedte (60 mm), 420 mm vanaf de onderkant
-   - draaipunt cilinder: midden (60 mm), 100 mm vanaf de onderkant
-   - 2 schroefgaatjes voor het blok: 30 mm van de achterkant, 20 en 45 mm hoog
-3. **Boren,** met de wangen nog op elkaar geklemd:
-   - Ø10 mm door, bij het scharnier
-   - Ø8,5 mm door, bij het draaipunt van de cilinder
-   - Ø5 mm door, bij de schroefgaatjes
-4. **Lagerzittingen.** Haal de wangen uit elkaar. Boor aan de **buitenkant** van elke
-   wang bij het scharnier met de Forstnerboor Ø22 mm een gat van **7 mm diep**. De
-   twee wangen zijn dus elkaars spiegelbeeld.
-   - Druk een lager 608 erin. Het moet strak zitten: tik het er met een blokje hout in.
-   - Zit het los, zet het dan vast met een druppel tweecomponentenlijm.
-5. **Afstandsblok:** lijm de twee blokjes van 60 × 60 op elkaar (36 mm dik).
-6. **In elkaar zetten:**
-   - zet het afstandsblok achter-onder tussen de wangen en schroef het vast met
-     4 schroeven 4×40 door de Ø5-gaatjes;
-   - zet de wangen met 4 hoekijzers op de grondplaat. De achterkant van de wangen staat
-     90 mm van de achterrand van de grondplaat (de voorkant 190 mm van de voorrand); de
-     wangen staan midden op de breedte.
-   - Controleer met de winkelhaak dat de wangen recht staan.
+1. **Saw** from 18 mm plywood. DIY stores often cut to size for free.
+   - base plate 400 × 300 mm
+   - 2 cheeks 450 × 120 mm
+   - 2 blocks 60 × 60 mm (together the 36 mm spacer block)
+2. **Mark the holes on both cheeks.** Put them exactly on top of each other and clamp
+   them, so the holes line up perfectly in both cheeks.
+   - hinge: middle of the width (60 mm), 420 mm from the bottom
+   - cylinder pivot: middle (60 mm), 100 mm from the bottom
+   - 2 screw holes for the block: 30 mm from the back, 20 and 45 mm high
+3. **Drill** with the cheeks still clamped together:
+   - Ø10 mm through, at the hinge
+   - Ø8.5 mm through, at the cylinder pivot
+   - Ø5 mm through, at the screw holes
+4. **Bearing seats.** Separate the cheeks. On the **outside** of each cheek, at the
+   hinge, drill a 22 mm hole **7 mm deep** with the Forstner bit. The two cheeks are
+   mirror images.
+   - Press a 608 bearing in. It should be a tight fit: tap it in with a block of wood.
+   - If it is loose, fix it with a drop of two-component glue.
+5. **Spacer block:** glue the two 60 × 60 blocks together (36 mm thick).
+6. **Assembly:**
+   - put the spacer block at the back bottom between the cheeks and screw it with
+     4 screws 4×40 through the Ø5 holes;
+   - fix the cheeks to the base plate with 4 angle brackets. The back of the cheeks is
+     90 mm from the back edge of the base plate (the front is 190 mm from the front
+     edge); the cheeks are centred across the width.
+   - Check with the try square that the cheeks stand square.
 
-📷 Foto van de staander op de grondplaat, van opzij en van voren.
-
----
-
-## 4. De arm
-
-Tekening: `out/tekeningen/arm.pdf`.
-
-1. Zaag de aluminium strip 40×5 op **450 mm** en vijl de randen glad.
-2. **Gaten aftekenen,** op de hartlijn (20 mm van de rand):
-   - scharnier: 20 mm van het ene einde
-   - vorkkop: 150 mm vanaf het scharniergat
-   - last: 400 mm vanaf het scharniergat
-3. Pons de gaten voor, boor eerst Ø5, dan **Ø8,5**, en ontbraam ze.
-4. **Afstandsbusjes:** zaag van het buisje 10×1 vier stukjes:
-   - 2× **15,5 mm** voor de arm in het scharnier (36 − 5 = 31, verdeeld over 2 kanten)
-   - 2× **7 mm** voor het achterste draaipunt van de cilinder (36 − 22 = 14, verdeeld)
-5. **Monteren:** steek een bout M8×80 door de lagers en wangen. Zet onderweg de busjes en
-   de arm ertussen: lager — busje 15,5 — arm — busje 15,5 — lager. Draai de borgmoer
-   aan tot er geen speling is, maar de arm nog vrij draait.
-
-📷 Foto van het scharnier van boven. De arm moet midden tussen de wangen zitten en vrij
-op en neer draaien.
+📷 Photo of the upright on the base plate, from the side and from the front.
 
 ---
 
-## 5. De cilinder
+## 4. The arm
 
-1. **Pen-pen-lengte meten** met de stang helemaal ingeschoven: van het hart van het
-   gat achterop tot het hart van de pen van de vorkkop. Zet daarvoor eerst de vorkkop
-   op de stang, zie stap 2.
-   - In de berekening staat **311 mm**.
-   - Wijkt het meer dan 5 mm af, geef het door: dan wordt `params.py` aangepast. Dat
-     verandert het bewegingsbereik en de kalibratie.
-2. **Vorkkop op de stang,** in deze volgorde: moer M8 — beugeltje van de potmeter
-   (gat 8,5) — moer M8 — vorkkop. Draai de vorkkop ongeveer 12 mm op de stang en
-   zet hem vast met de moeren.
-3. **Achterste draaipunt:** steek de tweede bout M8×80 door de wang, een busje van 7 mm,
-   het gat achterop de cilinder, nog een busje van 7 mm en de andere wang. De
-   luchtpoorten wijzen naar de **voorkant** (weg van de staander). Zet de borgmoer
-   vast, maar laat de cilinder vrij draaien.
-4. **Aan de arm:** zet de vorkkop met zijn pen vast in het gat op 150 mm. Zet de borgveer
-   of het splitpennetje erop.
-5. Beweeg de arm met de hand helemaal op en neer. Er mag niets aanlopen.
-   - Onderste stand: ongeveer −17°, cilinder helemaal in.
-   - Bovenste stand: ongeveer +66°, cilinder helemaal uit.
+Drawing: `out/drawings/arm.pdf`.
 
-📷 Foto van opzij, met de arm horizontaal.
+1. Cut the 40×5 aluminium bar to **450 mm** and file the edges smooth.
+2. **Mark the holes** on the centre line (20 mm from the edge):
+   - hinge: 20 mm from one end
+   - clevis: 150 mm from the hinge hole
+   - load: 400 mm from the hinge hole
+3. Centre-punch, drill Ø5 first, then **Ø8.5**, and deburr.
+4. **Spacer sleeves:** cut four pieces of the 10×1 tube:
+   - 2× **15.5 mm** for the arm in the hinge (36 − 5 = 31, split over 2 sides)
+   - 2× **7 mm** for the cylinder's rear pivot (36 − 22 = 14, split)
+5. **Assembly:** push an M8×80 bolt through the bearings and cheeks, with the sleeves and
+   the arm in between: bearing — 15.5 sleeve — arm — 15.5 sleeve — bearing. Tighten the
+   lock nut until there is no play but the arm still turns freely.
+
+📷 Photo of the hinge from above. The arm must sit centred between the cheeks and swing
+freely up and down.
 
 ---
 
-## 6. De potmeter
+## 5. The cylinder
 
-1. Buig van de strip 20×3 een montagestrip die op de cilinderbuis past.
-2. Zet de potmeter daarop met zijn eigen klemmetjes.
-3. Zet de montagestrip met twee slangklemmen op de cilinderbuis, aan de **onderkant**
-   (weg van het scharnier). De potmeter ligt evenwijdig aan de cilinder.
-4. Zet de kogelkop van de potmeterstang met een boutje M5 vast aan het beugeltje op de
-   cilinderstang.
-5. Beweeg de arm helemaal op en neer.
-   - De potmeter mag nooit op zijn eigen eindaanslag komen: zijn slag is 175 mm, die
-     van de cilinder 150 mm. Schuif hem zo dat er aan beide kanten speling blijft.
-   - Niets mag klemmen; de kogelkop vangt kleine scheefstand op.
+1. **Measure the pin-to-pin length** with the rod fully retracted: from the centre of the
+   rear hole to the centre of the clevis pin. Fit the clevis on the rod first, see step 2.
+   - The calculation assumes **311 mm**.
+   - If it differs by more than 5 mm, change `CYL` in `params.py` and run `build.py`:
+     it changes the range of motion and the calibration.
+2. **Clevis on the rod,** in this order: M8 nut — potentiometer bracket (8.5 hole) — M8
+   nut — clevis. Screw the clevis about 12 mm onto the rod and lock it with the nuts.
+3. **Rear pivot:** push the second M8×80 bolt through the cheek, a 7 mm sleeve, the hole
+   at the back of the cylinder, another 7 mm sleeve and the other cheek. The air ports
+   point to the **front** (away from the upright). Tighten the lock nut but let the
+   cylinder pivot freely.
+4. **To the arm:** fix the clevis with its pin in the hole at 150 mm. Fit the circlip or
+   split pin.
+5. Move the arm by hand all the way up and down. Nothing may touch.
+   - Lowest position: about −17°, cylinder fully retracted.
+   - Highest position: about +66°, cylinder fully extended.
 
-📷 Foto van de potmeter op de cilinder, in de onderste en de bovenste stand.
-
----
-
-## 7. Pneumatiek
-
-Schema: `out/tekeningen/pneumatiek.pdf`. De aansluitregels staan ook in
-`docs/ontwerp.md` (hoofdstuk "Aansluitschema pneumatiek").
-
-**Steekkoppelingen:**
-- **Slang inschuiven:** recht afsnijden met de slangschaar, en er stevig in duwen
-  tot de aanslag (ca. 15 mm). Daarna even aan de slang trekken.
-- **Slang eruit halen:** het blauwe ringetje indrukken en dan trekken.
-
-**Schroefdraad:**
-- G1/4 en 1/8: PTFE-tape, 3–4 slagen met de draairichting mee. Stevig met de hand
-  aandraaien, dan een kwartslag met de sleutel.
-- M5 aan de ventielen: niet te vast, het aansluitblok is van kunststof. Het rubber
-  ringetje van de koppeling dicht af.
-
-**Opbouw:**
-1. **Ventielen voorbereiden** (zie de tabel in het ontwerp):
-   - **vulventielen V1, V3:** P = voeding, A = naar de kamer, **R = blindplug**
-   - **leegventielen V2, V4:** P = vanuit de kamer, A = demper, **R = blindplug**
-   - Plak een label op elk ventiel: V1 vul A, V2 leeg A, V3 vul B, V4 leeg B.
-2. **Zet de ventielen dicht bij de cilinder,** op het afstandsblok of op een strookje
-   hout. Houd elke slang tussen ventiel en cilinder **korter dan 30 cm**.
-3. **Kamer A** is de poort aan de achterkant van de cilinder (zuigerzijde), **kamer B**
-   de poort voorin (stangzijde).
-4. **Per kamer:** één T-stuk naar het vulventiel, het leegventiel en de cilinderpoort,
-   en een tweede T-stuk naar de druksensor (in een PCF4-02 geschroefd).
-5. **Toevoer:** compressor — drukregelaar — afsluitschuif — hoofdventiel P → A —
-   T-stuk — naar P van V1 en V3. De R-poort van het hoofdventiel blijft open: daar
-   blaast de toevoer leeg bij de noodstop.
-6. Zet de smoorventielen er **nog niet** tussen. Die zijn voor later (de vergelijking).
-
-📷 Foto van de complete pneumatiek, met de labels leesbaar.
-
-**Eerste lektest met zeepsop** (pas na stap 8 en 9, als de noodstop werkt):
-1. Drukregelaar op 2 bar, afsluitschuif open.
-2. Hoofdventiel aan: de noodstop is uitgetrokken en de 24 V staat aan.
-3. Kwast met zeepsop over elke koppeling. Belletjes = lek. Opnieuw afsnijden en
-   insteken, of de draad opnieuw tapen.
+📷 Photo from the side, with the arm horizontal.
 
 ---
 
-## 8. Elektronica
+## 6. The potentiometer
 
-Schema: `out/tekeningen/bedrading.png`. Aansluitlijst: `out/tekeningen/bedrading_lijst.png`.
+1. Bend a mounting strip from the 20×3 strip to fit the cylinder tube.
+2. Fix the potentiometer to it with its own clips.
+3. Clamp the mounting strip to the cylinder tube with two hose clamps, on the **underside**
+   (away from the hinge). The potentiometer runs parallel to the cylinder.
+4. Fix the ball joint of the potentiometer rod with an M5 bolt to the bracket on the
+   cylinder rod.
+5. Move the arm all the way up and down.
+   - The potentiometer must never reach its own end stop: its stroke is 175 mm, the
+     cylinder's 150 mm. Slide it so there is clearance at both ends.
+   - Nothing may bind; the ball joint takes up small misalignment.
 
-**Werk in deze volgorde en test na elke stap.** Steek de 24 V-adapter pas in het
-stopcontact als dat in de stappen staat.
+📷 Photo of the potentiometer on the cylinder, in the lowest and highest positions.
 
-1. **Pico en ULN2803A** op het breadboard. Zet de ULN2803A over de middengleuf, met
-   de inkeping naar links. Pin 1 zit dan linksonder (vaak met een puntje); pin 1–9 lopen
-   langs de onderkant, pin 10–18 terug langs de bovenkant.
-2. **Massa:** Pico GND, ULN2803A pin 9, LM7805C pin 2 en de min van de adapter samen
-   op de blauwe railstrip van het breadboard.
-3. **Stuurdraden:** GP2 → IN1 (pin 1), GP3 → IN2 (pin 2), GP4 → IN3 (pin 3),
+---
+
+## 7. Pneumatics
+
+Diagram: `out/drawings/pneumatics.pdf`. The connection tables are in
+`docs/design.md` ("Pneumatic connections").
+
+**Push-in fittings:**
+- **Inserting a tube:** cut it square with the tube cutter and push it in firmly up to
+  the stop (about 15 mm). Then give the tube a pull.
+- **Removing a tube:** press the blue collar and pull.
+
+**Threads:**
+- G1/4 and 1/8: PTFE tape, 3–4 turns in the direction of the thread. Hand-tight, then a
+  quarter turn with a spanner.
+- M5 on the valves: not too tight, the sub-plate is plastic. The fitting's rubber ring
+  seals.
+
+**Assembly:**
+1. **Prepare the valves** (see the table in the design document):
+   - **fill valves V1, V3:** P = supply, A = to the chamber, **R = blanking plug**
+   - **vent valves V2, V4:** P = from the chamber, A = silencer, **R = blanking plug**
+   - Label each valve: V1 fill A, V2 vent A, V3 fill B, V4 vent B.
+2. **Mount the valves close to the cylinder,** on the spacer block or a strip of wood.
+   Keep every tube between valve and cylinder **shorter than 30 cm**.
+3. **Chamber A** is the port at the back of the cylinder (piston side), **chamber B** the
+   port at the front (rod side).
+4. **Per chamber:** one tee to the fill valve, the vent valve and the cylinder port, and a
+   second tee to the pressure sensor (screwed into a PCF4-02).
+5. **Supply:** compressor — regulator — shut-off slide — main valve P → A — tee — to P of
+   V1 and V3. The main valve's R port stays open: that is where the supply vents on an
+   e-stop.
+6. Do **not** fit the flow restrictors yet. They are for later (the comparison).
+
+📷 Photo of the complete pneumatics, with the labels readable.
+
+**First leak test with soapy water** (only after steps 8 and 9, when the e-stop works):
+1. Regulator at 2 bar, shut-off slide open.
+2. Main valve on: the e-stop is released and the 24 V is on.
+3. Brush soapy water over every fitting. Bubbles = leak. Cut and re-insert the tube, or
+   re-tape the thread.
+
+---
+
+## 8. Electronics
+
+Diagram: `out/drawings/wiring.png`. Connection list: `out/drawings/wiring_list.png`.
+
+**Work in this order and test after each step.** Only plug the 24 V adapter into the
+mains when the steps say so.
+
+1. **Pico and ULN2803A** on the breadboard. Put the ULN2803A across the middle gap with
+   the notch to the left. Pin 1 is then bottom left (often marked with a dot); pins 1–9
+   run along the bottom, pins 10–18 back along the top.
+2. **Ground:** Pico GND, ULN2803A pin 9, LM7805C pin 2 and the adapter's minus together on
+   the blue rail of the breadboard.
+3. **Control wires:** GP2 → IN1 (pin 1), GP3 → IN2 (pin 2), GP4 → IN3 (pin 3),
    GP5 → IN4 (pin 4).
-4. **24 V en noodstop:**
-   - Plus van de adapter via de DC-bus naar het **NC-contact** van de noodstop.
-   - Andere kant van de noodstop: dit is "+24 V ná noodstop". Die gaat naar
-     ULN2803A pin 10 (COM) en naar de rode draad van alle vier de VQ110-spoelen.
-   - Aan "+24 V ná noodstop" hangt ook één kant van het hoofdventiel. De andere kant
-     van het hoofdventiel gaat naar GND.
-5. **Spoelen:** zwart van V1 → OUT1 (pin 18), V2 → OUT2 (pin 17), V3 → OUT3 (pin 16),
-   V4 → OUT4 (pin 15). **Let op plus en min:** in de stekker van de spoelen zitten een
-   lampje en een beveiliging, en die werken maar in één richting.
+4. **24 V and emergency stop:**
+   - Adapter plus via the DC jack to the **NC contact** of the e-stop.
+   - The other side of the e-stop is "+24 V after e-stop". It goes to ULN2803A pin 10
+     (COM) and to the red wire of all four VQ110 coils.
+   - One side of the main valve also connects to "+24 V after e-stop". The other side of
+     the main valve goes to GND.
+5. **Coils:** black of V1 → OUT1 (pin 18), V2 → OUT2 (pin 17), V3 → OUT3 (pin 16),
+   V4 → OUT4 (pin 15). **Mind the polarity:** the coil plugs contain an LED and a
+   suppressor that work in one direction only.
 6. **LM7805C:**
-   - IN (pin 1) aan de 24 V **vóór** de noodstop, met de 1 µF van IN naar GND.
-   - OUT (pin 3) wordt de +5 V, met de 100 nF van OUT naar GND.
-   - Pinvolgorde, met de tekst naar je toe en de pootjes naar beneden: IN – GND – OUT.
-7. **Druksensoren:**
-   - rood aan +5 V, zwart aan GND
-   - signaal via **10 kΩ** naar GP27 (sensor A) en GP28 (sensor B)
-   - van GP27 en GP28 elk **15 kΩ** naar GND, en een **100 nF** naar GND
-8. **Potmeter:**
-   - uiteinden aan **3V3** (Pico pin 36) en **GND**
-   - loper aan **GP26**, met een 100 nF naar GND
+   - IN (pin 1) to the 24 V **before** the e-stop, with the 1 µF from IN to GND.
+   - OUT (pin 3) becomes +5 V, with the 100 nF from OUT to GND.
+   - Pin order, text facing you and legs down: IN – GND – OUT.
+7. **Pressure sensors:**
+   - red to +5 V, black to GND
+   - signal via **10 kΩ** to GP27 (sensor A) and GP28 (sensor B)
+   - from GP27 and GP28 each a **15 kΩ** to GND, and a **100 nF** to GND
+8. **Potentiometer:**
+   - ends to **3V3** (Pico pin 36) and **GND**
+   - wiper to **GP26**, with a 100 nF to GND
 
-📷 Foto van het breadboard van bovenaf, scherp genoeg om de draden te volgen.
+📷 Photo of the breadboard from above, sharp enough to follow the wires.
 
-**Eerste test, zónder perslucht** (afsluitschuif dicht):
-1. **5 V meten:** adapter erin, noodstop uitgetrokken. Meet OUT van de 7805: 4,9–5,1 V.
-2. **Sensorspanning op de Pico-pinnen:** meet GP27 en GP28 ten opzichte van GND. Dat moet
-   onder de 3,1 V liggen, anders klopt de deler niet. Op 0 bar is het ca. 0,3 V.
-3. **Ventielen laten klikken:** zie stap 9 (software), commando `klep 1 0 0 0`. Je
-   hoort V1 tikken en ziet zijn lampje. Test zo alle vier, en daarna de noodstop:
-   indrukken = alles stil.
+**First test, without compressed air** (shut-off slide closed):
+1. **Measure 5 V:** adapter in, e-stop released. Measure OUT of the 7805: 4.9–5.1 V.
+2. **Sensor voltage at the Pico pins:** measure GP27 and GP28 to GND. It must be below
+   3.1 V, otherwise the divider is wrong. At 0 bar it is about 0.3 V.
+3. **Make the valves click:** see step 9 (software), command `valve 1 0 0 0`. You hear V1
+   click and see its LED. Test all four this way, then the e-stop: pressed = all quiet.
 
 ---
 
 ## 9. Software
 
-### Op de Pico (MicroPython)
+### On the Pico (MicroPython)
 
-1. **MicroPython erop zetten:**
-   - download MicroPython voor de **Raspberry Pi Pico 2** (RP2350) van
-     micropython.org (bestand `.uf2`);
-   - houd de BOOTSEL-knop ingedrukt en steek de USB-kabel erin. De Pico verschijnt als
-     USB-schijf;
-   - sleep het `.uf2`-bestand erop. De Pico herstart vanzelf.
-2. **Thonny** installeren (thonny.org). Kies rechtsonder "MicroPython (Raspberry Pi Pico)".
-3. **Firmware kopiëren:** zet de vier bestanden uit `firmware/` op de Pico:
-   `main.py`, `control.py`, `config.py` en `hw.py`. In Thonny: open het bestand, dan
-   "Opslaan als…" → "Raspberry Pi Pico".
-4. Druk op Stop/Herstart in Thonny. Onderin zie je `OK,gestart`. Typ `help` voor de
-   commando's.
+1. **Install MicroPython:**
+   - download MicroPython for the **Raspberry Pi Pico 2** (RP2350) from micropython.org
+     (a `.uf2` file);
+   - hold the BOOTSEL button and plug in the USB cable. The Pico shows up as a USB drive;
+   - drag the `.uf2` file onto it. The Pico restarts by itself.
+2. Install **Thonny** (thonny.org). Bottom right, choose "MicroPython (Raspberry Pi Pico)".
+3. **Copy the firmware:** put the four files from `firmware/` on the Pico: `main.py`,
+   `control.py`, `config.py` and `hw.py`. In Thonny: open the file, then "Save as…" →
+   "Raspberry Pi Pico".
+4. Press Stop/Restart in Thonny. At the bottom you see `OK,started`. Type `help` for the
+   commands.
 
-`config.py` wordt gegenereerd uit `params.py` (`python gen_config.py`). Pas hem dus niet
-met de hand aan.
+`config.py` is generated from `params.py` (`python gen_config.py`), so do not edit it by
+hand.
 
-### Op de pc (Python 3.10 of nieuwer)
+### On the PC (Python 3.10 or newer)
 
 ```
 cd test1/host
 pip install -r requirements.txt
-python logger.py              # zoekt de Pico zelf; anders: --poort COM5 of /dev/ttyACM0
+python logger.py              # finds the Pico itself; otherwise --port COM5 or /dev/ttyACM0
 ```
 
-Sluit Thonny eerst af: er kan maar één programma tegelijk met de Pico praten.
+Close Thonny first: only one program at a time can talk to the Pico.
 
-**Belangrijke commando's** (ook in `help`):
+**Main commands** (also in `help`):
 
-| Commando | Wat |
+| Command | What |
 |---|---|
-| `off` | alle ventielen dicht |
-| `klep 1 0 0 0` | V1 open (handmatig, duty 0..1 per ventiel) |
-| `druk 2 2` | beide kamers op 2 bar regelen |
-| `hoek 20` | arm naar 20° |
-| `bang 20` | aan/uit-regeling naar 20° (T2) |
-| `som 4` | stijfheid: som van de kamerdrukken |
-| `nul`, `kal_druk 3`, `kal_pos in`, `kal_pos uit`, `opslaan` | kalibratie (stap 10) |
+| `off` | close all valves |
+| `valve 1 0 0 0` | open V1 (manual, duty 0..1 per valve) |
+| `pressure 2 2` | control both chambers to 2 bar |
+| `angle 20` | arm to 20° |
+| `bang 20` | on/off control to 20° (T2) |
+| `stiffness 4` | sum of the chamber pressures |
+| `zero`, `cal_pressure 3`, `cal_pos in`, `cal_pos out`, `save` | calibration (step 10) |
 
-**Veiligheid in de software:**
-- Stuurt de pc een halve seconde niets, dan gaan alle ventielen dicht. De logger en
-  het proevenscript sturen daarom elke 0,2 s `ping`.
-- Bij het eerste bewegingscommando start de hardware-watchdog. Loopt het programma
-  vast, dan herstart de Pico vanzelf, met alle ventielen dicht.
-
----
-
-## 10. Kalibreren
-
-Doe dit één keer, en opnieuw na het verplaatsen van de potmeter of een andere sensor.
-
-1. **Nulpunt druk:** afsluitschuif dicht. Typ `klep 0 1 0 1` (beide leegventielen open) en
-   laat dat zo tot en met stap 3. Typ **`nul`**.
-2. **Potmeter, onderkant:** arm met de hand helemaal omlaag (cilinder helemaal in). De arm
-   beweegt vrij, want beide kamers staan open naar buiten. Typ **`kal_pos in`**.
-3. **Potmeter, bovenkant:** arm met de hand helemaal omhoog (cilinder helemaal uit).
-   Typ **`kal_pos uit`**, laat de arm rustig zakken en typ `off`.
-4. **Druk, versterking:**
-   - drukregelaar op **3,0 bar**, afsluitschuif open;
-   - typ **`klep 1 0 1 0`**: beide kamers vullen tot 3 bar. Met de last eraan blijft de
-     arm liggen of beweegt hij een beetje; dat geeft niet. Wacht 3 seconden;
-   - kijk op de manometer en typ **`kal_druk 3.0`** (of wat de manometer aangeeft);
-   - typ **`off`**.
-5. **`opslaan`**: de kalibratie gaat naar `cal.json` op de Pico.
-6. **Controle:**
-   - arm met de hand naar horizontaal. De logger moet een hoek van ca. 0° tonen; meet
-     na met een waterpas;
-   - de druk op de manometer en de gemeten druk moeten binnen 0,1 bar van elkaar zitten.
-
-📷 Schermafdruk van de logger met de arm horizontaal.
+**Safety in the software:**
+- If the PC sends nothing for half a second, all valves close. The logger and the test
+  script therefore send `ping` every 0.2 s.
+- The hardware watchdog starts at the first motion command. If the program hangs, the
+  Pico resets itself, with all valves closed.
 
 ---
 
-## 11. De proeven
+## 10. Calibration
 
-Start: `python proeven.py T0` (en zo verder), of `python proeven.py alle`.
-Elke proef bewaart zijn meting, grafiek en uitkomst in `host/resultaten/`. Stuur die map
-op na elke proef.
+Do this once, and again after moving the potentiometer or replacing a sensor.
 
-| Proef | Druk | Last | Wat | Geslaagd als |
+1. **Pressure zero:** shut-off slide closed. Type `valve 0 1 0 1` (both vent valves open)
+   and leave it like that up to and including step 3. Type **`zero`**.
+2. **Potentiometer, bottom:** move the arm by hand all the way down (cylinder fully in).
+   The arm moves freely because both chambers are open to the atmosphere. Type
+   **`cal_pos in`**.
+3. **Potentiometer, top:** move the arm by hand all the way up (cylinder fully out). Type
+   **`cal_pos out`**, lower the arm gently and type `off`.
+4. **Pressure gain:**
+   - regulator at **3.0 bar**, shut-off slide open;
+   - type **`valve 1 0 1 0`**: both chambers fill to 3 bar. With the load on, the arm
+     stays down or moves a little; that is fine. Wait 3 seconds;
+   - read the gauge and type **`cal_pressure 3.0`** (or whatever the gauge shows);
+   - type `off`.
+5. **`save`**: the calibration goes to `cal.json` on the Pico.
+6. **Check:**
+   - move the arm by hand to horizontal. The logger should show an angle of about 0°;
+     check with a spirit level;
+   - the gauge and the measured pressure must agree within 0.1 bar.
+
+📷 Screenshot of the logger with the arm horizontal.
+
+---
+
+## 11. The tests
+
+Start: `python tests_t0_t7.py T0` (and so on), or `python tests_t0_t7.py all`.
+Each test stores its run, plot and outcome in `host/results/`.
+
+| Test | Pressure | Load | What | Passed if |
 |---|---|---|---|---|
-| T0 lektest | 3 bar | 1,5 kg | arm naar 20°, alle ventielen dicht, 60 s meten | drukval < 0,1 bar |
-| T1 ventielen | 3 bar | – | elk ventiel 10 ms open, druk snel meten | reactie < 10 ms |
-| T2 aan/uit | 3 bar | 1,5 kg | 0° → 30° → −5° met alleen vol open/dicht | stilstand binnen ±3 mm |
-| T3 PWM-regeling | 5 bar | 1,5 kg | 0° → 30° → −5° | doorschot < 5 mm, stil binnen 1 s, restfout < 1 mm |
-| T4 herhaalbaarheid | 5 bar | 1,5 kg | 10× naar 20°, afwisselend van boven en onder | spreiding < ±1 mm |
-| T5 vasthouden | 5 bar | 1,5 kg | 60 s op 30° | afwijking < 1 mm |
-| T6 stijfheid | 5 bar | 1,5 + 1 kg | op 20°, ventielen dicht, 1 kg erbij; kamerdruk 2 en 5 bar | duidelijk minder uitwijking bij 5 bar |
-| T7 belastingsgraad | 5 bar | 0,5 → 3,5 kg | T3 herhalen met oplopende last | hoogste last waarbij T3 slaagt |
+| T0 leak test | 3 bar | 1.5 kg | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
+| T1 valves | 3 bar | – | open each valve for 10 ms, sample the pressure fast | response < 10 ms |
+| T2 on/off | 3 bar | 1.5 kg | 0° → 30° → −5° with fully open/closed valves only | comes to rest within ±3 mm |
+| T3 PWM control | 5 bar | 1.5 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
+| T4 repeatability | 5 bar | 1.5 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
+| T5 holding | 5 bar | 1.5 kg | 60 s at 30° | deviation < 1 mm |
+| T6 stiffness | 5 bar | 1.5 + 1 kg | at 20°, valves closed, add 1 kg; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
+| T7 load ratio | 5 bar | 0.5 → 3.5 kg | repeat T3 with increasing load | highest load at which T3 passes |
 
-De verwachting uit de simulatie staat in `out/sim/resultaten.json` en in het
-README-bestand. Wijkt de echte meting sterk af, dan is dat juist nuttige informatie,
-bijvoorbeeld over de wrijving van de cilinder.
+The simulation's expectations are in `out/sim/results.json` and in the README. If the
+real measurement differs a lot, that is useful information in itself, for example about
+the cylinder's friction.
 
-**Na T7:** zet de smoorventielen tussen het T-stuk en de vulventielen en herhaal T3 met
-de smoorventielen ¼, ½ en ¾ dicht. Zo zie je wat een kleiner ventiel doet met snelheid
-en precisie. Zet een streepje op elke schroef, zodat je een stand terugvindt.
+**After T7:** fit the flow restrictors between the tee and the fill valves and repeat T3
+with the restrictors ¼, ½ and ¾ closed. This shows what a smaller valve does to speed and
+precision. Mark each screw so you can find a setting again.
 
 ---
 
-## 12. Problemen oplossen
+## 12. Troubleshooting
 
-| Wat je ziet | Waarschijnlijke oorzaak | Wat te doen |
+| What you see | Likely cause | What to do |
 |---|---|---|
-| Ventiel tikt niet | plus/min omgedraaid, of noodstop ingedrukt | rood aan +24 V ná noodstop, zwart aan OUT; noodstop uittrekken |
-| Ventiel blijft altijd open | R-poort niet dicht, of P en A verwisseld | blindplug op R; zie de tabel in stap 7 |
-| Druk loopt langzaam weg (T0) | lekkende koppeling | zeepsoptest, slang opnieuw recht afsnijden |
-| Druk leest 0 terwijl de manometer 3 bar toont | sensor zonder +5 V of verkeerde draad | 5 V meten op de rode draad; signaal op geel/groen |
-| Hoek springt of ruist | potmeterdraad los, of geen 100 nF op GP26 | aansluitingen nalopen |
-| Arm slingert rond het doel | wrijving anders dan in de simulatie | `KP_FORCE` lager of `KD_FORCE` hoger in `params.py`, `python gen_config.py`, config.py opnieuw kopiëren |
-| `FOUT,overdruk` | drukregelaar boven 6 bar | regelaar lager zetten |
-| `FOUT,geen contact met de pc` | logger gestopt of USB los | normaal gedrag; opnieuw starten |
-| De Pico herstart steeds | watchdog na stoppen in Thonny | normaal: na 2 s draait hij weer, met alle ventielen dicht |
+| Valve does not click | polarity reversed, or e-stop pressed | red to +24 V after e-stop, black to OUT; release the e-stop |
+| Valve always open | R port not plugged, or P and A swapped | blanking plug on R; see the table in step 7 |
+| Pressure slowly drops (T0) | leaking fitting | soapy-water test, cut the tube square again |
+| Pressure reads 0 while the gauge shows 3 bar | sensor without +5 V or wrong wire | measure 5 V on the red wire; signal on yellow/green |
+| Angle jumps or is noisy | loose potentiometer wire, or no 100 nF on GP26 | check the connections |
+| Arm oscillates around the target | friction differs from the simulation | lower `KP_FORCE` or raise `KD_FORCE` in `params.py`, run `python gen_config.py`, copy config.py again |
+| `ERROR,over-pressure` | regulator above 6 bar | turn the regulator down |
+| `ERROR,no contact with the PC` | logger stopped or USB unplugged | normal behaviour; start again |
+| The Pico keeps restarting | watchdog after stopping in Thonny | normal: after 2 s it runs again, with all valves closed |
