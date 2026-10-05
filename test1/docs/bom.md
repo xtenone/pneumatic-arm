@@ -40,19 +40,23 @@ Status: ordered (2026-10-04)
 
 ## 3. Electronics (Tinytronics, NL)
 
-Status: compiled, not ordered yet
+Status: ordered (2026-10-05)
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
-| 1 | Raspberry Pi Pico 2 (RP2350) |  | €7.25 | [link](https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350) |
-| 1 | LM7805C 5 V voltage regulator (TO-220) — Supply for the pressure sensors, before the e-stop |  | €0.60* | [link](https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar) |
-| 2 | Ceramic capacitor 1 µF, 50 V — 7805 input (1 + 1 spare) |  | €0.30* | [link](https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v) |
-| 6 | Ceramic capacitor 100 nF, 50 V — 7805 output + 3 ADC inputs + 2 spare |  | €0.60* | [link](https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator) |
-| 1 | DC jack 5.5/2.1 mm to screw terminal — Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred) | matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5) | €1.21 | [link](https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block) |
-| 1 | Breadboard 830 holes + male-male jumper wires |  | €8.00* |  |
-| 1 | Resistors 10 kΩ (2) and 15 kΩ (2) — or 47 kΩ (6), 3 in parallel per sensor instead of 15 kΩ — 10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type |  | €0.50* |  |
-| 1 | Micro-USB cable (data, not charge-only) |  | €3.00* |  |
-| 1 | Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves) |  | €3.00* |  |
+| 1 | Raspberry Pi Pico 2W (RP2350, Wi-Fi) — headers soldered on yourself | SKU 006795 | €9.25 | [link](https://www.tinytronics.nl/) |
+| 4 | 40-pin male header strip (2× 20 pins needed for the Pico) | SKU 000160 | €1.60 |  |
+| 2 | LM7805C 5 V voltage regulator (TO-220) — 1 spare | SKU 000236 | €1.00 |  |
+| 2 | Ceramic capacitor 1 µF, 50 V — 7805 input (1 + 1 spare) | SKU 007096 | €0.40 |  |
+| 6 | Ceramic capacitor 100 nF, 50 V — 7805 output + 3 ADC inputs + 2 spare | SKU 000226 | €0.60 |  |
+| 1 | DC jack female 5.5 mm (5.5/2.1) to screw terminal — Check that the 24 V adapter plug is 5.5/2.1 | SKU 000287 | €1.00 |  |
+| 1 | Breadboard 830 points (EIC premium) | SKU 006327 | €5.00 |  |
+| 1 | Resistor 10 kΩ 1/4 W, 10 pieces — Top of the pressure sensor dividers (2 needed) | SKU 007625 | €0.50 |  |
+| 3 | Resistor 47 kΩ 1/4 W, 10 pieces — 3 in parallel = 15.7 kΩ, bottom of each divider (6 needed) | SKU 007626 | €1.50 |  |
+| 1 | Micro-USB cable (data), 1 m | Goobay 72227 | €2.75 |  |
+| 2 | Stranded wire 0.5 mm², black, 1 m — 24 V, e-stop, valves (screw terminals) | SKU 003430 | €2.00 |  |
+| 2 | Stranded wire 0.5 mm², red, 1 m | SKU 003427 | €2.00 |  |
+| 3 | DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red) — Breadboard wiring: red = plus, black = ground, blue = signal | SKU 002978/002980/002977 | €13.50 |  |
 
 ## 4. DIY store
 
@@ -85,7 +89,7 @@ Status: chosen, not ordered yet
 |---|---|---|---|---|
 | 1 | Parkside silent compressor PSKO 248 B1 — Check the coupler on arrival; the plug nipple on the regulator must match it | 24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar | €99.99 | [link](https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873) |
 
-**Total approx. €487** (excluding shipping and import duty).
+**Total approx. €504** (excluding shipping and import duty).
 
 ## Tools
 

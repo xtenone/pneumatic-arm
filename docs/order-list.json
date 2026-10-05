@@ -175,79 +175,95 @@
     },
     {
       "name": "3. Electronics (Tinytronics, NL)",
-      "status": "compiled, not ordered yet",
-      "note": "The ULN2803A comes with the AliExpress order (Tinytronics has no DIP version).",
+      "status": "ordered (2026-10-05)",
+      "note": "Tinytronics, total €41.10 incl. VAT. The ULN2803A comes with the AliExpress order (Tinytronics has no DIP version).",
       "items": [
         {
-          "url": "https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350",
-          "what": "Raspberry Pi Pico 2 (RP2350)",
-          "variant": "",
+          "url": "https://www.tinytronics.nl/",
+          "what": "Raspberry Pi Pico 2W (RP2350, Wi-Fi) — headers soldered on yourself",
+          "variant": "SKU 006795",
           "qty": 1,
-          "price": 7.25
+          "price": 9.25
         },
         {
-          "url": "https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar",
+          "what": "40-pin male header strip (2× 20 pins needed for the Pico)",
+          "variant": "SKU 000160",
+          "qty": 4,
+          "price": 0.4
+        },
+        {
           "what": "LM7805C 5 V voltage regulator (TO-220)",
-          "variant": "",
-          "qty": 1,
-          "price": 0.6,
-          "estimate": true,
-          "note": "Supply for the pressure sensors, before the e-stop"
+          "variant": "SKU 000236",
+          "qty": 2,
+          "price": 0.5,
+          "note": "1 spare"
         },
         {
-          "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v",
           "what": "Ceramic capacitor 1 µF, 50 V",
-          "variant": "",
+          "variant": "SKU 007096",
           "qty": 2,
-          "price": 0.15,
-          "estimate": true,
+          "price": 0.2,
           "note": "7805 input (1 + 1 spare)"
         },
         {
-          "url": "https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator",
           "what": "Ceramic capacitor 100 nF, 50 V",
-          "variant": "",
+          "variant": "SKU 000226",
           "qty": 6,
           "price": 0.1,
-          "estimate": true,
           "note": "7805 output + 3 ADC inputs + 2 spare"
         },
         {
-          "url": "https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block",
-          "what": "DC jack 5.5/2.1 mm to screw terminal",
-          "variant": "matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5)",
+          "what": "DC jack female 5.5 mm (5.5/2.1) to screw terminal",
+          "variant": "SKU 000287",
           "qty": 1,
-          "price": 1.21,
-          "note": "Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred)"
+          "price": 1.0,
+          "note": "Check that the 24 V adapter plug is 5.5/2.1"
         },
         {
-          "what": "Breadboard 830 holes + male-male jumper wires",
-          "variant": "",
+          "what": "Breadboard 830 points (EIC premium)",
+          "variant": "SKU 006327",
           "qty": 1,
-          "price": 8.0,
-          "estimate": true
+          "price": 5.0
         },
         {
-          "what": "Resistors 10 kΩ (2) and 15 kΩ (2) — or 47 kΩ (6), 3 in parallel per sensor instead of 15 kΩ",
-          "variant": "",
+          "what": "Resistor 10 kΩ 1/4 W, 10 pieces",
+          "variant": "SKU 007625",
           "qty": 1,
           "price": 0.5,
-          "estimate": true,
-          "note": "10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type"
+          "note": "Top of the pressure sensor dividers (2 needed)"
         },
         {
-          "what": "Micro-USB cable (data, not charge-only)",
-          "variant": "",
-          "qty": 1,
-          "price": 3.0,
-          "estimate": true
+          "what": "Resistor 47 kΩ 1/4 W, 10 pieces",
+          "variant": "SKU 007626",
+          "qty": 3,
+          "price": 0.5,
+          "note": "3 in parallel = 15.7 kΩ, bottom of each divider (6 needed)"
         },
         {
-          "what": "Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves)",
-          "variant": "",
+          "what": "Micro-USB cable (data), 1 m",
+          "variant": "Goobay 72227",
           "qty": 1,
-          "price": 3.0,
-          "estimate": true
+          "price": 2.75
+        },
+        {
+          "what": "Stranded wire 0.5 mm², black, 1 m",
+          "variant": "SKU 003430",
+          "qty": 2,
+          "price": 1.0,
+          "note": "24 V, e-stop, valves (screw terminals)"
+        },
+        {
+          "what": "Stranded wire 0.5 mm², red, 1 m",
+          "variant": "SKU 003427",
+          "qty": 2,
+          "price": 1.0
+        },
+        {
+          "what": "DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red)",
+          "variant": "SKU 002978/002980/002977",
+          "qty": 3,
+          "price": 4.5,
+          "note": "Breadboard wiring: red = plus, black = ground, blue = signal"
         }
       ]
     },

@@ -15,7 +15,7 @@ Roles: **(B)** = build, buy, measure; **(D)** = design, software, documentation,
 - [x] Principle: one cylinder, 4 fast 2/2 functions (fill/vent per chamber) with PWM — [test1/docs/design.md](../test1/docs/design.md)
 - [x] Valves: SMC VQ110U (large flow), each on its own sub-plate (a manifold would connect the chambers)
 - [x] Sensors: KTC linear potentiometer 175 mm, 2 pressure sensors G1/4
-- [x] Electronics: Pico 2, ULN2803A, LM7805C for the sensors, emergency stop that cuts the 24 V
+- [x] Electronics: Pico 2W, ULN2803A, LM7805C for the sensors, emergency stop that cuts the 24 V
 - [x] Pneumatic connections, everything in 4 mm tube
 - [x] Tests T0–T7 with measurable criteria
 - [x] Cost per DOF — [cost-per-dof.md](cost-per-dof.md)
@@ -23,7 +23,7 @@ Roles: **(B)** = build, buy, measure; **(D)** = design, software, documentation,
 ## Phase 2 — Purchasing (in progress)
 
 - [x] AliExpress: valves, pneumatics, sensors, ULN2803A — ordered 2026-10-04 (B)
-- [ ] Electronics: Pico 2, LM7805C, capacitors, 10k/15k resistors, breadboard, DC jack matching the 24 V adapter, USB cable, wire (B)
+- [x] Electronics (Tinytronics): Pico 2W, LM7805C, capacitors, 10k + 47k resistors, breadboard, DC jack, USB cable, wire, jumper wires, headers — ordered 2026-10-05 (B)
 - [ ] Check the 24 V adapter: DC (not AC), at least 0.5 A, plug size (5.5/2.1 or 5.5/2.5) (B)
 - [ ] Compressor Parkside PSKO 248 B1 (B)
 - [ ] DIY store, after the compressor: plug nipple G1/4 matching its coupler, tube cutter, PTFE tape, plywood, aluminium, bearings, bolts, multimeter if needed (B)

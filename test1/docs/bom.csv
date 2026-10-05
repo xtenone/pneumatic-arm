@@ -20,15 +20,19 @@ order,part,variant,qty,price,estimate,link,note,status
 "2. Pneumatics, sensors and driver IC (AliExpress)",Inline flow restrictor 4 mm (2 pieces),4 mm,1,3.36,False,https://www.aliexpress.com/item/1005008810108635.html,Used after T7 to mimic a smaller valve,ordered (2026-10-04)
 "2. Pneumatics, sensors and driver IC (AliExpress)",Rod clevis (Y) for MAL20,Y/MA MAL20,1,3.85,False,https://www.aliexpress.com/item/1005007235783406.html,Connects the cylinder rod to the arm (test 1),ordered (2026-10-04)
 "2. Pneumatics, sensors and driver IC (AliExpress)",M5 exhaust silencer (5 pieces),Short M5/5PCS,1,1.64,False,https://www.aliexpress.com/item/1005004014973967.html,,ordered (2026-10-04)
-"3. Electronics (Tinytronics, NL)",Raspberry Pi Pico 2 (RP2350),,1,7.25,False,https://www.tinytronics.nl/nl/development-boards/microcontroller-boards/overige/raspberry-pi-pico-2-rp2350,,"compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)",LM7805C 5 V voltage regulator (TO-220),,1,0.6,True,https://www.tinytronics.nl/nl/componenten/spanningsregelaars/lm7805c-5v-spanningsregelaar,"Supply for the pressure sensors, before the e-stop","compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)","Ceramic capacitor 1 µF, 50 V",,2,0.15,True,https://www.tinytronics.nl/nl/componenten/condensatoren/keramische-condensator-1uf-50v,7805 input (1 + 1 spare),"compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)","Ceramic capacitor 100 nF, 50 V",,6,0.1,True,https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator,7805 output + 3 ADC inputs + 2 spare,"compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)",DC jack 5.5/2.1 mm to screw terminal,matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5),1,1.21,False,https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block,"Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred)","compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)",Breadboard 830 holes + male-male jumper wires,,1,8.0,True,,,"compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)","Resistors 10 kΩ (2) and 15 kΩ (2) — or 47 kΩ (6), 3 in parallel per sensor instead of 15 kΩ",,1,0.5,True,,"10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type","compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)","Micro-USB cable (data, not charge-only)",,1,3.0,True,,,"compiled, not ordered yet"
-"3. Electronics (Tinytronics, NL)","Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves)",,1,3.0,True,,,"compiled, not ordered yet"
+"3. Electronics (Tinytronics, NL)","Raspberry Pi Pico 2W (RP2350, Wi-Fi) — headers soldered on yourself",SKU 006795,1,9.25,False,https://www.tinytronics.nl/,,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)",40-pin male header strip (2× 20 pins needed for the Pico),SKU 000160,4,0.4,False,,,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)",LM7805C 5 V voltage regulator (TO-220),SKU 000236,2,0.5,False,,1 spare,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Ceramic capacitor 1 µF, 50 V",SKU 007096,2,0.2,False,,7805 input (1 + 1 spare),ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Ceramic capacitor 100 nF, 50 V",SKU 000226,6,0.1,False,,7805 output + 3 ADC inputs + 2 spare,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)",DC jack female 5.5 mm (5.5/2.1) to screw terminal,SKU 000287,1,1.0,False,,Check that the 24 V adapter plug is 5.5/2.1,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)",Breadboard 830 points (EIC premium),SKU 006327,1,5.0,False,,,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Resistor 10 kΩ 1/4 W, 10 pieces",SKU 007625,1,0.5,False,,Top of the pressure sensor dividers (2 needed),ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Resistor 47 kΩ 1/4 W, 10 pieces",SKU 007626,3,0.5,False,,"3 in parallel = 15.7 kΩ, bottom of each divider (6 needed)",ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Micro-USB cable (data), 1 m",Goobay 72227,1,2.75,False,,,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Stranded wire 0.5 mm², black, 1 m",SKU 003430,2,1.0,False,,"24 V, e-stop, valves (screw terminals)",ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","Stranded wire 0.5 mm², red, 1 m",SKU 003427,2,1.0,False,,,ordered (2026-10-05)
+"3. Electronics (Tinytronics, NL)","DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red)",SKU 002978/002980/002977,3,4.5,False,,"Breadboard wiring: red = plus, black = ground, blue = signal",ordered (2026-10-05)
 4. DIY store,"Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",DIY stores often cut to size,1,15.0,True,,,still to buy
 4. DIY store,"Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm",,1,8.0,True,,,still to buy
 4. DIY store,"Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",,1,3.0,True,,,still to buy
