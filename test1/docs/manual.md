@@ -262,8 +262,10 @@ mains when the steps say so.
 ### On the Pico (MicroPython)
 
 1. **Install MicroPython:**
-   - download MicroPython for the **Raspberry Pi Pico 2** (RP2350) from micropython.org
-     (a `.uf2` file);
+   - download MicroPython for your board from micropython.org (a `.uf2` file): the
+     **Raspberry Pi Pico 2 W** build (`RPI_PICO2_W`) for the Wi-Fi version, or the
+     **Pico 2** build (`RPI_PICO2`) without Wi-Fi. The wrong build does not start;
+   - solder the header pins on first if your Pico came without them;
    - hold the BOOTSEL button and plug in the USB cable. The Pico shows up as a USB drive;
    - drag the `.uf2` file onto it. The Pico restarts by itself.
 2. Install **Thonny** (thonny.org). Bottom right, choose "MicroPython (Raspberry Pi Pico)".
