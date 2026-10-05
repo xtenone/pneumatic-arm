@@ -239,7 +239,9 @@ mains when the steps say so.
 7. **Pressure sensors:**
    - red to +5 V, black to GND
    - signal via **10 kΩ** to GP27 (sensor A) and GP28 (sensor B)
-   - from GP27 and GP28 each a **15 kΩ** to GND, and a **100 nF** to GND
+   - from GP27 and GP28 each a **15 kΩ** to GND, and a **100 nF** to GND. No 15 kΩ? Use
+     **3× 47 kΩ in parallel** (15.7 kΩ). Do not go above a ratio of 0.6 (bottom ÷
+     (top + bottom)), or more than 3.3 V reaches the Pico pin at 5 V.
 8. **Potentiometer:**
    - ends to **3V3** (Pico pin 36) and **GND**
    - wiper to **GP26**, with a 100 nF to GND

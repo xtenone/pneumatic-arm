@@ -228,7 +228,7 @@
           "estimate": true
         },
         {
-          "what": "Resistors 10 kΩ (2) and 15 kΩ (2)",
+          "what": "Resistors 10 kΩ (2) and 15 kΩ (2) — or 47 kΩ (6), 3 in parallel per sensor instead of 15 kΩ",
           "variant": "",
           "qty": 1,
           "price": 0.5,

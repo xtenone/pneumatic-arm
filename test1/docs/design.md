@@ -246,7 +246,8 @@ Each row is one connection; the quantities in the parts list follow from this.
   - Capacitors: 1 µF between IN and GND, 100 nF between OUT and GND, close to the pins.
   - The 7805 sits before the e-stop, so the sensors keep measuring when the e-stop is
     pressed.
-  - Each sensor output goes through a 10 kΩ (top) / 15 kΩ (bottom) divider to ADC1 (GP27)
+  - Each sensor output goes through a 10 kΩ (top) / 15 kΩ (bottom) divider (or 3× 47 kΩ in
+    parallel = 15.7 kΩ, ratio 0.61, 5 V → 3.05 V) to ADC1 (GP27)
     and ADC2 (GP28). That turns 5.0 V into 3.0 V, safe for the Pico whether the sensor
     gives 0.5–4.5 V or 0–5 V.
   - Which output type it is shows at the first reading: at 0 bar it gives about 0.5 V or

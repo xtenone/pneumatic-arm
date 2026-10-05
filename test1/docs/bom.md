@@ -50,7 +50,7 @@ Status: compiled, not ordered yet
 | 6 | Ceramic capacitor 100 nF, 50 V — 7805 output + 3 ADC inputs + 2 spare |  | €0.60* | [link](https://www.tinytronics.nl/nl/componenten/condensatoren/100nf-50v-ceramische-condensator) |
 | 1 | DC jack 5.5/2.1 mm to screw terminal — Your own adapter: 24 V DC, at least 0.5 A (1–2 A preferred) | matching the plug of your 24 V adapter (5.5/2.1 or 5.5/2.5) | €1.21 | [link](https://www.tinytronics.nl/nl/kabels-en-connectoren/connectoren/schroefterminals/dc-jack-female-5.5mm-naar-terminal-block) |
 | 1 | Breadboard 830 holes + male-male jumper wires |  | €8.00* |  |
-| 1 | Resistors 10 kΩ (2) and 15 kΩ (2) — 10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type |  | €0.50* |  |
+| 1 | Resistors 10 kΩ (2) and 15 kΩ (2) — or 47 kΩ (6), 3 in parallel per sensor instead of 15 kΩ — 10k/15k divider: 5 V → 3.0 V, safe for the Pico whatever the sensor output type |  | €0.50* |  |
 | 1 | Micro-USB cable (data, not charge-only) |  | €3.00* |  |
 | 1 | Hook-up wire 0.5 mm², red and black (24 V, e-stop, valves) |  | €3.00* |  |
 
