@@ -1,5 +1,5 @@
 """CadQuery concept model of test 2 (concept B): universal joint, hub with two hinged
-bars, vertical cylinders with sliding sleeves.
+bars, inclined cylinders with sliding sleeves.
 
 pose(pitch, roll) returns the parts placed for one arm attitude (degrees).
 """
@@ -76,6 +76,26 @@ def align_x_to(u):
 
 
 # --- parts -----------------------------------------------------------------------
+def base_plate():
+    x0, x1 = P.BASE_X
+    return (cq.Workplane("XY").box(x1 - x0, T1.BASE["width"], T1.BASE["thickness"])
+            .translate(((x0 + x1) / 2, 0, -T1.BASE["thickness"] / 2)))
+
+
+def cheek(side):
+    """Plywood cheek (y from GAP/2 outward) with the joint hole; cut back at the front."""
+    x0, x1 = P.CHEEK_X
+    t = T1.CHEEK["thickness"]
+    c = cq.Workplane("XY").box(x1 - x0, t, T1.CHEEK["height"]).translate(
+        ((x0 + x1) / 2, side * (T1.CHEEK_GAP + t) / 2, T1.CHEEK["height"] / 2))
+    return c.cut(cq.Workplane("XZ").center(P.JOINT[0], P.JOINT[2]).circle(5.0).extrude(100, both=True))
+
+
+def spacer_block():
+    L, H = T1.SPACER_BLOCK["length"], T1.SPACER_BLOCK["height"]
+    return cq.Workplane("XY").box(L, T1.CHEEK_GAP, H).translate((P.CHEEK_X[0] + L / 2, 0, H / 2))
+
+
 def yoke():
     w, h, d = P.YOKE["width"], P.YOKE["height"], P.YOKE["depth"]
     y = cq.Workplane("XY").box(d, w, h)
@@ -89,7 +109,8 @@ def arm():
     L = P.ARM_LENGTH
     shaft = cq.Workplane("YZ").circle(P.ROLL_SHAFT_D / 2).extrude(P.YOKE["depth"] + 40).translate((-P.YOKE["depth"] / 2 - 8, 0, 0))
     tube = cq.Workplane("YZ").circle(12).circle(9).extrude(L - 40).translate((40, 0, 0))
-    hub = cq.Workplane("YZ").circle(P.HUB_R + 8).extrude(16).translate((P.HUB_X - 8, 0, 0))
+    hub = (cq.Workplane("YZ").circle(16).extrude(16).translate((P.HUB_X - 8, 0, 0))
+           .union(cq.Workplane("XY").box(16, 2 * P.HUB_R, 12).translate((P.HUB_X, 0, 0))))
     lugs = None
     for s in (1, -1):
         lug = (cq.Workplane("XY").box(16, 14, 14).translate((P.HUB_X, s * P.HUB_R, 0))
@@ -132,10 +153,10 @@ def pose(pitch=0.0, roll=0.0):
     red = (0.75, 0.25, 0.2, 1)
     blue = (0.2, 0.4, 0.75, 1)
     items = [
-        ("base_plate", T1parts.base_plate().val(), wood),
-        ("cheek_left", T1parts.cheek().translate((0, T1.CHEEK_GAP / 2, 0)).val(), wood),
-        ("cheek_right", T1parts.cheek().mirror("XZ").translate((0, -T1.CHEEK_GAP / 2, 0)).val(), wood),
-        ("spacer_block", T1parts.spacer_block().val(), wood),
+        ("base_plate", base_plate().val(), wood),
+        ("cheek_left", cheek(1).val(), wood),
+        ("cheek_right", cheek(-1).val(), wood),
+        ("spacer_block", spacer_block().val(), wood),
     ]
     J = np.array(P.JOINT)
     items.append(("yoke", place(yoke(), rot_matrix(pitch, 0.0), J), red))
@@ -161,11 +182,52 @@ def pose(pitch=0.0, roll=0.0):
     return items, lengths
 
 
+def reachable(pitch, roll):
+    lo, hi = P.PIN_TO_PIN_MIN, P.PIN_TO_PIN_MAX
+    return (all(lo + 2 <= L <= hi - 2 for L in cylinder_lengths(pitch, roll))
+            and bar_reach_ok(pitch, roll))
+
+
+def pitch_lever(pitch):
+    """Lever arm (mm) of a cylinder about the pitch axis at roll 0."""
+    s, low = sleeve_points(pitch, 0.0)[0], lower_points()[0]
+    u = (s - low) / np.linalg.norm(s - low)
+    r = s - np.array(P.JOINT)
+    return abs(r[0] * u[2] - r[2] * u[0])
+
+
+# pairs that must never touch (moving part prefix, fixed or moving part prefix)
+CLASH_PAIRS = [("arm", "cheek"), ("arm", "base"), ("arm", "cylinder"), ("arm", "rod"),
+               ("yoke", "cheek"), ("yoke", "base"), ("bar", "cheek"),
+               ("cylinder", "cheek"), ("cylinder", "base"), ("rod", "cheek"), ("sleeve", "cheek")]
+
+
+def clashes(pitch, roll, min_volume=1.0):
+    """Names of part pairs that overlap in this pose (volume above min_volume mm³)."""
+    items, _ = pose(pitch, roll)
+    found = []
+    for a, b in CLASH_PAIRS:
+        for na, sa, _ in items:
+            for nb, sb, _ in items:
+                if na.startswith(a) and nb.startswith(b) and na != nb:
+                    if sa.intersect(sb).Volume() > min_volume:
+                        found.append(f"{na}/{nb}")
+    return found
+
+
 if __name__ == "__main__":
     lo, hi = P.PIN_TO_PIN_MIN, P.PIN_TO_PIN_MAX
-    print(f"cylinder pin-to-pin range {lo:.0f}–{hi:.0f} mm")
-    for p in range(-40, 41, 10):
-        rs = [r for r in range(0, 91, 5)
-              if all(lo + 2 <= L <= hi - 2 for L in cylinder_lengths(p, r) + cylinder_lengths(p, -r))
-              and bar_reach_ok(p, r) and bar_reach_ok(p, -r)]
-        print(f"pitch {p:4d}°: roll ±{max(rs) if rs else '—'}°   L at roll 0: {[round(x) for x in cylinder_lengths(p, 0)]}")
+    force = 2 * P.T1.P_SUPPLY * 0.1 * P.T1.AREA_A       # N, both cylinders pushing
+    print(f"cylinder pin-to-pin range {lo:.0f}–{hi:.0f} mm, both cylinders {force:.0f} N at {P.T1.P_SUPPLY} bar")
+    for p in range(-60, 71, 10):
+        rs = [r for r in range(0, 91, 5) if reachable(p, r) and reachable(p, -r)]
+        u = sleeve_points(p, 0)[0] - lower_points()[0]
+        lean = math.degrees(math.atan2(abs(u[0]), u[2]))
+        print(f"pitch {p:4d}°: roll ±{max(rs) if rs else '—':>2}°  lean {lean:4.0f}°  "
+              f"lever {pitch_lever(p):4.0f} mm  pitch torque {force * pitch_lever(p) / 1000:5.1f} Nm  "
+              f"L {[round(x) for x in cylinder_lengths(p, 0)]}")
+    if "--clash" in sys.argv:
+        for p in np.arange(P.PITCH_RANGE[0], P.PITCH_RANGE[1] + 1, 15):
+            for r in (-P.ROLL_RANGE, 0.0, P.ROLL_RANGE):
+                c = clashes(p, r)
+                print(f"pitch {p:5.1f} roll {r:5.1f}: {', '.join(c) if c else 'no clash'}")

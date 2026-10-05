@@ -7,20 +7,34 @@ the hinge becomes a universal joint (pitch + roll) and a second cylinder is adde
 ![Concept](out/render_neutral_close.png)
 
 **Mechanism (concept B, from the customer's sketch):**
-- A hub on the arm axis, 150 mm from the joint, carries two hinges (axis parallel to the
-  arm, ±90°), 30 mm left and right of the axis.
-- From each hinge a horizontal bar (Ø10) runs outward through a sleeve on top of a
-  cylinder. The sleeve lets the bar turn about its own axis and slide sideways, so the
-  bars stay horizontal and the cylinders only push straight up.
-- The cylinders stand upright under the bars, 90 mm to the sides, on clevis brackets on
-  the base plate that let them tilt forward and back as the arm pitches.
+- A hub on the arm axis, 90 mm from the joint, carries two hinges (axis parallel to the
+  arm, ±90°), 40 mm left and right of the axis.
+- From each hinge a horizontal bar (Ø10) runs outward through a sleeve on the rod end of
+  a cylinder. The sleeve lets the bar turn about its own axis and slide sideways.
+- The cylinders lean back by 30–40° to clevis brackets behind the upright (x = −150,
+  z = 90, 90 mm to the sides). The base plate is extended to x = −200 for them.
 - Both cylinders out: pitch up. One out, one in: roll about the arm's own axis.
 
-**Range (cylinder stroke and bar length only):** pitch about ±28°; roll ±90° within
-±10° of horizontal, ±45–50° at ±20° pitch. The roll torque scales with cos(roll): it
-drops to zero at ±90°, so about ±60–70° is the useful roll range.
+**Range (stroke, bar length and a collision check with `python cad/model.py --clash`):**
 
-![Roll 60°](out/render_roll_front.png)
+| Pitch | Roll reachable | Pitch lever | Pitch torque, 2 × Ø20 at 5 bar |
+|---|---|---|---|
+| −40° | ±65° | 90 mm | 28 Nm |
+| 0° | ±90° | 73 mm | 23 Nm |
+| +30° | ±75° | 43 mm | 14 Nm |
+| +50° | ±60° | 19 mm | 6 Nm |
+
+Design range: pitch −40° … +50° (90°) with roll ±60–65° everywhere. The roll torque
+scales with cos(roll), so roll beyond ±65° is not useful anyway. The lever shrinks
+towards the top: at +50° a 1.5 kg load at 400 mm needs about 70% of the available
+torque. Around +65° the cylinders line up with the hub (dead point), so the arm needs a
+**mechanical end stop at about +52°**; otherwise it can be pushed over the top.
+
+![Pitch down −40°](out/render_pitch_down_side.png)
+
+![Pitch +40°, roll 60°](out/render_pitch_up_roll_oblique.png)
+
+![Roll 65°](out/render_roll_front.png)
 
 Files: `t2params.py` (dimensions), `cad/model.py` (CadQuery), `render.py` (renders and
 `out/test2_concept.step`).
