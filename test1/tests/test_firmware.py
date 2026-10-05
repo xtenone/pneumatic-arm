@@ -1,8 +1,8 @@
-"""Draai de Pico-firmware op de pc met nagebootste hardware (machine-module).
+"""Run the Pico firmware on the PC with simulated hardware (a fake machine module).
 
-Controleert dat main.py, hw.py, control.py en config.py samen werken:
-commando's, veiligheid (vullen+legen tegelijk, watchdog van de pc, overdruk)
-en de kalibratie. Gebruik:  python tests/test_firmware.py
+Checks that main.py, hw.py, control.py and config.py work together: commands,
+safety (fill+vent at the same time, PC watchdog, over-pressure) and calibration.
+Usage:  python tests/test_firmware.py
 """
 import io
 import os
@@ -52,7 +52,7 @@ def install_fakes(adc_values):
 
     m.Pin, m.PWM, m.ADC, m.WDT = Pin, PWM, ADC, WDT
     sys.modules["machine"] = m
-    # MicroPython-tijdfuncties op de CPython-time-module
+    # MicroPython time functions on top of CPython's time module
     time.ticks_ms = lambda: int(time.monotonic() * 1000)
     time.ticks_us = lambda: int(time.monotonic() * 1e6)
     time.ticks_diff = lambda a, b: a - b
@@ -62,10 +62,11 @@ def install_fakes(adc_values):
 
 
 def main():
-    adc = {26: 1.0, 27: 0.5 * 15 / 25, 28: 0.5 * 15 / 25}   # potmeter 1 V, sensoren 0 bar
+    adc = {26: 1.0, 27: 0.5 * 15 / 25, 28: 0.5 * 15 / 25}   # potentiometer 1 V, sensors 0 bar
     PWM, WDT = install_fakes(adc)
     sys.path.insert(0, FW)
-    os.chdir(os.path.join(ROOT, "out"))                       # cal.json komt hier terecht
+    os.makedirs(os.path.join(ROOT, "out"), exist_ok=True)
+    os.chdir(os.path.join(ROOT, "out"))                       # cal.json ends up here
     src = open(os.path.join(FW, "main.py")).read().replace("\ntry:\n    run()\nfinally:\n    valves.off()\n", "\n")
     out = io.StringIO()
     real_stdout = sys.stdout
@@ -80,47 +81,47 @@ def main():
 
     def check(cond, text):
         nonlocal ok
-        print(("OK   " if cond else "FOUT ") + text)
+        print(("OK   " if cond else "FAIL ") + text)
         ok &= bool(cond)
 
-    # 1. na het opstarten alles dicht
-    check(all(v == 0 for v in PWM.log.values()), "na opstarten alle ventielen dicht")
-    # 2. handmatig vullen en legen tegelijk wordt geweigerd
-    handle("klep 1 1 0 0")
+    # 1. everything closed after start-up
+    check(all(v == 0 for v in PWM.log.values()), "all valves closed after start-up")
+    # 2. manual fill and vent at the same time is refused
+    handle("valve 1 1 0 0")
     duty = ctl.update(0.002, *sensors.read())
     valves.set(duty)
-    check(duty[0] > 0 and duty[1] == 0, "vul A en leeg A tegelijk: leeg A blijft dicht")
-    check(WDT.started, "hardware-watchdog start bij het eerste bewegingscommando")
-    # 3. positieregeling geeft een kracht naar boven als de arm te laag staat
-    handle("hoek 30")
+    check(duty[0] > 0 and duty[1] == 0, "fill A and vent A together: vent A stays closed")
+    check(WDT.started, "hardware watchdog starts at the first motion command")
+    # 3. position control targets above the current position when the arm is too low
+    handle("angle 30")
     duty = ctl.update(0.002, *sensors.read())
-    check(ctl.mode == control.POSITION and ctl.ref > sensors.read()[0], "hoek 30: doel boven de huidige stand")
-    # 4. overdruk: leegventiel van die kamer gaat open
-    adc[27] = 7.0 * 0.58 * 15 / 25 + 0.3                     # ruim boven p_max
+    check(ctl.mode == control.POSITION and ctl.ref > sensors.read()[0], "angle 30: target above the current position")
+    # 4. over-pressure: the vent valve of that chamber opens
+    adc[27] = 7.0 * 0.58 * 15 / 25 + 0.3                     # well above p_max
     duty = ctl.update(0.002, *sensors.read())
-    check(duty[1] == 1.0 and duty[0] == 0.0, "overdruk in kamer A: leegventiel A open")
+    check(duty[1] == 1.0 and duty[0] == 0.0, "over-pressure in chamber A: vent valve A open")
     adc[27] = 0.5 * 15 / 25
-    # 5. kalibratie
-    handle("nul")
+    # 5. calibration
+    handle("zero")
     L, pa, pb = sensors.read()
-    check(abs(pa) < 0.01 and abs(pb) < 0.01, "na 'nul' lezen de druksensoren 0 bar")
-    handle("kal_pos in")
-    check(abs(sensors.read()[0] - g["CFG"]["L_min"]) < 0.01, "na 'kal_pos in' is de lengte L_min")
-    # 6. watchdog van de pc
+    check(abs(pa) < 0.01 and abs(pb) < 0.01, "after 'zero' the pressure sensors read 0 bar")
+    handle("cal_pos in")
+    check(abs(sensors.read()[0] - g["CFG"]["L_min"]) < 0.01, "after 'cal_pos in' the length is L_min")
+    # 6. PC watchdog
     g["last_msg"] = time.ticks_ms() - 10_000
-    handle("hoek 10")
+    handle("angle 10")
     g["last_msg"] = time.ticks_ms() - 10_000
     sys.stdout = io.StringIO()
     g["pc_watchdog"]()
     sys.stdout = real_stdout
-    check(ctl.mode == control.OFF, "geen ping van de pc: ventielen dicht")
-    # 7. onbekend commando breekt niets
+    check(ctl.mode == control.OFF, "no ping from the PC: valves closed")
+    # 7. an unknown command breaks nothing
     sys.stdout = io.StringIO()
-    handle("vlieg")
+    handle("fly")
     msg = sys.stdout.getvalue()
     sys.stdout = real_stdout
-    check("FOUT" in msg, "onbekend commando geeft FOUT")
-    print("\nalles in orde" if ok else "\ner zijn fouten")
+    check("ERROR" in msg, "unknown command gives ERROR")
+    print("\nall good" if ok else "\nthere are failures")
     return 0 if ok else 1
 
 

@@ -1,10 +1,10 @@
-"""Verbinding met de Pico over USB (pyserial). Werkt op Windows (COM3...) en Linux (/dev/ttyACM0).
+"""Connection to the Pico over USB (pyserial). Works on Windows (COM3...) and Linux (/dev/ttyACM0).
 
     from pico import Pico
     with Pico("COM5") as p:
-        p.send("hoek 20")
+        p.send("angle 20")
         p.wait(3)
-        data = p.take()     # numpy-array, kolommen zoals in analyse.py
+        data = p.take()     # numpy array, columns as in analysis.py
 """
 import threading
 import time
@@ -15,7 +15,7 @@ import serial.tools.list_ports
 
 
 def find_port():
-    """Eerste poort die op een Raspberry Pi Pico lijkt (USB-VID 0x2E8A)."""
+    """First port that looks like a Raspberry Pi Pico (USB VID 0x2E8A)."""
     for p in serial.tools.list_ports.comports():
         if p.vid == 0x2E8A:
             return p.device
@@ -26,10 +26,10 @@ class Pico:
     def __init__(self, port=None, baud=115200):
         port = port or find_port()
         if port is None:
-            raise SystemExit("Geen Pico gevonden. Geef de poort op met --poort (bijv. COM5 of /dev/ttyACM0).")
+            raise SystemExit("No Pico found. Give the port with --port (e.g. COM5 or /dev/ttyACM0).")
         self.ser = serial.Serial(port, baud, timeout=0.1)
         self.rows = []
-        self.lines = []           # overige regels (OK, FOUT, INFO, P, ...)
+        self.lines = []           # other lines (OK, ERROR, INFO, P, ...)
         self.lock = threading.Lock()
         self.stop = False
         self.t_offset = None
@@ -86,7 +86,7 @@ class Pico:
                     with self.lock:
                         self.rows.append(row)
                         if len(f) > 12 and f[12]:
-                            self.lines.append("FOUT," + f[12])
+                            self.lines.append("ERROR," + f[12])
                 elif line:
                     with self.lock:
                         self.lines.append(line)
@@ -95,7 +95,7 @@ class Pico:
         time.sleep(seconds)
 
     def take(self, since=None):
-        """Alle meetregels sinds het begin (of sinds tijd `since`) als array; tijd vanaf 0."""
+        """All data lines since the start (or since time `since`) as an array."""
         with self.lock:
             a = np.array(self.rows) if self.rows else np.zeros((0, 12))
         if len(a) and since is not None:

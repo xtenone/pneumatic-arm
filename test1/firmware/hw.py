@@ -1,6 +1,6 @@
-"""Hardware van de Pico 2: ventielen (PWM via ULN2803A) en sensoren (ADC).
+"""Pico 2 hardware: valves (PWM through the ULN2803A) and sensors (ADC).
 
-Alleen voor MicroPython op de Pico. De simulatie gebruikt dit bestand niet.
+MicroPython on the Pico only. The simulation does not use this file.
 """
 import json
 
@@ -11,7 +11,7 @@ CAL_FILE = "cal.json"
 
 
 class Valves:
-    """Vier ventielen: vul A, leeg A, vul B, leeg B. Duty 0..1."""
+    """Four valves: fill A, vent A, fill B, vent B. Duty 0..1."""
 
     def __init__(self, pins, freq):
         self.pwm = []
@@ -24,7 +24,7 @@ class Valves:
 
     def set(self, duties):
         fa, va, fb, vb = duties
-        # nooit vullen en legen van dezelfde kamer tegelijk
+        # never fill and vent the same chamber at the same time
         if fa > 0 and va > 0:
             va = 0.0
         if fb > 0 and vb > 0:
@@ -38,7 +38,7 @@ class Valves:
 
 
 class Sensors:
-    """Potmeter (positie) en twee druksensoren, met kalibratie."""
+    """Potentiometer (position) and two pressure sensors, with calibration."""
 
     def __init__(self, cfg):
         self.cfg = cfg
@@ -60,13 +60,13 @@ class Sensors:
         return s / n / 65535 * VREF
 
     def raw(self):
-        """Spanningen: potmeter, sensor A, sensor B (sensorspanning vóór de deler)."""
+        """Voltages: potentiometer, sensor A, sensor B (sensor voltage before the divider)."""
         return (self._volts(self.adc_pos),
                 self._volts(self.adc_pa) * self.div,
                 self._volts(self.adc_pb) * self.div)
 
     def read(self):
-        """(L in mm pen-pen, pa, pb in bar overdruk)."""
+        """(L in mm pin to pin, pa, pb in bar gauge)."""
         vpos, va, vb = self.raw()
         c = self.cal
         ext = (vpos - c["pot_v_retracted"]) / c["pot_v_per_mm"]

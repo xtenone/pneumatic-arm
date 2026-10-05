@@ -1,91 +1,91 @@
-"""Alle maten en natuurkundige waarden van test 1 (arm met één vrijheidsgraad).
+"""All dimensions and physical values of test 1 (arm with one degree of freedom).
 
-Dit is de enige bron: CAD, simulatie, firmware-instellingen, stuklijst en tekeningen
-worden hieruit gegenereerd. Lengtes in mm, tenzij anders vermeld.
+This is the single source: CAD, simulation, firmware settings, bill of materials and
+drawings are generated from it. Lengths in mm unless stated otherwise.
 
-Assenstelsel (zijaanzicht): x naar voren, z omhoog, y = scharnieras (naar links).
-De oorsprong ligt op de bovenkant van de grondplaat, midden onder het scharnier.
+Coordinate frame (side view): x forward, z up, y = hinge axis (to the left).
+The origin is on the top face of the base plate, directly below the hinge.
 """
 import math
 
-# --- Grondplaat en staander --------------------------------------------------
-BASE = dict(length=400.0, width=300.0, thickness=18.0)    # multiplex, x × y
-BASE_X = (-150.0, 250.0)     # x-bereik; de arm steekt over de tafelrand (vastzetten met 2 lijmklemmen)
-CHEEK = dict(height=450.0, depth=120.0, thickness=18.0)   # 2 wangen, multiplex
-CHEEK_GAP = 36.0             # binnenruimte tussen de wangen = 2 lagen multiplex (afstandsblok)
-CHEEK_X = (-60.0, 60.0)      # x-bereik van de wangen (achterkant, voorkant)
-SPACER_BLOCK = dict(length=60.0, height=60.0)  # houten blok achter-onder tussen de wangen
+# --- Base plate and upright ---------------------------------------------------
+BASE = dict(length=400.0, width=300.0, thickness=18.0)    # plywood, x × y
+BASE_X = (-150.0, 250.0)     # x range; the arm reaches past the table edge (clamp with 2 F-clamps)
+CHEEK = dict(height=450.0, depth=120.0, thickness=18.0)   # 2 cheeks, plywood
+CHEEK_GAP = 36.0             # space between the cheeks = 2 layers of plywood (spacer block)
+CHEEK_X = (-60.0, 60.0)      # x range of the cheeks (back, front)
+SPACER_BLOCK = dict(length=60.0, height=60.0)  # wooden block between the cheeks, back bottom
 
-# Draaipunten (in het x-z-vlak)
-HINGE = (0.0, 420.0)         # scharnier van de arm (2× kogellager 608 in de wangen)
-REAR_PIVOT = (0.0, 100.0)    # achterste draaipunt van de cilinder (M8-bout)
+# Pivots (in the x-z plane)
+HINGE = (0.0, 420.0)         # arm hinge (2× 608 ball bearings in the cheeks)
+REAR_PIVOT = (0.0, 100.0)    # rear pivot of the cylinder (M8 bolt)
 
-# --- Arm ----------------------------------------------------------------------
-ARM = dict(length=450.0, height=40.0, thickness=5.0)  # aluminium strip 40×5
-ARM_BEHIND = 20.0            # arm steekt 20 mm achter het scharniergat uit
-ARM_ATTACH = 150.0           # afstand scharnier → bout van de vorkkop
-ARM_TIP = 400.0              # afstand scharnier → ophangpunt last
-ARM_HOLE = 8.5               # gaten in de arm (M8)
+# --- Arm ------------------------------------------------------------------------
+ARM = dict(length=450.0, height=40.0, thickness=5.0)  # aluminium flat bar 40×5
+ARM_BEHIND = 20.0            # arm extends 20 mm behind the hinge hole
+ARM_ATTACH = 150.0           # hinge → clevis bolt
+ARM_TIP = 400.0              # hinge → load hook
+ARM_HOLE = 8.5               # holes in the arm (M8)
 
-# --- Cilinder MAL20×150 (maattekening verkoper) --------------------------------
+# --- Cylinder MAL20×150 (seller's dimension drawing) ----------------------------
 CYL = dict(
     bore=20.0, rod=8.0, stroke=150.0,
-    body_d=26.0,             # buitenmaat buis (B)
-    overall_retracted=281.0, # stangeinde tot achterkant, ingeschoven (131 + slag)
-    rear_pin_from_end=10.0,  # hart pengat achter tot achterkant (schatting, meten!)
-    clevis_pin_from_rod_end=30.0,  # hart pen vorkkop tot stangeinde (schatting, meten!)
-    rod_stack=10.0,          # moeren + beugeltje potmeter tussen stang en vorkkop
-    friction_coulomb=8.0,    # N, afdichtingen (schatting; T3/T4 meten)
+    body_d=26.0,             # tube outer diameter (B)
+    overall_retracted=281.0, # rod end to rear end, retracted (131 + stroke)
+    rear_pin_from_end=10.0,  # centre of rear pin hole to rear end (estimate, measure!)
+    clevis_pin_from_rod_end=30.0,  # centre of clevis pin to rod end (estimate, measure!)
+    rod_stack=10.0,          # nuts + potentiometer bracket between rod and clevis
+    friction_coulomb=8.0,    # N, seals (estimate; measure in T3/T4)
     friction_viscous=40.0,   # N·s/m
 )
 PIN_TO_PIN_MIN = (CYL["overall_retracted"] - CYL["rear_pin_from_end"]
                   + CYL["clevis_pin_from_rod_end"] + CYL["rod_stack"])
 PIN_TO_PIN_MAX = PIN_TO_PIN_MIN + CYL["stroke"]
-AREA_A = math.pi * (CYL["bore"] / 2) ** 2                       # mm², zuigerzijde
-AREA_B = AREA_A - math.pi * (CYL["rod"] / 2) ** 2                # mm², stangzijde
+AREA_A = math.pi * (CYL["bore"] / 2) ** 2                       # mm², piston side
+AREA_B = AREA_A - math.pi * (CYL["rod"] / 2) ** 2                # mm², rod side
 
-# --- Potmeter KTC-175 ----------------------------------------------------------
-POT = dict(stroke=175.0, body=(275.0, 22.0, 19.0), offset=24.0,  # offset t.o.v. cilinderas
+# --- Potentiometer KTC-175 -------------------------------------------------------
+POT = dict(stroke=175.0, body=(275.0, 22.0, 19.0), offset=24.0,  # offset from the cylinder axis
            ohm=5000.0)
 
-# --- Last ---------------------------------------------------------------------
-TIP_MASS = 1.5               # kg, fles water aan het einde van de arm (T5: tot ~3 kg)
+# --- Load -----------------------------------------------------------------------
+TIP_MASS = 1.5               # kg, bottle of water at the end of the arm (T5: up to ~3 kg)
 ALU_DENSITY = 2.7e-6         # kg/mm³
 
-# --- Pneumatiek ----------------------------------------------------------------
-P_ATM = 1.013                # bar absoluut
-P_SUPPLY = 5.0               # bar overdruk na de drukregelaar
+# --- Pneumatics -------------------------------------------------------------------
+P_ATM = 1.013                # bar absolute
+P_SUPPLY = 5.0               # bar gauge after the pressure regulator
 VALVE = dict(
-    sonic_conductance=0.144, # dm³/(s·bar), VQ110U (Cv 0,04 ≈ 0,7 mm²)
+    sonic_conductance=0.144, # dm³/(s·bar), VQ110U (Cv 0.04 ≈ 0.7 mm²)
     critical_ratio=0.3,
-    t_on=0.0035, t_off=0.002,  # s, SMC-opgave
+    t_on=0.0035, t_off=0.002,  # s, SMC datasheet
 )
-DEAD_VOLUME = 2.5            # cm³ per kamer: 30 cm slang 4×2,5 + T-stukken + sensor
+DEAD_VOLUME = 2.5            # cm³ per chamber: 30 cm of 4×2.5 tube + tees + sensor
 POLYTROPIC = 1.2
 T_AIR = 293.0                # K
 
-# --- Regeling (afgesteld in de simulatie, sim/run.py; de proeven stellen ze bij) ---
+# --- Control (tuned in the simulation, sim/run.py; the tests refine them) --------
 PWM_HZ = 50
 LOOP_HZ = 500
-P_SUM = 4.0                  # bar, som van beide kamerdrukken (stijfheid)
-KP_FORCE = 12.0              # N per mm positiefout
-KI_FORCE = 90.0              # N per mm·s (alleen dicht bij het doel of als de arm stilstaat)
+P_SUM = 4.0                  # bar, sum of both chamber pressures (stiffness)
+KP_FORCE = 12.0              # N per mm position error
+KI_FORCE = 90.0              # N per mm·s (only close to the target or when the arm is stalled)
 KD_FORCE = 0.6               # N per mm/s
-KP_PRESSURE = 2.0            # duty per bar drukfout
+KP_PRESSURE = 2.0            # duty per bar pressure error
 P_DEADBAND = 0.1             # bar
-SOFT_LIMIT = 5.0             # mm van beide eindaanslagen wegblijven
-V_MAX = 250.0                # mm/s, maximale snelheid van het doel (volle slag in ~0,6 s)
-P_MAX = 6.0                  # bar, daarboven: leeglopen en fout
+SOFT_LIMIT = 5.0             # mm, stay away from both end stops
+V_MAX = 250.0                # mm/s, maximum speed of the target (full stroke in ~0.6 s)
+P_MAX = 6.0                  # bar; above this: vent and, if it persists, fault
 
-# --- Elektronica (pinnen Pico 2) -----------------------------------------------
+# --- Electronics (Pico 2 pins) ------------------------------------------------------
 PINS = dict(fill_a=2, vent_a=3, fill_b=4, vent_b=5,   # → ULN2803A IN1..IN4
             adc_pos=26, adc_pa=27, adc_pb=28)
-DIVIDER = (10_000, 15_000)   # boven, onder: sensoruitgang → ADC
+DIVIDER = (10_000, 15_000)   # top, bottom: sensor output → ADC
 ADC_VREF = 3.3
 
 
 def cylinder_length(theta_deg):
-    """Pen-pen-lengte van de cilinder bij armhoek theta (graden, 0 = horizontaal)."""
+    """Pin-to-pin length of the cylinder at arm angle theta (degrees, 0 = horizontal)."""
     a = HINGE[1] - REAR_PIVOT[1]
     b = ARM_ATTACH
     t = math.radians(theta_deg)
@@ -93,7 +93,7 @@ def cylinder_length(theta_deg):
 
 
 def arm_angle(length):
-    """Armhoek (graden) bij een pen-pen-lengte van de cilinder."""
+    """Arm angle (degrees) for a cylinder pin-to-pin length."""
     a = HINGE[1] - REAR_PIVOT[1]
     b = ARM_ATTACH
     s = (length * length - a * a - b * b) / (2 * a * b)
@@ -101,7 +101,7 @@ def arm_angle(length):
 
 
 def moment_arm(theta_deg):
-    """Hefboom (mm) van de cilinderkracht om het scharnier."""
+    """Lever arm (mm) of the cylinder force about the hinge."""
     a = HINGE[1] - REAR_PIVOT[1]
     b = ARM_ATTACH
     return a * b * math.cos(math.radians(theta_deg)) / cylinder_length(theta_deg)
@@ -111,13 +111,13 @@ THETA_MIN = arm_angle(PIN_TO_PIN_MIN)
 THETA_MAX = arm_angle(PIN_TO_PIN_MAX)
 
 if __name__ == "__main__":
-    print(f"pen-pen {PIN_TO_PIN_MIN:.0f}–{PIN_TO_PIN_MAX:.0f} mm, "
+    print(f"pin-to-pin {PIN_TO_PIN_MIN:.0f}–{PIN_TO_PIN_MAX:.0f} mm, "
           f"arm {THETA_MIN:.1f}° … {THETA_MAX:.1f}°")
     arm_mass = ARM["length"] * ARM["height"] * ARM["thickness"] * ALU_DENSITY
     for th in (THETA_MIN, -10, 0, 20, 40, 60, THETA_MAX):
         r = moment_arm(th)
-        f_push = P_SUPPLY * 0.1 * AREA_A          # N (bar·0,1 = N/mm²)
+        f_push = P_SUPPLY * 0.1 * AREA_A          # N (bar·0.1 = N/mm²)
         grav = 9.81 * (arm_mass * ARM["length"] / 2 + TIP_MASS * ARM_TIP) / 1000 * math.cos(math.radians(th))
-        print(f"θ={th:6.1f}°  L={cylinder_length(th):6.1f}  hefboom={r:5.1f} mm  "
-              f"koppel max={f_push * r / 1000:5.1f} Nm  zwaartekracht={grav:4.1f} Nm  "
-              f"belasting={grav / (f_push * r / 1000) * 100:4.0f}%")
+        print(f"θ={th:6.1f}°  L={cylinder_length(th):6.1f}  lever={r:5.1f} mm  "
+              f"max torque={f_push * r / 1000:5.1f} Nm  gravity={grav:4.1f} Nm  "
+              f"load={grav / (f_push * r / 1000) * 100:4.0f}%")

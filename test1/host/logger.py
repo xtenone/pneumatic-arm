@@ -1,7 +1,7 @@
-"""Handbediening met opname: typ commando's voor de Pico, alles wordt in een CSV bewaard.
+"""Manual control with recording: type commands for the Pico, everything is saved to CSV.
 
-    python logger.py --poort COM5 --uit meting.csv
-Typ 'help' voor de commando's van de Pico, 'stop' om af te sluiten (ventielen dicht).
+    python logger.py --port COM5 --out run.csv
+Type 'help' for the Pico's commands, 'quit' to stop (valves closed).
 """
 import argparse
 import csv
@@ -10,22 +10,22 @@ import time
 
 from pico import Pico
 
-COLS = ["tijd_s", "L_mm", "hoek", "pa_bar", "pb_bar", "vul_a", "leeg_a", "vul_b", "leeg_b", "doel_mm"]
+COLS = ["time_s", "L_mm", "angle", "pa_bar", "pb_bar", "fill_a", "vent_a", "fill_b", "vent_b", "target_mm"]
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--poort")
-    ap.add_argument("--uit", default=time.strftime("meting_%Y%m%d_%H%M%S.csv"))
+    ap.add_argument("--port")
+    ap.add_argument("--out", default=time.strftime("run_%Y%m%d_%H%M%S.csv"))
     a = ap.parse_args()
-    with Pico(a.poort) as p:
-        print("Verbonden. Typ 'help' of 'stop'.")
+    with Pico(a.port) as p:
+        print("Connected. Type 'help' or 'quit'.")
         try:
             while True:
                 for m in p.messages():
                     print("  <", m)
                 cmd = input("> ").strip()
-                if cmd in ("stop", "exit", "quit"):
+                if cmd in ("quit", "exit", "stop"):
                     break
                 if cmd:
                     p.send(cmd)
@@ -34,16 +34,16 @@ def main():
                     print("  <", m)
                 if p.rows:
                     r = p.rows[-1]
-                    print(f"  L={r[1]:.1f} mm  hoek={r[2]:.1f}°  pa={r[3]:.2f}  pb={r[4]:.2f} bar")
+                    print(f"  L={r[1]:.1f} mm  angle={r[2]:.1f}°  pa={r[3]:.2f}  pb={r[4]:.2f} bar")
         except (KeyboardInterrupt, EOFError):
             pass
         data = p.take()
-    with open(a.uit, "w", newline="") as f:
+    with open(a.out, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(COLS)
         for r in data:
             w.writerow([round(x, 4) for x in list(r[:9]) + [r[9]]])
-    print(f"{len(data)} meetregels bewaard in {a.uit}")
+    print(f"{len(data)} data lines saved to {a.out}")
     return 0
 
 

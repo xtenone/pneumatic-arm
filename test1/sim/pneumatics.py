@@ -1,7 +1,7 @@
-"""Model van de pneumatiek: 2 cilinderkamers, 4 aan/uit-ventielen, voeding en uitlaat.
+"""Pneumatics model: 2 cylinder chambers, 4 on/off valves, supply and exhaust.
 
-Doorstroming volgens ISO 6358 (sonische geleiding C, kritische drukverhouding b).
-Kamerdruk polytroop: dp/dt = n/V · (R·T·ṁ − p·dV/dt).
+Flow according to ISO 6358 (sonic conductance C, critical pressure ratio b).
+Chamber pressure, polytropic: dp/dt = n/V · (R·T·ṁ − p·dV/dt).
 """
 import math
 import os
@@ -11,12 +11,12 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import params as P  # noqa: E402
 
 R = 287.0
-RHO0 = 1.185          # kg/m³, normaal-lucht (ISO 8778)
+RHO0 = 1.185          # kg/m³, standard air (ISO 8778)
 BAR = 1e5
 
 
 def mass_flow(p_up, p_down, C_dm3, b):
-    """kg/s van p_up naar p_down (Pa absoluut); 0 als p_up <= p_down."""
+    """kg/s from p_up to p_down (Pa absolute); 0 if p_up <= p_down."""
     if p_up <= p_down:
         return 0.0
     r = p_down / p_up
@@ -29,7 +29,7 @@ def mass_flow(p_up, p_down, C_dm3, b):
 
 
 class Valve:
-    """Aan/uit-ventiel met openings- en sluitvertraging."""
+    """On/off valve with opening and closing delay."""
 
     def __init__(self):
         self.cmd = False
@@ -51,11 +51,11 @@ class Pneumatics:
         self.p_atm = P.P_ATM * BAR
         self.pa = self.p_atm
         self.pb = self.p_atm
-        self.valves = [Valve() for _ in range(4)]   # vul A, leeg A, vul B, leeg B
-        self.air_used = 0.0                           # kg uit de voeding
+        self.valves = [Valve() for _ in range(4)]   # fill A, vent A, fill B, vent B
+        self.air_used = 0.0                           # kg taken from the supply
 
     def volumes(self, ext_m):
-        """Kamervolumes (m³) bij uitschuiving ext (m)."""
+        """Chamber volumes (m³) at extension ext (m)."""
         dead = P.DEAD_VOLUME * 1e-6
         aa = P.AREA_A * 1e-6
         ab = P.AREA_B * 1e-6
@@ -81,7 +81,7 @@ class Pneumatics:
         self.pb = max(self.pb, 0.2 * BAR)
 
     def force(self):
-        """Kracht op de stang (N), positief = uitschuiven."""
+        """Force on the rod (N), positive = extending."""
         return ((self.pa - self.p_atm) * P.AREA_A - (self.pb - self.p_atm) * P.AREA_B) * 1e-6
 
     def gauge(self):

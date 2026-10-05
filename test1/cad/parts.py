@@ -1,8 +1,8 @@
-"""CAD van test 1, gegenereerd met CadQuery uit params.py.
+"""CAD of test 1, generated with CadQuery from params.py.
 
-Zelfgemaakte onderdelen (multiplex, aluminium) zijn exact; gekochte onderdelen
-(cilinder, potmeter, lagers, bouten) zijn vereenvoudigde vormen voor passing en beeld.
-Elk onderdeel heeft een eigen lokaal assenstelsel; assemble() zet ze op hun plek.
+Home-made parts (plywood, aluminium) are exact; bought parts (cylinder,
+potentiometer, bearings, bolts) are simplified shapes for fit and visuals.
+Each part has its own local frame; assemble() puts them in place.
 """
 import math
 import os
@@ -17,7 +17,7 @@ GAP = P.CHEEK_GAP
 T = P.CHEEK["thickness"]
 
 
-# --- Zelfgemaakt -------------------------------------------------------------
+# --- Home-made ---------------------------------------------------------------
 def base_plate():
     x0, x1 = P.BASE_X
     plate = (cq.Workplane("XY").box(x1 - x0, P.BASE["width"], P.BASE["thickness"])
@@ -26,18 +26,18 @@ def base_plate():
 
 
 def cheek():
-    """Eén wang, plat in het x-z-vlak, dikte in y (0..T). Gaten: lager 608 + draaipunt."""
+    """One cheek, flat in the x-z plane, thickness in y (0..T). Holes: 608 bearing + pivot."""
     x0, x1 = P.CHEEK_X
     h = P.CHEEK["height"]
     w = (cq.Workplane("XZ").rect(x1 - x0, h, centered=False).extrude(-T)
          .translate((x0, 0, 0)))
     hx, hz = P.HINGE
     rx, rz = P.REAR_PIVOT
-    # doorgaand gat 10 mm + lagerzitting Ø22 × 7 mm aan de buitenkant
+    # 10 mm through hole + Ø22 × 7 mm bearing seat on the outside
     w = w.cut(cq.Workplane("XZ").center(hx, hz).circle(5.0).extrude(-T))
     w = w.cut(cq.Workplane("XZ").center(hx, hz).circle(11.0).extrude(-7.0).translate((0, T - 7.0, 0)))
     w = w.cut(cq.Workplane("XZ").center(rx, rz).circle(4.25).extrude(-T))
-    # twee schroefgaten voor het afstandsblok
+    # two screw holes for the spacer block
     for z in (20.0, 45.0):
         w = w.cut(cq.Workplane("XZ").center(P.CHEEK_X[0] + 30.0, z).circle(2.5).extrude(-T))
     return w
@@ -50,7 +50,7 @@ def spacer_block():
 
 
 def arm():
-    """Arm in eigen assenstelsel: scharniergat in de oorsprong, langs +x, plat in x-z."""
+    """Arm in its own frame: hinge hole at the origin, along +x, flat in x-z."""
     L, H, t = P.ARM["length"], P.ARM["height"], P.ARM["thickness"]
     a = (cq.Workplane("XZ").rect(L, H).extrude(t / 2, both=True)
          .translate((L / 2 - P.ARM_BEHIND, 0, 0)))
@@ -60,7 +60,7 @@ def arm():
 
 
 def pot_bracket():
-    """Strip 20×3 die op de cilinderstang klemt en de potmeterstang meeneemt."""
+    """20×3 strip clamped on the cylinder rod; it carries the potentiometer rod."""
     off = P.POT["offset"]
     s = cq.Workplane("XY").box(3.0, 20.0, off + 15.0).translate((0, 0, -(off + 15.0) / 2 + 7.5))
     s = s.cut(cq.Workplane("YZ").circle(4.25).extrude(3.0, both=True))
@@ -68,9 +68,9 @@ def pot_bracket():
     return s
 
 
-# --- Gekocht (vereenvoudigd) ----------------------------------------------------
+# --- Bought (simplified) -----------------------------------------------------
 def cylinder_body():
-    """Cilinder zonder stang. Oorsprong = hart achterste pen, as langs +x."""
+    """Cylinder without rod. Origin = centre of the rear pin, axis along +x."""
     c = P.CYL
     stub_len = 21.0
     body_len = 70.0 + c["stroke"]
@@ -86,9 +86,9 @@ def cylinder_body():
 
 
 def rod_assembly():
-    """Stang + moeren + vorkkop. Oorsprong = hart achterste pen bij ingeschoven cilinder."""
+    """Rod + nuts + clevis. Origin = centre of the rear pin, cylinder retracted."""
     c = P.CYL
-    x_front = -c["rear_pin_from_end"] + c["overall_retracted"]  # stangeinde, ingeschoven
+    x_front = -c["rear_pin_from_end"] + c["overall_retracted"]  # rod end, retracted
     rod_len = 40.0 + c["stroke"]
     rod = cq.Workplane("YZ").circle(c["rod"] / 2).extrude(rod_len).translate((x_front - rod_len, 0, 0))
     nuts = cq.Workplane("YZ").polygon(6, 14.0).extrude(c["rod_stack"]).translate((x_front, 0, 0))
@@ -100,13 +100,13 @@ def rod_assembly():
 
 
 def pot_body():
-    """KTC-175, vast aan de cilinder (via slangklemmen). Oorsprong = hart achterste pen."""
+    """KTC-175, fixed to the cylinder (hose clamps). Origin = centre of the rear pin."""
     L, wy, hz = P.POT["body"]
     return cq.Workplane("XY").box(L, wy, hz).translate((40.0 + L / 2, 0, -P.POT["offset"]))
 
 
 def pot_rod():
-    """Stang van de potmeter, beweegt mee met de cilinderstang."""
+    """Potentiometer rod, moves with the cylinder rod."""
     x_front = -P.CYL["rear_pin_from_end"] + P.CYL["overall_retracted"]
     length = 40.0 + P.CYL["stroke"] + 25.0
     return (cq.Workplane("YZ").circle(3.0).extrude(length)
@@ -125,9 +125,9 @@ def bottle():
     return cq.Workplane("XY").circle(45.0).extrude(250.0).translate((0, 0, -250.0))
 
 
-# --- Samenstelling ---------------------------------------------------------------
+# --- Assembly ---------------------------------------------------------------------
 def pose(theta_deg):
-    """Plaatsing van de bewegende delen bij armhoek theta."""
+    """Placement of the moving parts at arm angle theta."""
     hx, hz = P.HINGE
     rx, rz = P.REAR_PIVOT
     t = math.radians(theta_deg)
@@ -155,32 +155,32 @@ def assemble(theta_deg=0.0):
     alu = cq.Color(0.75, 0.77, 0.80)
     steel = cq.Color(0.45, 0.45, 0.48)
     blue = cq.Color(0.15, 0.35, 0.75)
-    assy.add(base_plate(), name="grondplaat", color=wood)
-    assy.add(cheek().translate((0, y_cheek, 0)), name="wang_links", color=wood)
-    assy.add(cheek().mirror("XZ").translate((0, -y_cheek, 0)), name="wang_rechts", color=wood)
-    assy.add(spacer_block(), name="afstandsblok", color=wood)
+    assy.add(base_plate(), name="base_plate", color=wood)
+    assy.add(cheek().translate((0, y_cheek, 0)), name="cheek_left", color=wood)
+    assy.add(cheek().mirror("XZ").translate((0, -y_cheek, 0)), name="cheek_right", color=wood)
+    assy.add(spacer_block(), name="spacer_block", color=wood)
     assy.add(at_hinge(arm()), name="arm", color=alu)
-    assy.add(at_cyl(cylinder_body()), name="cilinder", color=alu)
-    assy.add(at_cyl(rod_assembly(), p["ext"]), name="stang_vorkkop", color=steel)
-    assy.add(at_cyl(pot_body()), name="potmeter", color=blue)
-    assy.add(at_cyl(pot_rod(), p["ext"]), name="potmeter_stang", color=steel)
+    assy.add(at_cyl(cylinder_body()), name="cylinder", color=alu)
+    assy.add(at_cyl(rod_assembly(), p["ext"]), name="rod_clevis", color=steel)
+    assy.add(at_cyl(pot_body()), name="potentiometer", color=blue)
+    assy.add(at_cyl(pot_rod(), p["ext"]), name="pot_rod", color=steel)
     assy.add(at_cyl(pot_bracket().translate((-P.CYL["rear_pin_from_end"] + P.CYL["overall_retracted"] + 1.5, 0, 0)),
-                    p["ext"]), name="beugel_potmeter", color=alu)
+                    p["ext"]), name="pot_bracket", color=alu)
     for side in (1, -1):
         assy.add(bearing_608().translate((hx, side * (y_cheek + T) - (7.0 if side > 0 else 0.0) * 0 + (0 if side > 0 else 7.0), hz)),
-                 name=f"lager_{'links' if side > 0 else 'rechts'}", color=steel)
-    assy.add(bolt(GAP + 2 * T + 20).translate((hx, 0, hz)), name="bout_scharnier", color=steel)
-    assy.add(bolt(GAP + 2 * T + 20).translate((rx, 0, rz)), name="bout_cilinder", color=steel)
+                 name=f"bearing_{'left' if side > 0 else 'right'}", color=steel)
+    assy.add(bolt(GAP + 2 * T + 20).translate((hx, 0, hz)), name="bolt_hinge", color=steel)
+    assy.add(bolt(GAP + 2 * T + 20).translate((rx, 0, rz)), name="bolt_cylinder", color=steel)
     tip = at_hinge(cq.Workplane("XY").box(1, 1, 1).translate((P.ARM_TIP, 0, 0)))
     tx, _, tz = tip.val().Center().toTuple()
-    assy.add(bottle().translate((tx, 0, tz - 60.0)), name="last_fles", color=cq.Color(0.6, 0.8, 0.95, 0.6))
+    assy.add(bottle().translate((tx, 0, tz - 60.0)), name="load_bottle", color=cq.Color(0.6, 0.8, 0.95, 0.6))
     return assy
 
 
 MADE_PARTS = {
-    "grondplaat": base_plate,
-    "wang": cheek,
-    "afstandsblok": spacer_block,
+    "base_plate": base_plate,
+    "cheek": cheek,
+    "spacer_block": spacer_block,
     "arm": arm,
-    "beugel_potmeter": pot_bracket,
+    "pot_bracket": pot_bracket,
 }

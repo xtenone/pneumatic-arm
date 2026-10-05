@@ -1,11 +1,11 @@
-"""Genereer alles voor test 1 uit params.py en maak de bundel.
+"""Generate everything for test 1 from params.py and build the bundle.
 
-    python build.py            # alles opnieuw genereren
-    python build.py --bundel   # plus zip in dist/ en kopie naar de gedeelde webmap
-    python build.py --snel     # zonder simulatie (alleen CAD, config, tekeningen, docs)
+    python build.py            # regenerate everything
+    python build.py --bundle   # plus a zip in dist/ and a copy to the shared web folder
+    python build.py --fast     # without the simulation (CAD, config, drawings, docs only)
 
-Stappen: firmware/config.py, CAD-export, tekeningen, simulatie (+ renders),
-stuklijst, HTML-versie van de documentatie, firmwaretest, bundel.
+Steps: firmware/config.py, CAD export, drawings, simulation (+ renders), bill of
+materials, HTML version of the docs, firmware test, bundle.
 """
 import csv
 import html
@@ -28,43 +28,43 @@ def run(*args, env=None):
     subprocess.run([PY, *args], cwd=HERE, check=True, env=e)
 
 
-def stuklijst():
-    """docs/stuklijst.md en .csv uit de bestellijst van het project."""
-    d = json.load(open(os.path.join(REPO, "docs", "bestellijst.json")))
+def bom():
+    """docs/bom.md and .csv from the project order list."""
+    d = json.load(open(os.path.join(REPO, "docs", "order-list.json")))
     rows = []
-    for b in d["bestellingen"]:
-        if b.get("status") == "alternatief":
+    for b in d["orders"]:
+        if b.get("status") == "alternative":
             continue
-        for r in b["regels"]:
-            link = r.get("url") or (f"https://nl.aliexpress.com/item/{r['id']}.html" if r.get("id") else "")
-            rows.append(dict(bestelling=b["naam"], onderdeel=r["wat"], variant=r.get("variant", ""),
-                             aantal=r["aantal"], prijs=r["prijs"], schatting=bool(r.get("schatting")),
-                             link=link, opmerking=r.get("noot", ""), status=b.get("status", "")))
-    with open(os.path.join(HERE, "docs", "stuklijst.csv"), "w", newline="") as f:
+        for r in b["items"]:
+            link = r.get("url") or (f"https://www.aliexpress.com/item/{r['id']}.html" if r.get("id") else "")
+            rows.append(dict(order=b["name"], part=r["what"], variant=r.get("variant", ""),
+                             qty=r["qty"], price=r["price"], estimate=bool(r.get("estimate")),
+                             link=link, note=r.get("note", ""), status=b.get("status", "")))
+    with open(os.path.join(HERE, "docs", "bom.csv"), "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
-    lines = ["# Stuklijst test 1", "",
-             "Gegenereerd uit `docs/bestellijst.json` (hoofdmap) door `build.py`. Prijzen in euro, "
-             "* = schatting. Ook als [CSV](stuklijst.csv).", ""]
+    lines = ["# Bill of materials — test 1", "",
+             "Generated from `docs/order-list.json` (repository root) by `build.py`. Prices in euro, "
+             "* = estimate. Also as [CSV](bom.csv).", ""]
     total = 0.0
     current = None
     for r in rows:
-        if r["bestelling"] != current:
-            current = r["bestelling"]
+        if r["order"] != current:
+            current = r["order"]
             lines += ["", f"## {current}", "", f"Status: {r['status']}", "",
-                      "| # | Onderdeel | Variant | Prijs | Link |", "|---|---|---|---|---|"]
-        sub = r["aantal"] * r["prijs"]
+                      "| # | Part | Variant | Price | Link |", "|---|---|---|---|---|"]
+        sub = r["qty"] * r["price"]
         total += sub
         link = f"[link]({r['link']})" if r["link"] else ""
-        note = f" — {r['opmerking']}" if r["opmerking"] else ""
-        lines.append(f"| {r['aantal']} | {r['onderdeel']}{note} | {r['variant']} | "
-                     f"€{sub:.2f}{'*' if r['schatting'] else ''} | {link} |")
-    lines += ["", f"**Totaal ca. €{total:.0f}** (exclusief verzending en invoerheffing).", "",
-              "## Gereedschap", ""] + [f"- {g}" for g in d.get("gereedschap", [])]
-    with open(os.path.join(HERE, "docs", "stuklijst.md"), "w") as f:
+        note = f" — {r['note']}" if r["note"] else ""
+        lines.append(f"| {r['qty']} | {r['part']}{note} | {r['variant']} | "
+                     f"€{sub:.2f}{'*' if r['estimate'] else ''} | {link} |")
+    lines += ["", f"**Total approx. €{total:.0f}** (excluding shipping and import duty).", "",
+              "## Tools", ""] + [f"- {g}" for g in d.get("tools", [])]
+    with open(os.path.join(HERE, "docs", "bom.md"), "w") as f:
         f.write("\n".join(lines) + "\n")
-    print("→ stuklijst:", len(rows), "regels, totaal", round(total))
+    print("→ bom:", len(rows), "lines, total", round(total))
 
 
 CSS = """body{font-family:system-ui,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;line-height:1.5;color:#222}
@@ -76,8 +76,8 @@ nav a{margin-right:1rem}"""
 def to_html(md_path, out_path, title, nav):
     import markdown
     text = open(md_path, encoding="utf-8").read()
-    # Python-Markdown wil een lege regel vóór een opsomming en 4 spaties inspringing voor
-    # geneste lijsten; GitHub niet. Zet de tekst daarom om.
+    # Python-Markdown needs a blank line before a list and 4-space indentation for
+    # nested lists; GitHub does not. Convert the text accordingly.
     import re
     item = re.compile(r"^(\s*)([-*]|\d+\.)\s")
     out, prev_item_indent, prev = [], None, ""
@@ -101,38 +101,38 @@ def to_html(md_path, out_path, title, nav):
     text = "\n".join(out)
     body = markdown.markdown(text, extensions=["tables", "fenced_code", "sane_lists"])
     body = body.replace('.md"', '.html"')
-    page = (f"<!doctype html><html lang='nl'><head><meta charset='utf-8'><title>{html.escape(title)}</title>"
+    page = (f"<!doctype html><html lang='en'><head><meta charset='utf-8'><title>{html.escape(title)}</title>"
             f"<style>{CSS}</style></head><body><nav>{nav}</nav>{body}</body></html>")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(page)
 
 
 def html_docs(dest):
-    """HTML-versie van README, handleiding, ontwerp, stuklijst en simulatieresultaten in `dest`."""
+    """HTML version of the README, manual, design, BOM and simulation results in `dest`."""
     os.makedirs(os.path.join(dest, "docs"), exist_ok=True)
     os.makedirs(os.path.join(dest, "out", "sim"), exist_ok=True)
-    nav_root = ("<a href='index.html'>Test 1</a><a href='docs/handleiding.html'>Handleiding</a>"
-                "<a href='docs/ontwerp.html'>Ontwerp</a><a href='docs/stuklijst.html'>Stuklijst</a>"
-                "<a href='out/sim/resultaten.html'>Simulatie</a><a href='out/tekeningen/'>Tekeningen</a>"
-                "<a href='out/cad/'>CAD</a><a href='test1-pakket.zip'>Bundel (zip)</a>")
+    nav_root = ("<a href='index.html'>Test 1</a><a href='docs/manual.html'>Manual</a>"
+                "<a href='docs/design.html'>Design</a><a href='docs/bom.html'>BOM</a>"
+                "<a href='out/sim/results.html'>Simulation</a><a href='out/drawings/'>Drawings</a>"
+                "<a href='out/cad/'>CAD</a><a href='test1-package.zip'>Bundle (zip)</a>")
     nav_docs = nav_root.replace("href='", "href='../").replace("href='../http", "href='http")
     nav_sim = nav_root.replace("href='", "href='../../")
     to_html(os.path.join(HERE, "README.md"), os.path.join(dest, "index.html"), "Test 1", nav_root)
-    for name in ("handleiding", "ontwerp", "stuklijst"):
+    for name in ("manual", "design", "bom"):
         to_html(os.path.join(HERE, "docs", f"{name}.md"), os.path.join(dest, "docs", f"{name}.html"), name, nav_docs)
-    to_html(os.path.join(HERE, "out", "sim", "resultaten.md"), os.path.join(dest, "out", "sim", "resultaten.html"),
-            "Simulatie", nav_sim)
+    to_html(os.path.join(HERE, "out", "sim", "results.md"), os.path.join(dest, "out", "sim", "results.html"),
+            "Simulation", nav_sim)
 
 
-INCLUDE = ["README.md", "params.py", "gen_config.py", "tekeningen.py", "build.py", "requirements.txt",
+INCLUDE = ["README.md", "params.py", "gen_config.py", "drawings.py", "build.py", "requirements.txt",
            "docs", "cad", "sim", "firmware", "host", "tests", "out"]
-EXCLUDE_DIRS = {"__pycache__", "resultaten", "meshes"}
+EXCLUDE_DIRS = {"__pycache__", "results", "meshes"}
 
 
-def bundel():
+def bundle():
     dist = os.path.join(REPO, "dist")
     os.makedirs(dist, exist_ok=True)
-    zpath = os.path.join(dist, "test1-pakket.zip")
+    zpath = os.path.join(dist, "test1-package.zip")
     stage = os.path.join(dist, "test1_html")
     shutil.rmtree(stage, ignore_errors=True)
     html_docs(stage)
@@ -151,31 +151,31 @@ def bundel():
             for fn in files:
                 full = os.path.join(root, fn)
                 z.write(full, os.path.join("test1", "html", os.path.relpath(full, stage)))
-    print("→ bundel:", zpath, round(os.path.getsize(zpath) / 1e6, 1), "MB")
-    # gedeelde webmap: HTML + tekeningen, CAD, sim-beelden en de zip
+    print("→ bundle:", zpath, round(os.path.getsize(zpath) / 1e6, 1), "MB")
+    # shared web folder: HTML + drawings, CAD, sim images and the zip
     if os.path.isdir(os.path.dirname(os.path.dirname(HOSTED))):
         shutil.rmtree(HOSTED, ignore_errors=True)
         shutil.copytree(stage, HOSTED)
-        for sub in ("out/tekeningen", "out/cad", "out/sim"):
+        for sub in ("out/drawings", "out/cad", "out/sim"):
             shutil.copytree(os.path.join(HERE, sub), os.path.join(HOSTED, sub), dirs_exist_ok=True)
         shutil.copy(zpath, HOSTED)
-        print("→ webmap:", os.path.abspath(HOSTED))
+        print("→ web folder:", os.path.abspath(HOSTED))
 
 
 def main():
-    fast = "--snel" in sys.argv
+    fast = "--fast" in sys.argv
     run("gen_config.py")
     run("cad/export.py")
-    run("tekeningen.py")
+    run("drawings.py")
     if not fast:
         run("sim/run.py", "--render", env={"MUJOCO_GL": "egl"})
-    stuklijst()
+    bom()
     run("tests/test_firmware.py")
     cal = os.path.join(HERE, "out", "cal.json")
     if os.path.exists(cal):
         os.remove(cal)
-    if "--bundel" in sys.argv:
-        bundel()
+    if "--bundle" in sys.argv:
+        bundle()
 
 
 if __name__ == "__main__":
