@@ -50,6 +50,33 @@ terugslagkleppen direct op de cilinderpoorten. Die laten lucht alleen uit de kam
 er stuurdruk op staat; zonder stuurdruk zit de lucht opgesloten in de cilinder. Voor de
 proef is dit niet nodig.
 
+## Vasthouden onder een hogere kracht (voor later)
+
+Dichte ventielen houden de lucht vast, maar lucht veert. Duwt er een extra kracht op de
+arm, dan wordt de lucht samengedrukt en geeft de arm mee, ook als de ventielen perfect
+dicht blijven. Bij test 1 is dat ca. 10° uitwijking bij 15 N extra aan de last (simulatie,
+5 bar). Ook stijgt de druk in de samengedrukte kamer; de ventielen moeten die blijven
+tegenhouden.
+
+| Maatregel | Wat het doet | Opmerking |
+|---|---|---|
+| Hogere kamerdruk (stijfheid) | minder meegeven | begrensd door de zwakste component (nu 0,7 MPa) |
+| Ventielen met hogere druk | houden ook bij een drukpiek dicht | snelle direct bediende ventielen gaan tot ca. 8 bar, zie hieronder |
+| Ontgrendelbare terugslagkleppen op de cilinderpoorten | lucht kan de cilinder niet uit, ook niet bij slangbreuk | goedkoop; maakt de fijnregeling wel lastiger |
+| **Mechanische rem of stangklem** | arm staat écht vast, onafhankelijk van de lucht | bijv. veerbelaste schijfrem op het gewricht die met lucht lost: valt de lucht of stroom weg, dan remt hij |
+
+Snelle ventielen met een hogere druk dan de VQ110U:
+
+| Ventiel | Max. druk | Schakeltijd | Opmerking |
+|---|---|---|---|
+| SMC VQ110U (huidig) | 0,7 MPa | 3,5 / 2 ms | grote doorstroming (0,7 mm²) |
+| SMC VQ110 hogedrukversie | 0,8 MPa | ≤ 6,5 ms | kleinere doorstroming (0,3 mm²) |
+| Festo MHE2 | 0,8 MPa | 1,7–2 ms, tot 330 Hz | duurder; ook als MHE3 met meer doorstroming |
+| Gewone magneetventielen 1 MPa (2V-, 4V-serie) | 0,8–1,0 MPa | 20–50 ms | te traag voor fijne PWM; wel bruikbaar als grof ventiel |
+
+Boven ca. 8 bar zijn snelle, direct bediende ventielen zeldzaam. Echt vasthouden onder
+overbelasting komt daarom eerder van een mechanische rem dan van hogere luchtdruk.
+
 ## Krachtberekening schouder (eerste ruwe berekening)
 
 Uitgangspunten van de klant: 15 kg op 1 m van het scharnier, cilinders 50 cm lang en
