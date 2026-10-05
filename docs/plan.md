@@ -29,8 +29,8 @@ documentatie, controle).
 - [ ] Lidl: compressor Parkside PSKO 248 B1 (K)
 - [ ] Bouwmarkt, ná de compressor: insteeknippel G1/4 passend op de compressorkoppeling, slangschaar, PTFE-tape, multiplex, aluminium hoekje, eventueel multimeter (K)
 
-Bestellijst: [bestellijst.json](bestellijst.json), klikbaar op
-`http://192.168.1.22:8200/pneumatic-arm/bestellijst.html`.
+Bestellijst: [bestellijst.json](bestellijst.json); `tools/bestellijst.py` maakt er een klikbare
+pagina van.
 
 ## Fase 3a — Test 1 als compleet pakket ✅
 
