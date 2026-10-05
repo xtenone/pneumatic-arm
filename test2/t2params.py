@@ -38,3 +38,15 @@ ROLL_SHAFT_D = 16.0
 CYL = dict(T1.CYL, stroke=200.0, overall_retracted=131.0 + 200.0)   # MAL20×200
 PIN_TO_PIN_MIN = T1.PIN_TO_PIN_MIN + CYL["overall_retracted"] - T1.CYL["overall_retracted"]
 PIN_TO_PIN_MAX = PIN_TO_PIN_MIN + CYL["stroke"]
+
+# Variant "cross block": the cylinder rod ends in a fork on a cross block in the hub hinge
+# (a small universal joint), so the cylinder force passes through the hinge. No bars or
+# sleeves. The cylinders tilt a few degrees sideways when rolling: rod end bearing below.
+CROSS = dict(
+    hub_r=45.0,                  # hub axis → cross block centre
+    lower_pivot=(40.0, 60.0),    # x, z of the lower rod end bearings (at y = ±hub_r)
+    block=16.0,                  # cross block, cube
+    pin_d=6.0,
+    cheek_front=0.0,             # cheek front edge below the joint (x)
+    cheek_top_r=30.0,            # round top of the cheek around the joint
+)

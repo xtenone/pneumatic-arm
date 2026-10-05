@@ -1,7 +1,8 @@
 """Render the test 2 concept in a few poses (MuJoCo, static scene) and export STEP.
 
-    python render.py
-Output: out/render_<pose>_<camera>.png, out/test2_concept.step
+    python render.py                 # concept B (bar + sleeve)
+    python render.py --cross-block   # variant with a cross block on a fixed bar
+Output: out/[cross_block/]render_<pose>_<camera>.png and a STEP file
 """
 import os
 import sys
@@ -15,6 +16,7 @@ from PIL import Image  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "cad"))
 import model  # noqa: E402
+import cross_block  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
 POSES = {"neutral": (0.0, 0.0), "pitch_down": (-60.0, 0.0), "pitch_up": (75.0, 0.0),
@@ -45,10 +47,16 @@ def scene_xml(items, meshdir):
 {''.join(CAMERAS.values())}{''.join(geoms)}</worldbody></mujoco>"""
 
 
+CROSS_POSES = {"neutral": (0.0, 0.0), "pitch_down": (-45.0, 0.0), "pitch_up": (45.0, 0.0),
+               "roll": (0.0, 55.0), "pitch_up_roll": (30.0, 65.0)}
+
+
 def main():
-    os.makedirs(OUT, exist_ok=True)
-    for pose, (pitch, roll) in POSES.items():
-        items, lengths = model.pose(pitch, roll)
+    cross = "--cross-block" in sys.argv
+    out = os.path.join(OUT, "cross_block") if cross else OUT
+    os.makedirs(out, exist_ok=True)
+    for pose, (pitch, roll) in (CROSS_POSES if cross else POSES).items():
+        items, lengths = (cross_block if cross else model).pose(pitch, roll)
         with tempfile.TemporaryDirectory() as tmp:
             mdl = mujoco.MjModel.from_xml_string(scene_xml(items, tmp))
         d = mujoco.MjData(mdl)
@@ -56,14 +64,14 @@ def main():
         r = mujoco.Renderer(mdl, 960, 1280)
         for cam in CAMERAS:
             r.update_scene(d, camera=cam)
-            Image.fromarray(r.render()).save(os.path.join(OUT, f"render_{pose}_{cam}.png"))
+            Image.fromarray(r.render()).save(os.path.join(out, f"render_{pose}_{cam}.png"))
         r.close()
         print(pose, f"pitch {pitch}°, roll {roll}°, cylinders {[round(L) for L in lengths]} mm")
         if pose == "neutral":
             asm = cq.Assembly(name="test2_concept")
             for name, shape, rgba in items:
                 asm.add(cq.Workplane().add(shape), name=name, color=cq.Color(*rgba))
-            asm.export(os.path.join(OUT, "test2_concept.step"))
+            asm.export(os.path.join(out, "test2_concept.step"))
 
 
 if __name__ == "__main__":
