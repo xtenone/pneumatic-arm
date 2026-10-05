@@ -44,7 +44,8 @@ PIN_TO_PIN_MAX = PIN_TO_PIN_MIN + CYL["stroke"]
 # sleeves. The cylinders tilt a few degrees sideways when rolling: rod end bearing below.
 CROSS = dict(
     hub_r=45.0,                  # hub axis → cross block centre
-    lower_pivot=(40.0, 60.0),    # x, z of the lower rod end bearings (at y = ±hub_r)
+    lower_pivot=(40.0, 60.0),    # x, z of the cylinder rear pins (at y = ±hub_r)
+    low_drop=26.0,               # bottom joint: the x bolt sits this far below the rear pin
     block=16.0,                  # cross block, cube
     pin_d=6.0,
     cheek_front=0.0,             # cheek front edge below the joint (x)

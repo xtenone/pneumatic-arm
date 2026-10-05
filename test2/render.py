@@ -26,6 +26,7 @@ CAMERAS = {
     "front": '<camera name="front" pos="1.25 0 0.42" xyaxes="0 1 0 -0.1 0 1"/>',
     "side": '<camera name="side" pos="0.15 -1.45 0.4" xyaxes="1 0 0 0 0 1"/>',
     "close": '<camera name="close" pos="0.55 -0.35 0.62" xyaxes="0.54 0.84 0 -0.35 0.22 0.91"/>',
+    "bottom": '<camera name="bottom" pos="0.2 -0.24 0.16" xyaxes="0.773 0.634 0 -0.254 0.309 0.917"/>',
 }
 
 
@@ -62,7 +63,7 @@ def main():
         d = mujoco.MjData(mdl)
         mujoco.mj_forward(mdl, d)
         r = mujoco.Renderer(mdl, 960, 1280)
-        for cam in CAMERAS:
+        for cam in (c for c in CAMERAS if cross or c != "bottom"):   # bottom joint: variant only
             r.update_scene(d, camera=cam)
             Image.fromarray(r.render()).save(os.path.join(out, f"render_{pose}_{cam}.png"))
         r.close()

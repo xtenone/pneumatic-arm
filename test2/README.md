@@ -57,9 +57,22 @@ The variant in `cad/cross_block.py` removes that offset:
 - a fork on the cylinder rod holds the block with a pin square to the bar.
 
 Bar + block + fork form a small universal joint whose centre lies on the bar, so the
-cylinder force passes through it and the rod only sees push and pull. When rolling, the
-cylinders tilt up to 7° sideways, so the lower mount is a rod end bearing (ball) instead of
-a plain clevis. The cheeks get a round top around the joint and stop at the joint in front.
+cylinder force passes through it and the rod only sees push and pull. The cheeks get a
+round top around the joint and stop at the joint in front.
+
+Because the cross block moves sideways when rolling, the cylinders no longer stay in their
+own plane: at the bottom they swing −5° … +7° forward/back and up to 4° sideways (inwards
+only). The bottom mount is therefore a second small universal joint that uses the standard
+rear eye of the MAL cylinder:
+- the rear eye sits on an M8 pin along y between two fork plates (forward/back);
+- the fork has a tongue 26 mm lower that swings on an M8 bolt along x between two plates
+  on a foot (sideways).
+
+Seen from the front the eye cannot turn on its pin, so the fork simply leans with the
+cylinder and the force still runs along the cylinder axis. The rod can turn in the barrel,
+so the rod fork lines itself up with the cross block.
+
+![Bottom joint, pitch 30°, roll 65°](out/cross_block/render_pitch_up_roll_bottom.png)
 
 Clash-free roll per pitch (stroke and parts): ±55° at −60°, ±65° from −50° to +45° (±55°
 around 0°, where the fork meets the bar), ±45° at +50°, ±15° at +60° … +75°.
