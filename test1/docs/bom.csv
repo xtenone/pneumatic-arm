@@ -49,4 +49,4 @@ order,part,variant,qty,price,estimate,link,note,status
 4. DIY store,Tube cutter,,1,5.0,True,,,still to buy
 4. DIY store,PTFE tape,,1,1.5,True,,,still to buy
 4. DIY store,Multimeter (if you do not have one),,1,20.0,True,,"Needed for the incoming inspection, coil checks and calibration",still to buy
-5. Compressor (Lidl),Parkside silent compressor PSKO 248 B1,"24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar",1,99.99,False,https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873,Check the coupler on arrival; the plug nipple on the regulator must match it,"chosen, not ordered yet"
+5. Compressor (bol.com),Stanley silent compressor DST 100/8/6,"6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W",1,160.0,True,https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/,Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple.,ordered (2026-10-05)

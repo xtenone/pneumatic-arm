@@ -50,7 +50,7 @@ The full plan with what is done and what is left: [docs/plan.md](docs/plan.md).
 - **Test 1 (arm with one degree of freedom: one cylinder, 4 fast valves with PWM)**:
   complete package in [test1/](test1/README.md) (CAD, simulation, firmware, manual, bill
   of materials); design in [test1/docs/design.md](test1/docs/design.md). AliExpress parts
-  ordered on 2026-10-04, electronics on 2026-10-05; compressor and DIY-store parts still to buy. Order list:
+  ordered on 2026-10-04, electronics and compressor on 2026-10-05; DIY-store parts still to buy. Order list:
   [docs/order-list.json](docs/order-list.json).
 - **2-DOF joint**: sketch and first analysis in [docs/2dof-joint.md](docs/2dof-joint.md);
   not yet worked out.

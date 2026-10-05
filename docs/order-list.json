@@ -387,16 +387,17 @@
       ]
     },
     {
-      "name": "5. Compressor (Lidl)",
-      "status": "chosen, not ordered yet",
+      "name": "5. Compressor (bol.com)",
+      "status": "ordered (2026-10-05)",
       "items": [
         {
-          "url": "https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873",
-          "what": "Parkside silent compressor PSKO 248 B1",
-          "variant": "24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar",
+          "url": "https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/",
+          "what": "Stanley silent compressor DST 100/8/6",
+          "variant": "6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W",
           "qty": 1,
-          "price": 99.99,
-          "note": "Check the coupler on arrival; the plug nipple on the regulator must match it"
+          "price": 160.0,
+          "estimate": true,
+          "note": "Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple."
         }
       ]
     },

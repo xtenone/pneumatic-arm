@@ -166,7 +166,7 @@ Summary:
 - **DIY store:** plywood, aluminium flat bar and strip, 608 bearings, M8 bolts, tube for
   spacer sleeves, hose clamps, F-clamps, plug nipple to match the compressor, tube cutter,
   PTFE tape, and a multimeter if needed.
-- **Compressor:** Parkside PSKO 248 B1 (Lidl), 24 l, 8 bar, 71.9 dB.
+- **Compressor:** Stanley DST 100/8/6, 6 l, 8 bar, 59 dB (quiet enough for indoor testing).
 
 EU import duty (since 1 July 2026): €3 + VAT per product category per consignment. Items
 shipped by AliExpress itself are grouped into categories.

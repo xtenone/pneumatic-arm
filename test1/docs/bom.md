@@ -81,15 +81,15 @@ Status: still to buy
 | 1 | PTFE tape |  | €1.50* |  |
 | 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration |  | €20.00* |  |
 
-## 5. Compressor (Lidl)
+## 5. Compressor (bol.com)
 
-Status: chosen, not ordered yet
+Status: ordered (2026-10-05)
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
-| 1 | Parkside silent compressor PSKO 248 B1 — Check the coupler on arrival; the plug nipple on the regulator must match it | 24 l, 8 bar, 71.9 dB, oil-free, 117 l/min at 4 bar | €99.99 | [link](https://www.lidl.nl/p/parkside-stille-compressor-psko-248-b1-24-l-ketelinhoud/p100398873) |
+| 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
 
-**Total approx. €504** (excluding shipping and import duty).
+**Total approx. €564** (excluding shipping and import duty).
 
 ## Tools
 

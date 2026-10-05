@@ -25,7 +25,7 @@ Roles: **(B)** = build, buy, measure; **(D)** = design, software, documentation,
 - [x] AliExpress: valves, pneumatics, sensors, ULN2803A — ordered 2026-10-04 (B)
 - [x] Electronics (Tinytronics): Pico 2W, LM7805C, capacitors, 10k + 47k resistors, breadboard, DC jack, USB cable, wire, jumper wires, headers — ordered 2026-10-05 (B)
 - [ ] Check the 24 V adapter: DC (not AC), at least 0.5 A, plug size (5.5/2.1 or 5.5/2.5) (B)
-- [ ] Compressor Parkside PSKO 248 B1 (B)
+- [x] Compressor Stanley DST 100/8/6 (6 l, 59 dB) — ordered 2026-10-05 (B)
 - [ ] DIY store, after the compressor: plug nipple G1/4 matching its coupler, tube cutter, PTFE tape, plywood, aluminium, bearings, bolts, multimeter if needed (B)
 
 Order list: [order-list.json](order-list.json); `tools/order_list.py` turns it into a
