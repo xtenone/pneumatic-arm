@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.join(HERE, "cad"))
 import model  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
-POSES = {"neutral": (0.0, 0.0), "pitch_down": (-40.0, 0.0), "pitch_up": (50.0, 0.0),
-         "roll": (0.0, 65.0), "pitch_up_roll": (40.0, 60.0)}
+POSES = {"neutral": (0.0, 0.0), "pitch_up": (45.0, 0.0), "pitch_high": (80.0, 0.0),
+         "roll": (20.0, 65.0), "pitch_up_roll": (45.0, 65.0)}
 CAMERAS = {
     "oblique": '<camera name="oblique" pos="0.95 -0.85 0.75" xyaxes="0.67 0.74 0 -0.32 0.29 0.9"/>',
     "front": '<camera name="front" pos="1.25 0 0.42" xyaxes="0 1 0 -0.1 0 1"/>',

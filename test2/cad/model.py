@@ -219,7 +219,7 @@ if __name__ == "__main__":
     lo, hi = P.PIN_TO_PIN_MIN, P.PIN_TO_PIN_MAX
     force = 2 * P.T1.P_SUPPLY * 0.1 * P.T1.AREA_A       # N, both cylinders pushing
     print(f"cylinder pin-to-pin range {lo:.0f}–{hi:.0f} mm, both cylinders {force:.0f} N at {P.T1.P_SUPPLY} bar")
-    for p in range(-60, 71, 10):
+    for p in range(-10, 96, 10):
         rs = [r for r in range(0, 91, 5) if reachable(p, r) and reachable(p, -r)]
         u = sleeve_points(p, 0)[0] - lower_points()[0]
         lean = math.degrees(math.atan2(abs(u[0]), u[2]))
