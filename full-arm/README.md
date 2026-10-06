@@ -40,7 +40,8 @@ Required for 9 block positions (3 along the wall, 3 courses), 15 kg block + 3 kg
 | Elbow cylinders, pin to pin | 454–582 mm (128 mm of stroke used) |
 | Elbow cylinder force | ≤ 187 N push: 19% of Ø50, 30% of Ø40 at 5 bar |
 
-- **Feasible.** Both rolls stay well within the ±65° of the cross block joint.
+- **Feasible.** The shoulder roll stays well within its ±65°; the forearm roll of ±42° just
+  fits the ≈ ±45° the elbow allows (see the clash check below).
 - The rolls grow with the base yaw: for a wall 1.2 m wide (base yaw ±42° at the ends of a
   wall 0.5 m away) the shoulder needs up to ±86° and the forearm ±69°, beyond the
   joint. For wider walls the base moves along the wall, or the gripper gets its own
