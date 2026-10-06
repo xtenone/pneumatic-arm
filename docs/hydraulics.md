@@ -47,8 +47,8 @@ Most promising: **four proportional cartridges per cylinder** in one block (fill
 per chamber, the same structure as the four VQ110U valves of test 1), about €400–500 per
 cylinder including the block, or one proportional NG6 directional valve (≈ €480). Watch
 the type code: many cartridges in the same family (SV…) are on/off valves, the
-proportional ones are marked separately (SP…, EHPR…, EPV…). The Pico drives them with a PWM current driver (MOSFET with
-current measurement).
+proportional ones are marked separately (SP…, EHPR…, EPV…). The Pico drives them with
+a PWM current driver (MOSFET with current measurement).
 
 ## System
 
