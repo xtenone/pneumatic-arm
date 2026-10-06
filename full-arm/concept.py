@@ -3,6 +3,7 @@
     python full-arm/concept.py            # out/render_concept_<camera>.png (biceps elbow, low wall)
     python full-arm/concept.py triceps    # out/render_triceps_<camera>.png
     python full-arm/concept.py glass      # out/render_glass_<camera>.png (holding a glass over a table)
+    python full-arm/concept.py glass triceps_down   # the same with the upper arm hanging down
 
 Simple shapes only (MuJoCo primitives), to show the layout and proportions; dimensions
 follow docs/full-arm-sizing.md and the pose comes from full-arm/elbow.py (6 DOF). Not a
@@ -91,8 +92,12 @@ def solve_flat(centre, tool, align_wall):
         c = W - tool * Rt[:, 2]
         return np.concatenate([c - centre, Rt[:2, 2], [Rt[0, 1] if align_wall else x[4]]])
     yaw = math.atan2(centre[1], centre[0])
-    for p2 in (-1.2, -0.8, -1.6):
-        sol = least_squares(res, [yaw, 0.3, p2, -(0.3 + p2), -yaw], bounds=([-3, -1.05, -2.6, -2.6, -3.2], [3, 1.31, 0, 2.6, 3.2]))
+    if K.DOWN:                                 # elbow below the shoulder
+        starts, lo, hi = [(-1.0, p2) for p2 in (1.4, 1.0, 1.8)], [-3, -1.7, 0, -2.6, -3.2], [3, 1.31, 2.6, 2.6, 3.2]
+    else:
+        starts, lo, hi = [(0.3, p2) for p2 in (-1.2, -0.8, -1.6)], [-3, -1.05, -2.6, -2.6, -3.2], [3, 1.31, 0, 2.6, 3.2]
+    for p1, p2 in starts:
+        sol = least_squares(res, [yaw, p1, p2, -(p1 + p2), -yaw], bounds=(lo, hi))
         if sol.cost < 1e-10:
             return pose(sol.x)
     raise ValueError("no pose")
@@ -252,7 +257,9 @@ def main():
     scene = "glass" if "glass" in args else "wall"
     layout = next((a for a in args if a in K.LAYOUTS), "biceps")
     K.set_layout(layout)
-    prefix = ("concept" if layout == "biceps" else layout) if scene == "wall" else f"{scene}"
+    if K.DOWN:
+        K.S = np.array([0.0, 0.0, 1.15])         # upper arm hanging: shoulder higher, like a person at a table
+    prefix = ("concept" if layout == "biceps" else layout) if scene == "wall" else (scene if layout == "biceps" else f"{scene}_{layout}")
     CAMERAS = SCENE_CAMERAS[scene]
     q = build(scene)
     xml = f"""<mujoco><visual><global offwidth="1280" offheight="960"/><quality shadowsize="8192"/>

@@ -134,6 +134,14 @@ the gripper's yaw motor keeps the jaws square to the arm). Shoulder pitch 64°, 
 
 ![Glass, side](out/render_glass_side.png)
 
+The same with the upper arm hanging down (shoulder at 1.15 m, elbow cylinders behind the
+upper arm pushing the lever behind the elbow). Render only; the shoulder cylinders are
+still drawn in the test 2 layout, which does not suit this posture.
+
+![Glass, upper arm down](out/render_glass_triceps_down_oblique.png)
+
+![Glass, upper arm down, side](out/render_glass_triceps_down_side.png)
+
 ## Choice for now
 
 - **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
