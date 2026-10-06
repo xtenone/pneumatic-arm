@@ -101,3 +101,5 @@ lift every 5 s is about 70 l/min; to be checked against the compressor's deliver
 - Valve choice for the large cylinders: 1 × VQ110U per chamber unless the shoulder proves too slow.
 - Compressor delivery versus the air use above.
 - Mass of the complete arm (elbow, forearm, gripper) → 3 kg or 30 kg case or in between.
+- If much more force is needed: hydraulics with the same joint layout, see
+  [hydraulics.md](hydraulics.md).

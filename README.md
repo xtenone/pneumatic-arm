@@ -18,6 +18,7 @@ is an arm that picks up blocks of about 15 kg and builds a wall with them.
 | Plan: what is done and what is left | [docs/plan.md](docs/plan.md) |
 | Cost per degree of freedom | [docs/cost-per-dof.md](docs/cost-per-dof.md) |
 | Full-size joint: 15 kg at 1 m (cylinders, speed, air) | first sizing — [docs/full-arm-sizing.md](docs/full-arm-sizing.md) |
+| Hydraulics as an option (if more force is needed) | parts and prices — [docs/hydraulics.md](docs/hydraulics.md) |
 
 ## Build it yourself
 
