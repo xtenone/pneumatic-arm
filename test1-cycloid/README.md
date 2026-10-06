@@ -79,11 +79,13 @@ without force. The profile clearance is `CLEARANCE` in `cyparams.py` (0.10 mm).
 ## Files
 
 `cyparams.py` (dimensions, sizing), `cad/cycloid.py` (CadQuery parts, assembly, clash
-check, `--stl`), `render.py` (renders; `--video` for the motion, not kept in git),
-`out/stl/` (parts to print).
+check, `--stl`, `--step`), `render.py` (renders; `--video` for the motion, not kept in
+git), `out/stl/` (parts to print), `out/step/` (STEP per printed part and
+`assembly.step` with all parts, coloured, input at 0°). The disc outline is a smooth
+spline through the exact cycloid profile.
 
 ## Status
 
-Designed, clash-checked over a full input turn (gap 0.08 mm to the housing pins, 0.2 mm
+Designed, clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
 to the output pins). Not printed yet. Next: the mounting on the test 1 stand, shared with
 the harmonic drive reference.

@@ -2,6 +2,7 @@
 
     python cad/cycloid.py            # sizes and a clash check over one input turn
     python cad/cycloid.py --stl      # STL of the printed parts in out/stl/
+    python cad/cycloid.py --step     # STEP per part and of the assembly in out/step/
 
 placements(phi) gives every part's position for input angle phi (radians), so renders and
 videos move the parts without rebuilding them.
@@ -69,7 +70,8 @@ def profile(n=1200):
 def disc(k):
     """Disc k (0 or 1). Disc 1 runs half a lobe behind disc 0, so its output holes are
     turned half a lobe forward relative to its profile; both are printed separately."""
-    d = cq.Workplane("XY").polyline(profile()).close().extrude(P.DISC_T)
+    pts = [cq.Vector(x, y, 0) for x, y in profile(24 * P.RATIO)]
+    d = cq.Workplane("XY").spline(pts, periodic=True).close().extrude(P.DISC_T)
     d = d.cut(cyl(B["6804"][1] / 2 + 0.05, -1, P.DISC_T + 1))
     return holes(d, polar(P.N_OUT, P.R_OUT, k * math.pi / P.RATIO), P.OUT_HOLE, -1, P.DISC_T + 1)
 
@@ -221,7 +223,20 @@ def clashes(phi, min_volume=0.5):
 
 
 if __name__ == "__main__":
-    if "--stl" in sys.argv:
+    if "--step" in sys.argv:
+        os.makedirs(os.path.join(OUT, "step"), exist_ok=True)
+        s = shapes()
+        for name in ("disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
+            path = os.path.join(OUT, "step", f"{name}.step")
+            cq.exporters.export(cq.Workplane().add(s[name]), path)
+            print(path)
+        asm = cq.Assembly(name="cycloid_drive")
+        for name, shape, rgba in pose(0.0):
+            asm.add(cq.Workplane().add(shape), name=name, color=cq.Color(*rgba))
+        path = os.path.join(OUT, "step", "assembly.step")
+        asm.export(path)
+        print(path)
+    elif "--stl" in sys.argv:
         os.makedirs(os.path.join(OUT, "stl"), exist_ok=True)
         s = shapes()
         for name in ("disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
