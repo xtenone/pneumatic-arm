@@ -71,3 +71,24 @@ clickable page.
 - Work out the 2-DOF joint (universal joint, ball joints, pilot-operated check valves
   against sagging when a tube breaks), first in simulation, then build it
 - Angle sensors on the joints (e.g. AS5600) instead of linear potentiometers
+
+## First demo task: cleaning a toilet
+
+Before the heavy work, the working arm practises on light tasks that show what it can do.
+The first is cleaning a toilet. The first runs are a rehearsal: the toilet is cleaned
+beforehand and the sponge is dry, so the arm, the control and the recording can be
+practised without water or dirt.
+
+What the task asks of the arm:
+- [ ] Reach into the bowl and under the rim: a wrist with enough orientations (at least
+  pitch and rotation) and a slim forearm
+- [ ] Constant, gentle contact force while wiping: with cylinders the chamber pressure
+  sets the force, so force control comes almost for free
+- [ ] Tool mount for a sponge or brush on the wrist
+- [ ] Remote control by a person (joystick or a small leader arm the large arm follows),
+  with recording of the movements and camera images
+- [ ] Camera on or near the arm
+- [ ] Later, with water and cleaning agent: splash-proof joints, sensors and wiring
+
+After that: learn the task from the recorded runs (imitation learning) so the arm does it
+by itself. Other candidate tasks: laundry from the washing machine to the dryer.

@@ -30,6 +30,9 @@ An arm that picks up blocks and stacks them into a wall.
 A home-built, cylinder-driven arm picks up blocks of about 15 kg and builds a wall
 with them.
 
+On the way there, the arm first does light tasks to practise and to show what it can do;
+the first is cleaning a toilet (see [docs/plan.md](docs/plan.md)).
+
 ## Requirements
 
 - Payload: about 15 kg per arm.
