@@ -1,0 +1,89 @@
+# Test 1 reference — printed cycloidal drive
+
+A second electric reference for [test 1](../test1/README.md), next to the
+[harmonic drive](../test1-harmonic-drive/README.md): the same arm, load, motor and angle
+sensor, but with a cycloidal drive printed in PLA. Only the gearbox differs, so the
+comparison shows what printing costs in backlash, stiffness and strength.
+
+![Inside: disc, housing pins and output pins](out/render_inside.png)
+
+## How it works
+
+- The motor turns a double eccentric (cam) on the input shaft, 1.2 mm off centre.
+- Each disc rolls around inside a ring of 25 steel pins. The disc has 24 lobes, so per
+  input turn it moves back by one lobe: **24:1**, output turning the other way.
+- Two discs run half a turn apart, so their forces balance and the drive runs smoothly.
+- Six steel pins through oversized holes in the discs (hole = pin + 2 × eccentricity) take
+  the slow rotation off the discs and turn the two carriers, which are the output.
+- Both carriers run in a 6808 bearing in the housing; the input shaft runs in a 608
+  bearing in each carrier, so the motor shaft carries no load (flexible coupling).
+
+![Section](out/render_section.png)
+
+![Exploded](out/render_exploded.png)
+
+## Sizing (`python cyparams.py`)
+
+| | 1.5 kg | 3 kg (T5) |
+|---|---|---|
+| Torque at the joint (horizontal, 180°/s²) | 7.3 Nm | 13.9 Nm |
+| Torque at the motor (efficiency 75%) | 0.40 Nm | 0.77 Nm |
+| Largest pin force | 19 N | 37 N |
+| Contact stress steel pin on PLA lobe | ≈ 28 MPa | ≈ 39 MPa |
+
+- PLA takes about 60 MPa in compression (less when printed), so 3 kg is within reach
+  but not with a large margin. The breaking test measures the real limit.
+- Output speed about 150°/s with the motor at 600 rpm.
+- Size Ø116 × 67 mm plus the motor.
+
+## Printing (PLA)
+
+| Part | Qty | Orientation | Notes |
+|---|---|---|---|
+| `disc_0.stl`, `disc_1.stl` | 1 each | flat | 100% infill (or ≥ 6 perimeters); 0.2 mm layers; they differ (output holes half a lobe apart) |
+| `housing.stl` | 1 | open side up | pin holes Ø6.1, blind |
+| `cover.stl` | 1 | inner face down | |
+| `carrier_rear.stl`, `carrier_front.stl` | 1 each | flange down | output pin holes Ø6.0: press fit, ream with a 6 mm drill if too tight |
+| `cam.stl` | 1 | upright | glue on the shaft with epoxy |
+| `standoff.stl` | 4 | upright | |
+
+Print one disc first and check it against a few pins: they should roll without play and
+without force. The profile clearance is `CLEARANCE` in `cyparams.py` (0.10 mm).
+
+## Bought parts
+
+| Part | Qty |
+|---|---|
+| Dowel pin Ø6 × 45 (ISO 8734 / DIN 6325) | 25 |
+| Dowel pin Ø6 × 35 | 6 |
+| Shaft Ø8 × 62 mm (cut from 8 mm linear rod) | 1 |
+| Ball bearing 6808-2RS (40 × 52 × 7) | 2 |
+| Ball bearing 6804-2RS (20 × 32 × 7) | 2 |
+| Ball bearing 608-2RS (8 × 22 × 7) | 2 |
+| Flexible coupling 8–8 mm, Ø19 × 25 | 1 |
+| M4 × 70 + nut (housing) | 6 |
+| M5 × 60 + nut (motor) | 4 |
+| M4 × 10 (output flange, tapped in PLA) | 4 |
+| Grease (PTFE or lithium) | |
+| Motor: NEMA23 closed-loop stepper, shared with the harmonic drive reference | (1) |
+
+## Tests
+
+1. Tests T3–T7 from the [test 1 manual](../test1/docs/manual.md), as for the other two
+   set-ups.
+2. Backlash: torque back and forth at the output, angle from the AS5600. New, and again
+   after a few thousand movements.
+3. Breaking test: increase the load until a lobe skips or the disc deforms; this gives the
+   real torque limit of printed PLA.
+
+## Files
+
+`cyparams.py` (dimensions, sizing), `cad/cycloid.py` (CadQuery parts, assembly, clash
+check, `--stl`), `render.py` (renders; `--video` for the motion, not kept in git),
+`out/stl/` (parts to print).
+
+## Status
+
+Designed, clash-checked over a full input turn (gap 0.08 mm to the housing pins, 0.2 mm
+to the output pins). Not printed yet. Next: the mounting on the test 1 stand, shared with
+the harmonic drive reference.

@@ -35,6 +35,9 @@ precision, speed, stiffness, behaviour when pushed, cost and weight?**
   1.5 kg. This is typical for geared joints and one of the things the comparison shows.
 - Output speed about 36°/s (motor at 600 rpm).
 
+The same motor also drives the [printed cycloidal drive](../test1-cycloid/README.md), so
+only the gearbox differs between the two electric references.
+
 ## Comparison
 
 Both set-ups run the tests of the [test 1 manual](../test1/docs/manual.md) with the same
