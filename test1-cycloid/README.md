@@ -1,4 +1,10 @@
-# Test 1 reference — printed cycloidal drive
+# Test 1 reference — printed cycloidal drive (on hold)
+
+**On hold.** The arm is driven by cylinders on levers: a plain hinge carries the arm and
+the cylinder only pushes. A gearbox in the joint has to transmit the torque and carry the
+arm at the same time, which needs precise bearings and fits. The printed cycloid answers
+no question the arm needs, so it is kept here, ready to print, but is not on the path to
+the arm.
 
 A second electric reference for [test 1](../test1/README.md), next to the
 [harmonic drive](../test1-harmonic-drive/README.md): the same arm, load, motor and angle
@@ -103,6 +109,6 @@ spline through the exact cycloid profile.
 
 ## Status
 
-Designed with print fits (tuned with the fit test), clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
+On hold (see the top). Designed with print fits (tuned with the fit test), clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
 to the output pins). Not printed yet. Next: the mounting on the test 1 stand, shared with
 the harmonic drive reference.
