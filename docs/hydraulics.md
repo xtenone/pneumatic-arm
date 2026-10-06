@@ -36,7 +36,7 @@ proportional valves.
 
 | Type | Price | Notes |
 |---|---|---|
-| Proportional cartridge valve, 2/2 (HydraForce SP08-20 type) | €90–115 | PWM current control; screwed into a manifold block. [SP08-20](https://nl.aliexpress.com/item/1005012186210270.html) |
+| Proportional cartridge valve, 2/2 (HydraForce SP08-20 type) | €90–115 | PWM current control; screwed into a manifold block (cavity VC08-2, 3/4-16 UNF). [SP08-20](https://nl.aliexpress.com/item/1005012186210270.html), [unbranded SP08-20](https://nl.aliexpress.com/item/1005009810937484.html) |
 | Proportional pressure-reducing cartridge (HydraForce EHPR98 type) | ≈ €140 | sets a pressure per chamber (force control) |
 | On/off cartridge valve, 2/2 poppet (Eaton/Vickers SV3-10-C type) | €35–60 | **not proportional**; switches in tens of ms, too slow and too harsh for PWM. Useful as a load-holding or safety valve. [SV3-10-C](https://nl.aliexpress.com/item/1005010718333141.html) |
 | Proportional relief valve (Yuken EBG type) | ≈ €150 | sets the system pressure |
@@ -49,6 +49,12 @@ cylinder including the block, or one proportional NG6 directional valve (≈ €
 the type code: many cartridges in the same family (SV…) are on/off valves, the
 proportional ones are marked separately (SP…, EHPR…, EPV…). The Pico drives them with
 a PWM current driver (MOSFET with current measurement).
+
+Before buying an unbranded cartridge, ask the seller for:
+- the type plate or datasheet (SP = proportional, SV = on/off; they look the same);
+- coil voltage (12 or 24 V), maximum pressure and flow;
+- the recommended PWM frequency (typically 100–300 Hz, often with dither);
+- the flow direction it meters and the direction it blocks.
 
 ## System
 
