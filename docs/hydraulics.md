@@ -36,14 +36,18 @@ proportional valves.
 
 | Type | Price | Notes |
 |---|---|---|
-| Proportional cartridge valve, 2/2 (Eaton SV3-10 / HydraForce SP08-20 compatible) | €35–115 | PWM current control; screwed into a manifold block. [SV3-10 compatible](https://nl.aliexpress.com/item/1005011761113909.html), [SP08-20](https://nl.aliexpress.com/item/1005012186210270.html) |
+| Proportional cartridge valve, 2/2 (HydraForce SP08-20 type) | €90–115 | PWM current control; screwed into a manifold block. [SP08-20](https://nl.aliexpress.com/item/1005012186210270.html) |
+| Proportional pressure-reducing cartridge (HydraForce EHPR98 type) | ≈ €140 | sets a pressure per chamber (force control) |
+| On/off cartridge valve, 2/2 poppet (Eaton/Vickers SV3-10-C type) | €35–60 | **not proportional**; switches in tens of ms, too slow and too harsh for PWM. Useful as a load-holding or safety valve. [SV3-10-C](https://nl.aliexpress.com/item/1005010718333141.html) |
 | Proportional relief valve (Yuken EBG type) | ≈ €150 | sets the system pressure |
 | Proportional directional valve NG6 (4WRA type) | ≈ €480 | one per cylinder, onboard electronics in some versions. [4WRA6E](https://nl.aliexpress.com/item/1005012391911557.html); original Rexroth via Chinese sellers €800–2000 |
 | On/off directional valve NG6 (4WE6) | ≈ €67 | switches too slowly for PWM control |
 
 Most promising: **four proportional cartridges per cylinder** in one block (fill and drain
-per chamber, the same structure as the four VQ110U valves of test 1), about €150–300 per
-cylinder including the block. The Pico drives them with a PWM current driver (MOSFET with
+per chamber, the same structure as the four VQ110U valves of test 1), about €400–500 per
+cylinder including the block, or one proportional NG6 directional valve (≈ €480). Watch
+the type code: many cartridges in the same family (SV…) are on/off valves, the
+proportional ones are marked separately (SP…, EHPR…, EPV…). The Pico drives them with a PWM current driver (MOSFET with
 current measurement).
 
 ## System

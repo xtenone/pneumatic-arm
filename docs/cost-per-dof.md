@@ -41,10 +41,10 @@ choice depends on them.
 
 | Joint torque | Electric (gearbox + motor) | Pneumatic | Hydraulic |
 |---|---|---|---|
-| Small (wrist, ~20 Nm) | **cheapest**: stepper with planetary gearbox, €50–100 | €150–190 | €250–400 + power unit |
-| Medium (elbow, ~80 Nm) | €300–600 | €170–220 (Ø50) | €250–400 |
-| Large (shoulder, 160–300 Nm) | €600–1200+ (harmonic size 32, servo, brake) | €180–250 (Ø63–80), but slow | €250–400 |
-| Very large (1000+ Nm) | thousands of euros | impractically large cylinders | €300–500 |
+| Small (wrist, ~20 Nm) | **cheapest**: stepper with planetary gearbox, €50–100 | €150–190 | €450–600 + power unit |
+| Medium (elbow, ~80 Nm) | €300–600 | €170–220 (Ø50) | €450–600 |
+| Large (shoulder, 160–300 Nm) | €600–1200+ (harmonic size 32, servo, brake) | €180–250 (Ø63–80), but slow | €450–600 |
+| Very large (1000+ Nm) | thousands of euros | impractically large cylinders | €500–700 |
 
 Why it scales this way:
 - **Electric:** the torque goes through gears and bearings, which have to become heavier
@@ -56,8 +56,10 @@ Why it scales this way:
   reasonable, but speed drops and air use rises.
 
 Consequences:
-- At 15 kg pneumatics is the cheapest per DOF for the heavy joints; the fixed cost of
-  hydraulics does not pay back over 4–6 DOFs.
+- The hydraulic figure is mostly the four proportional cartridges (≈ €100 each); it
+  hardly changes with force.
+- At 15 kg pneumatics is the cheapest per DOF for the heavy joints; hydraulics costs more
+  per DOF plus the power unit, and only pays back at large forces.
 - For heavier work hydraulics wins.
 - A mix is logical: cylinders for the heavy joints (shoulder, elbow), a small electric
   motor for the light ones (wrist rotation, gripper).
