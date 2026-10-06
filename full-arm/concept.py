@@ -38,6 +38,7 @@ SHOULDER_HUB, SHOULDER_BAR = 0.15, 0.12        # hub along the upper arm, cross 
 SHOULDER_LOW_Z, SHOULDER_LOW_X = 0.12, 0.06    # lower pivots on the turntable side of the column
 GRIP_H = K.TOOL - BLOCK[2] / 2                  # wrist → top of the block
 POSE_BLOCK = (0.3, 2)                           # the block being placed: y on the wall, course
+ELBOW_CYL_D = 0.060                              # elbow cylinders, outside diameter (≈ a Ø50 bore ISO cylinder)
 GRIP_BAR = 0.10                                 # wrist → gripper bar (yaw motor and post in between)
 GLASS = dict(r=0.036, h=0.12, at=np.array([0.66, 0.10, 0.85]))   # held glass: radius, height, centre
 TABLE = dict(x=0.66, y=0.05, top=0.72, half=(0.28, 0.45))
@@ -156,7 +157,7 @@ def build(scene="wall"):
         lo = pivot + s * K.LOW_SIDE * yu
         box(h, (0.018, 0.018, 0.018), BLUE, Rf)
         box(lo, (0.018, 0.018, 0.018), BLUE, Ru)
-        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), 0.025, 0.30 if K.HUB_ALONG > 0 else 0.26, 0.008)
+        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), ELBOW_CYL_D / 2, 0.30 if K.HUB_ALONG > 0 else 0.26, 0.01)
 
     # wrist: joint, small cylinder along the forearm, yaw motor, gripper
     box(W, (0.028, 0.04, 0.028), RED, Rw)
