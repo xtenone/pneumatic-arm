@@ -67,6 +67,13 @@ def main():
             v = [speed(bore, rod, lever / 1000, T, C) for C in VALVES.values()]
             cells = [f"{math.degrees(x / lever):.0f}°/s ({math.radians(math.degrees(x / lever)) * REACH:.2f} m/s)" for x in v]
             print(f"| {lever} mm | Ø{bore} | {stroke} mm | {ratio * 100:.0f}% | " + " | ".join(cells) + " |")
+    print("\n## Speed with 1 × VQ110U per chamber, with and without the 15 kg")
+    elbow_T = G * (LOAD * 0.5 + 1.5 * 0.25)       # 15 kg at 0.5 m, forearm 1.5 kg
+    for name, bore, rod, lever, loaded, empty in (
+            ("shoulder Ø63, lever 150", 63, 20, 0.150, gravity_torque(3.0), G * 3.0 * REACH / 2),
+            ("elbow Ø50, lever 100", 50, 20, 0.100, elbow_T, G * 1.5 * 0.25)):
+        v = [math.degrees(speed(bore, rod, lever, T, VALVES["1 × VQ110U"]) / 1000 / lever) for T in (loaded, empty)]
+        print(f"| {name} | {loaded:.0f} Nm | {v[0]:.0f}°/s | {v[1]:.0f}°/s |")
     print()
     for bore in (63, 80):
         litres = 2 * area(bore) * SPAN * 150 / 1e6

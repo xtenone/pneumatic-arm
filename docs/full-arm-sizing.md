@@ -66,6 +66,22 @@ The speed hardly depends on the lever: a longer lever moves a thinner cylinder f
 - Faster needs more flow. The large 5/2 valves are cheap but switch in 15–30 ms instead
   of 2–4 ms, so the control has to be adapted (for example coarse + fine valves).
 
+### Speed per joint with the test 1 valve
+
+With 1 × VQ110U per chamber the speed is set by the valve flow and the size of the
+cylinder (bore × lever), and hardly by the load:
+
+| Joint | Torque with 15 kg | With 15 kg | Without load |
+|---|---|---|---|
+| Shoulder, Ø63, lever 150 mm | 162 Nm | 20°/s | 20°/s |
+| Elbow, Ø50, lever 100 mm (15 kg at 0.5 m) | 77 Nm | 49°/s | 50°/s |
+
+**Decision:** the shoulder may be slow; it positions the arm. Fast movements (for other
+work such as scrubbing) come from the elbow and the wrist, which have smaller cylinders
+and are faster with the same valve. One VQ110U per chamber is therefore the starting
+point. If the shoulder turns out to be too slow: 4 VQ110U in parallel or one larger,
+cheaper valve per chamber.
+
 ## Air use
 
 One full lift (−60° → +75°) with two cylinders Ø63 × 275 mm sweeps 1.7 l, about
@@ -82,6 +98,6 @@ lift every 5 s is about 70 l/min; to be checked against the compressor's deliver
 ## Open
 
 - T7 result: maximum load ratio → final cylinder diameter.
-- Valve choice for the large cylinders: number of VQ110U in parallel, or coarse + fine.
+- Valve choice for the large cylinders: 1 × VQ110U per chamber unless the shoulder proves too slow.
 - Compressor delivery versus the air use above.
 - Mass of the complete arm (elbow, forearm, gripper) → 3 kg or 30 kg case or in between.
