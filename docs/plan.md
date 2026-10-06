@@ -63,7 +63,7 @@ clickable page.
 ## Phase 6 — Decide
 
 - [ ] Does pneumatic feedback control work well enough for the arm? Based on T3–T7.
-- [ ] If so: size the shoulder and elbow cylinders with the outcome of T7
+- [ ] If so: size the shoulder and elbow cylinders with the outcome of T7 (first estimate: [full-arm-sizing.md](full-arm-sizing.md))
 - [ ] Choose valves for the large cylinders (flow, possibly coarse + fine)
 
 ## After that
