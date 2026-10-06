@@ -37,17 +37,18 @@ Required for 9 block positions (3 along the wall, 3 courses), 15 kg block + 3 kg
 | Elbow pitch | −101° … −64° (forearm steep) |
 | Forearm roll | ±42° |
 | Wrist pitch | 59° … 78° |
-| Elbow cylinders, pin to pin | 434–570 mm (136 mm of stroke used) |
-| Elbow cylinder force | ≤ 179 N push: 18% of Ø50, 29% of Ø40 at 5 bar |
+| Elbow cylinders, pin to pin | 454–582 mm (128 mm of stroke used) |
+| Elbow cylinder force | ≤ 187 N push: 19% of Ø50, 30% of Ø40 at 5 bar |
 
 - **Feasible.** Both rolls stay well within the ±65° of the cross block joint.
 - The rolls grow with the base yaw: for a wall 1.2 m wide (base yaw ±42° at the ends of a
   wall 0.5 m away) the shoulder needs up to ±86° and the forearm ±69°, beyond the
   joint. For wider walls the base moves along the wall, or the gripper gets its own
   rotation about the vertical (a small motor; no gravity torque there).
-- The cylinders lie on top of the upper arm (rear pivots 6 cm from the shoulder, 8 cm
-  above the arm axis, clear of the shoulder hub), on a forearm hub 12 cm from the elbow.
-  Long enough for a Ø40–50 × 150–200 cylinder.
+- The cylinders lie on top of the upper arm (rear pivots 6 cm from the shoulder, 12 cm
+  above the arm axis and 6 cm to the sides, clear of the shoulder hub and its cross
+  blocks), on a forearm hub 12 cm from the elbow. A Ø50 × 200 (pin to pin ≈ 390–590 mm)
+  covers the lengths.
 - Ø40 is enough for the low wall (forearm steep). With the forearm horizontal the elbow
   needs up to ≈ 80 Nm, then Ø50.
 
@@ -55,10 +56,30 @@ Required for 9 block positions (3 along the wall, 3 courses), 15 kg block + 3 kg
 
 ![Front](out/render_concept_front.png)
 
+### Clash check (`python full-arm/elbow_cad.py`)
+
+CadQuery model of the elbow region in the upper-arm frame: upper arm with the shoulder hub
+and its cross blocks, the post with the rear U-joints, the elbow fork and yoke, the forearm
+hub with cross blocks, and the two cylinders with rod forks.
+
+| Elbow pitch | Roll 0° | Roll ±42–45° | Roll ±65° |
+|---|---|---|---|
+| −110° | ok | rod fork touches the forearm hub | many clashes, too short |
+| −100° | ok | ok at ±42°, rod fork touches the hub at ±45° | cylinder bodies on the upper arm and shoulder hub |
+| −90° … −64° | ok | ok | cylinder bodies on the upper arm and shoulder hub |
+| −50° | ok | stroke too short | stroke too short, clashes |
+
+- **The low wall works:** its whole range (pitch −101° … −64°, roll ±42°) is clash-free and
+  within the stroke.
+- **But the margin is small.** The forearm roll of this layout ends at about ±45°, not the
+  ±65° of the shoulder: when rolling, one cylinder dives onto the upper arm and the rod fork
+  comes close to the forearm hub.
+- Next to compare: the cylinders behind the elbow, pulling a short lever on the back of the
+  forearm (like a triceps, or the stick cylinder of an excavator). They then never cross
+  the elbow, which leaves more room for the roll.
+
 ## Open
 
-- Clash check of the elbow joint (cross blocks and cylinders over the roll range), as for
-  test 2.
 - Reach: with 2 × 0.5 m the arm builds a low wall from one spot; more needs a longer arm
   or a base that moves.
 - Gripper for blocks versus a tool mount for light tasks.

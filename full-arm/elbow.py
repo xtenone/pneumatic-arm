@@ -23,9 +23,10 @@ WALL_X = 0.6                                 # low wall: 3 blocks wide, 3 course
 BLOCK_H = 0.15
 
 # elbow cylinders (concept): lying on top of the upper arm like a biceps, rear pivots 6 cm
-# from the shoulder and 8 cm above the arm axis (clear of the shoulder hub); cross blocks
+# from the shoulder, 12 cm above the arm axis and 6 cm to the sides (clear of the shoulder
+# hub and its cross blocks); cross blocks
 # on a forearm hub 12 cm from the elbow
-LOW_ALONG, LOW_SIDE, LOW_UP = 0.06, 0.09, 0.08
+LOW_ALONG, LOW_SIDE, LOW_UP = 0.06, 0.06, 0.12
 HUB_ALONG, HUB_SIDE = 0.12, 0.09
 WALL_Y = (-0.3, 0.0, 0.3)
 COURSES = 3
