@@ -109,6 +109,6 @@ spline through the exact cycloid profile.
 
 ## Status
 
-On hold (see the top). Designed with print fits (tuned with the fit test), clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
-to the output pins). Not printed yet. Next: the mounting on the test 1 stand, shared with
-the harmonic drive reference.
+On hold (see the top). Designed with print fits and clash-checked over a full input turn
+(gap 0.10 mm to the housing pins, 0.20 mm to the output pins). Not printed. If picked up
+again: print the fit test first, then design the mounting on the test 1 stand.
