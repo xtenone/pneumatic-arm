@@ -60,6 +60,15 @@ SHAFT_D = 8.0                # input shaft, cut from 8 mm linear rod
 COUPLING = dict(d=19.0, length=25.0)   # 8–8 mm flexible coupling
 MOTOR_GAP = 38.0             # rear face → motor flange (printed standoffs)
 
+# --- Print fits (FDM makes holes smaller and pegs thicker; tune with fit_test.stl) ----
+FIT = dict(
+    seat=0.15,               # bearing seats: hole = bearing OD + seat (light press)
+    journal=-0.10,           # pegs into a bearing bore: peg = bearing ID + journal
+    pin=0.10,                # press-fit dowel pins: hole = pin + pin
+    loose=0.40,              # parts that must turn freely (shaft through the rear carrier)
+)
+SHOULDER_D = 47.0            # stop for the 6808 outer ring; clears the inner ring (≈ Ø45)
+
 # --- Material: PLA (printed, 100% infill or ≥ 6 perimeters for the discs) ------------
 PLA = dict(E=3500.0, compressive=60.0, poisson=0.36)   # MPa; printed parts are weaker than the datasheet
 

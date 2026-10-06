@@ -72,7 +72,7 @@ def disc(k):
     turned half a lobe forward relative to its profile; both are printed separately."""
     pts = [cq.Vector(x, y, 0) for x, y in profile(24 * P.RATIO)]
     d = cq.Workplane("XY").spline(pts, periodic=True).close().extrude(P.DISC_T)
-    d = d.cut(cyl(B["6804"][1] / 2 + 0.05, -1, P.DISC_T + 1))
+    d = d.cut(cyl((B["6804"][1] + P.FIT["seat"]) / 2, -1, P.DISC_T + 1))
     return holes(d, polar(P.N_OUT, P.R_OUT, k * math.pi / P.RATIO), P.OUT_HOLE, -1, P.DISC_T + 1)
 
 
@@ -80,9 +80,9 @@ def housing():
     """Rear plate and ring in one print (a cup); the pins lie against the ring bore."""
     z0, z1 = Z["rear_plate"][0], Z["cavity"][1]
     h = cyl(P.HOUSING_R, z0, z1).cut(cyl(P.RING_BORE_R, P.PLATE_T, z1 + 1))
-    h = h.cut(cyl(B["6808"][1] / 2, -1, B["6808"][2]))                 # bearing seat from the rear
-    h = h.cut(cyl(B["6808"][1] / 2 - 4, -1, P.PLATE_T + 1))            # shoulder
-    h = holes(h, polar(P.N_PINS, P.R_PINS), P.D_PIN + 0.1, P.PLATE_T - P.PIN_HOLE_DEPTH, P.PLATE_T + 1)
+    h = h.cut(cyl((B["6808"][1] + P.FIT["seat"]) / 2, -1, B["6808"][2]))   # bearing seat from the rear
+    h = h.cut(cyl(P.SHOULDER_D / 2, -1, P.PLATE_T + 1))                    # shoulder for the outer ring
+    h = holes(h, polar(P.N_PINS, P.R_PINS), P.D_PIN + P.FIT["pin"], P.PLATE_T - P.PIN_HOLE_DEPTH, P.PLATE_T + 1)
     h = holes(h, polar(6, P.BOLT_R, math.pi / 6), 4.4, -1, z1 + 1)
     m = 47.14 / 2                                                       # NEMA23 bolt square
     return holes(h, [(m, m), (-m, m), (-m, -m), (m, -m)], 5.2, -1, P.PLATE_T + 1)
@@ -91,38 +91,55 @@ def housing():
 def cover():
     z0, z1 = Z["front_plate"]
     c = cyl(P.HOUSING_R, z0, z1)
-    c = c.cut(cyl(B["6808"][1] / 2, z1 - B["6808"][2], z1 + 1))
-    c = c.cut(cyl(B["6808"][1] / 2 - 4, z0 - 1, z1 + 1))
-    c = holes(c, polar(P.N_PINS, P.R_PINS), P.D_PIN + 0.1, z0 - 1, z0 + P.PIN_HOLE_DEPTH)
+    c = c.cut(cyl((B["6808"][1] + P.FIT["seat"]) / 2, z1 - B["6808"][2], z1 + 1))
+    c = c.cut(cyl(P.SHOULDER_D / 2, z0 - 1, z1 + 1))
+    c = holes(c, polar(P.N_PINS, P.R_PINS), P.D_PIN + P.FIT["pin"], z0 - 1, z0 + P.PIN_HOLE_DEPTH)
     return holes(c, polar(6, P.BOLT_R, math.pi / 6), 4.4, z0 - 1, z1 + 1)
 
 
 def carrier_rear():
     f0, f1 = Z["rear_flange"]
-    c = cyl(P.FLANGE_R, f0, f1).union(cyl(P.JOURNAL_D / 2, 0.0, f0 + 0.1))
-    c = c.cut(cyl(B["608"][1] / 2, -1, B["608"][2])).cut(cyl(P.SHAFT_D / 2 + 0.3, -1, f1 + 1))
-    return holes(c, polar(P.N_OUT, P.R_OUT), P.D_OUT, f1 - P.OUT_HOLE_DEPTH, f1 + 1)
+    c = cyl(P.FLANGE_R, f0, f1).union(cyl((P.JOURNAL_D + P.FIT["journal"]) / 2, 0.0, f0 + 0.1))
+    c = c.cut(cyl((B["608"][1] + P.FIT["seat"]) / 2, -1, B["608"][2]))
+    c = c.cut(cyl((P.SHAFT_D + P.FIT["loose"]) / 2, -1, f1 + 1))
+    return holes(c, polar(P.N_OUT, P.R_OUT), P.D_OUT + P.FIT["pin"], f1 - P.OUT_HOLE_DEPTH, f1 + 1)
 
 
 def carrier_front():
     f0, f1 = Z["front_flange"]
     top = Z["front_plate"][1] + P.OUTPUT_EXT
-    c = cyl(P.FLANGE_R, f0, f1).union(cyl(P.JOURNAL_D / 2, f1 - 0.1, top))
-    c = c.cut(cyl(B["608"][1] / 2, f0 - 1, f0 + B["608"][2]))
-    c = holes(c, polar(P.N_OUT, P.R_OUT), P.D_OUT, f0 - 1, f0 + P.OUT_HOLE_DEPTH)
+    c = cyl(P.FLANGE_R, f0, f1).union(cyl((P.JOURNAL_D + P.FIT["journal"]) / 2, f1 - 0.1, top))
+    c = c.cut(cyl((B["608"][1] + P.FIT["seat"]) / 2, f0 - 1, f0 + B["608"][2]))
+    c = holes(c, polar(P.N_OUT, P.R_OUT), P.D_OUT + P.FIT["pin"], f0 - 1, f0 + P.OUT_HOLE_DEPTH)
     return holes(c, polar(4, 14.0, math.pi / 4), 3.4, top - 10, top + 1)   # output: 4 × M4 (tap or insert)
 
 
 def cam():
     """Double eccentric on the input shaft (+E for disc 0, −E for disc 1)."""
     z0, z_mid, z1 = Z["disc_0"][0], (Z["disc_0"][1] + Z["disc_1"][0]) / 2, Z["disc_1"][1]
-    r = B["6804"][0] / 2
+    r = (B["6804"][0] + P.FIT["journal"]) / 2
     c = cyl(r, z0, z_mid, P.E, 0).union(cyl(r, z_mid, z1, -P.E, 0))
     return c.cut(cyl(P.SHAFT_D / 2 + 0.1, z0 - 1, z1 + 1))
 
 
 def standoff():
     return ring(2.6, 5.0, -P.MOTOR_GAP, 0.0)
+
+
+def fit_test():
+    """Small plate to print first, with the drive's real seats, pegs and pin holes, so the
+    FIT values can be tuned before the large parts. Left to right: seat 6808, seat 6804,
+    seat 608 with three pin holes above it (pin − 0.05, pin + FIT, pin + 0.15), peg into
+    the 6804 bore, peg into the 6808 bore."""
+    t = 7.0                                            # = bearing width
+    plate = cq.Workplane("XY").box(210, 70, t).translate((105, 35, t / 2))
+    for name, (x, y) in (("6808", (32, 35)), ("6804", (85, 35)), ("608", (122, 22))):
+        plate = plate.cut(cyl((B[name][1] + P.FIT["seat"]) / 2, -1, t + 1, x, y))
+    for i, d in enumerate((P.D_PIN - 0.05, P.D_PIN + P.FIT["pin"], P.D_PIN + 0.15)):
+        plate = plate.cut(cyl(d / 2, -1, t + 1, 112 + 12 * i, 52))
+    for name, (x, y) in (("6804", (150, 22)), ("6808", (182, 35))):
+        plate = plate.union(cyl((B[name][0] + P.FIT["journal"]) / 2, t, 2 * t, x, y))
+    return plate
 
 
 # --- bought parts ---------------------------------------------------------------------
@@ -226,7 +243,8 @@ if __name__ == "__main__":
     if "--step" in sys.argv:
         os.makedirs(os.path.join(OUT, "step"), exist_ok=True)
         s = shapes()
-        for name in ("disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
+        s["fit_test"] = fit_test().val()
+        for name in ("fit_test", "disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
             path = os.path.join(OUT, "step", f"{name}.step")
             cq.exporters.export(cq.Workplane().add(s[name]), path)
             print(path)
@@ -239,7 +257,8 @@ if __name__ == "__main__":
     elif "--stl" in sys.argv:
         os.makedirs(os.path.join(OUT, "stl"), exist_ok=True)
         s = shapes()
-        for name in ("disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
+        s["fit_test"] = fit_test().val()
+        for name in ("fit_test", "disc_0", "disc_1", "housing", "cover", "carrier_rear", "carrier_front", "cam", "standoff"):
             path = os.path.join(OUT, "stl", f"{name}.stl")
             cq.exporters.export(cq.Workplane().add(s[name]), path, tolerance=0.02, angularTolerance=0.05)
             print(path)

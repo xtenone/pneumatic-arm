@@ -38,12 +38,29 @@ comparison shows what printing costs in backlash, stiffness and strength.
 
 ## Printing (PLA)
 
+**First print `fit_test.stl`** (about 30 minutes). It holds the drive's real fits: the
+seats for the 6808, 6804 and 608 bearings, the pegs that go into the 6808 and 6804 bores,
+and three Ø6 pin holes (−0.05 / +0.10 / +0.15). Press the bearings and pins in and adjust
+`FIT` in `cyparams.py`, then regenerate (`python cad/cycloid.py --stl`):
+
+| Fit | Now | Too tight → | Too loose → |
+|---|---|---|---|
+| `seat`: bearing into a printed hole | hole = OD + 0.15 | larger | smaller |
+| `journal`: printed peg into a bearing | peg = ID − 0.10 | more negative | towards 0 |
+| `pin`: dowel pin into a printed hole | hole = Ø6 + 0.10 | the hole that fits best | |
+
+The bearings should go in with light pressure (a vice or a few taps), not fall in and not
+need force that cracks the part.
+
+![Fit test](out/render_fit_test.png)
+
+
 | Part | Qty | Orientation | Notes |
 |---|---|---|---|
 | `disc_0.stl`, `disc_1.stl` | 1 each | flat | 100% infill (or ≥ 6 perimeters); 0.2 mm layers; they differ (output holes half a lobe apart) |
-| `housing.stl` | 1 | open side up | pin holes Ø6.1, blind |
+| `housing.stl` | 1 | open side up | pin holes blind, Ø6 + `pin` |
 | `cover.stl` | 1 | inner face down | |
-| `carrier_rear.stl`, `carrier_front.stl` | 1 each | flange down | output pin holes Ø6.0: press fit, ream with a 6 mm drill if too tight |
+| `carrier_rear.stl`, `carrier_front.stl` | 1 each | flange down | output pin holes Ø6 + `pin`, press fit |
 | `cam.stl` | 1 | upright | glue on the shaft with epoxy |
 | `standoff.stl` | 4 | upright | |
 
@@ -86,6 +103,6 @@ spline through the exact cycloid profile.
 
 ## Status
 
-Designed, clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
+Designed with print fits (tuned with the fit test), clash-checked over a full input turn (gap 0.10 mm to the housing pins, 0.20 mm
 to the output pins). Not printed yet. Next: the mounting on the test 1 stand, shared with
 the harmonic drive reference.
