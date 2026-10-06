@@ -157,7 +157,7 @@ def build(scene="wall"):
         lo = pivot + s * K.LOW_SIDE * yu
         box(h, (0.018, 0.018, 0.018), BLUE, Rf)
         box(lo, (0.018, 0.018, 0.018), BLUE, Ru)
-        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), ELBOW_CYL_D / 2, 0.30 if K.HUB_ALONG > 0 else 0.26, 0.01)
+        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), ELBOW_CYL_D / 2, K.LAYOUTS[K.LAYOUT].get("body", 0.30 if K.HUB_ALONG > 0 else 0.26), 0.01)
 
     # wrist: joint, small cylinder along the forearm, yaw motor, gripper
     box(W, (0.028, 0.04, 0.028), RED, Rw)
