@@ -83,6 +83,7 @@ around 0°, where the fork meets the bar), ±45° at +50°, ±15° at +60° … 
 
 Files: `t2params.py` (dimensions), `cad/model.py` (CadQuery, concept B),
 `cad/cross_block.py` (variant), `render.py` (renders and STEP; `--cross-block` for the
-variant, output in `out/cross_block/`).
+variant, output in `out/cross_block/`), `video.py` (the variant moving through its range,
+MP4s in `out/cross_block/`, not kept in git). Install with `pip install -r requirements.txt`.
 
 Status: concept for discussion, not yet worked out or simulated.

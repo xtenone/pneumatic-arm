@@ -176,21 +176,39 @@ def frame(x_dir, y_dir):
     return np.column_stack([x, y, np.cross(x, y)])
 
 
-def pose(pitch=0.0, roll=0.0):
-    wood = (0.82, 0.68, 0.47, 1)
-    alu = (0.75, 0.77, 0.80, 1)
-    steel = (0.45, 0.45, 0.48, 1)
-    red = (0.75, 0.25, 0.2, 1)
-    blue = (0.2, 0.4, 0.75, 1)
-    items = [
-        ("base_plate", M.base_plate().val(), wood),
-        ("cheek_left", cheek(1).val(), wood),
-        ("cheek_right", cheek(-1).val(), wood),
-        ("spacer_block", M.spacer_block().val(), wood),
-    ]
+WOOD = (0.82, 0.68, 0.47, 1)
+ALU = (0.75, 0.77, 0.80, 1)
+STEEL = (0.45, 0.45, 0.48, 1)
+RED = (0.75, 0.25, 0.2, 1)
+BLUE = (0.2, 0.4, 0.75, 1)
+
+
+def shapes():
+    """Every part in its own frame, keyed by shape name (built once, placed per pose)."""
+    return {
+        "base_plate": M.base_plate().val(),
+        "cheek_left": cheek(1).val(),
+        "cheek_right": cheek(-1).val(),
+        "spacer_block": M.spacer_block().val(),
+        "lower_stand_0": lower_stand(1).val(),
+        "lower_stand_1": lower_stand(-1).val(),
+        "yoke": M.yoke().val(),
+        "arm": arm().val(),
+        "cross_block": cross_block().val(),
+        "cylinder": M.t2_cylinder(M.T1parts.cylinder_body).val(),
+        "rod": M.t2_cylinder(rod_fork).val(),
+        "lower_fork": lower_fork().val(),
+    }
+
+
+def placements(pitch=0.0, roll=0.0):
+    """Where every part goes for one arm attitude: [(name, shape name, R, t, rgba)] and the
+    two cylinder lengths."""
+    I, O = np.eye(3), np.zeros(3)
+    out = [(n, n, I, O, WOOD) for n in ("base_plate", "cheek_left", "cheek_right", "spacer_block")]
     J = np.array(P.JOINT)
-    items.append(("yoke", M.place(M.yoke(), M.rot_matrix(pitch, 0.0), J), red))
-    items.append(("arm", M.place(arm(), M.rot_matrix(pitch, roll), J), alu))
+    out.append(("yoke", "yoke", M.rot_matrix(pitch, 0.0), J, RED))
+    out.append(("arm", "arm", M.rot_matrix(pitch, roll), J, ALU))
     lengths = []
     for i, (side, h, low, q) in enumerate(zip((1, -1), hinge_points(pitch, roll), lower_pins(pitch, roll), lower_bolts())):
         u = h - low
@@ -200,17 +218,28 @@ def pose(pitch=0.0, roll=0.0):
         bar_dir = M.rot_matrix(pitch, roll) @ np.array([0.0, side, 0.0])
         j = np.cross(bar_dir, c)              # fork pin: square to the bar and to the cylinder
         j /= np.linalg.norm(j)
-        items.append((f"cross_block_{i}", M.place(cross_block(), frame(j, bar_dir), h), blue))
+        out.append((f"cross_block_{i}", "cross_block", frame(j, bar_dir), h, BLUE))
         b = fork_tilt(h, q)
         y_low = np.array([0.0, math.cos(b), -math.sin(b)])   # rear pin, swung with the fork
-        Rc = frame(c, y_low)
         ext = max(0.0, min(P.CYL["stroke"], L - P.PIN_TO_PIN_MIN))
-        items.append((f"cylinder_{i}", M.place(M.t2_cylinder(M.T1parts.cylinder_body), Rc, low), alu))
+        out.append((f"cylinder_{i}", "cylinder", frame(c, y_low), low, ALU))
         # the rod turns freely in the barrel, so its fork follows the cross block
-        items.append((f"rod_{i}", M.place(M.t2_cylinder(rod_fork).translate((ext, 0, 0)), frame(c, j), low), steel))
-        items.append((f"lower_stand_{i}", lower_stand(side).val(), alu))
-        items.append((f"lower_fork_{i}", M.place(lower_fork(), frame(np.array([1.0, 0.0, 0.0]), y_low), q), blue))
-    return items, lengths
+        Rr = frame(c, j)
+        out.append((f"rod_{i}", "rod", Rr, low + Rr @ np.array([ext, 0.0, 0.0]), STEEL))
+        out.append((f"lower_stand_{i}", f"lower_stand_{i}", I, O, ALU))
+        out.append((f"lower_fork_{i}", "lower_fork", frame(np.array([1.0, 0.0, 0.0]), y_low), q, BLUE))
+    return out, lengths
+
+
+_SHAPES = {}
+
+
+def pose(pitch=0.0, roll=0.0):
+    """Parts placed in world coordinates: ([(name, shape, rgba)], cylinder lengths)."""
+    if not _SHAPES:
+        _SHAPES.update(shapes())
+    out, lengths = placements(pitch, roll)
+    return [(n, M.place(_SHAPES[k], R, t), rgba) for n, k, R, t, rgba in out], lengths
 
 
 CLASH_PAIRS = [("arm", "cheek"), ("arm", "base"), ("arm", "cylinder"), ("arm", "rod"),
