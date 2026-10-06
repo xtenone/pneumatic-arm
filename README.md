@@ -12,6 +12,7 @@ is an arm that picks up blocks of about 15 kg and builds a wall with them.
 |---|---|
 | Goal and requirements | [goal.md](goal.md) |
 | **Test 1 — arm with one degree of freedom** | design, CAD, simulation, firmware and manual done; parts ordered, not built yet — [test1/](test1/README.md) |
+| Test 1 reference — the same arm on a harmonic drive | sizing done — [test1-harmonic-drive/](test1-harmonic-drive/README.md) |
 | 2-DOF joint (shoulder, elbow) | first analysis — [docs/2dof-joint.md](docs/2dof-joint.md) |
 | Plan: what is done and what is left | [docs/plan.md](docs/plan.md) |
 | Cost per degree of freedom | [docs/cost-per-dof.md](docs/cost-per-dof.md) |
