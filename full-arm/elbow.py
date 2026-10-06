@@ -34,7 +34,7 @@ LAYOUTS = {
     "triceps": dict(low_along=0.02, low_side=0.08, low_up=0.13, hub_along=-0.10, hub_side=0.08),
     # arm turned over, like a human arm: upper arm hanging down, elbow below the shoulder,
     # cylinders behind the upper arm pushing the lever behind the elbow to lift
-    "triceps_down": dict(low_along=0.06, low_side=0.08, low_up=-0.13, hub_along=-0.12, hub_side=0.08, down=True),
+    "triceps_down": dict(low_along=0.06, low_side=0.08, low_up=-0.06, hub_along=-0.12, hub_side=0.08, down=True),
 }
 DOWN = False
 LAYOUT = "biceps"
