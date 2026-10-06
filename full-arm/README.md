@@ -122,6 +122,22 @@ at 0.8 m, same low wall.
   gravity torque there), or a base that moves along the wall. The forearm roll then tilts
   the tool, which is useful for wiping.
 
+## Choice for now
+
+- **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
+  carries over as it is, the forearm hangs steeply so the elbow forces stay low (Ø40–50),
+  and the elbow stays high, out of the way of the wall. Excavators are built this way for
+  the same reasons.
+- **Gripper turns about the vertical with a small motor.** Lining a block up with the wall
+  is then one simple, stiff axis with no gravity torque, instead of two soft pneumatic roll
+  joints that both have to move. The shoulder and forearm rolls stay for dexterity
+  (tilting a tool, the toilet task), not for lining up blocks.
+- **Wrist kept level:** a small cylinder for now; a parallelogram linkage that keeps the
+  gripper level by itself (as on palletising robots) is an option to look at.
+- **Triceps and elbow-down stay documented as alternatives** (above).
+- **The full arm stays a concept until test 1 has its results.** Test T7 sets how much of
+  the cylinder force the control can use; that number sets every cylinder size here.
+
 ## Open
 
 - Reach: with 2 × 0.5 m the arm builds a low wall from one spot; more needs a longer arm
