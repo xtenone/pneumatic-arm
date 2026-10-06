@@ -27,11 +27,20 @@ import elbow as K  # noqa: E402
 
 L1 = K.L1 * 1000
 ELBOW = np.array([L1, 0.0, 0.0])
-LOW = np.array([K.LOW_ALONG * 1000, 0.0, K.LOW_UP * 1000])     # rear bar centre
-LOW_SIDE, HUB_ALONG, HUB_SIDE = K.LOW_SIDE * 1000, K.HUB_ALONG * 1000, K.HUB_SIDE * 1000
+
+
+def geom():
+    """Layout values from elbow.py in mm: rear bar centre, rear side offset, hub along, hub side."""
+    return (np.array([K.LOW_ALONG * 1000, 0.0, K.LOW_UP * 1000]), K.LOW_SIDE * 1000,
+            K.HUB_ALONG * 1000, K.HUB_SIDE * 1000)
+
 SHOULDER_HUB, SHOULDER_BAR = 150.0, 120.0
 BLOCK = 30.0                                  # cross blocks (elbow)
-CYL = dict(bore=50, body_d=62.0, rod_d=20.0, stroke=200.0, dead=190.0)   # Ø50 ISO 15552 with clevises (estimate)
+CYLS = {   # ISO 15552 with clevises; dead length = pin to pin minus stroke (estimate)
+    "biceps": dict(bore=50, body_d=62.0, rod_d=20.0, stroke=200.0, dead=190.0),
+    "triceps": dict(bore=40, body_d=52.0, rod_d=16.0, stroke=200.0, dead=175.0),
+}
+CYL = CYLS["biceps"]
 YOKE = dict(x=60.0, y=70.0, z=60.0)
 FORK_GAP = YOKE["y"] + 2.0
 
@@ -74,7 +83,12 @@ def upper_parts():
         cyl_between((SHOULDER_HUB, -SHOULDER_BAR - 30, 0), (SHOULDER_HUB, SHOULDER_BAR + 30, 0), 12))
     for s in (1, -1):
         p[f"shoulder_block_{s}"] = box((SHOULDER_HUB, s * SHOULDER_BAR, 0), (44, 44, 44))
-    p["post"] = cyl_between((LOW[0], 0, 0), LOW + np.array([0, 0, 12]), 14).fuse(
+    LOW, LOW_SIDE, _, _ = geom()
+    # shoulder yoke: fixed to the base pitch, so in this frame it turns with the shoulder roll;
+    # taken as the cylinder it sweeps
+    p["shoulder_yoke"] = cyl_between((-45, 0, 0), (45, 0, 0), math.hypot(60, 45))
+    base = (max(LOW[0], 60.0), 0, 20)         # the post stands on the tube and may lean back
+    p["post"] = cyl_between(base, LOW + np.array([0, 0, 12]), 14).fuse(
         cyl_between(LOW + np.array([0, -LOW_SIDE - 22, 0]), LOW + np.array([0, LOW_SIDE + 22, 0]), 10))
     t = 12.0
     for s in (1, -1):                         # elbow fork cheeks around the yoke
@@ -90,9 +104,13 @@ def forearm_parts(pitch, roll):
     Rp = rot(pitch, 0.0)
     p = {"yoke": box(ELBOW, (YOKE["x"], YOKE["y"], YOKE["z"]), Rp)}
     xf, yf = R[:, 0], R[:, 1]
+    _, _, HUB_ALONG, HUB_SIDE = geom()
     p["fore_tube"] = cyl_between(ELBOW + 30 * xf, ELBOW + 480 * xf, 20)
     hub = ELBOW + HUB_ALONG * xf
-    p["fore_hub"] = cyl_between(hub - 20 * xf, hub + 20 * xf, 34).fuse(
+    if HUB_ALONG < 0:                         # triceps: forearm shaft sticks out behind the elbow
+        p["fore_ext"] = cyl_between(ELBOW - 32 * xf, hub, 15)
+    r_hub = 34 if HUB_ALONG > 0 else 20       # triceps: a small boss at the end of the lever
+    p["fore_hub"] = cyl_between(hub - 20 * xf, hub + 20 * xf, r_hub).fuse(
         cyl_between(hub - (HUB_SIDE + BLOCK / 2 + 6) * yf, hub + (HUB_SIDE + BLOCK / 2 + 6) * yf, 10))
     for s in (1, -1):
         p[f"fore_block_{s}"] = box(hub + s * HUB_SIDE * yf, (BLOCK, BLOCK, BLOCK), frame(xf, yf))
@@ -103,6 +121,7 @@ def cylinders(pitch, roll):
     """Body, rod and rod fork of both cylinders; lengths."""
     R = rot(pitch, roll)
     xf, yf = R[:, 0], R[:, 1]
+    LOW, LOW_SIDE, HUB_ALONG, HUB_SIDE = geom()
     hub = ELBOW + HUB_ALONG * xf
     p, lengths = {}, []
     for s in (1, -1):
@@ -129,7 +148,9 @@ def cylinders(pitch, roll):
 PAIRS = [("cyl", "upper_tube"), ("cyl", "shoulder"), ("cyl", "fork"), ("cyl", "yoke"), ("cyl", "fore_tube"),
          ("cyl", "fore_hub"), ("cyl_body_1", "cyl_body_-1"), ("cyl_rod", "fore_block"), ("fore", "fork"),
          ("fore_block", "upper_tube"), ("fore_hub", "upper_tube"), ("fore_tube", "upper_tube"),
-         ("low_block", "cyl_rod"), ("cyl_fork", "fore_tube")]
+         ("low_block", "cyl_rod"), ("cyl_fork", "fore_tube"), ("cyl", "fore_ext"), ("fore_ext", "upper_tube"),
+         ("fore_ext", "shoulder"), ("fore_hub", "shoulder"), ("fore_block", "shoulder"), ("fore_hub", "post"),
+         ("fore_block", "post"), ("fore_ext", "post")]
 
 
 def check(pitch, roll, upper=None):
@@ -152,11 +173,16 @@ def check(pitch, roll, upper=None):
 
 
 def main():
+    global CYL
+    if len(sys.argv) > 1 and sys.argv[-1] in K.LAYOUTS:
+        K.set_layout(sys.argv[-1])
+    CYL = CYLS[K.LAYOUT]
+    LOW, _, _, _ = geom()
     lo, hi = CYL["dead"] + CYL["stroke"], CYL["dead"] + 2 * CYL["stroke"]       # pin to pin, retracted / extended
     print(f"elbow cylinders Ø{CYL['bore']} × {CYL['stroke']:.0f}: pin-to-pin {lo:.0f}–{hi:.0f} mm (dead length estimated), "
-          f"rear pivots {LOW[0]:.0f} mm along and {LOW[2]:.0f} mm above the upper arm")
+          f"layout {K.LAYOUT}, rear pivots {LOW[0]:.0f} mm along and {LOW[2]:.0f} mm above the upper arm")
     upper = upper_parts()
-    pitches = [int(a) for a in sys.argv[1].split(",")] if len(sys.argv) > 1 and sys.argv[1][0] in "-0123456789" else (-120, -105, -90, -75, -60, -45, -30)
+    pitches = (-120, -105, -90, -75, -60, -45, -30)
     for pitch in pitches:
         row = []
         for roll in (-65, -45, 0, 45, 65):

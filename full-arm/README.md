@@ -75,9 +75,32 @@ hub with cross blocks, and the two cylinders with rod forks.
 - **But the margin is small.** The forearm roll of this layout ends at about ±45°, not the
   ±65° of the shoulder: when rolling, one cylinder dives onto the upper arm and the rod fork
   comes close to the forearm hub.
-- Next to compare: the cylinders behind the elbow, pulling a short lever on the back of the
-  forearm (like a triceps, or the stick cylinder of an excavator). They then never cross
-  the elbow, which leaves more room for the roll.
+
+### Biceps or triceps
+
+The same checks for the cylinders behind the elbow: the forearm shaft sticks out 10 cm
+behind the elbow through the joint, with cross blocks 8 cm to the sides; the cylinders lie
+high on top of the upper arm and pull that lever, like a triceps or the stick cylinder of
+an excavator (`python full-arm/elbow.py triceps`, `python full-arm/elbow_cad.py triceps`).
+
+| | Biceps | Triceps |
+|---|---|---|
+| Hub on the forearm | 12 cm in front of the elbow | 10 cm behind the elbow |
+| Rear pivots | 6 cm from the shoulder, 12 cm up, 6 cm to the sides | 2 cm from the shoulder (post leaning back over the shoulder yoke), 13 cm up, 8 cm to the sides |
+| Cylinders | Ø50 × 200 | Ø40 × 200 (shorter: the hub is closer to the rear pivots) |
+| Low wall: force | ≤ 187 N push (19% of Ø50) | ≤ 197 N pull (37% of Ø40, 24% of Ø50) |
+| Clash-free with roll ±45° | elbow bend 60°–90° (±42° up to 101°) | elbow bend 45°–105° |
+| Roll ±65° | cylinder bodies dive onto the upper arm and shoulder hub | only the rod forks touch the small hub at the end of the lever |
+| Arm almost straight (bend 30°) | ok | the lever behind the elbow hits the upper arm |
+
+- **Triceps gives the forearm roll more room.** The cylinders never cross the elbow, so they
+  cannot dive onto the upper arm when rolling; what is left at ±65° is the hub at the end
+  of the lever, which is a detail.
+- **Costs of the triceps:** the cylinders pull (smaller annulus area, so Ø50 rather than
+  Ø40 once the forearm has to be held horizontal), the forearm shaft has to pass through
+  the elbow joint, and the arm cannot be stretched straight.
+
+![Triceps](out/render_triceps_oblique.png)
 
 ## Open
 
@@ -86,5 +109,5 @@ hub with cross blocks, and the two cylinders with rod forks.
 - Gripper for blocks versus a tool mount for light tasks.
 - Base: fixed, on a pallet with counterweight, or on wheels.
 
-`python full-arm/concept.py` renders the views into `out/` (the first version is in
+`python full-arm/concept.py [triceps]` renders the views into `out/` (the first version is in
 `out/archive/`).

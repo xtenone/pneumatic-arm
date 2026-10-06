@@ -1,6 +1,7 @@
 """Concept render of the full arm: placing a 15 kg block on a low wall.
 
-    python full-arm/concept.py      # out/render_concept_<camera>.png
+    python full-arm/concept.py            # out/render_concept_<camera>.png (biceps elbow)
+    python full-arm/concept.py triceps    # out/render_triceps_<camera>.png
 
 Simple shapes only (MuJoCo primitives), to show the layout and proportions; dimensions
 follow docs/full-arm-sizing.md and the pose comes from full-arm/elbow.py (6 DOF). Not a
@@ -104,17 +105,19 @@ def build():
     box(E, (0.035, 0.05, 0.035), RED, Rf)
     rod(E + 0.03 * xf, W - 0.03 * xf, 0.02, ALU)
     ehub = E + K.HUB_ALONG * xf
-    rod(ehub - 0.02 * xf, ehub + 0.02 * xf, 0.034, ALU, "cylinder")
+    if K.HUB_ALONG < 0:                                                        # triceps: lever behind the elbow
+        rod(E, ehub, 0.015, ALU, "cylinder")
+    rod(ehub - 0.02 * xf, ehub + 0.02 * xf, 0.034 if K.HUB_ALONG > 0 else 0.02, ALU, "cylinder")
     rod(ehub - (K.HUB_SIDE + 0.025) * yf, ehub + (K.HUB_SIDE + 0.025) * yf, 0.01, STEEL, "cylinder")
     pivot = S + K.LOW_ALONG * xu + K.LOW_UP * zu
-    rod(S + K.LOW_ALONG * xu, pivot, 0.012, ALU, "cylinder")                   # post on the upper arm
+    rod(S + max(K.LOW_ALONG, 0.06) * xu + 0.02 * zu, pivot, 0.012, ALU, "cylinder")   # post (leans back for the triceps)
     rod(pivot - (K.LOW_SIDE + 0.02) * yu, pivot + (K.LOW_SIDE + 0.02) * yu, 0.01, STEEL, "cylinder")
     for s in (1, -1):
         h = ehub + s * K.HUB_SIDE * yf
         lo = pivot + s * K.LOW_SIDE * yu
         box(h, (0.018, 0.018, 0.018), BLUE, Rf)
         box(lo, (0.018, 0.018, 0.018), BLUE, Ru)
-        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), 0.025, 0.30, 0.008)
+        cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), 0.025, 0.30 if K.HUB_ALONG > 0 else 0.26, 0.008)
 
     # wrist: joint, small cylinder along the forearm, gripper
     box(W, (0.028, 0.04, 0.028), RED, Rt)
@@ -169,6 +172,9 @@ CAMERAS = {
 
 
 def main():
+    layout = sys.argv[1] if len(sys.argv) > 1 else "biceps"
+    K.set_layout(layout)
+    prefix = "concept" if layout == "biceps" else layout
     q = build()
     xml = f"""<mujoco><visual><global offwidth="1280" offheight="960"/><quality shadowsize="8192"/>
 <headlight ambient="0.35 0.35 0.35"/></visual>
@@ -186,7 +192,7 @@ def main():
     r = mujoco.Renderer(mdl, 960, 1280)
     for cam in CAMERAS:
         r.update_scene(d, camera=cam)
-        path = os.path.join(OUT, f"render_concept_{cam}.png")
+        path = os.path.join(OUT, f"render_{prefix}_{cam}.png")
         Image.fromarray(r.render()).save(path)
         print(path)
     r.close()

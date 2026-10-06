@@ -22,12 +22,30 @@ M_LOAD, M_FORE = 18.0, 1.5                   # block 15 kg + gripper 3 kg; forea
 WALL_X = 0.6                                 # low wall: 3 blocks wide, 3 courses
 BLOCK_H = 0.15
 
-# elbow cylinders (concept): lying on top of the upper arm like a biceps, rear pivots 6 cm
-# from the shoulder, 12 cm above the arm axis and 6 cm to the sides (clear of the shoulder
-# hub and its cross blocks); cross blocks
-# on a forearm hub 12 cm from the elbow
-LOW_ALONG, LOW_SIDE, LOW_UP = 0.06, 0.06, 0.12
-HUB_ALONG, HUB_SIDE = 0.12, 0.09
+# elbow cylinders (concept). Rear pivots on a post on top of the upper arm (clear of the
+# shoulder hub and its cross blocks; for the triceps the post leans back over the shoulder
+# yoke); the rod ends hold cross blocks on a hub on the forearm.
+# biceps:  hub 12 cm in front of the elbow; the cylinders push to hold the load
+# triceps: hub on a short lever 10 cm behind the elbow (the forearm shaft sticks out
+#          through the elbow); the cylinders never cross the elbow
+LAYOUTS = {
+    "biceps": dict(low_along=0.06, low_side=0.06, low_up=0.12, hub_along=0.12, hub_side=0.09),
+    "triceps": dict(low_along=0.02, low_side=0.08, low_up=0.13, hub_along=-0.10, hub_side=0.08),
+}
+LAYOUT = "biceps"
+LOW_ALONG = LOW_SIDE = LOW_UP = HUB_ALONG = HUB_SIDE = 0.0
+
+
+def set_layout(name, **override):
+    """Select an elbow cylinder layout (module globals), optionally with changed values."""
+    global LAYOUT, LOW_ALONG, LOW_SIDE, LOW_UP, HUB_ALONG, HUB_SIDE
+    v = dict(LAYOUTS[name], **override)
+    LAYOUT = name
+    LOW_ALONG, LOW_SIDE, LOW_UP = v["low_along"], v["low_side"], v["low_up"]
+    HUB_ALONG, HUB_SIDE = v["hub_along"], v["hub_side"]
+
+
+set_layout("biceps")
 WALL_Y = (-0.3, 0.0, 0.3)
 COURSES = 3
 BORE, ROD, P_BAR = 50.0, 20.0, 5.0
@@ -105,6 +123,10 @@ def elbow_cylinders(q):
 
 
 def main():
+    import sys
+    if len(sys.argv) > 1:
+        set_layout(sys.argv[1])
+    print(f"layout: {LAYOUT}")
     rows, all_l = [], []
     print("block (y, course)  yaw   sh.pitch sh.roll  el.pitch el.roll  wr.pitch | cyl. length (mm)   force (N)     pitch/roll torque  lever")
     for course in range(COURSES):
@@ -129,8 +151,8 @@ def main():
         print(f"{n:15s} {deg[:, i].min():6.0f}° … {deg[:, i].max():5.0f}°")
     print(f"elbow cylinders: pin-to-pin {min(all_l) * 1000:.0f}–{max(all_l) * 1000:.0f} mm (stroke used {1000 * (max(all_l) - min(all_l)):.0f} mm)")
     pull = max(0.0, -fs.min())
-    print(f"forces: push up to {fs.max():.0f} N, pull up to {pull:.0f} N; Ø{BORE:.0f} at {P_BAR} bar: push {F_PUSH:.0f} N, pull {F_PULL:.0f} N "
-          f"→ load {100 * max(fs.max() / F_PUSH, pull / F_PULL):.0f}%")
+    print(f"forces: push up to {max(0.0, fs.max()):.0f} N, pull up to {pull:.0f} N; Ø{BORE:.0f} at {P_BAR} bar: push {F_PUSH:.0f} N, pull {F_PULL:.0f} N "
+          f"→ load {100 * max(max(0.0, fs.max()) / F_PUSH, pull / F_PULL):.0f}%")
 
 
 if __name__ == "__main__":
