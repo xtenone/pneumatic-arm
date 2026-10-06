@@ -53,8 +53,18 @@ open a dispute with photos.
 | ULN2803A | — | tested in step 8 |
 | Regulator, slide, main valve | thread sizes | G1/4 (the PC4-02 fittings fit) |
 | Emergency stop | multimeter in beep mode, on the NC terminals | beeps when released, silent when pressed |
+| Compressor | first run with the tank empty (outlet closed) | starts, stops by itself at its cut-off pressure (8 bar for a 6 l silent compressor); note the time from 0 to cut-off |
+| | tank holds pressure | after cut-off, outlet closed: the tank gauge drops less than 0.5 bar in 10 minutes |
+| | outlet coupler | note the coupler type (Euro/Orion, ISO 6150 B, Rectus 26, …) and buy the matching G1/4 plug nipple |
+| | drain valve under the tank | opens and closes; drain the water after every session |
 
 📷 Photo of all parts side by side, with the valve labels readable.
+
+**Compressor delivery.** The air the compressor really delivers (free air) follows from the
+first fill: tank volume × cut-off pressure (bar gauge) ÷ fill time. Example: 6 l × 8 bar ÷
+60 s = 48 l/min. Also time a refill from the cut-in pressure (where it starts again) to
+cut-off. Note both; the full-size arm needs this number (see `docs/full-arm-sizing.md`,
+air use).
 
 ---
 
