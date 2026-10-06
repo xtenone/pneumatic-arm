@@ -34,10 +34,10 @@ LAYOUTS = {
     "triceps": dict(low_along=0.02, low_side=0.08, low_up=0.13, hub_along=-0.10, hub_side=0.08),
     # arm turned over, like a human arm: upper arm hanging down, elbow below the shoulder,
     # cylinders behind the upper arm pushing the lever behind the elbow to lift
-    # (compact Ø50 × 160 cylinders: rear pivots 15 cm from the shoulder, 6 cm behind the arm;
-    #  elbow 60–110°, forearm roll ±15°)
-    "triceps_down": dict(low_along=0.15, low_side=0.08, low_up=-0.06, hub_along=-0.12, hub_side=0.08, down=True,
-                         body=0.20),
+    # (impression: compact Ø50 × 100 cylinders, rear pivots 20 cm from the shoulder and 6 cm
+    #  behind the arm, lever 9 cm; elbow 10–90°)
+    "triceps_down": dict(low_along=0.20, low_side=0.08, low_up=-0.06, hub_along=-0.09, hub_side=0.08, down=True,
+                         body=0.15),
 }
 DOWN = False
 LAYOUT = "biceps"

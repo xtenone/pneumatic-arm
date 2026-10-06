@@ -135,9 +135,8 @@ the gripper's yaw motor keeps the jaws square to the arm). Shoulder pitch 64°, 
 ![Glass, side](out/render_glass_side.png)
 
 The same with the upper arm hanging down (shoulder at 1.15 m, elbow cylinders behind the
-upper arm, 60 mm from it and 15 cm from the shoulder: compact Ø50 × 160 cylinders, 27–41 cm pin
-to pin, for an elbow range of 60–110° with ±15° forearm roll, pushing the lever behind the
-elbow). Render only; the shoulder cylinders are
+upper arm, 60 mm from it and 20 cm from the shoulder: compact Ø50 × 100 cylinders, 22–30 cm pin
+to pin, pushing a 9 cm lever behind the elbow; elbow range 10–90°). Render only; the shoulder cylinders are
 still drawn in the test 2 layout, which does not suit this posture.
 
 ![Glass, upper arm down](out/render_glass_triceps_down_oblique.png)

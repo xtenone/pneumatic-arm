@@ -110,7 +110,7 @@ def build(scene="wall"):
         held_c = np.array([K.WALL_X, y, course * BLOCK[2] + BLOCK[2] / 2 + 0.012])
         tool = GRIP_BAR + 0.012 + BLOCK[2] / 2 + 0.01
     else:
-        held_c = GLASS["at"]
+        held_c = GLASS["at"] + (np.array([0.08, 0.0, 0.0]) if K.DOWN else 0)   # a bit further out: elbow within 90°
         tool = GRIP_BAR + 0.012 + 0.008 + GLASS["h"] / 2
     q, Ru, Rf, Rw, Rt, E, W = solve_flat(held_c, tool, scene == "wall")
     S = K.S
@@ -223,11 +223,12 @@ def table():
             box((t["x"] + sx * (hx - 0.03), t["y"] + sy * (hy - 0.03), (t["top"] - 0.03) / 2), (0.02, 0.02, (t["top"] - 0.03) / 2), WOOD)
     top = t["top"]
     g = GLASS["at"]
-    glass((t["x"] + 0.12, t["y"] + 0.28, top + GLASS["h"] / 2))                           # a second glass
-    bottle = (t["x"] + 0.2, t["y"] + 0.12)
+    glass((t["x"] - 0.02, t["y"] + 0.33, top + GLASS["h"] / 2))                           # a second glass
+    bottle = (t["x"] + 0.18, t["y"] + 0.3)
     rod((*bottle, top), (*bottle, top + 0.22), 0.04, (0.2, 0.45, 0.3, 0.55), "cylinder")
     rod((*bottle, top + 0.22), (*bottle, top + 0.3), 0.014, (0.2, 0.45, 0.3, 0.55), "cylinder")
-    rod((g[0], g[1], top), (g[0], g[1], top + 0.004), 0.05, (0.75, 0.3, 0.25, 1), "cylinder")   # coaster under the held glass
+    gx = g[0] + (0.08 if K.DOWN else 0.0)
+    rod((gx, g[1], top), (gx, g[1], top + 0.004), 0.05, (0.75, 0.3, 0.25, 1), "cylinder")   # coaster under the held glass
 
 
 def camera(name, pos, target):
