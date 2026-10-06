@@ -27,7 +27,7 @@ import elbow as K  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
 FPS = 30
-S = np.array([0.0, 0.0, 1.0])                 # shoulder
+S = np.array([0.0, 0.0, 1.28])                # shoulder: high enough to keep the forearm above the table
 K.S = S
 TABLE_TOP, TABLE = 0.72, dict(x=(0.30, 1.12), y=(-0.65, 0.65))
 GRIP = 0.11                                   # wrist → grasp centre
@@ -50,10 +50,10 @@ BOTTLES = [  # position, colour, liquid colour
     (polar(0.74, -55), (0.15, 0.40, 0.20, 0.6), (0.55, 0.75, 0.25, 0.7)),
     (polar(0.74, 36), (0.75, 0.80, 0.90, 0.45), (0.95, 0.35, 0.35, 0.7)),
 ]
-BOTTLE = dict(r=0.038, h=0.22, neck_r=0.012, neck_h=0.08, grasp=0.10)
+BOTTLE = dict(r=0.038, h=0.22, neck_r=0.012, neck_h=0.08, grasp=0.15)
 GLASS0 = polar(0.67, 2)
-GLASS_END = polar(0.98, 2)
-GLASS = dict(r=0.036, h=0.11, grasp=0.055)
+GLASS_END = polar(0.94, 2)
+GLASS = dict(r=0.036, h=0.11, grasp=0.075)
 JAR = polar(0.73, 18)
 SPOON = dict(len=0.27, grasp=0.15)            # grasp height above the jar bottom
 

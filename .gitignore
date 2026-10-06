@@ -4,3 +4,4 @@ __pycache__/
 dist/
 test1/host/results/
 test*/out/**/*.mp4
+full-arm/out/**/*.mp4
