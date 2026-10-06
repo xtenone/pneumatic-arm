@@ -1,7 +1,8 @@
 """Concept render of the full arm: placing a 15 kg block on a low wall.
 
-    python full-arm/concept.py            # out/render_concept_<camera>.png (biceps elbow)
+    python full-arm/concept.py            # out/render_concept_<camera>.png (biceps elbow, low wall)
     python full-arm/concept.py triceps    # out/render_triceps_<camera>.png
+    python full-arm/concept.py glass      # out/render_glass_<camera>.png (holding a glass over a table)
 
 Simple shapes only (MuJoCo primitives), to show the layout and proportions; dimensions
 follow docs/full-arm-sizing.md and the pose comes from full-arm/elbow.py (6 DOF). Not a
@@ -13,7 +14,8 @@ Layout:
 - elbow: the same joint (pitch + forearm roll); the forearm roll turns the gripper, like a
   human forearm. Two cylinders lie on top of the upper arm, like a biceps
 - wrist pitch: one small cylinder along the forearm
-- gripper: two jaws closed by a pneumatic cylinder
+- gripper: two jaws closed by a pneumatic cylinder, turned about the vertical by a small
+  motor; the rolls stay at 0 here (they are for dexterity, not for lining up blocks)
 """
 import math
 import os
@@ -27,6 +29,7 @@ from PIL import Image  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import elbow as K  # noqa: E402
+from scipy.optimize import least_squares  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
 BLOCK = np.array([0.15, 0.30, 0.15])           # x (wall thickness), y (along the wall), z; ≈ 15 kg concrete
@@ -34,6 +37,11 @@ SHOULDER_HUB, SHOULDER_BAR = 0.15, 0.12        # hub along the upper arm, cross 
 SHOULDER_LOW_Z, SHOULDER_LOW_X = 0.12, 0.06    # lower pivots on the turntable side of the column
 GRIP_H = K.TOOL - BLOCK[2] / 2                  # wrist → top of the block
 POSE_BLOCK = (0.3, 2)                           # the block being placed: y on the wall, course
+GRIP_BAR = 0.10                                 # wrist → gripper bar (yaw motor and post in between)
+GLASS = dict(r=0.036, h=0.12, at=np.array([0.66, 0.10, 0.85]))   # held glass: radius, height, centre
+TABLE = dict(x=0.66, y=0.05, top=0.72, half=(0.28, 0.45))
+GLASS_C = (0.85, 0.92, 1.0, 0.28)
+WATER = (0.35, 0.6, 0.95, 0.5)
 
 ALU = (0.78, 0.80, 0.83, 1)
 STEEL = (0.45, 0.46, 0.50, 1)
@@ -68,11 +76,37 @@ def cylinder(low, high, r_body, body_len, r_rod, rgba=ALU):
     rod(end - d * 0.01, end + d * 0.015, r_body * 0.75, DARK, "cylinder")
 
 
-def build():
-    y, course = POSE_BLOCK
-    block_c = np.array([K.WALL_X, y, course * BLOCK[2] + BLOCK[2] / 2 + 0.012])
-    q = K.solve(block_c)
-    Ru, Rf, Rt, E, W = K.chain(q)
+def solve_flat(centre, tool, align_wall):
+    """Pose with both rolls at 0: base yaw, shoulder pitch, elbow pitch, wrist pitch keep the
+    held object at `centre`, level; the gripper's own yaw motor lines it up with the wall
+    (align_wall) or leaves the jaws square to the arm."""
+    def pose(x):
+        yaw, p1, p2, p3, psi = x
+        q = [yaw, p1, 0.0, p2, 0.0, p3]
+        Ru, Rf, Rw, E, W = K.chain(q)
+        return q, Ru, Rf, Rw, Rw @ K.Rz(psi), E, W
+
+    def res(x):
+        _, _, _, _, Rt, _, W = pose(x)
+        c = W - tool * Rt[:, 2]
+        return np.concatenate([c - centre, Rt[:2, 2], [Rt[0, 1] if align_wall else x[4]]])
+    yaw = math.atan2(centre[1], centre[0])
+    for p2 in (-1.2, -0.8, -1.6):
+        sol = least_squares(res, [yaw, 0.3, p2, -(0.3 + p2), -yaw], bounds=([-3, -1.05, -2.6, -2.6, -3.2], [3, 1.31, 0, 2.6, 3.2]))
+        if sol.cost < 1e-10:
+            return pose(sol.x)
+    raise ValueError("no pose")
+
+
+def build(scene="wall"):
+    if scene == "wall":
+        y, course = POSE_BLOCK
+        held_c = np.array([K.WALL_X, y, course * BLOCK[2] + BLOCK[2] / 2 + 0.012])
+        tool = GRIP_BAR + 0.012 + BLOCK[2] / 2 + 0.01
+    else:
+        held_c = GLASS["at"]
+        tool = GRIP_BAR + 0.012 + 0.008 + GLASS["h"] / 2
+    q, Ru, Rf, Rw, Rt, E, W = solve_flat(held_c, tool, scene == "wall")
     S = K.S
     Rb = K.Rz(q[0])
     xu, yu, zu = Ru[:, 0], Ru[:, 1], Ru[:, 2]
@@ -119,24 +153,34 @@ def build():
         box(lo, (0.018, 0.018, 0.018), BLUE, Ru)
         cylinder(lo, h - 0.022 * (h - lo) / np.linalg.norm(h - lo), 0.025, 0.30 if K.HUB_ALONG > 0 else 0.26, 0.008)
 
-    # wrist: joint, small cylinder along the forearm, gripper
-    box(W, (0.028, 0.04, 0.028), RED, Rt)
+    # wrist: joint, small cylinder along the forearm, yaw motor, gripper
+    box(W, (0.028, 0.04, 0.028), RED, Rw)
     zt, yt = Rt[:, 2], Rt[:, 1]
-    k = W + 0.06 * zt - 0.04 * Rt[:, 0]
+    k = W + 0.06 * Rw[:, 2] - 0.04 * Rw[:, 0]
     qp = E + 0.18 * xf + 0.045 * Rf[:, 2]
     box(qp, (0.015, 0.02, 0.015), BLUE, Rf)
     cylinder(qp, k, 0.016, 0.16, 0.006)
     rod(W, k, 0.01, ALU, "capsule")
-    top = W - 0.06 * zt
-    rod(W, top, 0.022, ALU, "cylinder")
-    bar_c = top - 0.012 * zt
-    box(bar_c, (0.035, BLOCK[1] / 2 + 0.03, 0.012), ALU, Rt)
-    rod(bar_c + 0.03 * zt - 0.13 * yt, bar_c + 0.03 * zt + 0.13 * yt, 0.018, ALU, "cylinder")
-    held = W - K.TOOL * zt
+    box(W - 0.045 * zt + 0.03 * Rw[:, 0], (0.021, 0.021, 0.021), (0.1, 0.1, 0.1, 1), Rw)      # yaw motor (NEMA17)
+    rod(W - 0.03 * zt, W - 0.06 * zt, 0.032, (0.15, 0.15, 0.17, 1), "cylinder")                # yaw bearing
+    rod(W - 0.06 * zt, W - (GRIP_BAR - 0.012) * zt, 0.018, ALU, "cylinder")
+    bar_c = W - GRIP_BAR * zt
+    box(bar_c, (0.03, BLOCK[1] / 2 + 0.03, 0.012), ALU, Rt)
+    rod(bar_c + 0.028 * zt - 0.13 * yt, bar_c + 0.028 * zt + 0.13 * yt, 0.016, ALU, "cylinder")   # jaw cylinder
+    held = W - tool * zt
+    half_w = BLOCK[1] / 2 if scene == "wall" else GLASS["r"]
+    depth = (bar_c - held) @ zt
     for s in (1, -1):
-        jaw = held + s * (BLOCK[1] / 2 + 0.008) * yt + ((bar_c - held) @ zt) / 2 * zt
-        box(jaw, (0.03, 0.008, ((bar_c - held) @ zt) / 2 + 0.01), BLUE, Rt)
-    box(held, BLOCK / 2, CONCRETE, Rt)
+        jaw = held + s * (half_w + 0.008) * yt + depth / 2 * zt
+        box(jaw, (0.025, 0.008, depth / 2 + 0.012), BLUE, Rt)
+    if scene == "wall":
+        box(held, BLOCK / 2, CONCRETE, Rt)
+    else:
+        glass(held)
+
+    if scene == "glass":
+        table()
+        return np.degrees([q[0], q[1], q[2], q[3], q[4], q[5]])
 
     # low wall (courses below the one being placed, and the start of that course), pallet
     pitch = BLOCK[1] + 0.01
@@ -155,6 +199,31 @@ def build():
     return np.degrees(q)
 
 
+def glass(c, fill=0.6):
+    """Drinking glass standing upright with its centre at c: wall, bottom, water."""
+    h, r = GLASS["h"], GLASS["r"]
+    base = np.asarray(c) - np.array([0, 0, h / 2])
+    rod(base, base + np.array([0, 0, 0.008]), r, GLASS_C, "cylinder")
+    rod(base + np.array([0, 0, 0.008]), base + np.array([0, 0, h]), r, GLASS_C, "cylinder")
+    rod(base + np.array([0, 0, 0.009]), base + np.array([0, 0, 0.008 + fill * h]), r - 0.003, WATER, "cylinder")
+
+
+def table():
+    t = TABLE
+    hx, hy = t["half"]
+    box((t["x"], t["y"], t["top"] - 0.015), (hx, hy, 0.015), WOOD)
+    for sx in (1, -1):
+        for sy in (1, -1):
+            box((t["x"] + sx * (hx - 0.03), t["y"] + sy * (hy - 0.03), (t["top"] - 0.03) / 2), (0.02, 0.02, (t["top"] - 0.03) / 2), WOOD)
+    top = t["top"]
+    g = GLASS["at"]
+    glass((t["x"] + 0.12, t["y"] + 0.28, top + GLASS["h"] / 2))                           # a second glass
+    bottle = (t["x"] + 0.2, t["y"] + 0.12)
+    rod((*bottle, top), (*bottle, top + 0.22), 0.04, (0.2, 0.45, 0.3, 0.55), "cylinder")
+    rod((*bottle, top + 0.22), (*bottle, top + 0.3), 0.014, (0.2, 0.45, 0.3, 0.55), "cylinder")
+    rod((g[0], g[1], top), (g[0], g[1], top + 0.004), 0.05, (0.75, 0.3, 0.25, 1), "cylinder")   # coaster under the held glass
+
+
 def camera(name, pos, target):
     pos, target = np.array(pos, float), np.array(target, float)
     fwd = (target - pos) / np.linalg.norm(target - pos)
@@ -164,18 +233,28 @@ def camera(name, pos, target):
     return f'<camera name="{name}" pos="{fmt(pos)}" xyaxes="{fmt(x)} {fmt(y)}"/>'
 
 
-CAMERAS = {
-    "oblique": camera("oblique", (1.75, -1.75, 1.35), (0.3, 0.05, 0.45)),
-    "front": camera("front", (2.2, 0.35, 0.85), (0.3, 0.05, 0.45)),
-    "elbow": camera("elbow", (0.85, -0.75, 1.15), (0.3, 0.1, 0.65)),
+SCENE_CAMERAS = {
+    "wall": {
+        "oblique": camera("oblique", (1.75, -1.75, 1.35), (0.3, 0.05, 0.45)),
+        "front": camera("front", (2.2, 0.35, 0.85), (0.3, 0.05, 0.45)),
+        "elbow": camera("elbow", (0.85, -0.75, 1.15), (0.3, 0.1, 0.65)),
+    },
+    "glass": {
+        "oblique": camera("oblique", (1.65, -1.55, 1.45), (0.35, 0.05, 0.8)),
+        "close": camera("close", (0.95, -0.6, 1.12), (0.5, 0.1, 0.92)),
+        "side": camera("side", (0.55, -1.75, 1.05), (0.45, 0.05, 0.82)),
+    },
 }
 
 
 def main():
-    layout = sys.argv[1] if len(sys.argv) > 1 else "biceps"
+    args = sys.argv[1:]
+    scene = "glass" if "glass" in args else "wall"
+    layout = next((a for a in args if a in K.LAYOUTS), "biceps")
     K.set_layout(layout)
-    prefix = "concept" if layout == "biceps" else layout
-    q = build()
+    prefix = ("concept" if layout == "biceps" else layout) if scene == "wall" else f"{scene}"
+    CAMERAS = SCENE_CAMERAS[scene]
+    q = build(scene)
     xml = f"""<mujoco><visual><global offwidth="1280" offheight="960"/><quality shadowsize="8192"/>
 <headlight ambient="0.35 0.35 0.35"/></visual>
 <asset><texture type="skybox" builtin="gradient" rgb1="0.97 0.97 1" rgb2="0.72 0.76 0.84" width="512" height="512"/>

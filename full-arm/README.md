@@ -2,8 +2,9 @@
 
 A first picture of the complete arm, placing a 15 kg block on a low wall. Simple shapes
 only, to show the layout and proportions; the sizes come from
-[docs/full-arm-sizing.md](../docs/full-arm-sizing.md) and the pose from `elbow.py`. Not a
-worked-out design.
+[docs/full-arm-sizing.md](../docs/full-arm-sizing.md). The renders keep both rolls at 0 and
+line the block up with the gripper's yaw motor (see "Choice for now"). Not a worked-out
+design.
 
 ![Concept](out/render_concept_oblique.png)
 
@@ -122,6 +123,17 @@ at 0.8 m, same low wall.
   gravity torque there), or a base that moves along the wall. The forearm roll then tilts
   the tool, which is useful for wiping.
 
+## Holding a glass
+
+A lighter job for the same arm: holding a glass of water just above a table (rolls at 0,
+the gripper's yaw motor keeps the jaws square to the arm). Shoulder pitch 64°, elbow −90°.
+
+![Glass](out/render_glass_oblique.png)
+
+![Glass, close](out/render_glass_close.png)
+
+![Glass, side](out/render_glass_side.png)
+
 ## Choice for now
 
 - **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
@@ -145,5 +157,5 @@ at 0.8 m, same low wall.
 - Gripper for blocks versus a tool mount for light tasks.
 - Base: fixed, on a pallet with counterweight, or on wheels.
 
-`python full-arm/concept.py [triceps]` renders the views into `out/` (the first version is in
+`python full-arm/concept.py [triceps] [glass]` renders the views into `out/` (the first version is in
 `out/archive/`).
