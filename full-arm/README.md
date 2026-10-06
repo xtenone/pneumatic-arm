@@ -102,6 +102,26 @@ an excavator (`python full-arm/elbow.py triceps`, `python full-arm/elbow_cad.py 
 
 ![Triceps](out/render_triceps_oblique.png)
 
+### Arm turned over: elbow below the shoulder (`python full-arm/elbow.py triceps_down`)
+
+Like a human arm: the upper arm hangs down from the shoulder, the forearm points forward,
+and the cylinders behind the upper arm push the lever behind the elbow to lift. Shoulder
+at 0.8 m, same low wall.
+
+| | Elbow up, biceps | Elbow down, triceps pushing |
+|---|---|---|
+| Elbow cylinders | push, ≤ 187 N (19% of Ø50) | push, ≤ 400 N (41% of Ø50): the forearm reaches forward, so the elbow carries more |
+| Shoulder pitch | −7° … +30° (the test 2 shoulder layout) | −78° … −49°: the shoulder cylinders need a different layout |
+| Shoulder torque | up to 162 Nm (arm stretched forward) | ≤ 128 Nm (upper arm hangs) |
+| Block lined up with the wall | 9/9 positions with rolls ≤ ±60° | 3/9: only straight ahead; at ±0.3 m the shoulder roll needs up to ±84° |
+
+- With the forearm roughly horizontal, the forearm roll tilts the block instead of turning
+  it. Lining the block up then has to come from the shoulder roll (as the human shoulder
+  does), and that needs more than the ±65° of the cross block joint.
+- Elbow down therefore needs a gripper that turns about the vertical (a small motor, no
+  gravity torque there), or a base that moves along the wall. The forearm roll then tilts
+  the tool, which is useful for wiping.
+
 ## Open
 
 - Reach: with 2 × 0.5 m the arm builds a low wall from one spot; more needs a longer arm

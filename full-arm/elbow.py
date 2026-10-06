@@ -9,6 +9,7 @@ elbow cylinders then need (stroke, force)?
 
 Frames as in test 2: x forward, z up; joint rotation = Ry(pitch) · Rx(roll).
 """
+import itertools
 import math
 
 import numpy as np
@@ -31,16 +32,21 @@ BLOCK_H = 0.15
 LAYOUTS = {
     "biceps": dict(low_along=0.06, low_side=0.06, low_up=0.12, hub_along=0.12, hub_side=0.09),
     "triceps": dict(low_along=0.02, low_side=0.08, low_up=0.13, hub_along=-0.10, hub_side=0.08),
+    # arm turned over, like a human arm: upper arm hanging down, elbow below the shoulder,
+    # cylinders behind the upper arm pushing the lever behind the elbow to lift
+    "triceps_down": dict(low_along=0.06, low_side=0.08, low_up=-0.13, hub_along=-0.12, hub_side=0.08, down=True),
 }
+DOWN = False
 LAYOUT = "biceps"
 LOW_ALONG = LOW_SIDE = LOW_UP = HUB_ALONG = HUB_SIDE = 0.0
 
 
 def set_layout(name, **override):
     """Select an elbow cylinder layout (module globals), optionally with changed values."""
-    global LAYOUT, LOW_ALONG, LOW_SIDE, LOW_UP, HUB_ALONG, HUB_SIDE
+    global LAYOUT, LOW_ALONG, LOW_SIDE, LOW_UP, HUB_ALONG, HUB_SIDE, DOWN
     v = dict(LAYOUTS[name], **override)
     LAYOUT = name
+    DOWN = v.get("down", False)
     LOW_ALONG, LOW_SIDE, LOW_UP = v["low_along"], v["low_side"], v["low_up"]
     HUB_ALONG, HUB_SIDE = v["hub_along"], v["hub_side"]
 
@@ -84,18 +90,19 @@ def residual(q, block):
     return np.concatenate([c - block, Rt[:2, 2], [Rt[0, 1]]])   # position, level, long side along the wall
 
 
-def solve(block):
+def solve(block, roll_limit=1.6):
+    """6-DOF pose for a block position, elbow above or below the shoulder (DOWN), smallest rolls."""
     yaw = math.atan2(block[1], block[0])
     best = None
-    for p2 in (-0.6, -1.0, -1.4):
-        for r1 in (-0.3, 0.0, 0.3):
-            q0 = [yaw, 0.3, r1, p2, 0.0, -(0.3 + p2)]
-            sol = least_squares(residual, q0, args=(block,), bounds=([-3, -1.4, -1.6, -2.6, -1.6, -2.6],
-                                                                    [3, 1.4, 1.6, 0.0, 1.6, 2.6]))
-            if sol.cost < 1e-10:
-                score = abs(sol.x[2]) + abs(sol.x[4])          # prefer small rolls
-                if best is None or score < best[0]:
-                    best = (score, sol.x)
+    p1s, p2s, p2_lim = ((-0.8, -1.1, -1.4), (0.8, 1.3, 1.8), (0.0, 2.6)) if DOWN else ((0.3,), (-0.6, -1.0, -1.4), (-2.6, 0.0))
+    for p1, p2, r1 in itertools.product(p1s, p2s, (-0.3, 0.0, 0.3)):
+        q0 = [yaw, p1, r1, p2, 0.0, -(p1 + p2)]
+        sol = least_squares(residual, q0, args=(block,), bounds=([-3, -1.7, -roll_limit, p2_lim[0], -roll_limit, -2.6],
+                                                                [3, 1.4, roll_limit, p2_lim[1], roll_limit, 2.6]))
+        if sol.cost < 1e-10:
+            score = abs(sol.x[2]) + abs(sol.x[4])          # prefer small rolls
+            if best is None or score < best[0]:
+                best = (score, sol.x)
     return None if best is None else best[1]
 
 
