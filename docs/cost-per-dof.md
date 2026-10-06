@@ -32,3 +32,32 @@ With both savings: about €150 per DOF, plus the larger cylinders for shoulder 
 Four valves per cylinder remain necessary: the cylinder has to be able to hold its
 position for safety. Cheap "VQ110" listings at €7–13 are bait prices for a different
 item, not a real alternative.
+
+## Cost per DOF versus joint torque (estimate)
+
+A rough estimate per drive type, per DOF, without shared parts (compressor, hydraulic power
+unit, power supply). Prices are indicative (October 2026) and still to be checked when a
+choice depends on them.
+
+| Joint torque | Electric (gearbox + motor) | Pneumatic | Hydraulic |
+|---|---|---|---|
+| Small (wrist, ~20 Nm) | **cheapest**: stepper with planetary gearbox, €50–100 | €150–190 | €250–400 + power unit |
+| Medium (elbow, ~80 Nm) | €300–600 | €170–220 (Ø50) | €250–400 |
+| Large (shoulder, 160–300 Nm) | €600–1200+ (harmonic size 32, servo, brake) | €180–250 (Ø63–80), but slow | €250–400 |
+| Very large (1000+ Nm) | thousands of euros | impractically large cylinders | €300–500 |
+
+Why it scales this way:
+- **Electric:** the torque goes through gears and bearings, which have to become heavier
+  and more precise, so the price rises steeply with torque.
+- **Hydraulic:** more force mainly means a slightly larger cylinder, which is cheap; the
+  valves and sensors stay almost the same. The power unit (€400–800) is a fixed cost
+  shared by all DOFs. See [hydraulics.md](hydraulics.md).
+- **Pneumatic:** the low pressure makes the cylinders large. The cost per DOF stays
+  reasonable, but speed drops and air use rises.
+
+Consequences:
+- At 15 kg pneumatics is the cheapest per DOF for the heavy joints; the fixed cost of
+  hydraulics does not pay back over 4–6 DOFs.
+- For heavier work hydraulics wins.
+- A mix is logical: cylinders for the heavy joints (shoulder, elbow), a small electric
+  motor for the light ones (wrist rotation, gripper).
