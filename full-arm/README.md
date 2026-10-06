@@ -143,6 +143,15 @@ still drawn in the test 2 layout, which does not suit this posture.
 
 ![Glass, upper arm down, side](out/render_glass_triceps_down_side.png)
 
+## Cocktail impression (`python full-arm/cocktail.py`)
+
+A light version of the arm (upper arm hanging, shoulder at 1.28 m; Ø25 × 80 elbow cylinders
+beside the upper arm on a 5 cm lever, elbow 10–120°; wrist and gripper turned by small
+motors) makes a cocktail: three bottles poured into a glass, stirred with a bar spoon, glass
+slid forward. Kinematic only, 49 s; the video is not kept in git (`--stills` for frames).
+
+![Cocktail](out/cocktail_check.png)
+
 ## Choice for now
 
 - **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
