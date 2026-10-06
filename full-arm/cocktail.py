@@ -29,8 +29,9 @@ OUT = os.path.join(HERE, "out")
 FPS = 30
 S = np.array([0.0, 0.0, 1.28])                # shoulder: high enough to keep the forearm above the table
 K.S = S
-TABLE_TOP, TABLE = 0.72, dict(x=(0.30, 1.12), y=(-0.65, 0.65))
+TABLE_TOP, TABLE = 0.72, dict(x=(0.32, 1.16), y=(-0.7, 0.7))
 GRIP = 0.11                                   # wrist → grasp centre
+SH_OFF = 0.12                                 # shoulder joint in front of the column (turns with the base)
 ELBOW_LEVER, ELBOW_SIDE, ELBOW_REAR = 0.05, 0.06, 0.229
 SH_HUB, SH_SIDE = 0.15, 0.10
 
@@ -46,15 +47,15 @@ def polar(r, deg, z=0.0):
 
 # --- objects on the table -----------------------------------------------------------
 BOTTLES = [  # position, colour, liquid colour
-    (polar(0.74, -30), (0.55, 0.32, 0.10, 0.6), (0.85, 0.55, 0.15, 0.7)),
-    (polar(0.74, -55), (0.15, 0.40, 0.20, 0.6), (0.55, 0.75, 0.25, 0.7)),
-    (polar(0.74, 36), (0.75, 0.80, 0.90, 0.45), (0.95, 0.35, 0.35, 0.7)),
+    (polar(0.80, -30), (0.55, 0.32, 0.10, 0.6), (0.85, 0.55, 0.15, 0.7)),
+    (polar(0.80, -55), (0.15, 0.40, 0.20, 0.6), (0.55, 0.75, 0.25, 0.7)),
+    (polar(0.80, 36), (0.75, 0.80, 0.90, 0.45), (0.95, 0.35, 0.35, 0.7)),
 ]
 BOTTLE = dict(r=0.038, h=0.22, neck_r=0.012, neck_h=0.08, grasp=0.15)
-GLASS0 = polar(0.67, 2)
-GLASS_END = polar(0.94, 2)
+GLASS0 = polar(0.80, 2)
+GLASS_END = polar(1.03, 2)
 GLASS = dict(r=0.036, h=0.11, grasp=0.075)
-JAR = polar(0.73, 18)
+JAR = polar(0.79, 18)
 SPOON = dict(len=0.27, grasp=0.15)            # grasp height above the jar bottom
 
 
@@ -87,6 +88,8 @@ def tool(q, psi):
     yaw, p1, p2 = q
     p3 = math.pi / 2 - p1 - p2                    # tool horizontal, pointing outwards
     Ru, Rf, Rw, E, W = K.chain([yaw, p1, 0.0, p2, 0.0, p3])
+    off = K.Rz(yaw) @ np.array([SH_OFF, 0.0, 0.0])
+    E, W = E + off, W + off
     Rt = Rw @ K.Rz(psi)
     return Ru, Rf, Rw, Rt, E, W, W - GRIP * Rt[:, 2]
 
@@ -130,17 +133,19 @@ def draw_arm(q, psi, jaw):
     # base, column, shoulder
     box((0, 0, 0.02), (0.28, 0.28, 0.02), DARK)
     rod((0, 0, 0.04), (0, 0, 0.09), 0.18, STEEL)
-    rod((0, 0, 0.09), S - [0, 0, 0.06], 0.06, COLUMN)
+    rod((0, 0, 0.09), S + [0, 0, 0.03], 0.06, COLUMN)
+    Sp = S + Rb @ np.array([SH_OFF, 0.0, 0.0])                         # shoulder joint
+    box(S + Rb @ np.array([SH_OFF / 2, 0.0, 0.06]), (SH_OFF / 2 + 0.05, 0.075, 0.015), COLUMN, Rb)   # bracket on the column
     for s in (1, -1):
-        box(S + Rb @ np.array([0, s * 0.065, -0.01]), (0.06, 0.01, 0.065), COLUMN, Rb)
-    box(S, (0.04, 0.05, 0.04), RED, Ru)
-    rod(S + 0.035 * xu, E - 0.035 * xu, 0.02, ALU, "capsule")
+        box(Sp + Rb @ np.array([0, s * 0.065, 0.0]), (0.05, 0.01, 0.065), COLUMN, Rb)
+    box(Sp, (0.04, 0.05, 0.04), RED, Ru)
+    rod(Sp + 0.035 * xu, E - 0.035 * xu, 0.02, ALU, "capsule")
     # shoulder cylinders: pushing the hub from behind the column (deltoid)
-    hub = S + SH_HUB * xu
+    hub = Sp + SH_HUB * xu
     rod(hub - 0.02 * xu, hub + 0.02 * xu, 0.032, ALU)
     rod(hub - (SH_SIDE + 0.025) * yu, hub + (SH_SIDE + 0.025) * yu, 0.009, STEEL)
     for s in (1, -1):
-        low = S + Rb @ np.array([-0.30, s * SH_SIDE, -0.36])
+        low = Sp + Rb @ np.array([-0.30, s * SH_SIDE, -0.36])
         rod(low, Rb @ np.array([-0.05, s * 0.03, 0.0]) + [0, 0, low[2]], 0.012, COLUMN)       # bracket on the column
         box(low, (0.018, 0.018, 0.018), BLUE, Rb)
         h = hub + s * SH_SIDE * yu
@@ -152,7 +157,7 @@ def draw_arm(q, psi, jaw):
     lever = E - ELBOW_LEVER * xf
     rod(E, lever, 0.012, ALU)
     rod(lever - (ELBOW_SIDE + 0.02) * yf, lever + (ELBOW_SIDE + 0.02) * yf, 0.007, STEEL)
-    rear = S + ELBOW_REAR * xu
+    rear = Sp + ELBOW_REAR * xu
     rod(rear - (ELBOW_SIDE + 0.02) * yu, rear + (ELBOW_SIDE + 0.02) * yu, 0.007, STEEL)
     for s in (1, -1):
         h, lo = lever + s * ELBOW_SIDE * yf, rear + s * ELBOW_SIDE * yu
@@ -215,7 +220,7 @@ def radial(p):
 def script(w):
     """Key poses: (duration s, grasp centre, gripper turn rad, jaw opening m, event)."""
     keys = []
-    rest = np.array([0.62, 0.0, TABLE_TOP + 0.22])
+    rest = np.array([0.78, 0.0, TABLE_TOP + 0.24])
     keys.append((1.0, rest, 0.0, 0.10, None))
     glass_c = GLASS0 + [0, 0, TABLE_TOP]
     for i, (pos, _, liquid) in enumerate(BOTTLES):
@@ -262,7 +267,7 @@ def script(w):
     # slide the glass forward
     g_grasp = glass_c + [0, 0, GLASS["grasp"]]
     out = radial(glass_c)
-    g_pre = g_grasp - 0.08 * out
+    g_pre = g_grasp - 0.06 * out
     g_end = GLASS_END + [0, 0, TABLE_TOP + GLASS["grasp"]]
     keys += [(1.0, g_pre, 0.0, 0.10, None), (0.6, g_grasp, 0.0, 0.10, None),
              (0.3, g_grasp, 0.0, 2 * GLASS["r"], ("grab", "glass")),
@@ -288,7 +293,7 @@ def frames(w):
         G, psi, jaw = G1, psi1, jaw1
 
 
-CAMS = {"main": ((1.75, -0.35, 1.45), (0.4, -0.05, 0.85)), "close": ((1.05, -0.75, 1.15), (0.5, -0.05, 0.85))}
+CAMS = {"main": ((1.75, -0.35, 1.45), (0.4, -0.05, 0.85)), "side": ((0.55, -1.9, 1.3), (0.45, 0.0, 0.9))}
 
 
 def camera_xml():
