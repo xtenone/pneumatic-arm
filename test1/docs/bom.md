@@ -83,7 +83,7 @@ Status: still to buy
 
 ## 5. Compressor (bol.com)
 
-Status: ordered (2026-10-05)
+Status: received (2026-10-06)
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
