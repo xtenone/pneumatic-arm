@@ -172,6 +172,8 @@ lever 31–137 mm, peak force about 330 N.
 - **Wrist kept level:** a small cylinder for now; a parallelogram linkage that keeps the
   gripper level by itself (as on palletising robots) is an option to look at.
 - **Triceps and elbow-down stay documented as alternatives** (above).
+- **The light version (1.5 kg) is built first,** with light wall blocks and speeds capped to
+  those of the heavy version; see [docs/plan.md](../docs/plan.md#first-complete-arm-the-light-version).
 - **The full arm stays a concept until test 1 has its results.** Test T7 sets how much of
   the cylinder force the control can use; that number sets every cylinder size here.
 

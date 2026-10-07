@@ -1,6 +1,6 @@
 # Plan
 
-What is done and what is left. Updated: 2026-10-05.
+What is done and what is left. Updated: 2026-10-07.
 
 Roles: **(B)** = build, buy, measure; **(D)** = design, software, documentation, review.
 
@@ -65,6 +65,27 @@ clickable page.
 - [ ] Does pneumatic feedback control work well enough for the arm? Based on T3–T7.
 - [ ] If so: size the shoulder and elbow cylinders with the outcome of T7 (first estimate: [full-arm-sizing.md](full-arm-sizing.md))
 - [ ] Choose valves for the large cylinders (flow, possibly coarse + fine)
+
+## First complete arm: the light version
+
+The first complete arm is the light version for 1.5 kg at 1 m (shoulder 2 × Ø32 × 200,
+elbow 2 × Ø25 × 80; see [full-arm-sizing.md](full-arm-sizing.md#light-version-15-kg-at-1-m)).
+Its forces are close to tests 1 and 2, so their results carry over directly. The heavy
+version (15 kg) follows when the light arm works.
+
+The wall is practised with light blocks (≤ 1.5 kg including the gripper margin), with the
+speeds capped in software to what the heavy version would reach with one VQ110U per
+chamber:
+
+| Joint | Cap | Heavy version |
+|---|---|---|
+| Shoulder | 30°/s | 2 × Ø50, lever 150 mm |
+| Elbow | 50°/s | 2 × Ø50, lever 100 mm |
+
+This shows the tasks, the reach and the pace of the heavy arm. It does not show its
+dynamics: a heavier load sags more under a pressure change and takes longer to stop,
+so control settings do not carry over one to one. The load share is similar (light
+shoulder 24% / 39%, heavy 33% / 55% for work / peak), so the control works in the same range.
 
 ## After that
 
