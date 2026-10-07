@@ -150,6 +150,13 @@ beside the upper arm on a 5 cm lever, elbow 10–120°; wrist and gripper turned
 motors) makes a cocktail: three bottles poured into a glass, stirred with a bar spoon, glass
 slid forward. Kinematic only, 49 s; the video is not kept in git (`--stills` for frames).
 
+The shoulder cylinders lean back from a bracket behind the column on purpose: they push a
+hub 15 cm along the upper arm, and the lever they act on is that line, not the vertical.
+Over the video (upper arm −91° … −52°) their lever is 121–150 mm, largest where the arm
+reaches furthest forward and gravity pulls hardest; peak force about 124 N. Cylinders
+standing vertically under the shoulder would be nearly in line with the hanging upper arm:
+lever 31–137 mm, peak force about 330 N.
+
 ![Cocktail](out/cocktail_check.png)
 
 ## Choice for now
