@@ -27,14 +27,13 @@ import elbow as K  # noqa: E402
 
 OUT = os.path.join(HERE, "out")
 FPS = 30
-S = np.array([0.0, 0.0, 1.28])                # shoulder: high enough to keep the forearm above the table
+S = np.array([0.12, 0.0, 1.28])               # shoulder joint, on the base yaw axis; high enough to keep the forearm above the table
 K.S = S
 TABLE_TOP, TABLE = 0.72, dict(x=(0.32, 1.16), y=(-0.7, 0.7))
 GRIP = 0.11                                   # wrist → grasp centre
-SH_OFF = 0.12                                 # shoulder joint in front of the column (turns with the base)
 ELBOW_LEVER, ELBOW_SIDE, ELBOW_REAR = 0.05, 0.06, 0.229
 SH_HUB, SH_SIDE = 0.15, 0.10
-SH_LOW = (-0.30, -0.36)                       # shoulder cylinders' lower pivots, from the shoulder joint
+SH_LOW = (-0.30, -0.36)                       # shoulder cylinders' lower pivots, from the shoulder joint (on the column)
 SH_CYL = (0.024, 0.26, 0.008)                 # body radius, body length, rod radius
 
 ALU, STEEL, DARK = (0.80, 0.82, 0.85, 1), (0.45, 0.46, 0.50, 1), (0.15, 0.15, 0.17, 1)
@@ -90,8 +89,6 @@ def tool(q, psi):
     yaw, p1, p2 = q
     p3 = math.pi / 2 - p1 - p2                    # tool horizontal, pointing outwards
     Ru, Rf, Rw, E, W = K.chain([yaw, p1, 0.0, p2, 0.0, p3])
-    off = K.Rz(yaw) @ np.array([SH_OFF, 0.0, 0.0])
-    E, W = E + off, W + off
     Rt = Rw @ K.Rz(psi)
     return Ru, Rf, Rw, Rt, E, W, W - GRIP * Rt[:, 2]
 
@@ -132,23 +129,28 @@ def draw_arm(q, psi, jaw):
     xu, yu, zu = Ru[:, 0], Ru[:, 1], Ru[:, 2]
     xf, yf = Rf[:, 0], Rf[:, 1]
     Rb = K.Rz(q[0])
-    # base, column, shoulder
-    box((0, 0, 0.02), (0.28, 0.28, 0.02), DARK)
-    rod((0, 0, 0.04), (0, 0, 0.09), 0.18, STEEL)
-    rod((0, 0, 0.09), S + [0, 0, 0.03], 0.06, COLUMN)
-    Sp = S + Rb @ np.array([SH_OFF, 0.0, 0.0])                         # shoulder joint
-    box(S + Rb @ np.array([SH_OFF / 2, 0.0, 0.06]), (SH_OFF / 2 + 0.05, 0.075, 0.015), COLUMN, Rb)   # bracket on the column
+    # base: yaw bearing under the shoulder joint; turntable with the column behind the shoulder,
+    # an arm over the top to the shoulder joint, the shoulder cylinders' pivots on the column
+    foot = np.array([S[0], S[1], 0.0])
+    xc = SH_LOW[0]                                                     # column axis, from the shoulder
+    box(foot + [0, 0, 0.02], (0.28, 0.28, 0.02), DARK)
+    rod(foot + [0, 0, 0.04], foot + [0, 0, 0.09], 0.18, STEEL)
+    box(foot + Rb @ np.array([xc / 2, 0.0, 0.10]), (-xc / 2 + 0.08, 0.10, 0.012), COLUMN, Rb)   # turntable
+    col = foot + Rb @ np.array([xc, 0.0, 0.0])
+    box(col + [0, 0, (S[2] + 0.187) / 2], (0.04, 0.04, (S[2] - 0.037) / 2), COLUMN, Rb)   # column, 80 × 80 tube
+    box(S + Rb @ np.array([(xc + 0.01) / 2, 0.0, 0.06]), ((0.09 - xc) / 2, 0.075, 0.015), COLUMN, Rb)   # arm to the shoulder
+    Sp = S                                                             # shoulder joint
     for s in (1, -1):
         box(Sp + Rb @ np.array([0, s * 0.065, 0.0]), (0.05, 0.01, 0.065), COLUMN, Rb)
     box(Sp, (0.04, 0.05, 0.04), RED, Ru)
     rod(Sp + 0.035 * xu, E - 0.035 * xu, 0.02, ALU, "capsule")
-    # shoulder cylinders: pushing the hub from behind the column (deltoid)
+    # shoulder cylinders: pushing the hub from the column behind the shoulder (deltoid)
     hub = Sp + SH_HUB * xu
     rod(hub - 0.02 * xu, hub + 0.02 * xu, 0.032, ALU)
     rod(hub - (SH_SIDE + 0.025) * yu, hub + (SH_SIDE + 0.025) * yu, 0.009, STEEL)
     for s in (1, -1):
         low = Sp + Rb @ np.array([SH_LOW[0], s * SH_SIDE, SH_LOW[1]])
-        rod(low, Rb @ np.array([-0.05, s * 0.03, 0.0]) + [0, 0, low[2]], 0.012, COLUMN)       # bracket on the column
+        rod(low, low - s * (SH_SIDE - 0.03) * Rb[:, 1], 0.012, STEEL)                     # pin through the column
         box(low, (0.018, 0.018, 0.018), BLUE, Rb)
         h = hub + s * SH_SIDE * yu
         box(h, (0.017, 0.017, 0.017), BLUE, Ru)
@@ -219,7 +221,7 @@ def smooth(t):
 
 def radial(p):
     """Unit vector from the base towards p, horizontal."""
-    v = np.array([p[0], p[1], 0.0])
+    v = np.array([p[0] - S[0], p[1] - S[1], 0.0])
     return v / np.linalg.norm(v)
 
 
@@ -243,7 +245,7 @@ def script(w):
         target_mouth = glass_c + [0, 0, GLASS["h"] + 0.045]
         G = target_mouth.copy()
         for _ in range(6):                        # the approach direction depends on where G is
-            yaw = math.atan2(G[1], G[0])
+            yaw = math.atan2(G[1] - S[1], G[0] - S[0])
             Rt = K.Rz(yaw) @ K.Ry(math.pi / 2) @ K.Rz(tilt)
             G = target_mouth - mouth * Rt[:, 0]
         pour_up = G + [0, 0, 0.05]
@@ -289,12 +291,13 @@ def frames(w):
     G, psi, jaw = keys[0][1], keys[0][2], keys[0][3]
     for dur, G1, psi1, jaw1, event in keys:
         n = max(1, int(round(dur * FPS)))
-        r0, r1 = math.hypot(G[0], G[1]), math.hypot(G1[0], G1[1])
-        a0, a1 = math.atan2(G[1], G[0]), math.atan2(G1[1], G1[0])
+        d0, d1 = G[:2] - S[:2], G1[:2] - S[:2]
+        r0, r1 = math.hypot(*d0), math.hypot(*d1)
+        a0, a1 = math.atan2(d0[1], d0[0]), math.atan2(d1[1], d1[0])
         for k in range(1, n + 1):
             s = smooth(k / n)
             r, a = r0 + s * (r1 - r0), a0 + s * (a1 - a0)        # around the base, not straight past it
-            P = np.array([r * math.cos(a), r * math.sin(a), G[2] + s * (G1[2] - G[2])])
+            P = np.array([S[0] + r * math.cos(a), S[1] + r * math.sin(a), G[2] + s * (G1[2] - G[2])])
             yield P, psi + s * (psi1 - psi), jaw + s * (jaw1 - jaw), (event if k == 1 else None), s
         G, psi, jaw = G1, psi1, jaw1
 
@@ -338,7 +341,7 @@ def check():
     q = np.array([0.0, -0.9, 1.3])
     for i, (dur, G, psi, jaw, event) in enumerate(script(w)):
         best = None
-        for q0 in (q, np.array([math.atan2(G[1], G[0]), -0.9, 1.3]), np.array([math.atan2(G[1], G[0]), -0.4, 0.8])):
+        for q0 in (q, np.array([math.atan2(G[1] - S[1], G[0] - S[0]), -0.9, 1.3]), np.array([math.atan2(G[1] - S[1], G[0] - S[0]), -0.4, 0.8])):
             x, err = solve(G, psi, q0)
             if best is None or err < best[1]:
                 best = (x, err)

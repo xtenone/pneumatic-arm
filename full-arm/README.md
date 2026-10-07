@@ -21,6 +21,12 @@ design.
 - Upper arm and forearm 0.5 m each, shoulder 0.8 m above the floor, wall 0.6 m in front of
   the base: a low wall of 3 courses, about 1 m wide.
 - Cylinders for the heavy joints, a small motor where there is no gravity torque.
+- The base yaw axis runs through the shoulder joint, so turning the base does not move the
+  shoulder. The column stands behind it on the turntable and turns with it; an arm over the
+  top carries the shoulder joint, and the shoulder cylinders' lower pivots sit on a pin
+  through the column. The forces of the shoulder cylinders stay inside the column, the
+  arm and the upper arm; the arm and the column hanging behind the yaw axis partly
+  balance the arm in front of it.
 
 ## Elbow: forearm roll instead of a wrist rotation (`python full-arm/elbow.py`)
 
@@ -150,7 +156,7 @@ beside the upper arm on a 5 cm lever, elbow 10–120°; wrist and gripper turned
 motors) makes a cocktail: three bottles poured into a glass, stirred with a bar spoon, glass
 slid forward. Kinematic only, 49 s; the video is not kept in git (`--stills` for frames).
 
-The shoulder cylinders lean back from a bracket behind the column on purpose: they push a
+The shoulder cylinders lean back to the column behind the shoulder on purpose: they push a
 hub 15 cm along the upper arm, and the lever they act on is that line, not the vertical.
 Over the video (upper arm −91° … −52°) their lever is 121–150 mm, largest where the arm
 reaches furthest forward and gravity pulls hardest; peak force about 124 N. Cylinders
@@ -165,7 +171,7 @@ The intermediate goal of [docs/small-wall.md](../docs/small-wall.md): the light 
 (shoulder 0.66 m above the table, 2 × Ø32 on a 100 mm lever) with four wooden blocks in a
 corner jig and the taped places of the row against a stop strip. The gripper points down
 (wrist motor) and is the proposed parallel gripper. `--check` lists the joint angles of
-every pick and place: elbow bend 83–101°, base yaw −70° … +18°, shoulder cylinders
+every pick and place: elbow bend 83–101°, base yaw −70° … +22°, shoulder cylinders
 248–267 mm pin to pin with a lever of 94–99 mm.
 
 `--video` renders stage 1a (speeds of the heavy arm: 58 s, about 14 s per block) and
@@ -173,6 +179,8 @@ every pick and place: elbow bend 83–101°, base yaw −70° … +18°, shoulde
 only; the videos are not kept in git.
 
 ![Small wall, start](out/small_wall_start_main.png)
+
+![Small wall, start, side: column behind the shoulder](out/small_wall_start_side.png)
 
 ![Small wall, top](out/small_wall_start_top.png)
 

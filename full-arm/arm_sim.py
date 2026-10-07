@@ -163,10 +163,11 @@ def build_xml(cyls):
 <mujoco model="light_arm">
   <option timestep="{DT}" integrator="implicitfast" gravity="0 0 -9.81"><flag contact="disable"/></option>
   <worldbody>
-    <body name="yaw" pos="0 0 {S[2]}">
+    <body name="yaw" pos="{S[0]} {S[1]} {S[2]}">
       <joint name="yaw" type="hinge" axis="0 0 1" armature="0.05"/>
-      <geom type="cylinder" fromto="0 0 -0.05 0 0 0.05" size="0.06" mass="2.0"/>
-      <body name="upper" pos="{C.SH_OFF} 0 0">
+      <geom type="box" pos="{C.SH_LOW[0]} 0 {-S[2] / 2}" size="0.04 0.04 {S[2] / 2}" mass="3.0"/>
+      <geom type="box" pos="{C.SH_LOW[0] / 2} 0 0.06" size="{-C.SH_LOW[0] / 2} 0.075 0.015" mass="1.0"/>
+      <body name="upper" pos="0 0 0">
         <joint name="shoulder" type="hinge" axis="0 -1 0" frictionloss="{fr['shoulder'][0]:.3f}" damping="{fr['shoulder'][1]:.3f}"/>
         <geom type="capsule" fromto="0 0 0 {L1} 0 0" size="0.02" mass="{M_UPPER}"/>
         <body name="fore" pos="{L1} 0 0">

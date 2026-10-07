@@ -26,20 +26,23 @@ courses. It is the wall task of the [goal](../goal.md) at small scale: the same 
 ```
           wall (start against a stop strip)
         ┌────┬────┬────┬────┐
-        │    │    │    │    │          ← ≈ 0.65 m in front of the base
+        │    │    │    │    │          ← ≈ 0.53 m in front of the yaw axis
         └────┴────┴────┴────┘
                                     ┌──┐
-              (arm base)            │  │ stack(s), ≈ 0.70 m from the base,
+              (arm base)            │  │ stack(s), ≈ 0.58 m from the yaw axis,
                  ●                  └──┘ about 70° to the side, turned 90°
                                          relative to the wall
 ```
 
+- The base yaw axis runs through the shoulder joint; distances are measured from it.
 - The shoulder is about 0.66 m above the table top, so the elbow stays at least 12 cm
   above the table.
 - Stack: full blocks 4 high (0.27 m) in a corner jig, so their positions are known.
 - Wall: 4 full blocks long (≈ 0.55 m), starting against a strip screwed to the table.
-- Reach (2 × 0.5 m arm, rough check): the elbow bends 85–110° at the wall and 105° at
-  the top of the stack, within its 10–120°. The real check follows in simulation.
+- Reach (2 × 0.5 m arm, `python full-arm/small_wall.py --check`): the elbow bends 85–89°
+  at the wall and 83–101° at the stack, within its 10–120°. Further away the arm is more
+  stretched and settles worse: in the simulation the stack at 0.67 m made the picks
+  oscillate.
 - No camera: the positions are fixed by the jig and the strip and known to the program.
 
 ## Joints used

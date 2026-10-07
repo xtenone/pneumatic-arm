@@ -28,15 +28,15 @@ BLOCK = (0.136, 0.068, 0.068)                 # length, width, height (m)
 GAP = 0.004                                   # joint between blocks in the row
 TABLE_TOP = C.TABLE_TOP
 C.TABLE = dict(x=(0.15, 1.0), y=(-0.85, 0.6))
-STACK = C.polar(0.70, -70)                    # centre of the stack; blocks along x (turned 90° to the wall)
 STACK_N = 4
-WALL_X = 0.65                                 # row along y, starting against a strip at the -y end
+WALL_X = 0.65                                 # row along y (0.53 m in front of the yaw axis), starting against a strip at the -y end
 WALL_Y = [-1.5 * (BLOCK[0] + GAP) + i * (BLOCK[0] + GAP) for i in range(4)]
 GRIP_DEPTH = 0.020                            # grasp centre below the block's top (jaws on the top 40 mm)
 OPEN, CLOSED = 0.095, 0.062               # jaw drawing: closed = pads touching the block
 START = np.array([0.55, -0.30, TABLE_TOP + 0.28])
 
-C.S[:] = [0.0, 0.0, TABLE_TOP + 0.66]          # shoulder 0.66 m above the table: elbow ≥ 12 cm above it
+C.S[:] = [0.12, 0.0, TABLE_TOP + 0.66]         # shoulder 0.66 m above the table: elbow ≥ 12 cm above it
+STACK = C.S * [1, 1, 0] + C.polar(0.58, -70)  # centre of the stack, from the yaw axis; blocks along x (turned 90° to the wall)
 # light shoulder: 2 × Ø32 × 200 on a 100 mm hub (body about Ø40 over the profile)
 C.SH_HUB, C.SH_LOW, C.SH_CYL = 0.10, (-0.22, -0.20), (0.020, 0.20, 0.006)
 C.GRIP = 0.14                                 # wrist → grasp centre with the block gripper
@@ -48,8 +48,6 @@ def tool(q, psi):
     """Gripper pointing straight down; psi turns it about the vertical."""
     yaw, p1, p2 = q
     Ru, Rf, Rw, E, W = K.chain([yaw, p1, 0.0, p2, 0.0, -p1 - p2])
-    off = K.Rz(yaw) @ np.array([C.SH_OFF, 0.0, 0.0])
-    E, W = E + off, W + off
     Rt = Rw @ K.Rz(psi)
     return Ru, Rf, Rw, Rt, E, W, W - C.GRIP * Rt[:, 2]
 
@@ -188,13 +186,14 @@ def segments(mode):
             # cosine profile: peak speed = π/2 × mean speed
             dur = max(math.pi / 2 * float(np.max(dq / caps)), sp["short"] if kind == "short" else 0.6)
         n = max(1, int(round(dur * FPS)))
-        r0, r1 = math.hypot(G[0], G[1]), math.hypot(G1[0], G1[1])
-        b0, b1 = math.atan2(G[1], G[0]), math.atan2(G1[1], G1[0])
+        d0, d1 = G[:2] - C.S[:2], G1[:2] - C.S[:2]     # around the yaw axis
+        r0, r1 = math.hypot(*d0), math.hypot(*d1)
+        b0, b1 = math.atan2(d0[1], d0[0]), math.atan2(d1[1], d1[0])
         qs = [q]
         for j in range(1, n + 1):
             u = C.smooth(j / n)
             r, b = r0 + u * (r1 - r0), b0 + u * (b1 - b0)
-            P = np.array([r * math.cos(b), r * math.sin(b), G[2] + u * (G1[2] - G[2])])
+            P = np.array([C.S[0] + r * math.cos(b), C.S[1] + r * math.sin(b), G[2] + u * (G1[2] - G[2])])
             if kind == "travel":                  # lift first, lower last: arc over the table
                 P[2] += 0.04 * math.sin(math.pi * u)
             q = pose(P, 0.0, q)[0]
@@ -259,7 +258,8 @@ def video(mode):
 FPS = C.FPS
 FONT = None
 CAMS = {"main": ((1.05, -1.75, 1.55), (0.35, -0.2, 0.9)), "top": ((-0.25, -0.15, 2.5), (0.55, -0.15, 0.72)),
-        "close": ((0.95, -0.80, 1.12), (0.52, -0.32, 0.95))}
+        "close": ((0.95, -0.80, 1.12), (0.52, -0.32, 0.95)),
+        "side": ((-1.15, -1.95, 1.25), (0.15, -0.10, 0.80))}       # across the arm plane: column, arm, cylinders
 
 
 def main():
