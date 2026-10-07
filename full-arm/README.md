@@ -197,21 +197,21 @@ Results in [out/sim/results.md](out/sim/results.md):
 
 | Case | Stage 1 time | Waiting | Lag while moving | Placement error |
 |---|---|---|---|---|
-| 0.3 kg, fast | 23.4 s | 3.2 s | 31 mm | ≤ 4 mm |
-| 1.5 kg, fast | 23.7 s | 3.6 s | 40 mm | ≤ 3 mm |
-| 3 kg, elbow 2 × Ø25, fast | 31.6 s | 11.5 s | 184 mm | up to 48 mm |
-| 3 kg, elbow 2 × Ø32, retuned, fast | 29.0 s | 8.9 s | 214 mm | up to 18 mm |
-| 1.5 kg, controlled | 53.5 s | 3.4 s | 13 mm | ≤ 3 mm |
-| 3 kg, elbow 2 × Ø32, retuned, controlled | 56.3 s | 6.1 s | 16 mm | ≤ 3 mm |
+| 0.3 kg, fast | 24.5 s | 4.3 s | 39 mm | ≤ 3 mm |
+| 1.5 kg, fast | 23.8 s | 3.6 s | 44 mm | ≤ 3 mm |
+| 3 kg, elbow 2 × Ø25, fast | 33.8 s | 13.6 s | 195 mm | up to 11 mm |
+| 3 kg, elbow 2 × Ø32, retuned, fast | 31.0 s | 10.8 s | 289 mm | up to 19 mm |
+| 1.5 kg, controlled | 53.5 s | 3.4 s | 16 mm | ≤ 3 mm |
+| 3 kg, elbow 2 × Ø32, retuned, controlled | 56.8 s | 6.7 s | 15 mm | ≤ 3 mm |
 
-- **Up to 1.5 kg the load hardly matters:** about 23.5 s fast (plan 20.1 s), placement
-  within 4 mm.
+- **Up to 1.5 kg the load hardly matters:** about 24 s fast (plan 20.2 s), placement
+  within 3 mm.
 - **3 kg at the fast speeds is beyond the arm.** The air springs of shoulder and elbow
   carry the arm at only 1.0–1.6 Hz (effective mass at the rod 100–460 kg); with 3 kg the
-  arm lags up to 0.2 m behind the plan, swings at the end of a move, waits up to the 3 s
-  limit and sometimes places a block 2–5 cm off. A larger elbow cylinder (Ø32) and
+  arm lags 0.2–0.3 m behind the plan, swings at the end of a move, waits up to the 3 s
+  limit and sometimes places a block 1–3 cm off. A larger elbow cylinder (Ø32) and
   retuned gains help only a little.
-- **3 kg at the controlled speeds works:** 56 s instead of 54 s, placement within 3 mm.
+- **3 kg at the controlled speeds works:** 57 s instead of 54 s, placement within 3 mm.
 - So for heavier blocks the arm either moves slower, or it needs the compensation of
   stage 1b: feedforward of gravity and acceleration, so that the cylinders already push
   when the move starts instead of after an error has built up.
