@@ -95,6 +95,28 @@ def main():
         litres = 2 * area(bore) * SPAN * 150 / 1e6
         print(f"Ø{bore}, lever 150: {litres:.2f} l swept per full lift, ≈{litres * 3.5:.0f} Nl free air")
 
+    light()
+
+
+# Light version: 1.5 kg at 1 m (upper arm and forearm 0.5 m each)
+LIGHT_MASSES = dict(tip=(1.5, 1.0, 0.5), wrist=(1.1, 0.95, 0.45), forearm=(0.5, 0.75, 0.25), upper=(1.2, 0.25, None))
+# kg, distance from the shoulder and from the elbow with the arm stretched (m); wrist = wrist
+# pitch motor + gripper rotation motor + gripper; upper arm includes the elbow cylinders
+LIGHT_JOINTS = (("shoulder", 0, ((25, 10, 0.100), (32, 12, 0.100), (25, 10, 0.150))),
+                ("elbow", 1, ((20, 8, 0.075), (25, 10, 0.050), (25, 10, 0.075))))
+
+
+def light():
+    print("\n## Light version: 1.5 kg at 1 m (work = 0.6 × peak)")
+    print("| Joint | Peak / work torque | Cylinders | Lever | Peak load | Work load | Speed peak / empty, 1 × VQ110U |")
+    for joint, k, options in LIGHT_JOINTS:
+        Tp = G * sum(m * d[k] for m, *d in LIGHT_MASSES.values() if d[k] is not None)
+        for bore, rod, lever in options:
+            avail = 2 * P_SUPPLY * 0.1 * area(bore) * lever
+            v = [math.degrees(speed(bore, rod, lever, T, VALVES["1 × VQ110U"]) / 1000 / lever) for T in (Tp, 0.01)]
+            print(f"| {joint} | {Tp:.1f} / {0.6 * Tp:.1f} Nm | 2 × Ø{bore} | {lever * 1000:.0f} mm | {Tp / avail * 100:.0f}% | "
+                  f"{0.6 * Tp / avail * 100:.0f}% | {v[0]:.0f} / {v[1]:.0f}°/s |")
+
 
 if __name__ == "__main__":
     main()

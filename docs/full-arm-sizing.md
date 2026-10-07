@@ -114,6 +114,41 @@ One full lift (−60° → +75°) with two cylinders Ø50 × 275 mm sweeps 1.1 l
 10 l). One full lift every 5 s is about 45 l/min; to be checked against the compressor's
 delivery.
 
+## Light version: 1.5 kg at 1 m
+
+A second version for most small tasks (glass, sponge, tools): 1.5 kg at the hand, upper
+arm and forearm 0.5 m each, same joints. Here the arm's own mass weighs as much as the
+load. Estimated masses: wrist pitch motor + gripper rotation motor + gripper 1.1 kg,
+forearm 0.5 kg, upper arm 1.2 kg including the elbow cylinders.
+
+| Joint | Peak (stretched) | Work (0.6 × peak) |
+|---|---|---|
+| Shoulder | 31.6 Nm | 19.0 Nm |
+| Elbow | 13.4 Nm | 8.1 Nm |
+
+Options (two cylinders per joint, 5 bar, same rules: work ≤ 40%, peak ≤ 70%):
+
+| Joint | Cylinders | Lever | Peak load | Work load | Speed with the load / empty, 1 × VQ110U |
+|---|---|---|---|---|---|
+| Shoulder | 2 × Ø25 | 100 mm | 64% | 39% | 164 / 200°/s |
+| Shoulder | **2 × Ø32 × 200** | **100 mm** | **39%** | **24%** | **118 / 119°/s** |
+| Shoulder | 2 × Ø25 × 300 | 150 mm | 43% | 26% | 130 / 133°/s |
+| Elbow | 2 × Ø20 | 75 mm | 57% | 34% | 374 / 417°/s |
+| Elbow | **2 × Ø25 × 80** | **50 mm** | **55%** | **33%** | **366 / 400°/s** |
+| Elbow | 2 × Ø25 × 125 | 75 mm | 37% | 22% | 265 / 267°/s |
+
+Choice:
+
+- **Shoulder 2 × Ø32 × 200 on a 100 mm lever:** the test 2 joint (2 × Ø20, 90 mm) with
+  one size larger cylinders. Ø25 would just do, but leaves no room for errors in the mass
+  estimate.
+- **Elbow 2 × Ø25 × 80 on a 50 mm lever** (as in the cocktail impression, elbow 10–120°).
+  The hand may become about 0.75 kg heavier before the peak reaches 70%.
+
+Speed is no longer limited by the valve: the test 1 valve already gives more than 100°/s.
+The limit becomes the control and safety. A cap of about 1 m/s at the hand means about
+55°/s at the shoulder and 115°/s at the elbow. One VQ110U per chamber is plenty.
+
 ## Arm and joint
 
 - **Arm:** aluminium tube Ø50 × 3 (6060). Bending stress below 70 MPa including 2× for
@@ -127,5 +162,6 @@ delivery.
 - Valve choice for the large cylinders: 1 × VQ110U per chamber unless the shoulder proves too slow.
 - Compressor delivery versus the air use above.
 - Mass of the complete arm (elbow, forearm, gripper) → 3 kg or 30 kg case or in between.
+- Light version: weigh the wrist motors and gripper → check the elbow margin.
 - If much more force is needed: hydraulics with the same joint layout, see
   [hydraulics.md](hydraulics.md).
