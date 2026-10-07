@@ -34,6 +34,8 @@ GRIP = 0.11                                   # wrist → grasp centre
 SH_OFF = 0.12                                 # shoulder joint in front of the column (turns with the base)
 ELBOW_LEVER, ELBOW_SIDE, ELBOW_REAR = 0.05, 0.06, 0.229
 SH_HUB, SH_SIDE = 0.15, 0.10
+SH_LOW = (-0.30, -0.36)                       # shoulder cylinders' lower pivots, from the shoulder joint
+SH_CYL = (0.024, 0.26, 0.008)                 # body radius, body length, rod radius
 
 ALU, STEEL, DARK = (0.80, 0.82, 0.85, 1), (0.45, 0.46, 0.50, 1), (0.15, 0.15, 0.17, 1)
 RED, BLUE, WOOD, COLUMN = (0.75, 0.25, 0.2, 1), (0.2, 0.4, 0.75, 1), (0.55, 0.38, 0.22, 1), (0.35, 0.37, 0.40, 1)
@@ -145,12 +147,12 @@ def draw_arm(q, psi, jaw):
     rod(hub - 0.02 * xu, hub + 0.02 * xu, 0.032, ALU)
     rod(hub - (SH_SIDE + 0.025) * yu, hub + (SH_SIDE + 0.025) * yu, 0.009, STEEL)
     for s in (1, -1):
-        low = Sp + Rb @ np.array([-0.30, s * SH_SIDE, -0.36])
+        low = Sp + Rb @ np.array([SH_LOW[0], s * SH_SIDE, SH_LOW[1]])
         rod(low, Rb @ np.array([-0.05, s * 0.03, 0.0]) + [0, 0, low[2]], 0.012, COLUMN)       # bracket on the column
         box(low, (0.018, 0.018, 0.018), BLUE, Rb)
         h = hub + s * SH_SIDE * yu
         box(h, (0.017, 0.017, 0.017), BLUE, Ru)
-        cyl(low, h - 0.02 * (h - low) / np.linalg.norm(h - low), 0.024, 0.26, 0.008)
+        cyl(low, h - 0.02 * (h - low) / np.linalg.norm(h - low), *SH_CYL)
     # elbow: yoke, forearm, lever behind the elbow, Ø25 cylinders beside the upper arm
     box(E, (0.03, 0.04, 0.03), RED, Rf)
     rod(E + 0.03 * xf, W - 0.03 * xf, 0.016, ALU, "capsule")
@@ -165,15 +167,19 @@ def draw_arm(q, psi, jaw):
         box(lo, (0.012, 0.012, 0.012), BLUE, Ru)
         cyl(lo, h - 0.015 * (h - lo) / np.linalg.norm(h - lo), 0.016, 0.17, 0.005)
     # wrist pitch motor, gripper rotation motor, gripper
-    zt, yt = Rt[:, 2], Rt[:, 1]
+    zt = Rt[:, 2]
     box(W, (0.028, 0.035, 0.028), DARK, Rw)
     rod(W - 0.025 * zt, W - 0.06 * zt, 0.024, DARK)
-    palm = W - 0.07 * zt
+    draw_gripper(W - 0.07 * zt, Rt, jaw)
+    return Rt, G
+
+
+def draw_gripper(palm, Rt, jaw):
+    zt, yt = Rt[:, 2], Rt[:, 1]
     box(palm, (0.02, 0.07, 0.012), ALU, Rt)
     for s in (1, -1):
         f = palm + s * (jaw / 2 + 0.006) * yt - 0.035 * zt
         box(f, (0.015, 0.006, 0.04), BLUE, Rt)
-    return Rt, G
 
 
 def draw_world(w):

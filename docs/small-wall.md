@@ -34,7 +34,8 @@ courses. It is the wall task of the [goal](../goal.md) at small scale: the same 
                                          relative to the wall
 ```
 
-- The shoulder is about 0.55 m above the table top, as in the cocktail impression.
+- The shoulder is about 0.66 m above the table top, so the elbow stays at least 12 cm
+  above the table.
 - Stack: full blocks 4 high (0.27 m) in a corner jig, so their positions are known.
 - Wall: 4 full blocks long (≈ 0.55 m), starting against a strip screwed to the table.
 - Reach (2 × 0.5 m arm, rough check): the elbow bends 85–110° at the wall and 105° at

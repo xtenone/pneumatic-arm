@@ -159,6 +159,21 @@ lever 31–137 mm, peak force about 330 N.
 
 ![Cocktail](out/cocktail_check.png)
 
+## Small wall: start of stage 1 (`python full-arm/small_wall.py`)
+
+The intermediate goal of [docs/small-wall.md](../docs/small-wall.md): the light arm
+(shoulder 0.66 m above the table, 2 × Ø32 on a 100 mm lever) with four wooden blocks in a
+corner jig and the taped places of the row against a stop strip. The gripper points down
+(wrist motor) and is the proposed parallel gripper. `--check` lists the joint angles of
+every pick and place: elbow bend 83–101°, base yaw −70° … +18°, shoulder cylinders
+248–267 mm pin to pin with a lever of 94–99 mm.
+
+![Small wall, start](out/small_wall_start_main.png)
+
+![Small wall, top](out/small_wall_start_top.png)
+
+![Small wall, gripper](out/small_wall_start_close.png)
+
 ## Choice for now
 
 - **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
