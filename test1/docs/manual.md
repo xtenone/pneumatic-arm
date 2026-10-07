@@ -51,6 +51,9 @@ open a dispute with photos.
 | 2× pressure sensor | 5 V on it (red +, black −), measure the signal | 0 bar: approx. 0.5 V (or approx. 0 V for a 0–5 V type) |
 | | thread | male G1/4 (fits the PCF4-02) |
 | ULN2803A | — | tested in step 8 |
+| Pico 2 W | hold BOOTSEL, plug in the USB cable | a USB drive "RP2350" appears (step 9) |
+| Resistors 10 kΩ, 47 kΩ | multimeter Ω | within 5% of the value |
+| Capacitors 1 µF, 100 nF | print on the part | 1 µF: "1µF" or "105"; 100 nF: "104" |
 | Regulator, slide, main valve | thread sizes | G1/4 (the PC4-02 fittings fit) |
 | Emergency stop | multimeter in beep mode, on the NC terminals | beeps when released, silent when pressed |
 | Compressor | first run with the tank empty (outlet closed) | starts, stops by itself at its cut-off pressure (8 bar for a 6 l silent compressor); note the time from 0 to cut-off |

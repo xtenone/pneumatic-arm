@@ -40,7 +40,7 @@ Status: ordered (2026-10-04)
 
 ## 3. Electronics (Tinytronics, NL)
 
-Status: ordered (2026-10-05)
+Status: received (2026-10-07)
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
