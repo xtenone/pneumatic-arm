@@ -17,9 +17,21 @@ final cylinder size.
 
 For comparison: test 1 delivers at most 21 Nm, test 2 (2 × Ø20 on a 90 mm lever) 28 Nm.
 
+15 kg with the arm stretched is the limit, not the normal work: it happens rarely, briefly
+and slowly. Normal work holds the 15 kg closer in, at about 0.6 m.
+
+| Load case | Arm 3 kg | Arm 30 kg | Allowed share of the available torque |
+|---|---|---|---|
+| Work: 15 kg at 0.6 m | 97 Nm | 177 Nm | 40% |
+| Peak: 15 kg at 1 m | 162 Nm | 294 Nm | 70% |
+
+The peak may use more of the force because it is held still or moved slowly: the margin
+for accelerating and for the control is small there. How long it lasts does not matter to
+a cylinder: holding a force costs no air and nothing heats up (unlike a motor).
+
 ## Cylinders
 
-Rule: the static load may use at most about 40% of the available torque (test 1 is
+Rule (first sizing, before the load cases above): the static load may use at most about 40% of the available torque (test 1 is
 designed at 30–39%), at 5 bar, two cylinders pushing together.
 
 The lever (hub distance from the joint) trades cylinder diameter against stroke: the
@@ -42,9 +54,21 @@ for every choice; it follows from torque × angle.
 | 250 mm | Ø63 | 500 mm | 38% |
 | 370 mm | Ø63 | 700 mm | 26% |
 
-Choice for now: **lever 150 mm with Ø63 × 300** (Ø80 for the heavy arm). This keeps the
-joint compact, is the test 2 layout at about 1.7× scale, and avoids long slender
-cylinders that buckle sooner. The joint then sits about 90 cm above its base.
+Lever 150 mm keeps the joint compact, is the test 2 layout at about 1.7× scale, and
+avoids long slender cylinders that buckle sooner. The joint then sits about 90 cm above
+its base.
+
+**With the load cases** (work ≤ 40%, peak ≤ 70%, lever 150 mm):
+
+| Arm | Cylinder | Work load | Peak load | Speed work / peak (1 × VQ110U) |
+|---|---|---|---|---|
+| 3 kg | **Ø50 × 300** | 33% | 55% | 33 / 30°/s |
+| 30 kg | Ø63 × 300 | 38% | 63% | 19 / 17°/s |
+
+Choice for now: **lever 150 mm with Ø50 × 300** (Ø63 for the heavy arm), one size smaller
+than with the 40% rule for the peak: about 1.5× faster and 37% less air per lift. If T7
+shows that less than about 70% is usable at slow speed, the shoulder goes back to Ø63
+(Ø80).
 
 Roll is not limiting: at this size more than 200 Nm is available about the arm axis,
 while a block hanging 10 cm beside the axis needs about 15 Nm.
@@ -73,7 +97,8 @@ cylinder (bore × lever), and hardly by the load:
 
 | Joint | Torque with 15 kg | With 15 kg | Without load |
 |---|---|---|---|
-| Shoulder, Ø63, lever 150 mm | 162 Nm | 20°/s | 20°/s |
+| Shoulder, Ø50, lever 150 mm | 162 Nm | 30°/s | 33°/s |
+| Shoulder, Ø63, lever 150 mm (40% rule for the peak) | 162 Nm | 20°/s | 20°/s |
 | Elbow, Ø50, lever 100 mm (15 kg at 0.5 m) | 77 Nm | 49°/s | 50°/s |
 
 **Decision:** the shoulder may be slow; it positions the arm. Fast movements (for other
@@ -84,9 +109,10 @@ cheaper valve per chamber.
 
 ## Air use
 
-One full lift (−60° → +75°) with two cylinders Ø63 × 275 mm sweeps 1.7 l, about
-**6 l of free air** at a chamber pressure of 3.5 bar absolute (Ø80: about 10 l). One full
-lift every 5 s is about 70 l/min; to be checked against the compressor's delivery.
+One full lift (−60° → +75°) with two cylinders Ø50 × 275 mm sweeps 1.1 l, about
+**4 l of free air** at a chamber pressure of 3.5 bar absolute (Ø63: about 6 l, Ø80: about
+10 l). One full lift every 5 s is about 45 l/min; to be checked against the compressor's
+delivery.
 
 ## Arm and joint
 
@@ -97,7 +123,7 @@ lift every 5 s is about 70 l/min; to be checked against the compressor's deliver
 
 ## Open
 
-- T7 result: maximum load ratio → final cylinder diameter.
+- T7 result: usable load ratio at slow speed (≥ 70% → Ø50, otherwise Ø63) → final cylinder diameter.
 - Valve choice for the large cylinders: 1 × VQ110U per chamber unless the shoulder proves too slow.
 - Compressor delivery versus the air use above.
 - Mass of the complete arm (elbow, forearm, gripper) → 3 kg or 30 kg case or in between.

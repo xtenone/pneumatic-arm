@@ -13,7 +13,7 @@ design.
 | Joint | DOF | Drive | Why |
 |---|---|---|---|
 | Base yaw | 1 | Electric: stepper with belt on a slewing ring | A vertical axis carries no gravity torque, so a small motor is enough, and it can turn further than the ≈ 120° of a cylinder |
-| Shoulder | 2 (pitch + roll) | 2 × Ø63 × 300, lever 150 mm; the [test 2](../test2/README.md) joint at ≈ 1.7× scale | 162 Nm with 15 kg at 1 m |
+| Shoulder | 2 (pitch + roll) | 2 × Ø50 × 300, lever 150 mm (Ø63 in the renders); the [test 2](../test2/README.md) joint at ≈ 1.7× scale | 162 Nm with 15 kg at 1 m (peak), 97 Nm at 0.6 m (work) |
 | Elbow | 2 (pitch + forearm roll) | 2 × Ø40–50 lying on top of the upper arm, like a biceps; the same joint as the shoulder | see below |
 | Wrist | 1 (pitch) | 1 small cylinder along the forearm | keeps the block level |
 | Gripper | — | two jaws closed by a pneumatic cylinder | clamps the block at its ends |

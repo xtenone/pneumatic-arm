@@ -10,7 +10,7 @@ change.
 - Forces much larger than the 15 kg arm (for example 50 kg or more, or heavy tools).
 - Pneumatics too soft or not precise enough under load (tests T6 and T7).
 
-For 15 kg at 1 m pneumatics is enough (Ø63 at 5 bar, see
+For 15 kg at 1 m pneumatics is enough (Ø50–63 at 5 bar, see
 [full-arm-sizing.md](full-arm-sizing.md)) and simpler, cleaner and safer.
 
 ## Comparison

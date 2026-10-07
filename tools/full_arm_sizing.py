@@ -15,6 +15,8 @@ P_SUPPLY = 5.0                      # bar gauge
 LOAD, REACH = 15.0, 1.0             # kg, m
 ARMS = {"arm 3 kg (one 1 m segment)": 3.0, "arm 30 kg (complete arm, from docs/2dof-joint.md)": 30.0}
 MAX_RATIO = 0.40                    # static load / available torque (test 1 is designed at 30–39 %)
+PEAK_RATIO = 0.70                   # same, for the rare peak: 15 kg at full reach, slow and briefly
+WORK_REACH = 0.6                    # m: normal work, 15 kg held closer in
 BORES = [(32, 12), (40, 16), (50, 20), (63, 20), (80, 25), (100, 25)]   # bore, rod (mm), ISO 15552
 STROKES = [200, 250, 300, 320, 400, 500, 600, 700, 800]
 SPAN = math.sin(math.radians(75)) + math.sin(math.radians(60))           # stroke / lever for −60 … +75°
@@ -24,6 +26,11 @@ VALVES = {"1 × VQ110U": 0.144, "4 × VQ110U": 0.576, "4V210 (5/2)": 2.8}  # C i
 def gravity_torque(arm_mass):
     """Nm with the arm horizontal; the arm's centre of mass at half the reach."""
     return G * (LOAD * REACH + arm_mass * REACH / 2)
+
+
+def work_torque(arm_mass):
+    """Nm for normal work: 15 kg at WORK_REACH, arm bent so its centre of mass is at half that."""
+    return G * (LOAD * WORK_REACH + arm_mass * WORK_REACH / 2)
 
 
 def area(d):
@@ -67,15 +74,24 @@ def main():
             v = [speed(bore, rod, lever / 1000, T, C) for C in VALVES.values()]
             cells = [f"{math.degrees(x / lever):.0f}°/s ({math.radians(math.degrees(x / lever)) * REACH:.2f} m/s)" for x in v]
             print(f"| {lever} mm | Ø{bore} | {stroke} mm | {ratio * 100:.0f}% | " + " | ".join(cells) + " |")
+    print("\n## Load cases, lever 150 mm: smallest bore with work ≤ 40% and peak ≤ 70%")
+    print("| Arm | Work (15 kg at 0.6 m) | Peak (15 kg at 1 m) | Cylinder | Work load | Peak load | Speed work / peak |")
+    for name, arm_mass in ARMS.items():
+        Tw, Tp = work_torque(arm_mass), gravity_torque(arm_mass)
+        avail = {b: 2 * P_SUPPLY * 0.1 * area(b) * 0.150 for b, _ in BORES}
+        bore, rod = next((b, r) for b, r in BORES if Tw / avail[b] <= MAX_RATIO and Tp / avail[b] <= PEAK_RATIO)
+        v = [math.degrees(speed(bore, rod, 0.150, T, VALVES["1 × VQ110U"]) / 1000 / 0.150) for T in (Tw, Tp)]
+        print(f"| {name} | {Tw:.0f} Nm | {Tp:.0f} Nm | Ø{bore} | {Tw / avail[bore] * 100:.0f}% | {Tp / avail[bore] * 100:.0f}% | {v[0]:.0f} / {v[1]:.0f}°/s |")
     print("\n## Speed with 1 × VQ110U per chamber, with and without the 15 kg")
     elbow_T = G * (LOAD * 0.5 + 1.5 * 0.25)       # 15 kg at 0.5 m, forearm 1.5 kg
     for name, bore, rod, lever, loaded, empty in (
+            ("shoulder Ø50, lever 150", 50, 20, 0.150, gravity_torque(3.0), G * 3.0 * REACH / 2),
             ("shoulder Ø63, lever 150", 63, 20, 0.150, gravity_torque(3.0), G * 3.0 * REACH / 2),
             ("elbow Ø50, lever 100", 50, 20, 0.100, elbow_T, G * 1.5 * 0.25)):
         v = [math.degrees(speed(bore, rod, lever, T, VALVES["1 × VQ110U"]) / 1000 / lever) for T in (loaded, empty)]
         print(f"| {name} | {loaded:.0f} Nm | {v[0]:.0f}°/s | {v[1]:.0f}°/s |")
     print()
-    for bore in (63, 80):
+    for bore in (50, 63, 80):
         litres = 2 * area(bore) * SPAN * 150 / 1e6
         print(f"Ø{bore}, lever 150: {litres:.2f} l swept per full lift, ≈{litres * 3.5:.0f} Nl free air")
 
