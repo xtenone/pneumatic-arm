@@ -84,7 +84,10 @@ chamber:
 
 This shows the tasks, the reach and the pace of the heavy arm. It does not show its
 dynamics: a heavier load sags more under a pressure change and takes longer to stop,
-so control settings do not carry over one to one. The load share is similar (light
+so control settings do not carry over one to one.
+
+Intermediate goal for the light arm: [a small wall of wooden blocks](small-wall.md) (row from a
+stack, then two courses). The load share is similar (light
 shoulder 24% / 39%, heavy 33% / 55% for work / peak), so the control works in the same range.
 
 ## After that

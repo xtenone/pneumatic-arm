@@ -33,6 +33,9 @@ with them.
 On the way there, the arm first does light tasks to practise and to show what it can do;
 the first is cleaning a toilet (see [docs/plan.md](docs/plan.md)).
 
+Intermediate goal with the light arm (1.5 kg): a small wall of wooden blocks, first a row
+from a stack, then two courses in running bond (see [docs/small-wall.md](docs/small-wall.md)).
+
 ## Requirements
 
 - Payload: about 15 kg per arm.

@@ -1,0 +1,84 @@
+# Intermediate goal: a small wall of wooden blocks
+
+The light arm (1.5 kg at 1 m, see [full-arm-sizing.md](full-arm-sizing.md#light-version-15-kg-at-1-m))
+takes blocks from a stack and lays them in a row, and then in a small wall of two
+courses. It is the wall task of the [goal](../goal.md) at small scale: the same steps
+(pick, turn, place, line up) with light, safe blocks.
+
+## Blocks
+
+| | |
+|---|---|
+| Material | Planed pine beam, nominal 70 × 70 mm (actual ≈ 68 × 68) |
+| Full block | 68 × 68 × 136 mm (length = 2 × width), ≈ 0.3 kg |
+| Half block | 68 × 68 × 68 mm (cube), ≈ 0.15 kg |
+| Finish | All edges chamfered 2 mm, so a block slides into place instead of catching |
+
+- **Why wood:** easy to saw to size with a mitre saw, cheap, square, and harmless when
+  dropped. Length 2 × width allows a running bond, like bricks.
+- **Why this size:** the gripper only needs one opening (68 mm across the block) for
+  full and half blocks; at 0.3 kg the arm works at about a quarter of its load limit, so
+  speed and accuracy can be tested without the load in the way.
+- **Heavier later:** steel in a drilled hole brings a block to about 1 kg (stage 3).
+
+## Layout on the table
+
+```
+          wall (start against a stop strip)
+        ┌────┬────┬────┬────┐
+        │    │    │    │    │          ← ≈ 0.65 m in front of the base
+        └────┴────┴────┴────┘
+                                    ┌──┐
+              (arm base)            │  │ stack(s), ≈ 0.70 m from the base,
+                 ●                  └──┘ about 70° to the side, turned 90°
+                                         relative to the wall
+```
+
+- The shoulder is about 0.55 m above the table top, as in the cocktail impression.
+- Stack: full blocks 4 high (0.27 m) in a corner jig, so their positions are known.
+- Wall: 4 full blocks long (≈ 0.55 m), starting against a strip screwed to the table.
+- Reach (2 × 0.5 m arm, rough check): the elbow bends 85–110° at the wall and 105° at
+  the top of the stack, within its 10–120°. The real check follows in simulation.
+- No camera: the positions are fixed by the jig and the strip and known to the program.
+
+## Joints used
+
+| Joint | Drive | Task |
+|---|---|---|
+| Base yaw | Motor | Between the stack and the wall |
+| Shoulder pitch | 2 × Ø32 | Reach and height |
+| Elbow pitch | 2 × Ø25 | Reach and height |
+| Wrist pitch | Motor | Keeps the gripper pointing straight down |
+| Gripper yaw | Motor | Turns the block 90° from the stack to the wall |
+| Gripper | Cylinder | Clamps the block across its 68 mm width |
+
+The shoulder and forearm rolls are held at 0: both cylinders of a joint get the same
+command.
+
+## Gripper requirements
+
+- Two jaws gripping the 68 mm width from above, opening ≥ 95 mm (≥ 13 mm free on each
+  side, more than the expected placement error).
+- Grip force ≥ 30 N per jaw (holds 1 kg with a factor 3 at a friction coefficient of 0.4,
+  rubber on wood).
+- The design is worked out separately.
+
+## Stages and success criteria
+
+| Stage | Task | Success |
+|---|---|---|
+| 1. Row | 4 full blocks from the stack in a row against the strip | 9 of 10 runs: every block within ±5 mm and ±3° of its place, joints ≤ 5 mm, nothing knocked over |
+| 2. Small wall | 2 courses in running bond: 4 full blocks, then half + 3 full + half (2 stacks of full blocks, half blocks beside them) | 9 of 10 runs, same tolerances, the wall stays standing |
+| 3. Heavier blocks | Stage 2 with blocks of about 1 kg | as stage 2 |
+
+- Time: at most 30 s per block with the speed caps of the heavy version (shoulder 30°/s,
+  elbow 50°/s, see [plan.md](plan.md#first-complete-arm-the-light-version)); the row
+  within 2 minutes.
+- Every run is recorded (video + joint log), as for the other tests.
+
+## Open
+
+- Gripper design.
+- Reach and layout check in simulation (positions of the stack and the wall).
+- Repeatability of the arm: tests T4 (test 1) and test 2 show whether ±5 mm is
+  realistic at 0.65 m.
