@@ -115,5 +115,8 @@ Speeds:
 
 - Gripper: CAD of the proposal above, fit test, then build.
 - Reach and layout check in simulation (positions of the stack and the wall).
+- Simulation of stage 1 ([full-arm/README.md](../full-arm/README.md#dynamic-simulation-python-full-armarm_simpy)):
+  up to 1.5 kg the fast run takes about 24 s with blocks within 4 mm; 3 kg needs the
+  controlled speeds or feedforward compensation.
 - Repeatability of the arm: tests T4 (test 1) and test 2 show whether ±5 mm is
   realistic at 0.65 m.

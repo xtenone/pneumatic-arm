@@ -169,16 +169,16 @@ def keys():
     return k
 
 
-def frames(mode):
-    """Per frame: joints q, gripper yaw psi, jaw, event (at the end of a move), time."""
+def segments(mode):
+    """The planned moves of stage 1: list of dicts with kind, event, duration, the joint
+    angles per video frame (qs, first = start of the move), block angles a0/a1, jaw0/jaw1
+    and the target grasp centre G."""
     sp = SPEEDS[mode]
     caps = np.radians(sp["caps"])
     k = keys()
     q = pose(k[0][0], k[0][1], np.array([-0.5, -1.2, 1.5]))[0]
     G, a, jaw = k[0][0], k[0][1], k[0][2]
-    t = 0.0
-    for _ in range(int(FPS * 0.8)):
-        yield q, a - q[0], jaw, None
+    out = []
     for G1, a1, jaw1, event, kind in k[1:]:
         q1 = pose(G1, a1, q)[0]
         dq = np.abs(np.append(q1 - q, (a1 - q1[0]) - (a - q[0])))
@@ -190,20 +190,38 @@ def frames(mode):
         n = max(1, int(round(dur * FPS)))
         r0, r1 = math.hypot(G[0], G[1]), math.hypot(G1[0], G1[1])
         b0, b1 = math.atan2(G[1], G[0]), math.atan2(G1[1], G1[0])
+        qs = [q]
         for j in range(1, n + 1):
             u = C.smooth(j / n)
             r, b = r0 + u * (r1 - r0), b0 + u * (b1 - b0)
             P = np.array([r * math.cos(b), r * math.sin(b), G[2] + u * (G1[2] - G[2])])
             if kind == "travel":                  # lift first, lower last: arc over the table
                 P[2] += 0.04 * math.sin(math.pi * u)
-            qf, _, _ = pose(P, 0.0, q)
-            q = qf
-            yield q, (a + u * (a1 - a)) - q[0], jaw + u * (jaw1 - jaw), (event if j == n else None)
-        for _ in range(int(round(sp["settle"] * FPS)) if kind == "short" else 0):
-            yield q, a1 - q[0], jaw1, None
+            q = pose(P, 0.0, q)[0]
+            qs.append(q)
+        out.append(dict(kind=kind, event=event, dur=n / FPS, qs=np.array(qs), a0=a, a1=a1,
+                        jaw0=jaw, jaw1=jaw1, G=G1, settle=sp["settle"] if kind == "short" else 0.0))
         G, a, jaw = G1, a1, jaw1
+    return out
+
+
+def frames(mode):
+    """Per frame: joints q, gripper yaw psi, jaw, event (at the end of a move)."""
+    segs = segments(mode)
+    q0, a = segs[0]["qs"][0], segs[0]["a0"]
+    for _ in range(int(FPS * 0.8)):
+        yield q0, a - q0[0], segs[0]["jaw0"], None
+    for sg in segs:
+        n = len(sg["qs"]) - 1
+        for j in range(1, n + 1):
+            u = C.smooth(j / n)
+            q = sg["qs"][j]
+            yield q, (sg["a0"] + u * (sg["a1"] - sg["a0"])) - q[0], sg["jaw0"] + u * (sg["jaw1"] - sg["jaw0"]), \
+                (sg["event"] if j == n else None)
+        for _ in range(int(round(sg["settle"] * FPS))):
+            yield q, sg["a1"] - q[0], sg["jaw1"], None
     for _ in range(FPS):
-        yield q, a - q[0], jaw, None
+        yield q, sg["a1"] - q[0], sg["jaw1"], None
 
 
 def video(mode):

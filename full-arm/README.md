@@ -178,6 +178,42 @@ only; the videos are not kept in git.
 
 ![Small wall, gripper](out/small_wall_start_close.png)
 
+### Dynamic simulation (`python full-arm/arm_sim.py`)
+
+The same stage 1 with a physical arm: MuJoCo for the links and the block, the test 1
+pneumatics model (ISO 6358 flow, chamber pressures, VQ110U valves with switching times)
+for the shoulder and elbow cylinders, and the test 1 controller for each of those joints
+with its own gains. Base yaw and wrist are stiff motor servos. Before gripping or releasing,
+the program waits until the gripper is within ±3 mm of its target and nearly still.
+Results in [out/sim/results.md](out/sim/results.md):
+
+| Case | Stage 1 time | Waiting | Lag while moving | Placement error |
+|---|---|---|---|---|
+| 0.3 kg, fast | 23.4 s | 3.2 s | 31 mm | ≤ 4 mm |
+| 1.5 kg, fast | 23.7 s | 3.6 s | 40 mm | ≤ 3 mm |
+| 3 kg, elbow 2 × Ø25, fast | 31.6 s | 11.5 s | 184 mm | up to 48 mm |
+| 3 kg, elbow 2 × Ø32, retuned, fast | 29.0 s | 8.9 s | 214 mm | up to 18 mm |
+| 1.5 kg, controlled | 53.5 s | 3.4 s | 13 mm | ≤ 3 mm |
+| 3 kg, elbow 2 × Ø32, retuned, controlled | 56.3 s | 6.1 s | 16 mm | ≤ 3 mm |
+
+- **Up to 1.5 kg the load hardly matters:** about 23.5 s fast (plan 20.1 s), placement
+  within 4 mm.
+- **3 kg at the fast speeds is beyond the arm.** The air springs of shoulder and elbow
+  carry the arm at only 1.0–1.6 Hz (effective mass at the rod 100–460 kg); with 3 kg the
+  arm lags up to 0.2 m behind the plan, swings at the end of a move, waits up to the 3 s
+  limit and sometimes places a block 2–5 cm off. A larger elbow cylinder (Ø32) and
+  retuned gains help only a little.
+- **3 kg at the controlled speeds works:** 56 s instead of 54 s, placement within 3 mm.
+- So for heavier blocks the arm either moves slower, or it needs the compensation of
+  stage 1b: feedforward of gravity and acceleration, so that the cylinders already push
+  when the move starts instead of after an error has built up.
+- The numbers are as good as the model: the pneumatics model and the friction estimates
+  are checked against the real cylinder in test 1 (T1–T3). No contacts are simulated (a
+  block that is placed too low would in reality hit the table).
+
+`--tune` runs step tests; `--video N` renders case N of `CASES` with the planned gripper as
+a green ghost (MP4 not kept in git).
+
 ## Choice for now
 
 - **Elbow above the shoulder, biceps layout (cylinders pushing).** The test 2 shoulder
