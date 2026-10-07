@@ -387,3 +387,5 @@ precision. Mark each screw so you can find a setting again.
 | `ERROR,over-pressure` | regulator above 6 bar | turn the regulator down |
 | `ERROR,no contact with the PC` | logger stopped or USB unplugged | normal behaviour; start again |
 | The Pico keeps restarting | watchdog after stopping in Thonny | normal: after 2 s it runs again, with all valves closed |
+| Linux: the Pico is in `lsusb` (2e8a:0005) but there is no `/dev/ttyACM0` | minimal (cloud/VM) kernel without the USB serial driver | `sudo apt install linux-image-extra-virtual`, then `sudo modprobe cdc_acm`; add yourself to the `dialout` group |
+| Data lines (`D,…`) with jumping values before the sensors are connected | the analog inputs are open | normal; they settle once the sensors and the 100 nF are in place |
