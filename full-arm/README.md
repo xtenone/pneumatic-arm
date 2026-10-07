@@ -168,6 +168,10 @@ corner jig and the taped places of the row against a stop strip. The gripper poi
 every pick and place: elbow bend 83–101°, base yaw −70° … +18°, shoulder cylinders
 248–267 mm pin to pin with a lever of 94–99 mm.
 
+`--video` renders stage 1a (speeds of the heavy arm: 58 s, about 14 s per block) and
+`--video --fast` stage 1b (light arm's own speed: 25 s, about 6 s per block). Kinematic
+only; the videos are not kept in git.
+
 ![Small wall, start](out/small_wall_start_main.png)
 
 ![Small wall, top](out/small_wall_start_top.png)
