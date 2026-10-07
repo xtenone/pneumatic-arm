@@ -67,13 +67,24 @@ command.
 
 | Stage | Task | Success |
 |---|---|---|
-| 1. Row | 4 full blocks from the stack in a row against the strip | 9 of 10 runs: every block within ±5 mm and ±3° of its place, joints ≤ 5 mm, nothing knocked over |
+| 1a. Row, controlled | 4 full blocks from the stack in a row against the strip, at the speeds of the heavy version | 9 of 10 runs: every block within ±5 mm and ±3° of its place, joints ≤ 5 mm, nothing knocked over; ≤ 20 s per block |
+| 1b. Row, fast | The same at the light arm's own speed | 9 of 10 runs, same tolerances; ≤ 10 s per block |
 | 2. Small wall | 2 courses in running bond: 4 full blocks, then half + 3 full + half (2 stacks of full blocks, half blocks beside them) | 9 of 10 runs, same tolerances, the wall stays standing |
 | 3. Heavier blocks | Stage 2 with blocks of about 1 kg | as stage 2 |
 
-- Time: at most 30 s per block with the speed caps of the heavy version (shoulder 30°/s,
-  elbow 50°/s, see [plan.md](plan.md#first-complete-arm-the-light-version)); the row
-  within 2 minutes.
+Speeds:
+
+| | Base yaw | Shoulder | Elbow | Hand |
+|---|---|---|---|---|
+| Controlled (as the heavy version, see [plan.md](plan.md#first-complete-arm-the-light-version)) | 30°/s | 30°/s | 50°/s | ≈ 0.5 m/s |
+| Fast (safety cap of the light arm) | 90°/s | 55°/s | 115°/s | 1 m/s |
+
+- Rough time per block: controlled ≈ 13 s, fast ≈ 6 s (two moves between stack and wall,
+  four short moves down and up, grip and release, settling). The limits in the table
+  leave room for slower settling.
+- In both runs the last few centimetres before placing may be slower; the tolerances are
+  the same. Stage 1b shows what the speed costs in accuracy and settling.
+- Stages 2 and 3 run at the controlled speeds first.
 - Every run is recorded (video + joint log), as for the other tests.
 
 ## Open
