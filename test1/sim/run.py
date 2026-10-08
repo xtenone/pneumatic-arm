@@ -9,6 +9,9 @@ The scenarios follow the tests in the manual:
              at which it stops meeting the criteria, a wrong load setting, and the T3
              controller on the same moves
 Output: plots and results.md in out/sim/.
+
+  python sim/run.py sequence   only the sequence of analysis.SEQUENCE (positions in % of
+                               the stroke, speeds, pauses), without load and with 1 kg
 """
 import json
 import math
@@ -31,7 +34,7 @@ from pneumatics import Pneumatics  # noqa: E402
 import control  # noqa: E402
 sys.path.insert(0, os.path.join(ROOT, "host"))
 from analysis import (plot, step_metrics, t8_metrics, T8_PLAN, T8_END, T8_TRACK_MM,  # noqa: E402,F401
-                      T8_OVERSHOOT_MM, T8_SETTLE_MM, T8_SETTLE_S)
+                      T8_OVERSHOOT_MM, T8_SETTLE_MM, T8_SETTLE_S, SEQUENCE, pct_to_length)
 import gen_config  # noqa: E402
 from parts import pose  # noqa: E402
 
@@ -206,16 +209,17 @@ def scenario_t8(mode=control.MOVE, w_max=None, alpha_max=None, tip_mass=P.TIP_MA
     return rows, log
 
 
-def plot_t8(log, path, title):
+def plot_t8(log, path, title, unit=(P.arm_angle, "degrees")):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    conv, label = unit
     t = log[:, 0]
     fig, ax = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
-    ax[0].plot(t, [P.arm_angle(x) for x in log[:, 1]], label="arm (measured)")
-    ax[0].plot(t, [P.arm_angle(x) for x in log[:, 12]], "--", label="profile")
-    ax[0].plot(t, [P.arm_angle(x) for x in log[:, 9]], ":", color="gray", label="commanded target")
-    ax[0].set_ylabel("degrees")
+    ax[0].plot(t, [conv(x) for x in log[:, 1]], label="arm (measured)")
+    ax[0].plot(t, [conv(x) for x in log[:, 12]], "--", label="profile")
+    ax[0].plot(t, [conv(x) for x in log[:, 9]], ":", color="gray", label="commanded target")
+    ax[0].set_ylabel(label)
     ax[0].legend(loc="upper left")
     ax[1].plot(t, log[:, 1] - log[:, 12])
     ax[1].axhline(T8_TRACK_MM, color="gray", lw=0.5)
@@ -357,6 +361,70 @@ def write_markdown(res):
         f.write("\n".join(lines) + "\n")
 
 
+LIMITS = gen_config.config_dict()
+LIMITS = (LIMITS["L_min"], LIMITS["L_max"], LIMITS["soft_limit"])
+
+
+def L_of_pct(pct):
+    return pct_to_length(pct, *LIMITS)
+
+
+def pct_of_L(L):
+    lo, hi = LIMITS[0] + LIMITS[2], LIMITS[1] - LIMITS[2]
+    return 100.0 * (L - lo) / (hi - lo)
+
+
+def scenario_sequence(tip_mass, gain, seed=1, plot_name=None):
+    """analysis.SEQUENCE as the real test sends it: `load`, `gain`, then per position
+    `speed` and `move`, the next one when the profile has ended plus the pause.
+    Starts from rest on the retracted end stop with the valves closed."""
+    s = Sim(tip_mass=tip_mass, seed=seed)
+    c = s.ctl.cfg
+    limits = (c["move_w_max"], c["move_alpha_max"], c["move_jerk_max"])
+    c["load_kg"] = tip_mass
+    for k in ("kp_force", "ki_force", "kd_force"):
+        c[k] *= gain
+    s.run(0.5)
+    commands = []
+    for pct, speed, pause in SEQUENCE:
+        w, al, j = limits
+        c["move_w_max"], c["move_alpha_max"], c["move_jerk_max"] = w * speed, al * speed ** 2, j * speed ** 3
+        target = L_of_pct(pct)
+        s.ctl.set_mode(control.MOVE, target)
+        commands.append((s.t, pct))
+        s.run(0.05)
+        while abs(s.ctl.ref_now - target) > 0.02 and s.t - commands[-1][0] < 10:
+            s.run(0.02)
+        s.run(pause)
+    log = np.array(s.log)
+    rows = t8_metrics(log, commands, s.t, L_of_pct)
+    for r, (pct, speed, pause) in zip(rows, SEQUENCE):
+        r.update(speed=speed, pause_s=pause)
+    if plot_name:
+        plot_t8(log, os.path.join(OUT, f"{plot_name}.png"),
+                f"Sequence {', '.join(f'{p}%' for p, _, _ in SEQUENCE)} — load {tip_mass:g} kg, gain {gain:g}",
+                unit=(pct_of_L, "% of stroke"))
+    return rows, log
+
+
+def main_sequence():
+    os.makedirs(OUT, exist_ok=True)
+    for tip_mass, gain, name in ((0.0, P.GAIN_NO_LOAD, "sequence_no_load"), (P.TIP_MASS, 1.0, "sequence_1kg")):
+        print(f"\n{name}: load {tip_mass:g} kg, gain {gain:g}")
+        print(" pos  speed pause | profile_s track_mm over_mm settle_s error_mm ok")
+        for seed in (1, 2, 3):
+            rows, _ = scenario_sequence(tip_mass, gain, seed, plot_name=name if seed == 1 else None)
+            if seed > 1:
+                print(f"  seed {seed}: worst track {max(r['track_mm'] for r in rows)} mm, over "
+                      f"{max(r['overshoot_mm'] for r in rows)} mm, settle {max(r['settle_after_s'] for r in rows)} s, "
+                      f"error {max(r['error_mm'] for r in rows)} mm, all ok {all(r['passed'] for r in rows)}")
+                continue
+            for r in rows:
+                print(f"{r['angle']:4.0f}% {r['speed']:5.2f} {r['pause_s']:5.1f} | {r['profile_s']:9.2f} "
+                      f"{r['track_mm']:8.2f} {r['overshoot_mm']:7.2f} {r['settle_after_s']:8.3f} "
+                      f"{r['error_mm']:8.2f} {r['passed']}")
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     res = {}
@@ -376,4 +444,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main_sequence() if "sequence" in sys.argv else main()

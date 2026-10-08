@@ -36,6 +36,26 @@ T8_END = 8.0
 T8_TRACK_MM, T8_OVERSHOOT_MM, T8_SETTLE_MM, T8_SETTLE_S, T8_ERROR_MM = 3.0, 2.0, 1.5, 0.2, 1.0
 T8_REPLAN_S = 0.5            # a command this soon after the previous one changes a running move
 
+# Sequence: preset positions as % of the usable stroke (0% = retracted soft limit,
+# 100% = extended soft limit), each with the `speed` factor of its move and the pause
+# at rest after the move has ended (s).
+SEQUENCE = [
+    (25, 0.5, 1.0),
+    (75, 0.5, 1.0),
+    (25, 1.0, 0.5),
+    (75, 1.0, 0.5),
+    (50, 0.75, 2.0),
+    (80, 1.0, 1.0),
+    (20, 1.0, 1.0),
+    (50, 0.3, 2.0),
+]
+
+
+def pct_to_length(pct, L_min, L_max, soft_limit):
+    """Cylinder length (mm) at pct % of the usable stroke."""
+    lo, hi = L_min + soft_limit, L_max - soft_limit
+    return lo + (hi - lo) * pct / 100.0
+
 
 def t8_metrics(log, commands, t_stop, target_mm):
     """Per move of T8: profile time, largest tracking error during the profile (measured −
