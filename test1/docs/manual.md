@@ -371,14 +371,15 @@ the cylinder's friction.
 
 **T8, the last test:** the arm goes to the angle chosen with a knob, fast and smoothly.
 The Pico plans a smooth profile (speed and acceleration build up and die out gradually,
-at most 150°/s and 1500°/s²) and pushes ahead with the force that profile needs:
+at most 170°/s and 1550°/s², 10% slower than the fastest profile that still passes in
+the simulation) and pushes ahead with the force that profile needs:
 gravity, the acceleration of arm and load, and the cylinder's friction. Two things
 differ from the other tests:
 - The bottle is strapped under the end of the arm (tape or cable ties) instead of hanging
   on the hook: a swinging bottle would set the arm swinging too, and the gripper of the
   real arm also holds its load firmly.
-- The feedforward needs the weight of the load: weigh the bottle and enter it. 20% off is
-  already enough to miss the criteria in the simulation.
+- The feedforward needs the weight of the load: weigh the bottle and enter it. In the
+  simulation 10% off still passes; 20% too light does not.
 The knob and button need their own parts (order 6 in the bill of materials) and are
 wired to the breadboard; the wiring and the firmware command follow.
 

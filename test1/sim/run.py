@@ -293,11 +293,14 @@ def scenario_t8_all():
     with Pool() as pool:
         res["default"] = t8_summary({}, pool)
         res["t3_controller"] = t8_summary(dict(mode=control.POSITION), pool)
+        # faster profiles: durations / k, so speed × k, acceleration × k², jerk × k³
         res["limits"] = []
-        for alpha in (1000.0, P.MOVE_ALPHA_MAX, 2000.0, 2500.0):
-            kw = dict(alpha_max=alpha, w_max=alpha / 10, cfg_over=dict(move_jerk_max=P.MOVE_JERK_MAX * alpha / P.MOVE_ALPHA_MAX))
-            res["limits"].append(dict(alpha_max=alpha, w_max=alpha / 10, **t8_summary(kw, pool)))
-        res["load_setting"] = [dict(load_kg=lk, **t8_summary(dict(load_kg=lk), pool)) for lk in (1.2, 1.8)]
+        for k in (1.1, 1.15, 1.3):
+            over = dict(move_w_max=P.MOVE_W_MAX * k, move_alpha_max=P.MOVE_ALPHA_MAX * k * k,
+                        move_jerk_max=P.MOVE_JERK_MAX * k ** 3)
+            res["limits"].append(dict(k=k, **t8_summary(dict(cfg_over=over), pool)))
+        res["load_setting"] = [dict(load_kg=round(P.TIP_MASS * f, 2), **t8_summary(dict(load_kg=P.TIP_MASS * f), pool))
+                               for f in (0.9, 1.1, 0.8, 1.2)]
     return res
 
 
@@ -366,8 +369,7 @@ def write_markdown(res):
                 f"{m['replan_track_mm']} | {yn(m['passed'])} |")
     lines.append(srow(f"profile {P.MOVE_W_MAX:g}°/s, {P.MOVE_ALPHA_MAX:g}°/s² (params.py)", t8["default"]))
     for m in t8["limits"]:
-        if m["alpha_max"] != P.MOVE_ALPHA_MAX:
-            lines.append(srow(f"profile {m['w_max']:g}°/s, {m['alpha_max']:g}°/s²", m))
+        lines.append(srow(f"{m['k']:g}× as fast ({P.MOVE_W_MAX * m['k']:.0f}°/s, {P.MOVE_ALPHA_MAX * m['k'] ** 2:.0f}°/s²)", m))
     for m in t8["load_setting"]:
         lines.append(srow(f"load set to {m['load_kg']} kg (real {P.TIP_MASS} kg)", m))
     lines.append(srow(f"T3 controller (ramp {P.V_MAX:g} mm/s, no feedforward)", t8["t3_controller"]))

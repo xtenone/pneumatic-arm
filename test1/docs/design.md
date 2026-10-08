@@ -331,8 +331,9 @@ and adds to step 2:
 - **Profile of the arm angle:** a quintic from the current state to the target, so
   position, speed and acceleration are continuous. Planned in degrees, not in cylinder
   length: near the top the cylinder's lever is small and the same acceleration in mm
-  would need four times the force. Limits: speed 150°/s, acceleration 1500°/s², and a
-  limit on the jerk, because the valves need time to swap the pressures. A new target
+  would need four times the force. Limits: speed 170°/s, acceleration 1550°/s², and a
+  limit on the jerk, because the valves need time to swap the pressures. These keep 10%
+  margin in time: about 1.1× as fast still passes in the simulation, 1.15× does not. A new target
   during a move starts a new profile from the current speed and acceleration.
 - **Feedforward:** force = (gravity torque + inertia × planned angular acceleration) /
   lever, plus the seal friction in the direction of motion. The PID only corrects what is
@@ -357,7 +358,7 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 | T2 on/off control (3 bar) | stays 15–25 mm off target: PWM control is needed |
 | T6 stiffness (15 N extra, valves closed) | 14° deflection at 2 bar chamber pressure, 10° at 5 bar |
 | T7 load | target reached up to 3.5 kg (78% load), but within 1 s only around the tuning load (1.5 kg); not at 100% |
-| T8 knob and button | 30° in 0.41 s, largest move (−5° → 50°) 0.69 s; follows the profile within 2.5 mm, overshoot ≤ 1.3 mm, at rest when the profile ends — passed. At 2000°/s² it fails; with the load set 20% wrong as well |
+| T8 knob and button | 30° in 0.45 s, largest move (−5° → 50°) 0.61 s; follows the profile within 2 mm, overshoot ≤ 1.5 mm, at rest when the profile ends — passed. 1.15× as fast fails; so does the load set 20% too light, 10% off passes |
 
 Exact numbers per run: [`../out/sim/results.md`](../out/sim/results.md).
 T7 already shows that the tuning belongs to the load. The arm will probably need tuning

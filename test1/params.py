@@ -79,10 +79,12 @@ P_DEADBAND = 0.1             # bar
 SOFT_LIMIT = 5.0             # mm, stay away from both end stops
 V_MAX = 250.0                # mm/s, maximum speed of the target (full stroke in ~0.6 s)
 P_MAX = 6.0                  # bar; above this: vent and, if it persists, fault
-# move (T8): smooth profile + feedforward; limits found with `python sim/run.py --t8`
-MOVE_W_MAX = 150.0           # degrees/s, peak speed of the arm in the profile
-MOVE_ALPHA_MAX = 1500.0      # degrees/s², peak acceleration of the arm in the profile
-MOVE_JERK_MAX = 25000.0      # degrees/s³: how fast the force may change (the valves need time to swap the pressures)
+# move (T8): smooth profile + feedforward. The fastest profile that meets the T8 criteria in
+# the simulation is about 1.1× this one (190°/s, 1900°/s²); these limits keep 10% margin
+# in time (speed × 1/1.1, acceleration × 1/1.1², jerk × 1/1.1³). See out/sim/results.md.
+MOVE_W_MAX = 170.0           # degrees/s, peak speed of the arm in the profile
+MOVE_ALPHA_MAX = 1550.0      # degrees/s², peak acceleration of the arm in the profile
+MOVE_JERK_MAX = 24000.0      # degrees/s³: how fast the force may change (the valves need time to swap the pressures)
 FF_FRICTION = CYL["friction_coulomb"]   # N, cylinder seal friction in the feedforward (measure in T3/T4)
 FF_VISCOUS = 0.0             # N·s/m
 

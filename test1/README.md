@@ -28,7 +28,7 @@ with a load on it?**
 simulation meets them with the current tuning; see the [results](out/sim/results.md).
 
 **Last test** (T8): choose an angle with a knob, press a button, and the arm goes there
-fast and smoothly: in the simulation 30° in 0.4 s, following a smooth profile within
+fast and smoothly: in the simulation 30° in 0.45 s, following a smooth profile within
 3 mm, without overshoot worth mentioning.
 
 ## What is in this package
