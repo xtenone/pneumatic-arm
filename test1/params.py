@@ -26,6 +26,9 @@ ARM_BEHIND = 20.0            # arm extends 20 mm behind the hinge hole
 ARM_ATTACH = 150.0           # hinge → clevis bolt
 ARM_TIP = 400.0              # hinge → load hook
 ARM_HOLE = 8.5               # holes in the arm (M8)
+ARM_MASS = ARM["length"] * ARM["height"] * ARM["thickness"] * 2.7e-6       # kg, aluminium
+ARM_MOMENT = ARM_MASS * (ARM["length"] / 2 - ARM_BEHIND)                   # kg·mm about the hinge
+ARM_INERTIA = ARM_MASS * (ARM["length"] ** 2 / 12 + (ARM["length"] / 2 - ARM_BEHIND) ** 2)   # kg·mm²
 
 # --- Cylinder MAL20×150 (seller's dimension drawing) ----------------------------
 CYL = dict(
@@ -76,6 +79,12 @@ P_DEADBAND = 0.1             # bar
 SOFT_LIMIT = 5.0             # mm, stay away from both end stops
 V_MAX = 250.0                # mm/s, maximum speed of the target (full stroke in ~0.6 s)
 P_MAX = 6.0                  # bar; above this: vent and, if it persists, fault
+# move (T8): smooth profile + feedforward; limits found with `python sim/run.py --t8`
+MOVE_W_MAX = 150.0           # degrees/s, peak speed of the arm in the profile
+MOVE_ALPHA_MAX = 1500.0      # degrees/s², peak acceleration of the arm in the profile
+MOVE_JERK_MAX = 25000.0      # degrees/s³: how fast the force may change (the valves need time to swap the pressures)
+FF_FRICTION = CYL["friction_coulomb"]   # N, cylinder seal friction in the feedforward (measure in T3/T4)
+FF_VISCOUS = 0.0             # N·s/m
 
 # --- Electronics (Pico 2 pins) ------------------------------------------------------
 PINS = dict(fill_a=2, vent_a=3, fill_b=4, vent_b=5,   # → ULN2803A IN1..IN4

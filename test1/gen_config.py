@@ -15,6 +15,10 @@ def config_dict():
         v_filter_hz=10.0, bangbang_deadband=3.0, soft_limit=P.SOFT_LIMIT,
         p_supply=P.P_SUPPLY, p_max=P.P_MAX, p_max_time=0.5,
         v_max=P.V_MAX, pos_deadband=0.3, pos_deadband_out=0.6, v_hold=5.0,
+        # move (T8): profile limits and feedforward
+        move_w_max=P.MOVE_W_MAX, move_alpha_max=P.MOVE_ALPHA_MAX, move_jerk_max=P.MOVE_JERK_MAX, load_kg=P.TIP_MASS,
+        arm_moment=round(P.ARM_MOMENT, 2), arm_inertia=round(P.ARM_INERTIA, 1), tip_dist=P.ARM_TIP,
+        ff_friction=P.FF_FRICTION, ff_viscous=P.FF_VISCOUS,
         area_a=round(P.AREA_A, 3), area_b=round(P.AREA_B, 3),
         L_min=round(P.PIN_TO_PIN_MIN, 2), L_max=round(P.PIN_TO_PIN_MAX, 2),
         # geometry (angle from length)
