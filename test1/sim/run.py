@@ -122,8 +122,10 @@ def L_of(theta):
     return P.cylinder_length(theta)
 
 
-def scenario_step(mode=control.POSITION, tip_mass=P.TIP_MASS, plot_name="step", p_supply=P.P_SUPPLY):
+def scenario_step(mode=control.POSITION, tip_mass=P.TIP_MASS, plot_name="step", p_supply=P.P_SUPPLY, gain=1.0):
     s = Sim(tip_mass=tip_mass, p_supply=p_supply)
+    for k in ("kp_force", "ki_force", "kd_force"):
+        s.ctl.cfg[k] *= gain
     s.ctl.set_mode(mode, L_of(0.0))
     plan = [(0.0, 0.0), (2.0, 30.0), (4.0, -5.0)]
 
@@ -135,7 +137,8 @@ def scenario_step(mode=control.POSITION, tip_mass=P.TIP_MASS, plot_name="step", 
     m1 = step_metrics(log, 2.0, 4.0, L_of(30.0))
     m2 = step_metrics(log, 4.0, 6.0, L_of(-5.0))
     plot(log, os.path.join(OUT, f"{plot_name}.png"),
-         f"{'PWM control' if mode == control.POSITION else 'On/off control'} — load {tip_mass} kg, {p_supply} bar")
+         f"{'PWM control' if mode == control.POSITION else 'On/off control'} — load {tip_mass} kg, {p_supply} bar"
+         + (f", gain {gain:g}" if gain != 1 else ""))
     return dict(up_0_to_30=m1, down_30_to_minus5=m2,
                 air_used_g=round(s.pn.air_used * 1000, 2)), log
 
@@ -302,10 +305,13 @@ def write_markdown(res):
              "T3 criteria: overshoot < 5 mm, settled (within ±1 mm) within 1 s, error < 1 mm.", "",
              "## T3 PWM control and T2 on/off control", "",
              "| Step | Overshoot (mm) | Settling (s) | Error (mm) | Passed |", "|---|---|---|---|---|"]
-    for key, label in (("T3_pwm", "PWM"), ("T2_onoff", "on/off (3 bar)")):
+    for key, label in (("T3_no_load", f"PWM, no load, gain {P.GAIN_NO_LOAD:g}"), ("T3_no_load_gain_1", "PWM, no load, gain 1"),
+                       ("T3_pwm", f"PWM, {P.TIP_MASS:g} kg"), ("T2_onoff", "on/off (3 bar)")):
         lines.append(row(f"{label}: 0° → 30°", res[key]["up_0_to_30"]))
         lines.append(row(f"{label}: 30° → −5°", res[key]["down_30_to_minus5"]))
-    lines += ["", "![PWM control](step.png)", "", "![on/off control](onoff.png)", "",
+    lines += ["", "![PWM control](step.png)", "", "![PWM control without load](step_no_load.png)", "",
+              "![PWM control without load, gain 1: it shakes](step_no_load_gain_1.png)", "",
+              "![on/off control](onoff.png)", "",
               "## T7 load ratio", "",
               "| Load (kg) | Load (%) | Overshoot (mm) | Settling (s) | Error (mm) | Passed |",
               "|---|---|---|---|---|---|"]
@@ -354,6 +360,8 @@ def write_markdown(res):
 def main():
     os.makedirs(OUT, exist_ok=True)
     res = {}
+    res["T3_no_load"], _ = scenario_step(control.POSITION, tip_mass=0.0, plot_name="step_no_load", gain=P.GAIN_NO_LOAD)
+    res["T3_no_load_gain_1"], _ = scenario_step(control.POSITION, tip_mass=0.0, plot_name="step_no_load_gain_1")
     res["T3_pwm"], _ = scenario_step(control.POSITION)
     res["T2_onoff"], _ = scenario_step(control.BANGBANG, plot_name="onoff", p_supply=3.0)
     res["T7_load"] = scenario_load()

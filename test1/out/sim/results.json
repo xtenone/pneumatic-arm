@@ -1,4 +1,34 @@
 {
+  "T3_no_load": {
+    "up_0_to_30": {
+      "overshoot_mm": 1.49,
+      "settling_s": 0.544,
+      "error_mm": 0.15,
+      "passed": true
+    },
+    "down_30_to_minus5": {
+      "overshoot_mm": 1.67,
+      "settling_s": 0.636,
+      "error_mm": 0.33,
+      "passed": true
+    },
+    "air_used_g": 0.92
+  },
+  "T3_no_load_gain_1": {
+    "up_0_to_30": {
+      "overshoot_mm": 9.99,
+      "settling_s": 1.98,
+      "error_mm": 3.61,
+      "passed": false
+    },
+    "down_30_to_minus5": {
+      "overshoot_mm": 15.77,
+      "settling_s": 1.996,
+      "error_mm": 4.86,
+      "passed": false
+    },
+    "air_used_g": 3.86
+  },
   "T3_pwm": {
     "up_0_to_30": {
       "overshoot_mm": 1.54,

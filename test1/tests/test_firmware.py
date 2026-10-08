@@ -131,6 +131,11 @@ def main():
           "move 30: the profile rises smoothly towards the target")
     handle("speed 1")
     handle("load 1")
+    handle("gain 0.5")
+    kp0, ki0, kd0 = g["GAINS"]
+    check(abs(cfg["kp_force"] - 0.5 * kp0) < 1e-9 and abs(cfg["ki_force"] - 0.5 * ki0) < 1e-9
+          and abs(cfg["kd_force"] - 0.5 * kd0) < 1e-9, "gain 0.5: kp, ki and kd halved")
+    handle("gain 1")
     # 7. PC watchdog
     g["last_msg"] = time.ticks_ms() - 10_000
     handle("angle 10")

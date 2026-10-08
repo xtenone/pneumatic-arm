@@ -77,6 +77,7 @@ P_SUM = 4.0                  # bar, sum of both chamber pressures (stiffness)
 KP_FORCE = 12.0              # N per mm position error
 KI_FORCE = 90.0              # N per mm·s (only close to the target or when the arm is stalled)
 KD_FORCE = 0.6               # N per mm/s
+GAIN_NO_LOAD = 0.5           # factor on kp, ki, kd without load (`gain 0.5`): the full gains make the light arm shake
 KP_PRESSURE = 2.0            # duty per bar pressure error
 P_DEADBAND = 0.1             # bar
 SOFT_LIMIT = 5.0             # mm, stay away from both end stops

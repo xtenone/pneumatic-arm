@@ -365,8 +365,10 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 
 | Test (simulation) | Result |
 |---|---|
-| T3 step 0° → 30° | overshoot 1.5 mm, error 0.3 mm, but within ±1 mm only after 1.5 s — not passed |
-| T3 step 30° → −5° | overshoot 2.6 mm, settled in 0.7 s, error 0.2 mm — passed |
+| T3 without load, `gain 0.5` | 0° → 30° and 30° → −5°: overshoot ≤ 1.7 mm, settled in 0.5–0.6 s — passed (in 1 of 3 noise runs; the others settle in 1.1–1.4 s or overshoot 4 mm, without shaking) |
+| T3 without load, `gain 1` | shakes at about 7 Hz, ±6 mm: the tuning for 1 kg is too strong for the bare arm |
+| T3 step 0° → 30° (1 kg) | overshoot 1.5 mm, error 0.3 mm, but within ±1 mm only after 1.5 s — not passed |
+| T3 step 30° → −5° (1 kg) | overshoot 2.6 mm, settled in 0.7 s, error 0.2 mm — passed |
 | T2 on/off control (3 bar) | stays 13–24 mm off target: PWM control is needed |
 | T6 stiffness (one plate added, valves closed) | 9.8° deflection at 2 bar chamber pressure, 6.7° at 5 bar |
 | T7 load | target reached up to 3 kg (68% load); within 1 s at 2 kg, at 1 and 3 kg just too slow; at 4 kg 11 mm short |
@@ -379,7 +381,8 @@ this (checked). The real rig shows how large dead band and friction really are; 
 holding behaviour is improved after that.
 
 Exact numbers per run: [`../out/sim/results.md`](../out/sim/results.md).
-T7 already shows that the tuning belongs to the load. The arm will probably need tuning
+The tuning belongs to the load: without load the arm needs half the gains (`gain 0.5`),
+at 1 kg the full ones; T7 shows the same upwards. The arm will probably need tuning
 that scales with the load or the position.
 
 The model is an estimate. Friction, dead volumes and the flow of these valves are measured

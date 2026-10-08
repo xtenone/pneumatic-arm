@@ -62,7 +62,8 @@ def steps(p, plan, cmd="angle"):
 
 
 def t0(p):
-    ask("T0 leak test. Regulator at 3 bar, load on the arm.")
+    ask("T0 leak test. Regulator at 3 bar, no plate on the arm.")
+    p.send("gain 0.5")                          # softer control without load
     p.send("angle 20")
     p.wait(3)
     p.send("off")
@@ -119,14 +120,27 @@ def t2(p):
                                        passed=ok), "T2 on/off control")
 
 
-def t3(p, label="T3_pwm"):
-    if label == "T3_pwm":
-        ask("T3 PWM control. Regulator at 5 bar, load 1 kg (one plate).")
+def t3_run(p, label):
     data, marks = steps(p, [(3, 0), (3, 30), (3, -5)])
     m1 = analysis.step_metrics(data, marks[1][0], marks[2][0], length(30))
     m2 = analysis.step_metrics(data, marks[2][0], data[-1, 0], length(-5))
     return save(label, data, dict(up_0_to_30=m1, down_30_to_minus5=m2,
                                   passed=m1["passed"] and m2["passed"]), label)
+
+
+def t3(p, label=None):
+    if label:                                   # T7: one run at the load that is on the arm
+        p.send("gain 1")
+        return t3_run(p, label)
+    # first without load and with softer control (the tuning for 1 kg makes the light arm shake)
+    ask("T3a PWM control without load. Regulator at 5 bar, no plate on the arm.")
+    p.send("gain 0.5")
+    a = t3_run(p, "T3a_pwm_no_load")
+    p.send("off")
+    ask("T3b PWM control with load: put one 1 kg plate on the arm. 5 bar.")
+    p.send("gain 1")
+    b = t3_run(p, "T3b_pwm_1kg")
+    return dict(no_load=a["passed"], kg1=b["passed"], passed=a["passed"] and b["passed"])
 
 
 def t4(p):

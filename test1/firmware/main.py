@@ -37,6 +37,7 @@ line_buf = ""
 last_msg = time.ticks_ms()
 stream_every = max(1, CFG["loop_hz"] // 100)     # default about 100 data lines per second (125 at 250 Hz)
 MOVE_LIMITS = (CFG["move_w_max"], CFG["move_alpha_max"], CFG["move_jerk_max"])   # at speed 1
+GAINS = (CFG["kp_force"], CFG["ki_force"], CFG["kd_force"])                        # at gain 1
 loop_stats = [0, 0, 0]      # steps, steps longer than the period, longest step (µs); shown and reset by 'info'
 
 
@@ -92,6 +93,7 @@ HELP = """commands:
   move <deg>                  move the arm to an angle fast and smoothly (profile + feedforward, T8)
   load <kg>                   load on the arm, for the feedforward of move
   speed <factor>              speed of move, 1 = as tuned (0.9 = 10% slower)
+  gain <factor>               strength of the position control, 1 = as tuned (0.5 without load)
   pos <mm>                    move the cylinder to a pin-to-pin length
   bang <deg>                  on/off control (T2)
   pressure <pa> <pb>          control the chamber pressures (bar gauge)
@@ -132,6 +134,12 @@ def handle(cmd):
                 raise ValueError("speed between 0.1 and 1.2")
             w, al, j = MOVE_LIMITS
             ctl.cfg["move_w_max"], ctl.cfg["move_alpha_max"], ctl.cfg["move_jerk_max"] = w * k, al * k * k, j * k ** 3
+        elif c == "gain":
+            k = float(p[1])
+            if not 0.2 <= k <= 1.5:
+                raise ValueError("gain between 0.2 and 1.5")
+            kp, ki, kd = GAINS
+            ctl.cfg["kp_force"], ctl.cfg["ki_force"], ctl.cfg["kd_force"] = kp * k, ki * k, kd * k
         elif c == "pos":
             ctl.set_mode(control.POSITION, float(p[1]))
         elif c == "bang":

@@ -6,12 +6,20 @@ Load 1.0 kg, supply 5.0 bar, tuning from `params.py`. T3 criteria: overshoot < 5
 
 | Step | Overshoot (mm) | Settling (s) | Error (mm) | Passed |
 |---|---|---|---|---|
-| PWM: 0° → 30° | 1.54 | 1.48 | 0.33 | no |
-| PWM: 30° → −5° | 2.57 | 0.66 | 0.23 | yes |
+| PWM, no load, gain 0.5: 0° → 30° | 1.49 | 0.544 | 0.15 | yes |
+| PWM, no load, gain 0.5: 30° → −5° | 1.67 | 0.636 | 0.33 | yes |
+| PWM, no load, gain 1: 0° → 30° | 9.99 | 1.98 | 3.61 | no |
+| PWM, no load, gain 1: 30° → −5° | 15.77 | 1.996 | 4.86 | no |
+| PWM, 1 kg: 0° → 30° | 1.54 | 1.48 | 0.33 | no |
+| PWM, 1 kg: 30° → −5° | 2.57 | 0.66 | 0.23 | yes |
 | on/off (3 bar): 0° → 30° | 23.74 | 1.984 | 24.47 | no |
 | on/off (3 bar): 30° → −5° | 30.02 | 1.996 | 13.4 | no |
 
 ![PWM control](step.png)
+
+![PWM control without load](step_no_load.png)
+
+![PWM control without load, gain 1: it shakes](step_no_load_gain_1.png)
 
 ![on/off control](onoff.png)
 

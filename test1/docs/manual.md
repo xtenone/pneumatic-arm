@@ -317,6 +317,7 @@ Close Thonny first: only one program at a time can talk to the Pico.
 | `angle 20` | arm to 20° |
 | `move 20` | arm to 20°, fast and smoothly (T8) |
 | `load 1`, `speed 0.8` | load on the arm in kg, and the speed of `move` (1 = as tuned) |
+| `gain 0.5` | strength of the position control (1 = as tuned for 1 kg; 0.5 without load) |
 | `bang 20` | on/off control to 20° (T2) |
 | `stiffness 4` | sum of the chamber pressures |
 | `zero`, `cal_pressure 3`, `cal_pos in`, `cal_pos out`, `save` | calibration (step 10) |
@@ -363,15 +364,20 @@ Each test stores its run, plot and outcome in `host/results/`.
 
 | Test | Pressure | Load | What | Passed if |
 |---|---|---|---|---|
-| T0 leak test | 3 bar | 1 kg | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
+| T0 leak test | 3 bar | none (`gain 0.5`) | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
 | T1 valves | 3 bar | – | open each valve for 10 ms, sample the pressure fast | response < 10 ms |
 | T2 on/off | 3 bar | 1 kg | 0° → 30° → −5° with fully open/closed valves only | comes to rest within ±3 mm |
-| T3 PWM control | 5 bar | 1 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
+| T3 PWM control | 5 bar | first none (`gain 0.5`), then 1 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
 | T4 repeatability | 5 bar | 1 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
 | T5 holding | 5 bar | 1 kg | 60 s at 30° | deviation < 1 mm |
 | T6 stiffness | 5 bar | 1 + 1 kg | at 20°, valves closed, add a plate; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
 | T7 load ratio | 5 bar | 1 → 5 kg | repeat T3, one plate more each time | highest load at which T3 passes |
 | T8 fast and smooth | 5 bar | 1 kg; then 2 kg at 80% speed | `move` to preset angles: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
+
+**Without load first:** the arm first moves without a plate (T0, then T3a), only then with
+1 kg. The control is tuned for 1 kg; without load the arm is twelve times easier to turn
+and the same control makes it shake (in the simulation about 7 Hz, ±6 mm). The script
+therefore sends `gain 0.5` for the runs without load, and `gain 1` once the plate is on.
 
 The simulation's expectations are in `out/sim/results.json` and in the README. If the
 real measurement differs a lot, that is useful information in itself, for example about
@@ -404,7 +410,7 @@ precision. Mark each screw so you can find a setting again.
 | Pressure slowly drops (T0) | leaking fitting | soapy-water test, cut the tube square again |
 | Pressure reads 0 while the gauge shows 3 bar | sensor without +5 V or wrong wire | measure 5 V on the red wire; signal on yellow/green |
 | Angle jumps or is noisy | loose potentiometer wire, or no 100 nF on GP26 | check the connections |
-| Arm oscillates around the target | friction differs from the simulation | lower `KP_FORCE` or raise `KD_FORCE` in `params.py`, run `python gen_config.py`, copy config.py again |
+| Arm oscillates around the target | control too strong for this load (or friction differs from the simulation) | try `gain 0.7` or `gain 0.5` (takes effect at once); to keep it, lower `KP_FORCE`, `KI_FORCE` and `KD_FORCE` in `params.py`, run `python gen_config.py`, copy config.py again |
 | `ERROR,over-pressure` | regulator above 6 bar | turn the regulator down |
 | `ERROR,no contact with the PC` | logger stopped or USB unplugged | normal behaviour; start again |
 | The Pico keeps restarting | watchdog after stopping in Thonny | normal: after 2 s it runs again, with all valves closed |
