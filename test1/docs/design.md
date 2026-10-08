@@ -301,7 +301,7 @@ simulation, so the tuning from the simulation is exactly what goes onto the Pico
 
 **Layers:**
 
-- **Fast layer, on the Pico (500 times per second):** reads position and pressures and
+- **Fast layer, on the Pico (250 times per second):** reads position and pressures and
   drives the valves.
   1. **Speed-limited target:** the target moves to the requested position at most
      250 mm/s. A full stroke takes about 0.6 s, without a step in the control error.
@@ -321,6 +321,14 @@ simulation, so the tuning from the simulation is exactly what goes onto the Pico
      regulator is set too high.
 - **Slow layer, on the PC (program or AI):** sends the target angle and stiffness, and a
   `ping` every 0.2 s. If the Pico misses it for half a second, all valves close.
+
+**Loop speed, measured on the Pico 2 W:** a step (read the sensors, control, set the
+valves, a data line every second step) takes about 2 ms; 500 Hz did not fit, so the loop
+runs at 250 Hz. A data line costs 0.5 ms with `%` formatting (1.6 ms when every field is
+turned into text separately). About 1.5 times per second MicroPython's memory clean-up
+stops the loop for 8–12 ms; the valves keep their PWM, and the next step uses the real
+elapsed time, so the speed estimate does not jump. The simulation includes these pauses.
+`info` shows how many steps took too long.
 
 For holding and for the steps of T3 no feedforward is needed. The delays in the loop are
 small: valve 2–3.5 ms, a pressure wave through 30 cm of tube about 1 ms, and filling a
@@ -343,7 +351,7 @@ and adds to step 2:
 - The load must be known (the number of 1 kg plates); the arm's own mass and inertia
   come from `params.py`.
 - A heavier load gets a lower speed, not different tuning: with 2 kg the move to 50° only
-  settles in time at 90% speed.
+  settles in time at 80% speed.
 
 ## Simulation
 
@@ -357,12 +365,18 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 
 | Test (simulation) | Result |
 |---|---|
-| T3 step 0° → 30° | overshoot 1.7 mm, settled in 0.5 s, error 0.1 mm — passed |
-| T3 step 30° → −5° | overshoot 1.9 mm, settled in 0.7 s, error 0.3 mm — passed |
-| T2 on/off control (3 bar) | stays 14–23 mm off target: PWM control is needed |
-| T6 stiffness (one plate added, valves closed) | 10.6° deflection at 2 bar chamber pressure, 6.8° at 5 bar |
-| T7 load | target reached up to 3 kg (68% load), but within 1 s only at the tuning load (1 kg); at 4 kg 12 mm short |
-| T8 knob and button | 30° in 0.45 s, largest move (−5° → 50°) 0.61 s; follows the profile within 2.1 mm, overshoot ≤ 1.5 mm, at rest when the profile ends — passed. 1.1× as fast just fails (3.2 mm). 2 kg: passes at 90% speed. The load set 20% too light fails, 10% off passes |
+| T3 step 0° → 30° | overshoot 1.5 mm, error 0.3 mm, but within ±1 mm only after 1.5 s — not passed |
+| T3 step 30° → −5° | overshoot 2.6 mm, settled in 0.7 s, error 0.2 mm — passed |
+| T2 on/off control (3 bar) | stays 13–24 mm off target: PWM control is needed |
+| T6 stiffness (one plate added, valves closed) | 9.8° deflection at 2 bar chamber pressure, 6.7° at 5 bar |
+| T7 load | target reached up to 3 kg (68% load); within 1 s at 2 kg, at 1 and 3 kg just too slow; at 4 kg 11 mm short |
+| T8 fast and smooth (preset angles) | 30° in 0.40 s, largest move (−5° → 50°) 0.58 s; follows the profile within 2.5 mm, overshoot ≤ 1.6 mm. Settling: in 1 of 3 runs one move is within ±1.5 mm only 0.32 s after the profile (limit 0.2 s). 2 kg: passes at 80% speed |
+
+The weak point is the last millimetre, not the speed: after a move the arm wanders about
+±1–1.5 mm before it comes to rest (pressure dead band and seal friction), so the
+settling criteria of T3 and T8 pass or fail by chance. A lower speed does not change
+this (checked). The real rig shows how large dead band and friction really are; the
+holding behaviour is improved after that.
 
 Exact numbers per run: [`../out/sim/results.md`](../out/sim/results.md).
 T7 already shows that the tuning belongs to the load. The arm will probably need tuning
@@ -374,7 +388,7 @@ in T1–T4; after that the model is updated and the control re-tuned.
 ## Tests
 
 Tests T0–T8, with criteria, are in [manual.md](manual.md), section 11.
-`host/tests_t0_t7.py` runs them and assesses them with the same analysis as the
+`host/tests_t0_t8.py` runs them and assesses them with the same analysis as the
 simulation (`host/analysis.py`).
 
 ## Safety

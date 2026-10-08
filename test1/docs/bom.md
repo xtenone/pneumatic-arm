@@ -89,17 +89,7 @@ Status: received (2026-10-06)
 |---|---|---|---|---|
 | 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
 
-## 6. T8 knob and button (Tinytronics, NL)
-
-Status: still to buy
-
-| # | Part | Variant | Price | Link |
-|---|---|---|---|---|
-| 1 | ADC chip MCP3208 (8 channels, 12 bit, SPI, DIP-16) — The Pico's three analogue inputs are taken by the position and pressure sensors. The full arm needs more analogue inputs anyway. | MCP3208-CI/P; an MCP3008 (10 bit, same pins) also works for the knob | €4.50* |  |
-| 1 | Rotary potentiometer 10 kΩ linear, with knob — Chooses the target angle | B10K, 6 mm shaft, breadboard pins or with wires | €1.50* |  |
-| 1 | Push button, momentary (normally open) — Starts the move | 12 mm tactile switch or panel button | €0.50* |  |
-
-**Total approx. €570** (excluding shipping and import duty).
+**Total approx. €564** (excluding shipping and import duty).
 
 ## Tools
 

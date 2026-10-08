@@ -33,8 +33,8 @@ def bom():
     d = json.load(open(os.path.join(REPO, "docs", "order-list.json")))
     rows = []
     for b in d["orders"]:
-        if b.get("status") == "alternative":
-            continue
+        if b.get("status") == "alternative" or b.get("status", "").startswith("later"):
+            continue                       # not part of test 1's bill of materials
         for r in b["items"]:
             link = r.get("url") or (f"https://www.aliexpress.com/item/{r['id']}.html" if r.get("id") else "")
             rows.append(dict(order=b["name"], part=r["what"], variant=r.get("variant", ""),

@@ -80,7 +80,8 @@ class Pico:
                         t = int(f[1]) / 1000.0
                         row = [t, float(f[2]), float(f[3]), float(f[4]), float(f[5]),
                                float(f[6]), float(f[7]), float(f[8]), float(f[9]),
-                               float(f[11]), float("nan"), float("nan")]
+                               float(f[11]), float("nan"), float("nan"),
+                               float(f[13]) if len(f) > 13 else float("nan")]
                     except (ValueError, IndexError):
                         continue
                     with self.lock:
@@ -97,7 +98,7 @@ class Pico:
     def take(self, since=None):
         """All data lines since the start (or since time `since`) as an array."""
         with self.lock:
-            a = np.array(self.rows) if self.rows else np.zeros((0, 12))
+            a = np.array(self.rows) if self.rows else np.zeros((0, 13))
         if len(a) and since is not None:
             a = a[a[:, 0] >= since]
         return a

@@ -36,7 +36,7 @@ CFG = {
     'hinge_to_rear': 320.0,
     'hinge_to_attach': 150.0,
     'pwm_hz': 50,
-    'loop_hz': 500,
+    'loop_hz': 250,
     'pins': {'fill_a': 2, 'vent_a': 3, 'fill_b': 4, 'vent_b': 5, 'adc_pos': 26, 'adc_pa': 27, 'adc_pb': 28},
     'divider': (10000, 15000),
     'adc_vref': 3.3,

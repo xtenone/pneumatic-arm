@@ -17,6 +17,8 @@ pushes when the move starts instead of waiting for an error.
 
 import math
 
+DEG = math.pi / 180
+
 OFF, MANUAL, PRESSURE, POSITION, BANGBANG, MOVE = "off", "manual", "pressure", "position", "bangbang", "move"
 
 
@@ -31,24 +33,30 @@ class Profile:
     def __init__(self, x0, v0, a0, x1, v_max, a_max, j_max, t_min=0.05):
         self.x1 = x1
         d = abs(x1 - x0)
-        # rest to rest the peak speed is 1.875 d/T and the peak acceleration 5.77 d/T²
-        T = max(1.875 * d / v_max, (5.77 * d / a_max) ** 0.5, t_min)
-        # the jerk (how fast the force must change) is limited by how fast the valves can
-        # change the pressures; starting while moving (new target during a move) can need
-        # more time too: lengthen until the profile stays within all limits
-        for _ in range(16):
+        # from rest the peaks are known: speed 1.875 d/T, acceleration 5.77 d/T², jerk 60 d/T³
+        # (the jerk is how fast the force must change: limited by how fast the valves can
+        # change the pressures)
+        T = max(1.875 * d / v_max, (5.77 * d / a_max) ** 0.5, (60.0 * d / j_max) ** (1 / 3), t_min)
+        if abs(v0) < 1e-6 and abs(a0) < 1e-6:
+            self._fit(x0, 0.0, 0.0, T)
+            return
+        # new target during a move: lengthen until the profile stays within the limits
+        # (a few iterations, only when a target changes during a move)
+        T = max(T, 2.0 * abs(v0) / a_max)
+        for _ in range(12):
             self._fit(x0, v0, a0, T)
+            c0, c1, c2, c3, c4, c5 = self.c
             v_pk = a_pk = j_pk = 0.0
-            c3, c4, c5 = self.c[3], self.c[4], self.c[5]
-            for k in range(17):
-                t = T * k / 16
-                _, v, a = self.at(t - 1e-9)
-                v_pk, a_pk = max(v_pk, abs(v)), max(a_pk, abs(a))
-                j_pk = max(j_pk, abs(6 * c3 + t * (24 * c4 + t * 60 * c5)))
+            for k in range(9):
+                t = T * k / 8
+                v = abs(c1 + t * (2 * c2 + t * (3 * c3 + t * (4 * c4 + t * 5 * c5))))
+                a = abs(2 * c2 + t * (6 * c3 + t * (12 * c4 + t * 20 * c5)))
+                j = abs(6 * c3 + t * (24 * c4 + t * 60 * c5))
+                v_pk, a_pk, j_pk = max(v_pk, v), max(a_pk, a), max(j_pk, j)
             if (v_pk <= 1.05 * max(v_max, abs(v0)) and a_pk <= 1.05 * max(a_max, abs(a0))
                     and j_pk <= 1.05 * j_max):
                 break
-            T *= 1.1
+            T *= 1.15
 
     def _fit(self, x0, v0, a0, T):
         self.T = T
@@ -90,6 +98,7 @@ class Controller:
         self.holding = False        # in position, all valves closed
         self.plan = None            # Profile (MOVE)
         self.plan_t = 0.0           # s since the start of the profile
+        self.plan_L = None          # mm, target the profile goes to
         self.v_ref_filt = 0.0       # mm/s, planned speed through the same filter as v_filt
 
     # --- helpers --------------------------------------------------------------
@@ -139,17 +148,15 @@ class Controller:
         r, b = self.cfg["hinge_to_rear"], self.cfg["hinge_to_attach"]
         return math.asin(clamp((L * L - r * r - b * b) / (2 * r * b), -1.0, 1.0))
 
-    def feedforward(self, th, w, al, v):
-        """Force (N) for the planned angle th, angular speed w (rad/s) and acceleration al
-        (rad/s²): gravity of arm + load, inertia, and the cylinder's friction at rod
-        speed v (mm/s)."""
+    def feedforward(self, cos_th, lever, al, v):
+        """Force (N) for the planned arm angle (its cosine), the cylinder's lever (mm),
+        angular acceleration al (rad/s²) and rod speed v (mm/s): gravity of arm + load,
+        inertia, and the cylinder's friction."""
         c = self.cfg
         load = c["load_kg"]
-        moment = c["arm_moment"] + load * c["tip_dist"]                 # kg·mm
-        inertia = c["arm_inertia"] + load * c["tip_dist"] ** 2          # kg·mm²
-        lever = c["hinge_to_rear"] * c["hinge_to_attach"] * math.cos(th) / self.length(th)   # mm
-        torque = (9.81 * moment * math.cos(th) + inertia * al / 1000.0) / 1000.0           # N·m
-        f = torque * 1000.0 / lever
+        tip = c["tip_dist"]
+        torque = 9.81 * (c["arm_moment"] + load * tip) * cos_th + (c["arm_inertia"] + load * tip * tip) * al / 1000.0
+        f = torque / lever                          # N·mm / mm
         f += c["ff_friction"] * clamp(v / 5.0, -1.0, 1.0) + c["ff_viscous"] * v / 1000.0
         return f
 
@@ -215,25 +222,27 @@ class Controller:
         if self.mode == MOVE:
             # smooth profile of the arm angle; a new target starts a new profile from the
             # current one. Planned in degrees, so the limits mean the same at every angle.
-            th1 = math.degrees(self.angle(target))
-            if self.plan is None:
-                self.plan = Profile(math.degrees(self.angle(L)), 0.0, 0.0, th1, c["move_w_max"], c["move_alpha_max"], c["move_jerk_max"])
-                self.plan_t = 0.0
-            elif self.plan.x1 != th1:
-                x, v, a = self.plan.at(self.plan_t)
+            if self.plan is None or self.plan_L != target:
+                th1 = math.degrees(self.angle(target))
+                if self.plan is None:
+                    x, v, a = math.degrees(self.angle(L)), 0.0, 0.0
+                else:
+                    x, v, a = self.plan.at(self.plan_t)
                 self.plan = Profile(x, v, a, th1, c["move_w_max"], c["move_alpha_max"], c["move_jerk_max"])
-                self.plan_t = 0.0
+                self.plan_L, self.plan_t = target, 0.0
             else:
                 self.plan_t += dt
             th, w, al = self.plan.at(self.plan_t)
-            th, w, al = math.radians(th), math.radians(w), math.radians(al)
+            th, w, al = th * DEG, w * DEG, al * DEG
             # the same motion in cylinder length: L(th), L' w, L'' w² + L' al
-            self.ref_now = self.length(th)
             r, b = c["hinge_to_rear"], c["hinge_to_attach"]
-            d1 = r * b * math.cos(th) / self.ref_now
-            d2 = (-r * b * math.sin(th) - d1 * d1) / self.ref_now
+            sin_th, cos_th = math.sin(th), math.cos(th)
+            Lp = (r * r + b * b + 2 * r * b * sin_th) ** 0.5
+            d1 = r * b * cos_th / Lp                 # dL/dth = the cylinder's lever (mm)
+            d2 = (-r * b * sin_th - d1 * d1) / Lp
+            self.ref_now = Lp
             v_ref, a_ref = d1 * w, d2 * w * w + d1 * al
-            ff_args = (th, w, al, v_ref)
+            ff = self.feedforward(cos_th, d1, al, v_ref)
             arrived = self.plan_t >= self.plan.T
         else:
             # let the target follow at limited speed (no step in the control error)
@@ -276,7 +285,7 @@ class Controller:
             self.integral = clamp(self.integral + e * dt, -c["i_limit"], c["i_limit"])
         if self.mode == MOVE:
             force = (c["kp_force"] * e + c["ki_force"] * self.integral
-                     + c["kd_force"] * (self.v_ref_filt - self.v_filt) + self.feedforward(*ff_args))
+                     + c["kd_force"] * (self.v_ref_filt - self.v_filt) + ff)
         else:
             force = c["kp_force"] * e + c["ki_force"] * self.integral - c["kd_force"] * self.v_filt
         self.force = clamp(force, f_min, f_max)

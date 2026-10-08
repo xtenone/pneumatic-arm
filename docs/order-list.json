@@ -403,9 +403,9 @@
       ]
     },
     {
-      "name": "6. T8 knob and button (Tinytronics, NL)",
-      "status": "still to buy",
-      "note": "Only for test T8, the last test of test 1. Prices are estimates; check stock when ordering.",
+      "name": "6. Later: knob and button for T8 (Tinytronics, NL)",
+      "status": "later, not needed now",
+      "note": "Not needed for test 1: T8 uses preset angles sent by the PC. For choosing the target with a knob later. Prices are estimates; check stock when ordering.",
       "items": [
         {
           "what": "ADC chip MCP3208 (8 channels, 12 bit, SPI, DIP-16)",

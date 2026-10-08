@@ -315,6 +315,8 @@ Close Thonny first: only one program at a time can talk to the Pico.
 | `valve 1 0 0 0` | open V1 (manual, duty 0..1 per valve) |
 | `pressure 2 2` | control both chambers to 2 bar |
 | `angle 20` | arm to 20° |
+| `move 20` | arm to 20°, fast and smoothly (T8) |
+| `load 1`, `speed 0.8` | load on the arm in kg, and the speed of `move` (1 = as tuned) |
 | `bang 20` | on/off control to 20° (T2) |
 | `stiffness 4` | sum of the chamber pressures |
 | `zero`, `cal_pressure 3`, `cal_pos in`, `cal_pos out`, `save` | calibration (step 10) |
@@ -356,7 +358,7 @@ Do this once, and again after moving the potentiometer or replacing a sensor.
 
 ## 11. The tests
 
-Start: `python tests_t0_t7.py T0` (and so on), or `python tests_t0_t7.py all`.
+Start: `python tests_t0_t8.py T0` (and so on), or `python tests_t0_t8.py all`.
 Each test stores its run, plot and outcome in `host/results/`.
 
 | Test | Pressure | Load | What | Passed if |
@@ -369,23 +371,23 @@ Each test stores its run, plot and outcome in `host/results/`.
 | T5 holding | 5 bar | 1 kg | 60 s at 30° | deviation < 1 mm |
 | T6 stiffness | 5 bar | 1 + 1 kg | at 20°, valves closed, add a plate; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
 | T7 load ratio | 5 bar | 1 → 5 kg | repeat T3, one plate more each time | highest load at which T3 passes |
-| T8 knob and button | 5 bar | 1 kg; then 2 kg at 90% speed | choose an angle with the knob, press the button: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
+| T8 fast and smooth | 5 bar | 1 kg; then 2 kg at 80% speed | `move` to preset angles: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
 
 The simulation's expectations are in `out/sim/results.json` and in the README. If the
 real measurement differs a lot, that is useful information in itself, for example about
 the cylinder's friction.
 
-**T8, the last test:** the arm goes to the angle chosen with a knob, fast and smoothly.
-The Pico plans a smooth profile (speed and acceleration build up and die out gradually,
+**T8, the last test:** the arm goes to a series of preset angles, fast and smoothly; the
+test script sends them. The Pico plans a smooth profile (speed and acceleration build up and die out gradually,
 at most 170°/s and 1550°/s², 10% slower than the fastest profile that still passes in
 the simulation) and pushes ahead with the force that profile needs:
 gravity, the acceleration of arm and load, and the cylinder's friction.
-- The feedforward needs the weight of the load: enter the number of kilograms on the
-  arm. In the simulation 10% off still passes; 20% too light does not.
-- With 2 kg the move to 50° does not settle in time at full speed; at 90% speed it
-  passes. A heavier load gets a lower speed rather than different tuning.
-The knob and button need their own parts (order 6 in the bill of materials) and are
-wired to the breadboard; the wiring and the firmware command follow.
+- The feedforward needs the weight of the load: the script sends it (`load 1`). In the
+  simulation 10% off still passes; 20% too light does not.
+- With 2 kg the moves are slower (`speed 0.8`): at full speed the move to 50° does not
+  settle in time. A heavier load gets a lower speed rather than different tuning.
+- Later the target can come from a knob with a button to start the move (order 6 in the
+  bill of materials, not needed now).
 
 **After T7:** fit the flow restrictors between the tee and the fill valves and repeat T3
 with the restrictors ¼, ½ and ¾ closed. This shows what a smaller valve does to speed and

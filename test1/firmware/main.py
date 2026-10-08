@@ -2,7 +2,8 @@
 
 Control over USB (serial port, 115200 baud, lines of text). See the manual for all
 commands; 'help' lists them too. The Pico sends data lines:
-  D,time_ms,L_mm,angle_deg,pa_bar,pb_bar,fill_a,vent_a,fill_b,vent_b,mode,target_mm,fault
+  D,time_ms,L_mm,angle_deg,pa_bar,pb_bar,fill_a,vent_a,fill_b,vent_b,mode,target_mm,fault,profile_mm
+(profile_mm: where the target is now, along the profile of `move` or the ramp of `angle`)
 
 Safety:
 - After start-up and on every fault all valves are closed.
@@ -34,7 +35,9 @@ poll = select.poll()
 poll.register(sys.stdin, select.POLLIN)
 line_buf = ""
 last_msg = time.ticks_ms()
-stream_every = max(1, CFG["loop_hz"] // 100)     # default 100 data lines per second
+stream_every = max(1, CFG["loop_hz"] // 100)     # default about 100 data lines per second (125 at 250 Hz)
+MOVE_LIMITS = (CFG["move_w_max"], CFG["move_alpha_max"], CFG["move_jerk_max"])   # at speed 1
+loop_stats = [0, 0, 0]      # steps, steps longer than the period, longest step (µs); shown and reset by 'info'
 
 
 def angle(L):
@@ -86,6 +89,9 @@ def pulse_capture(channel, ms):
 HELP = """commands:
   off                         close all valves
   angle <deg>                 move the arm to an angle (position control)
+  move <deg>                  move the arm to an angle fast and smoothly (profile + feedforward, T8)
+  load <kg>                   load on the arm, for the feedforward of move
+  speed <factor>              speed of move, 1 = as tuned (0.9 = 10% slower)
   pos <mm>                    move the cylinder to a pin-to-pin length
   bang <deg>                  on/off control (T2)
   pressure <pa> <pb>          control the chamber pressures (bar gauge)
@@ -110,12 +116,22 @@ def handle(cmd):
     try:
         if c == "ping":
             return
-        if c in ("angle", "pos", "bang", "pressure", "valve", "pulse"):
+        if c in ("angle", "move", "pos", "bang", "pressure", "valve", "pulse"):
             start_watchdog()
         if c == "off":
             ctl.set_mode(control.OFF)
         elif c == "angle":
             ctl.set_mode(control.POSITION, length(float(p[1])))
+        elif c == "move":
+            ctl.set_mode(control.MOVE, length(float(p[1])))
+        elif c == "load":
+            ctl.cfg["load_kg"] = float(p[1])
+        elif c == "speed":
+            k = float(p[1])
+            if not 0.1 <= k <= 1.2:
+                raise ValueError("speed between 0.1 and 1.2")
+            w, al, j = MOVE_LIMITS
+            ctl.cfg["move_w_max"], ctl.cfg["move_alpha_max"], ctl.cfg["move_jerk_max"] = w * k, al * k * k, j * k ** 3
         elif c == "pos":
             ctl.set_mode(control.POSITION, float(p[1]))
         elif c == "bang":
@@ -156,6 +172,8 @@ def handle(cmd):
         elif c == "info":
             say("INFO", CFG)
             say("CAL", sensors.cal)
+            say("LOOP", "steps", loop_stats[0], "too_long", loop_stats[1], "longest_us", loop_stats[2])
+            loop_stats[:] = [0, 0, 0]
         elif c == "help":
             print(HELP)
         else:
@@ -189,24 +207,37 @@ def pc_watchdog():
 def run():
     period_us = 1_000_000 // CFG["loop_hz"]
     t_next = time.ticks_us()
+    t_last = t_next
     t_start = time.ticks_ms()
     n = 0
     say("OK", "started", "type 'help'")
     while True:
+        t_loop = time.ticks_us()
         if wdt is not None:
             wdt.feed()
         read_commands()
         pc_watchdog()
         L, pa, pb = sensors.read()
-        duty = ctl.update(period_us / 1e6, L, pa, pb)
+        now = time.ticks_us()
+        dt = time.ticks_diff(now, t_last) / 1e6      # real time since the last step (memory clean-up can pause the loop)
+        t_last = now
+        duty = ctl.update(min(max(dt, 1e-4), 0.05), L, pa, pb)
         valves.set(duty)
         n += 1
         if stream_every and n % stream_every == 0:
             ref = ctl.ref if ctl.ref is not None else 0.0
+            prof = ctl.ref_now if ctl.ref_now is not None else ref
             d = valves.duty
-            say("D", time.ticks_diff(time.ticks_ms(), t_start), round(L, 2), round(angle(L), 2),
-                round(pa, 3), round(pb, 3), round(d[0], 2), round(d[1], 2), round(d[2], 2), round(d[3], 2),
-                ctl.mode, round(ref, 2), ctl.fault)
+            # % formatting: about 3× faster than joining str() of every field
+            print("D,%d,%.2f,%.2f,%.3f,%.3f,%.2f,%.2f,%.2f,%.2f,%s,%.2f,%s,%.2f" % (
+                time.ticks_diff(time.ticks_ms(), t_start), L, angle(L), pa, pb, d[0], d[1], d[2], d[3],
+                ctl.mode, ref, ctl.fault, prof))
+        busy = time.ticks_diff(time.ticks_us(), t_loop)
+        loop_stats[0] += 1
+        if busy > period_us:
+            loop_stats[1] += 1
+        if busy > loop_stats[2]:
+            loop_stats[2] = busy
         t_next = time.ticks_add(t_next, period_us)
         wait = time.ticks_diff(t_next, time.ticks_us())
         if wait > 0:

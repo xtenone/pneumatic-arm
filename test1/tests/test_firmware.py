@@ -107,7 +107,31 @@ def main():
     check(abs(pa) < 0.01 and abs(pb) < 0.01, "after 'zero' the pressure sensors read 0 bar")
     handle("cal_pos in")
     check(abs(sensors.read()[0] - g["CFG"]["L_min"]) < 0.01, "after 'cal_pos in' the length is L_min")
-    # 6. PC watchdog
+    # 6. move (T8): smooth profile from the current position, speed and load commands
+    handle("load 2")
+    check(g["CFG"]["load_kg"] == 2.0, "load 2: feedforward uses 2 kg")
+    handle("speed 0.9")
+    w0, a0, j0 = g["MOVE_LIMITS"]
+    cfg = g["CFG"]
+    check(abs(cfg["move_w_max"] - 0.9 * w0) < 1e-6 and abs(cfg["move_alpha_max"] - 0.81 * a0) < 1e-6
+          and abs(cfg["move_jerk_max"] - 0.729 * j0) < 1e-6, "speed 0.9: speed × 0.9, acceleration × 0.81, jerk × 0.729")
+    sys.stdout = io.StringIO()
+    handle("speed 3")
+    msg = sys.stdout.getvalue()
+    sys.stdout = real_stdout
+    check("ERROR" in msg and abs(cfg["move_w_max"] - 0.9 * w0) < 1e-6, "speed 3 is refused")
+    L0 = sensors.read()[0]
+    handle("move 30")
+    refs = []
+    for _ in range(50):
+        ctl.update(0.002, *sensors.read())
+        refs.append(ctl.ref_now)
+    check(ctl.mode == control.MOVE and abs(refs[0] - L0) < 0.05, "move 30: the profile starts at the current position")
+    check(all(b >= a for a, b in zip(refs, refs[1:])) and L0 < refs[-1] < ctl.ref,
+          "move 30: the profile rises smoothly towards the target")
+    handle("speed 1")
+    handle("load 1")
+    # 7. PC watchdog
     g["last_msg"] = time.ticks_ms() - 10_000
     handle("angle 10")
     g["last_msg"] = time.ticks_ms() - 10_000
@@ -115,7 +139,7 @@ def main():
     g["pc_watchdog"]()
     sys.stdout = real_stdout
     check(ctl.mode == control.OFF, "no ping from the PC: valves closed")
-    # 7. an unknown command breaks nothing
+    # 8. an unknown command breaks nothing
     sys.stdout = io.StringIO()
     handle("fly")
     msg = sys.stdout.getvalue()

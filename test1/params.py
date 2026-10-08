@@ -70,7 +70,9 @@ T_AIR = 293.0                # K
 
 # --- Control (tuned in the simulation, sim/run.py; the tests refine them) --------
 PWM_HZ = 50
-LOOP_HZ = 500
+LOOP_HZ = 250               # measured on the Pico 2 W: a control step with sensors, valves and
+                             # data takes ≈ 2 ms (500 Hz did not fit)
+GC_EVERY, GC_PAUSE = 0.65, 0.012   # s: MicroPython's memory clean-up stops the loop this long, this often (measured)
 P_SUM = 4.0                  # bar, sum of both chamber pressures (stiffness)
 KP_FORCE = 12.0              # N per mm position error
 KI_FORCE = 90.0              # N per mm·s (only close to the target or when the arm is stalled)

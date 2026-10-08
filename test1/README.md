@@ -17,19 +17,20 @@ with a load on it?**
 - per cylinder chamber a fill valve and a vent valve (SMC VQ110U, 4 pieces), driven with
   PWM;
 - a linear potentiometer for the position, a pressure sensor per chamber, and a
-  Raspberry Pi Pico 2 that controls everything 500 times per second.
+  Raspberry Pi Pico 2 that controls everything 250 times per second.
 
 **What it delivers:**
 - the answer whether pneumatics work for this arm;
 - the number that sets how big the shoulder and elbow cylinders have to be (test T7);
 - the control software that carries over to the real arm.
 
-**Targets** (test T3): overshoot < 5 mm, settled within 1 s, error < 1 mm. The
-simulation meets them with the current tuning; see the [results](out/sim/results.md).
+**Targets** (test T3): overshoot < 5 mm, settled within 1 s, error < 1 mm. In the
+simulation the overshoot and error are met; settling within ±1 mm is borderline; see the
+[results](out/sim/results.md).
 
-**Last test** (T8): choose an angle with a knob, press a button, and the arm goes there
-fast and smoothly: in the simulation 30° in 0.45 s, following a smooth profile within
-3 mm, without overshoot worth mentioning.
+**Last test** (T8): the arm moves to a series of preset angles fast and smoothly: in the
+simulation 30° in 0.4 s, following a smooth profile within 3 mm, without overshoot worth
+mentioning.
 
 ## What is in this package
 
@@ -45,7 +46,7 @@ fast and smoothly: in the simulation 30° in 0.45 s, following a smooth profile 
 | `cad/` | CadQuery model (`parts.py`) and export (`export.py`) |
 | `sim/` | MuJoCo model (`model.py`), pneumatics model (`pneumatics.py`), scenarios (`run.py`) |
 | `firmware/` | MicroPython for the Pico 2: `main.py`, `control.py` (controller), `hw.py`, `config.py` (generated) |
-| `host/` | PC tools: `logger.py` (manual control + recording), `tests_t0_t7.py` (tests T0–T7, automated), `analysis.py` |
+| `host/` | PC tools: `logger.py` (manual control + recording), `tests_t0_t8.py` (tests T0–T8, automated), `analysis.py` |
 | `tests/test_firmware.py` | Runs the firmware on a PC with simulated hardware |
 | `build.py` | Regenerates everything and builds the bundle |
 
@@ -66,9 +67,9 @@ fast and smoothly: in the simulation 30° in 0.45 s, following a smooth profile 
 | Part | Status |
 |---|---|
 | Design, CAD, drawings | done |
-| Simulation and tuning | done; T3 and T8 pass in simulation |
-| Firmware and PC tools | done, tested with simulated hardware; runs on the Pico (no sensors yet). T8: controller mode done, knob, button and command to do |
-| Parts | AliExpress ordered 2026-10-04; electronics and compressor received; DIY-store parts and the T8 knob still to buy |
+| Simulation and tuning | done; at 250 Hz the moves are fine, settling within ±1 mm is borderline (T3, T8) |
+| Firmware and PC tools | done, tested with simulated hardware; runs on the Pico (no sensors yet), 250 Hz measured |
+| Parts | AliExpress ordered 2026-10-04; electronics and compressor received; DIY-store parts still to buy |
 | Build and tests T0–T8 | to do |
 
 ## Open and free to rebuild

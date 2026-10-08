@@ -1,7 +1,7 @@
-"""Tests T0–T7 of test 1, run and assessed automatically.
+"""Tests T0–T8 of test 1, run and assessed automatically.
 
-    python tests_t0_t7.py T3 --port COM5
-    python tests_t0_t7.py all --port COM5
+    python tests_t0_t8.py T3 --port COM5
+    python tests_t0_t8.py all --port COM5
 
 Each test writes a folder results/<date>_<test>/ with the run (CSV), a plot (PNG) and
 the outcome (JSON). Where you need to do something (set the pressure, hang a weight)
@@ -38,7 +38,7 @@ def save(name, data, result, title=None):
     os.makedirs(d, exist_ok=True)
     if data is not None and len(data):
         np.savetxt(os.path.join(d, "run.csv"), data, delimiter=",", fmt="%.4f",
-                   header="time_s,L_mm,angle,pa_bar,pb_bar,fill_a,vent_a,fill_b,vent_b,target_mm,target_pa,target_pb",
+                   header="time_s,L_mm,angle,pa_bar,pb_bar,fill_a,vent_a,fill_b,vent_b,target_mm,target_pa,target_pb,profile_mm",
                    comments="")
         analysis.plot(data - np.r_[data[0, 0], np.zeros(data.shape[1] - 1)], os.path.join(d, "plot.png"), title or name)
     with open(os.path.join(d, "outcome.json"), "w") as f:
@@ -194,7 +194,46 @@ def t7(p):
     return save("T7_load", None, dict(per_load=rows))
 
 
-TESTS = dict(T0=t0, T1=t1, T2=t2, T3=t3, T4=t4, T5=t5, T6=t6, T7=t7)
+def t8_run(p, label):
+    """The preset moves of analysis.T8_PLAN with `move`, sent at their times."""
+    p.send("move 0")
+    p.wait(3)
+    t_begin, wall = p.now(), time.monotonic()
+    commands = []
+    for t_rel, theta in analysis.T8_PLAN:
+        while time.monotonic() - wall < t_rel:
+            time.sleep(0.001)
+        p.send(f"move {theta}")
+        commands.append((p.now(), theta))
+    while time.monotonic() - wall < analysis.T8_END:
+        time.sleep(0.01)
+    data = p.take(since=t_begin)
+    rows = analysis.t8_metrics(data, commands, data[-1, 0], length)
+    for r in rows:
+        print(f"  → {r['angle']:g}°: profile {r['profile_s']} s, tracking {r['track_mm']} mm, "
+              f"overshoot {r['overshoot_mm']} mm, settled {r['settle_after_s']} s after, "
+              f"{'passed' if r['passed'] else 'NOT passed'}")
+    return save(label, data, dict(moves=rows, passed=all(r["passed"] for r in rows),
+                                  criterion=f"tracking < {analysis.T8_TRACK_MM:g} mm, overshoot < "
+                                            f"{analysis.T8_OVERSHOOT_MM:g} mm, within ±{analysis.T8_SETTLE_MM:g} mm "
+                                            f"≤ {analysis.T8_SETTLE_S:g} s after the profile, error at rest < "
+                                            f"{analysis.T8_ERROR_MM:g} mm"), label)
+
+
+def t8(p):
+    ask("T8 preset positions, fast and smooth. Regulator at 5 bar, load 1 kg (one plate).")
+    p.send("load 1")
+    p.send("speed 1")
+    r1 = t8_run(p, "T8_move_1kg")
+    ask("T8 with 2 kg: put a second plate on the other side of the arm.")
+    p.send("load 2")
+    p.send("speed 0.8")
+    r2 = t8_run(p, "T8_move_2kg_speed_0.8")
+    p.send("speed 1")
+    return dict(kg1=r1["passed"], kg2_speed_0_8=r2["passed"])
+
+
+TESTS = dict(T0=t0, T1=t1, T2=t2, T3=t3, T4=t4, T5=t5, T6=t6, T7=t7, T8=t8)
 
 
 def main():

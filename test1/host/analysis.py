@@ -2,7 +2,8 @@
 
 A run is a numpy array with columns:
   0 time_s, 1 L_mm, 2 angle, 3 pa, 4 pb, 5-8 duty (fill A, vent A, fill B, vent B),
-  9 target_mm, 10 target pa, 11 target pb  (10-11 only in the simulation, NaN otherwise)
+  9 target_mm, 10 target pa, 11 target pb  (10-11 only in the simulation, NaN otherwise),
+  12 profile_mm (where the target is now: the profile of `move`, the ramp of `angle`)
 """
 import numpy as np
 
@@ -26,6 +27,54 @@ def step_metrics(log, t0, t1, target):
     return dict(overshoot_mm=round(over, 2), settling_s=round(float(settle), 3),
                 error_mm=round(err, 2),
                 passed=bool(over < OVERSHOOT_MM and settle < SETTLE_S and err < ERROR_MM))
+
+
+# T8: preset positions (s after the start, arm angle). The last two are 0.15 s apart: a
+# new target during a move.
+T8_PLAN = [(0.5, 30.0), (2.0, -5.0), (3.5, 50.0), (5.0, 10.0), (6.5, 40.0), (6.65, 20.0)]
+T8_END = 8.0
+T8_TRACK_MM, T8_OVERSHOOT_MM, T8_SETTLE_MM, T8_SETTLE_S, T8_ERROR_MM = 3.0, 2.0, 1.5, 0.2, 1.0
+T8_REPLAN_S = 0.5            # a command this soon after the previous one changes a running move
+
+
+def t8_metrics(log, commands, t_stop, target_mm):
+    """Per move of T8: profile time, largest tracking error during the profile (measured −
+    profile), overshoot past the target, time until within ±T8_SETTLE_MM after the
+    profile ends, time from the command until settled, and the mean error at rest.
+
+    commands: [(time, angle)] as sent; target_mm(angle) gives the cylinder length.
+    A command within T8_REPLAN_S of the previous one belongs to the same move; its
+    overshoot is past the new, nearer target and does not count."""
+    t, L, prof = log[:, 0], log[:, 1], log[:, 12]
+    rows = []
+    for i, (tc, th) in enumerate(commands):
+        if i + 1 < len(commands) and commands[i + 1][0] - tc < T8_REPLAN_S:
+            continue                                   # replaced during the move
+        replanned = i > 0 and tc - commands[i - 1][0] < T8_REPLAN_S
+        t0 = commands[i - 1][0] if replanned else tc
+        t_next = commands[i + 1][0] if i + 1 < len(commands) else t_stop
+        target = target_mm(th)
+        win = (t >= t0) & (t < t_next)
+        # the profile has ended when it stays at the target
+        off = np.where(win & (np.abs(prof - target) > 0.02))[0]
+        t_end = t[off[-1]] if len(off) else t0
+        moving = win & (t <= t_end)
+        track = float(np.max(np.abs(L[moving] - prof[moving]))) if moving.any() else 0.0
+        start = L[np.searchsorted(t, t0)]
+        direction = 1 if target > start else -1
+        over = max(0.0, float(np.max((L[win] - target) * direction)))
+        after = win & (t > t_end)
+        outside = np.where(np.abs(L[after] - target) > T8_SETTLE_MM)[0]
+        t_settled = t[after][outside[-1]] if len(outside) else t_end
+        settle_after = max(0.0, float(t_settled - t_end))
+        err = float(np.mean(np.abs(L[win & (t > t_next - 0.3)] - target)))
+        ok = (track < T8_TRACK_MM and (replanned or over < T8_OVERSHOOT_MM)
+              and settle_after <= T8_SETTLE_S and err < T8_ERROR_MM)
+        rows.append(dict(command_s=round(float(t0), 3), angle=th, profile_s=round(float(t_end - t0), 3),
+                         track_mm=round(track, 2), overshoot_mm=round(over, 2),
+                         settle_after_s=round(settle_after, 3), command_to_settled_s=round(float(t_settled - t0), 3),
+                         error_mm=round(err, 2), new_target_during_move=replanned, passed=bool(ok)))
+    return rows
 
 
 def plot(log, path, title):
