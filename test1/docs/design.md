@@ -271,23 +271,25 @@ cylinder length to angle. See `out/drawings/side_view.pdf`.
 
 - **Upright:** two 18 mm plywood cheeks with a 36 mm spacer block between them (two
   layers of the same plywood), on a 40 × 30 cm base plate. The rig sits on the edge of a
-  table, held by two F-clamps; the load hangs beside the table.
+  table, held by two F-clamps; the arm end with the load sticks out beside the table.
 - **Hinge:** an M8 bolt through two 608 ball bearings (skateboard bearings) in the
   cheeks, 420 mm above the base plate. Cheap, available everywhere, and without play.
 - **Arm:** aluminium flat bar 40×5 mm, 450 mm long. The cylinder's clevis attaches
-  150 mm from the hinge, the load hangs at 400 mm.
+  150 mm from the hinge; the load, 1 kg dumbbell plates on an M8 bolt, sits at 400 mm.
+  Bolted on, it cannot swing (a hanging bottle would set the arm swinging), and the
+  gripper of the real arm also holds its load firmly.
 - **Cylinder:** pivots at the rear on an M8 bolt, 320 mm straight below the hinge.
   Pin-to-pin 311–461 mm gives an arm angle of −17° to +66°.
 - **Potentiometer:** fixed to the cylinder tube with hose clamps, its rod connected via a
   small bracket to the cylinder rod. It measures the cylinder length; the software
   converts that to the angle.
 
-| Arm angle | Cylinder lever | Max. torque at 5 bar | Gravity (arm + 1.5 kg) | Load |
+| Arm angle | Cylinder lever | Max. torque at 5 bar | Gravity (arm + 1 kg) | Load |
 |---|---|---|---|---|
-| −17° | 148 mm | 23.2 Nm | 6.1 Nm | 26% |
-| 0° | 136 mm | 21.3 Nm | 6.4 Nm | 30% |
-| 40° | 85 mm | 13.4 Nm | 4.9 Nm | 37% |
-| 66° | 43 mm | 6.7 Nm | 2.6 Nm | 39% |
+| −17° | 148 mm | 23.2 Nm | 4.3 Nm | 18% |
+| 0° | 136 mm | 21.3 Nm | 4.5 Nm | 21% |
+| 40° | 85 mm | 13.4 Nm | 3.4 Nm | 26% |
+| 66° | 43 mm | 6.7 Nm | 1.8 Nm | 27% |
 
 The higher the arm, the smaller the cylinder's lever: the same effect as in the 2-DOF
 joint later (see `docs/2dof-joint.md` in the repository root).
@@ -338,8 +340,10 @@ and adds to step 2:
 - **Feedforward:** force = (gravity torque + inertia × planned angular acceleration) /
   lever, plus the seal friction in the direction of motion. The PID only corrects what is
   left; its D term works on the difference between planned and measured speed.
-- The load must be known (weighed); the arm's own mass and inertia come from
-  `params.py`.
+- The load must be known (the number of 1 kg plates); the arm's own mass and inertia
+  come from `params.py`.
+- A heavier load gets a lower speed, not different tuning: with 2 kg the move to 50° only
+  settles in time at 90% speed.
 
 ## Simulation
 
@@ -353,12 +357,12 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 
 | Test (simulation) | Result |
 |---|---|
-| T3 step 0° → 30° | overshoot 1.0 mm, settled in 0.9 s, error 0.3 mm — passed |
-| T3 step 30° → −5° | overshoot 1.2 mm, settled in 0.5 s, error 0.1 mm — passed |
-| T2 on/off control (3 bar) | stays 15–25 mm off target: PWM control is needed |
-| T6 stiffness (15 N extra, valves closed) | 14° deflection at 2 bar chamber pressure, 10° at 5 bar |
-| T7 load | target reached up to 3.5 kg (78% load), but within 1 s only around the tuning load (1.5 kg); not at 100% |
-| T8 knob and button | 30° in 0.45 s, largest move (−5° → 50°) 0.61 s; follows the profile within 2 mm, overshoot ≤ 1.5 mm, at rest when the profile ends — passed. 1.15× as fast fails; so does the load set 20% too light, 10% off passes |
+| T3 step 0° → 30° | overshoot 1.7 mm, settled in 0.5 s, error 0.1 mm — passed |
+| T3 step 30° → −5° | overshoot 1.9 mm, settled in 0.7 s, error 0.3 mm — passed |
+| T2 on/off control (3 bar) | stays 14–23 mm off target: PWM control is needed |
+| T6 stiffness (one plate added, valves closed) | 10.6° deflection at 2 bar chamber pressure, 6.8° at 5 bar |
+| T7 load | target reached up to 3 kg (68% load), but within 1 s only at the tuning load (1 kg); at 4 kg 12 mm short |
+| T8 knob and button | 30° in 0.45 s, largest move (−5° → 50°) 0.61 s; follows the profile within 2.1 mm, overshoot ≤ 1.5 mm, at rest when the profile ends — passed. 1.1× as fast just fails (3.2 mm). 2 kg: passes at 90% speed. The load set 20% too light fails, 10% off passes |
 
 Exact numbers per run: [`../out/sim/results.md`](../out/sim/results.md).
 T7 already shows that the tuning belongs to the load. The arm will probably need tuning
@@ -389,7 +393,7 @@ simulation (`host/analysis.py`).
   V2 and V4, from the software or with the manual override button on the valve itself.
   Only then work on the rig.
 - **Arm:** keep your hands out from between the arm and the upright. Clamp the base plate
-  to the table edge with two F-clamps; the load hangs beside the table.
+  to the table edge with two F-clamps; the loaded arm end sticks out beside the table.
 - **Relief:** above 6 bar the software opens that chamber's vent valve.
 - **Pneumatics are not harmless:** Ø20 at 6 bar pushes almost 19 kg, and the arm's
   cylinders will be many times stronger. The arm's safety has to come from the design:

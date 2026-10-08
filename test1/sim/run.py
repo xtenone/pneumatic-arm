@@ -37,9 +37,8 @@ from parts import pose  # noqa: E402
 OUT = os.path.join(ROOT, "out", "sim")
 
 class Sim:
-    def __init__(self, tip_mass=P.TIP_MASS, p_sum=None, p_supply=P.P_SUPPLY, seed=1, rigid_load=False):
-        self.mdl = mujoco.MjModel.from_xml_string(model.build_xml(tip_mass=tip_mass, rigid_load=rigid_load))
-        self.rigid_load = rigid_load
+    def __init__(self, tip_mass=P.TIP_MASS, p_sum=None, p_supply=P.P_SUPPLY, seed=1):
+        self.mdl = mujoco.MjModel.from_xml_string(model.build_xml(tip_mass=tip_mass))
         self.d = mujoco.MjData(self.mdl)
         self.ext0 = model.ext0()
         self.pn = Pneumatics(p_supply)
@@ -62,8 +61,6 @@ class Sim:
         self.d.qpos[self.mdl.joint("arm").qposadr[0]] = math.radians(theta)
         self.d.qpos[self.mdl.joint("cyl_rear").qposadr[0]] = math.radians(p["phi"] - p0["phi"])
         self.d.qpos[self.mdl.joint("stroke").qposadr[0]] = (p["ext"] - p0["ext"]) / 1000
-        if not self.rigid_load:
-            self.d.qpos[self.mdl.joint("load").qposadr[0]] = -math.radians(theta)   # load hangs straight
         mujoco.mj_forward(self.mdl, self.d)
 
     # measurements as the Pico sees them
@@ -135,7 +132,7 @@ def scenario_step(mode=control.POSITION, tip_mass=P.TIP_MASS, plot_name="step", 
 
 def scenario_load():
     rows = []
-    for mass in (0.5, 1.5, 2.5, 3.5, 4.5, 5.5):
+    for mass in (1.0, 2.0, 3.0, 4.0, 5.0):          # 1 kg dumbbell plates
         s = Sim(tip_mass=mass)
         s.ctl.set_mode(control.POSITION, L_of(0.0))
 
@@ -151,7 +148,7 @@ def scenario_load():
 
 
 def scenario_stiffness():
-    """T6: go to 20°, then close all valves (air trapped) and pull 15 N extra down on
+    """T6: go to 20°, then close all valves (air trapped) and put one extra 1 kg plate on
     the load. The deflection measures only the stiffness of the air spring."""
     rows = []
     for p_sum in (2.0, 5.0):
@@ -161,7 +158,7 @@ def scenario_stiffness():
         s.ctl.set_mode(control.OFF)
         s.run(0.3)
         th0 = s.theta()
-        s.ext_force = ("load", np.array([0.0, 0.0, -15.0]))
+        s.ext_force = ("load", np.array([0.0, 0.0, -9.81 * P.PLATE["mass"]]))
         log = s.run(0.6)
         s.ext_force = None
         dip = th0 - min(log[-int(0.6 * P.LOOP_HZ):, 2])
@@ -177,11 +174,11 @@ T8_TRACK_MM, T8_OVERSHOOT_MM, T8_SETTLE_MM, T8_SETTLE_S = 3.0, 2.0, 1.5, 0.2
 
 
 def scenario_t8(mode=control.MOVE, w_max=None, alpha_max=None, tip_mass=P.TIP_MASS, load_kg=None, plot_name=None, seed=1,
-                rigid_load=True, cfg_over=None):
+                cfg_over=None):
     """Knob moves of T8. Per move: profile time, largest tracking error during the
     profile, overshoot past the target, settling (±1 mm) after the profile ends, and the
     time from the button press until settled."""
-    s = Sim(tip_mass=tip_mass, seed=seed, rigid_load=rigid_load)
+    s = Sim(tip_mass=tip_mass, seed=seed)
     if w_max:
         s.ctl.cfg["move_w_max"] = w_max
     if alpha_max:
@@ -294,11 +291,13 @@ def scenario_t8_all():
         res["default"] = t8_summary({}, pool)
         res["t3_controller"] = t8_summary(dict(mode=control.POSITION), pool)
         # faster profiles: durations / k, so speed × k, acceleration × k², jerk × k³
-        res["limits"] = []
-        for k in (1.1, 1.15, 1.3):
-            over = dict(move_w_max=P.MOVE_W_MAX * k, move_alpha_max=P.MOVE_ALPHA_MAX * k * k,
+        def faster(k):
+            return dict(move_w_max=P.MOVE_W_MAX * k, move_alpha_max=P.MOVE_ALPHA_MAX * k * k,
                         move_jerk_max=P.MOVE_JERK_MAX * k ** 3)
-            res["limits"].append(dict(k=k, **t8_summary(dict(cfg_over=over), pool)))
+        res["limits"] = [dict(k=k, **t8_summary(dict(cfg_over=faster(k)), pool)) for k in (1.1, 1.15, 1.3)]
+        # heavier load: same profile, and 10% slower
+        res["heavier"] = [dict(k=k, **t8_summary(dict(tip_mass=2 * P.PLATE["mass"], load_kg=2 * P.PLATE["mass"],
+                                                      cfg_over=faster(k)), pool)) for k in (1.0, 0.9)]
         res["load_setting"] = [dict(load_kg=round(P.TIP_MASS * f, 2), **t8_summary(dict(load_kg=P.TIP_MASS * f), pool))
                                for f in (0.9, 1.1, 0.8, 1.2)]
     return res
@@ -342,14 +341,14 @@ def write_markdown(res):
     for r in res["T7_load"]:
         lines.append(f"| {r['load_kg']} | {r['load_pct']} | {r['overshoot_mm']} | {r['settling_s']} | "
                      f"{r['error_mm']} | {'yes' if r['passed'] else 'no'} |")
-    lines += ["", "## T6 stiffness (valves closed, 15 N extra on the load)", "",
+    lines += ["", "## T6 stiffness (valves closed, one 1 kg plate added)", "",
               "| Sum of chamber pressures (bar) | Deflection (degrees) |", "|---|---|"]
     for r in res["T6_stiffness"]:
         lines.append(f"| {r['pressure_sum_bar']} | {r['deflection_deg']} |")
     t8 = res["T8"]
     yn = lambda b: "yes" if b else "no"     # noqa: E731
     lines += ["", "## T8 knob and button: smooth profile with feedforward", "",
-              f"Load {P.TIP_MASS} kg strapped under the arm end, {P.P_SUPPLY} bar. Knob targets "
+              f"Load {P.TIP_MASS:g} kg (dumbbell plates bolted to the arm end), {P.P_SUPPLY} bar. Knob targets "
               f"{', '.join(f'{a:g}°' for _, a in T8_PRESSES)} (the last two 0.15 s apart: a new target during a "
               f"move). Criteria per move: tracking error < {T8_TRACK_MM:g} mm, overshoot < {T8_OVERSHOOT_MM:g} mm, "
               f"within ±{T8_SETTLE_MM:g} mm at most {T8_SETTLE_S:g} s after the profile ends, mean error at rest "
@@ -370,6 +369,9 @@ def write_markdown(res):
     lines.append(srow(f"profile {P.MOVE_W_MAX:g}°/s, {P.MOVE_ALPHA_MAX:g}°/s² (params.py)", t8["default"]))
     for m in t8["limits"]:
         lines.append(srow(f"{m['k']:g}× as fast ({P.MOVE_W_MAX * m['k']:.0f}°/s, {P.MOVE_ALPHA_MAX * m['k'] ** 2:.0f}°/s²)", m))
+    for m in t8["heavier"]:
+        lines.append(srow(f"{2 * P.PLATE['mass']:g} kg load" + (", same profile" if m["k"] == 1 else
+                                                               f", {round((1 - m['k']) * 100)}% lower speed"), m))
     for m in t8["load_setting"]:
         lines.append(srow(f"load set to {m['load_kg']} kg (real {P.TIP_MASS} kg)", m))
     lines.append(srow(f"T3 controller (ramp {P.V_MAX:g} mm/s, no feedforward)", t8["t3_controller"]))

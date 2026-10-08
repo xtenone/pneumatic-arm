@@ -126,7 +126,7 @@ Drawing: `out/drawings/arm.pdf`.
 2. **Mark the holes** on the centre line (20 mm from the edge):
    - hinge: 20 mm from one end
    - clevis: 150 mm from the hinge hole
-   - load: 400 mm from the hinge hole
+   - load bolt: 400 mm from the hinge hole
 3. Centre-punch, drill Ø5 first, then **Ø8.5**, and deburr.
 4. **Spacer sleeves:** cut four pieces of the 10×1 tube:
    - 2× **15.5 mm** for the arm in the hinge (36 − 5 = 31, split over 2 sides)
@@ -137,6 +137,12 @@ Drawing: `out/drawings/arm.pdf`.
 
 📷 Photo of the hinge from above. The arm must sit centred between the cheeks and swing
 freely up and down.
+
+6. **Load:** 1 kg dumbbell plates on an M8×60 bolt through the load hole, between two
+   large washers (M8 × 40 mm), with a nut. One plate for most tests; for more, put them
+   alternately left and right of the arm so it does not twist. If the plate's hole is
+   much bigger than the bolt, centre it with a short piece of 25 mm conduit or a few turns
+   of tape. Tighten well: the plates must not swing or slide.
 
 ---
 
@@ -355,15 +361,15 @@ Each test stores its run, plot and outcome in `host/results/`.
 
 | Test | Pressure | Load | What | Passed if |
 |---|---|---|---|---|
-| T0 leak test | 3 bar | 1.5 kg | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
+| T0 leak test | 3 bar | 1 kg | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
 | T1 valves | 3 bar | – | open each valve for 10 ms, sample the pressure fast | response < 10 ms |
-| T2 on/off | 3 bar | 1.5 kg | 0° → 30° → −5° with fully open/closed valves only | comes to rest within ±3 mm |
-| T3 PWM control | 5 bar | 1.5 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
-| T4 repeatability | 5 bar | 1.5 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
-| T5 holding | 5 bar | 1.5 kg | 60 s at 30° | deviation < 1 mm |
-| T6 stiffness | 5 bar | 1.5 + 1 kg | at 20°, valves closed, add 1 kg; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
-| T7 load ratio | 5 bar | 0.5 → 3.5 kg | repeat T3 with increasing load | highest load at which T3 passes |
-| T8 knob and button | 5 bar | 1.5 kg, strapped under the arm end | choose an angle with the knob, press the button: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
+| T2 on/off | 3 bar | 1 kg | 0° → 30° → −5° with fully open/closed valves only | comes to rest within ±3 mm |
+| T3 PWM control | 5 bar | 1 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
+| T4 repeatability | 5 bar | 1 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
+| T5 holding | 5 bar | 1 kg | 60 s at 30° | deviation < 1 mm |
+| T6 stiffness | 5 bar | 1 + 1 kg | at 20°, valves closed, add a plate; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
+| T7 load ratio | 5 bar | 1 → 5 kg | repeat T3, one plate more each time | highest load at which T3 passes |
+| T8 knob and button | 5 bar | 1 kg; then 2 kg at 90% speed | choose an angle with the knob, press the button: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
 
 The simulation's expectations are in `out/sim/results.json` and in the README. If the
 real measurement differs a lot, that is useful information in itself, for example about
@@ -373,13 +379,11 @@ the cylinder's friction.
 The Pico plans a smooth profile (speed and acceleration build up and die out gradually,
 at most 170°/s and 1550°/s², 10% slower than the fastest profile that still passes in
 the simulation) and pushes ahead with the force that profile needs:
-gravity, the acceleration of arm and load, and the cylinder's friction. Two things
-differ from the other tests:
-- The bottle is strapped under the end of the arm (tape or cable ties) instead of hanging
-  on the hook: a swinging bottle would set the arm swinging too, and the gripper of the
-  real arm also holds its load firmly.
-- The feedforward needs the weight of the load: weigh the bottle and enter it. In the
-  simulation 10% off still passes; 20% too light does not.
+gravity, the acceleration of arm and load, and the cylinder's friction.
+- The feedforward needs the weight of the load: enter the number of kilograms on the
+  arm. In the simulation 10% off still passes; 20% too light does not.
+- With 2 kg the move to 50° does not settle in time at full speed; at 90% speed it
+  passes. A heavier load gets a lower speed rather than different tuning.
 The knob and button need their own parts (order 6 in the bill of materials) and are
 wired to the breadboard; the wiring and the firmware command follow.
 

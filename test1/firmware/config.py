@@ -23,7 +23,7 @@ CFG = {
     'move_w_max': 170.0,
     'move_alpha_max': 1550.0,
     'move_jerk_max': 24000.0,
-    'load_kg': 1.5,
+    'load_kg': 1.0,
     'arm_moment': 49.81,
     'arm_inertia': 14312.7,
     'tip_dist': 400.0,

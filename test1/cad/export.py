@@ -80,7 +80,6 @@ def export_sim_meshes():
         "potentiometer": parts.pot_body(),
         "rod": parts.rod_assembly().union(parts.pot_rod()).union(
             parts.pot_bracket().translate((-P.CYL["rear_pin_from_end"] + P.CYL["overall_retracted"] + 1.5, 0, 0))),
-        "bottle": parts.bottle(),
     }
     for name, shape in meshes.items():
         cq.exporters.export(shape, os.path.join(MESH, f"{name}.stl"), tolerance=0.2, angularTolerance=0.2)

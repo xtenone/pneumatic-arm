@@ -26,8 +26,22 @@ def quat_about_neg_y(deg):
     return f"{math.cos(h):.8f} 0 {-math.sin(h):.8f} 0"
 
 
-def build_xml(tip_mass=P.TIP_MASS, theta0=0.0, rigid_load=False):
-    """rigid_load: the bottle strapped under the arm end (T8) instead of hanging on the hook."""
+def plates_xml(tip_mass):
+    """The load: 1 kg dumbbell plates on the bolt at the arm end, alternately left and right."""
+    n = max(1, round(tip_mass / P.PLATE["mass"])) if tip_mass > 0 else 0
+    side = [0, 0]
+    out = []
+    for i in range(n):
+        s = 1 if i % 2 == 0 else -1
+        y0 = P.ARM["thickness"] / 2 + 2.0 + side[i % 2] * P.PLATE["thickness"]
+        side[i % 2] += 1
+        y1 = y0 + P.PLATE["thickness"]
+        out.append(f'<geom type="cylinder" fromto="0 {m(s * y0):.4f} 0 0 {m(s * y1):.4f} 0" '
+                   f'size="{m(P.PLATE["d"] / 2)}" material="iron" contype="0" conaffinity="0" mass="0"/>')
+    return "\n        ".join(out)
+
+
+def build_xml(tip_mass=P.TIP_MASS, theta0=0.0):
     from parts import pose
     p = pose(theta0)
     arm_mass = P.ARM["length"] * P.ARM["height"] * P.ARM["thickness"] * P.ALU_DENSITY
@@ -48,12 +62,11 @@ def build_xml(tip_mass=P.TIP_MASS, theta0=0.0, rigid_load=False):
     <mesh name="cylinder" file="cylinder.stl" scale="0.001 0.001 0.001"/>
     <mesh name="potentiometer" file="potentiometer.stl" scale="0.001 0.001 0.001"/>
     <mesh name="rod" file="rod.stl" scale="0.001 0.001 0.001"/>
-    <mesh name="bottle" file="bottle.stl" scale="0.001 0.001 0.001"/>
     <material name="wood" rgba="0.82 0.68 0.47 1"/>
     <material name="alu" rgba="0.75 0.77 0.80 1"/>
     <material name="steel" rgba="0.45 0.45 0.48 1"/>
     <material name="blue" rgba="0.15 0.35 0.75 1"/>
-    <material name="water" rgba="0.6 0.8 0.95 0.7"/>
+    <material name="iron" rgba="0.18 0.18 0.2 1"/>
     <texture name="grid" type="2d" builtin="checker" rgb1="0.92 0.92 0.92" rgb2="0.85 0.85 0.85" width="512" height="512"/>
     <material name="floor" texture="grid" texrepeat="8 8"/>
     <texture type="skybox" builtin="gradient" rgb1="0.97 0.97 1" rgb2="0.72 0.76 0.84" width="512" height="512"/>
@@ -75,10 +88,9 @@ def build_xml(tip_mass=P.TIP_MASS, theta0=0.0, rigid_load=False):
       <geom type="mesh" mesh="arm" material="alu" contype="0" conaffinity="0" mass="0"/>
       <site name="attach" pos="{m(P.ARM_ATTACH)} 0 0" size="0.004"/>
       <body name="load" pos="{m(P.ARM_TIP)} 0 0">
-        {'' if rigid_load else '<joint name="load" type="hinge" axis="0 -1 0" damping="0.05"/>'}
-        <inertial pos="0 0 {-0.04 if rigid_load else -0.15}" mass="{tip_mass:.3f}" diaginertia="0.002 0.002 0.001"/>
-        <geom type="capsule" fromto="0 0 0 0 0 -0.06" size="0.002" material="steel" contype="0" conaffinity="0" mass="0"/>
-        <geom type="mesh" mesh="bottle" pos="0 0 -0.06" material="water" contype="0" conaffinity="0" mass="0"/>
+        <inertial pos="0 0 0" mass="{max(tip_mass, 1e-3):.3f}" diaginertia="{max(tip_mass, 1e-3) * 0.0011:.5f} {max(tip_mass, 1e-3) * 0.0018:.5f} {max(tip_mass, 1e-3) * 0.0011:.5f}"/>
+        <geom type="cylinder" fromto="0 -0.05 0 0 0.05 0" size="0.004" material="steel" contype="0" conaffinity="0" mass="0"/>
+        {plates_xml(tip_mass)}
       </body>
     </body>
 

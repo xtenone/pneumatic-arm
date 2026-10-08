@@ -24,7 +24,7 @@ REAR_PIVOT = (0.0, 100.0)    # rear pivot of the cylinder (M8 bolt)
 ARM = dict(length=450.0, height=40.0, thickness=5.0)  # aluminium flat bar 40×5
 ARM_BEHIND = 20.0            # arm extends 20 mm behind the hinge hole
 ARM_ATTACH = 150.0           # hinge → clevis bolt
-ARM_TIP = 400.0              # hinge → load hook
+ARM_TIP = 400.0              # hinge → load bolt (dumbbell plates)
 ARM_HOLE = 8.5               # holes in the arm (M8)
 ARM_MASS = ARM["length"] * ARM["height"] * ARM["thickness"] * 2.7e-6       # kg, aluminium
 ARM_MOMENT = ARM_MASS * (ARM["length"] / 2 - ARM_BEHIND)                   # kg·mm about the hinge
@@ -52,7 +52,8 @@ POT = dict(stroke=175.0, body=(275.0, 22.0, 19.0), offset=24.0,  # offset from t
            ohm=5000.0)
 
 # --- Load -----------------------------------------------------------------------
-TIP_MASS = 1.5               # kg, bottle of water at the end of the arm (T5: up to ~3 kg)
+PLATE = dict(mass=1.0, d=120.0, hole=25.0, thickness=13.0)   # 1 kg dumbbell plate (typical cast iron; measure yours)
+TIP_MASS = 1.0               # kg of plates on the bolt at the arm end, alternately left and right
 ALU_DENSITY = 2.7e-6         # kg/mm³
 
 # --- Pneumatics -------------------------------------------------------------------

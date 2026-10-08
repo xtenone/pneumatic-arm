@@ -1,92 +1,84 @@
 {
   "T3_pwm": {
     "up_0_to_30": {
-      "overshoot_mm": 1.04,
-      "settling_s": 0.92,
-      "error_mm": 0.27,
+      "overshoot_mm": 1.74,
+      "settling_s": 0.54,
+      "error_mm": 0.07,
       "passed": true
     },
     "down_30_to_minus5": {
-      "overshoot_mm": 1.17,
-      "settling_s": 0.508,
-      "error_mm": 0.11,
+      "overshoot_mm": 1.87,
+      "settling_s": 0.666,
+      "error_mm": 0.33,
       "passed": true
     },
-    "air_used_g": 0.67
+    "air_used_g": 0.72
   },
   "T2_onoff": {
     "up_0_to_30": {
-      "overshoot_mm": 15.09,
+      "overshoot_mm": 22.19,
       "settling_s": 1.998,
-      "error_mm": 21.6,
+      "error_mm": 23.45,
       "passed": false
     },
     "down_30_to_minus5": {
-      "overshoot_mm": 24.77,
+      "overshoot_mm": 28.92,
       "settling_s": 1.998,
-      "error_mm": 13.32,
+      "error_mm": 13.8,
       "passed": false
     },
-    "air_used_g": 1.42
+    "air_used_g": 1.65
   },
   "T7_load": [
     {
-      "load_kg": 0.5,
-      "load_pct": 14,
+      "load_kg": 1.0,
+      "load_pct": 24,
       "overshoot_mm": 1.74,
-      "settling_s": 1.936,
-      "error_mm": 0.46,
-      "passed": false
-    },
-    {
-      "load_kg": 1.5,
-      "load_pct": 35,
-      "overshoot_mm": 1.04,
-      "settling_s": 0.92,
-      "error_mm": 0.27,
+      "settling_s": 0.54,
+      "error_mm": 0.07,
       "passed": true
     },
     {
-      "load_kg": 2.5,
-      "load_pct": 57,
-      "overshoot_mm": 3.04,
-      "settling_s": 1.982,
-      "error_mm": 0.45,
+      "load_kg": 2.0,
+      "load_pct": 46,
+      "overshoot_mm": 1.64,
+      "settling_s": 1.45,
+      "error_mm": 0.37,
       "passed": false
     },
     {
-      "load_kg": 3.5,
-      "load_pct": 78,
-      "overshoot_mm": 2.24,
+      "load_kg": 3.0,
+      "load_pct": 68,
+      "overshoot_mm": 4.14,
       "settling_s": 1.998,
-      "error_mm": 1.2,
+      "error_mm": 0.56,
       "passed": false
     },
     {
-      "load_kg": 4.5,
-      "load_pct": 100,
+      "load_kg": 4.0,
+      "load_pct": 89,
       "overshoot_mm": 0.0,
       "settling_s": 1.998,
-      "error_mm": 53.69,
+      "error_mm": 11.72,
       "passed": false
     },
     {
-      "load_kg": 5.5,
-      "load_pct": 122,
+      "load_kg": 5.0,
+      "load_pct": 111,
       "overshoot_mm": 0.0,
       "settling_s": 1.998,
-      "error_mm": 105.49,
+      "error_mm": 85.58,
       "passed": false
     }
   ],
   "T6_stiffness": [
     {
       "pressure_sum_bar": 2.0,
-      "deflection_deg": 14.13
+      "deflection_deg": 10.6
     },
     {
       "pressure_sum_bar": 5.0,
-      "deflection_deg": 10.44
+      "deflection_deg": 6.79
     }
   ],
   "T8": {
@@ -95,63 +87,63 @@
         "press_s": 0.5,
         "angle": 30.0,
         "profile_s": 0.447,
-        "track_mm": 1.52,
+        "track_mm": 1.26,
         "overshoot_mm": 1.09,
         "settle_after_s": 0.0,
         "press_to_settled_s": 0.447,
-        "error_mm": 0.22,
+        "error_mm": 0.37,
         "passed": true
       },
       {
         "press_s": 2.0,
         "angle": -5.0,
         "profile_s": 0.471,
-        "track_mm": 1.17,
-        "overshoot_mm": 0.92,
+        "track_mm": 1.52,
+        "overshoot_mm": 1.02,
         "settle_after_s": 0.0,
         "press_to_settled_s": 0.471,
-        "error_mm": 0.26,
+        "error_mm": 0.21,
         "passed": true
       },
       {
         "press_s": 3.5,
         "angle": 50.0,
         "profile_s": 0.609,
-        "track_mm": 1.42,
-        "overshoot_mm": 1.28,
+        "track_mm": 1.39,
+        "overshoot_mm": 1.33,
         "settle_after_s": 0.0,
         "press_to_settled_s": 0.609,
-        "error_mm": 0.71,
+        "error_mm": 0.51,
         "passed": true
       },
       {
         "press_s": 5.0,
         "angle": 10.0,
         "profile_s": 0.489,
-        "track_mm": 1.32,
-        "overshoot_mm": 0.91,
+        "track_mm": 2.05,
+        "overshoot_mm": 1.26,
         "settle_after_s": 0.0,
         "press_to_settled_s": 0.489,
-        "error_mm": 0.38,
+        "error_mm": 0.41,
         "passed": true
       },
       {
         "press_s": 6.5,
         "angle": 20.0,
         "profile_s": 0.646,
-        "track_mm": 0.85,
-        "overshoot_mm": 18.09,
+        "track_mm": 1.16,
+        "overshoot_mm": 18.74,
         "settle_after_s": 0.0,
         "press_to_settled_s": 0.646,
-        "error_mm": 0.49,
+        "error_mm": 0.38,
         "passed": true
       }
     ],
     "default": {
-      "track_mm": 1.99,
-      "overshoot_mm": 1.53,
+      "track_mm": 2.05,
+      "overshoot_mm": 1.48,
       "settle_after_s": 0.0,
-      "error_mm": 0.71,
+      "error_mm": 0.53,
       "press_to_settled_s": [
         0.447,
         0.471,
@@ -159,81 +151,115 @@
         0.489,
         0.646
       ],
-      "replan_track_mm": 1.57,
+      "replan_track_mm": 1.82,
       "passed": true
     },
     "t3_controller": {
-      "track_mm": 21.15,
-      "overshoot_mm": 9.32,
-      "settle_after_s": 0.743,
-      "error_mm": 0.58,
+      "track_mm": 19.3,
+      "overshoot_mm": 5.46,
+      "settle_after_s": 0.331,
+      "error_mm": 0.53,
       "press_to_settled_s": [
-        0.482,
+        0.426,
         0.63,
-        1.158,
-        0.816,
-        0.686
+        0.666,
+        0.586,
+        0.712
       ],
-      "replan_track_mm": 24.45,
+      "replan_track_mm": 18.6,
       "passed": false
     },
     "limits": [
       {
         "k": 1.1,
-        "track_mm": 2.24,
-        "overshoot_mm": 1.68,
-        "settle_after_s": 0.0,
-        "error_mm": 0.76,
+        "track_mm": 3.15,
+        "overshoot_mm": 1.81,
+        "settle_after_s": 0.037,
+        "error_mm": 0.5,
         "press_to_settled_s": [
           0.406,
-          0.429,
-          0.553,
+          0.466,
+          0.56,
           0.445,
           0.496
         ],
-        "replan_track_mm": 2.34,
-        "passed": true
+        "replan_track_mm": 1.37,
+        "passed": false
       },
       {
         "k": 1.15,
-        "track_mm": 5.87,
-        "overshoot_mm": 2.02,
-        "settle_after_s": 0.08,
-        "error_mm": 0.49,
+        "track_mm": 2.29,
+        "overshoot_mm": 1.93,
+        "settle_after_s": 0.031,
+        "error_mm": 0.45,
         "press_to_settled_s": [
           0.389,
-          0.424,
-          0.542,
-          0.506,
-          0.554
+          0.436,
+          0.56,
+          0.426,
+          0.412
         ],
-        "replan_track_mm": 8.66,
-        "passed": false
+        "replan_track_mm": 2.31,
+        "passed": true
       },
       {
         "k": 1.3,
-        "track_mm": 7.95,
-        "overshoot_mm": 6.61,
-        "settle_after_s": 0.453,
-        "error_mm": 0.54,
+        "track_mm": 4.19,
+        "overshoot_mm": 3.31,
+        "settle_after_s": 0.179,
+        "error_mm": 0.55,
         "press_to_settled_s": [
-          0.528,
-          0.41,
-          0.922,
-          0.526,
-          0.782
+          0.348,
+          0.37,
+          0.5,
+          0.556,
+          0.694
         ],
-        "replan_track_mm": 14.96,
+        "replan_track_mm": 9.56,
         "passed": false
+      }
+    ],
+    "heavier": [
+      {
+        "k": 1.0,
+        "track_mm": 2.68,
+        "overshoot_mm": 1.93,
+        "settle_after_s": 0.891,
+        "error_mm": 0.89,
+        "press_to_settled_s": [
+          0.447,
+          0.471,
+          1.5,
+          0.489,
+          0.646
+        ],
+        "replan_track_mm": 2.83,
+        "passed": false
+      },
+      {
+        "k": 0.9,
+        "track_mm": 2.88,
+        "overshoot_mm": 1.86,
+        "settle_after_s": 0.019,
+        "error_mm": 0.68,
+        "press_to_settled_s": [
+          0.496,
+          0.523,
+          0.676,
+          0.562,
+          0.737
+        ],
+        "replan_track_mm": 1.47,
+        "passed": true
       }
     ],
     "load_setting": [
       {
-        "load_kg": 1.35,
-        "track_mm": 1.88,
-        "overshoot_mm": 1.78,
+        "load_kg": 0.9,
+        "track_mm": 2.0,
+        "overshoot_mm": 1.83,
         "settle_after_s": 0.0,
-        "error_mm": 0.63,
+        "error_mm": 0.47,
         "press_to_settled_s": [
           0.447,
           0.471,
@@ -241,45 +267,13 @@
           0.489,
           0.646
         ],
-        "replan_track_mm": 1.42,
+        "replan_track_mm": 1.61,
         "passed": true
       },
       {
-        "load_kg": 1.65,
-        "track_mm": 2.35,
-        "overshoot_mm": 1.28,
-        "settle_after_s": 0.0,
-        "error_mm": 0.66,
-        "press_to_settled_s": [
-          0.447,
-          0.471,
-          0.609,
-          0.489,
-          0.646
-        ],
-        "replan_track_mm": 1.47,
-        "passed": true
-      },
-      {
-        "load_kg": 1.2,
-        "track_mm": 2.63,
-        "overshoot_mm": 2.08,
-        "settle_after_s": 0.205,
-        "error_mm": 0.68,
-        "press_to_settled_s": [
-          0.447,
-          0.471,
-          0.814,
-          0.489,
-          0.646
-        ],
-        "replan_track_mm": 2.05,
-        "passed": false
-      },
-      {
-        "load_kg": 1.8,
-        "track_mm": 2.15,
-        "overshoot_mm": 1.46,
+        "load_kg": 1.1,
+        "track_mm": 1.82,
+        "overshoot_mm": 1.37,
         "settle_after_s": 0.0,
         "error_mm": 0.61,
         "press_to_settled_s": [
@@ -289,7 +283,39 @@
           0.489,
           0.646
         ],
-        "replan_track_mm": 1.37,
+        "replan_track_mm": 1.36,
+        "passed": true
+      },
+      {
+        "load_kg": 0.8,
+        "track_mm": 3.38,
+        "overshoot_mm": 2.08,
+        "settle_after_s": 0.003,
+        "error_mm": 0.54,
+        "press_to_settled_s": [
+          0.447,
+          0.471,
+          0.612,
+          0.489,
+          0.646
+        ],
+        "replan_track_mm": 1.64,
+        "passed": false
+      },
+      {
+        "load_kg": 1.2,
+        "track_mm": 1.44,
+        "overshoot_mm": 1.46,
+        "settle_after_s": 0.0,
+        "error_mm": 0.58,
+        "press_to_settled_s": [
+          0.447,
+          0.471,
+          0.609,
+          0.489,
+          0.646
+        ],
+        "replan_track_mm": 1.33,
         "passed": true
       }
     ]

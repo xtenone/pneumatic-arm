@@ -121,7 +121,7 @@ def t2(p):
 
 def t3(p, label="T3_pwm"):
     if label == "T3_pwm":
-        ask("T3 PWM control. Regulator at 5 bar, load 1.5 kg.")
+        ask("T3 PWM control. Regulator at 5 bar, load 1 kg (one plate).")
     data, marks = steps(p, [(3, 0), (3, 30), (3, -5)])
     m1 = analysis.step_metrics(data, marks[1][0], marks[2][0], length(30))
     m2 = analysis.step_metrics(data, marks[2][0], data[-1, 0], length(-5))
@@ -130,7 +130,7 @@ def t3(p, label="T3_pwm"):
 
 
 def t4(p):
-    ask("T4 repeatability. 5 bar, load 1.5 kg.")
+    ask("T4 repeatability. 5 bar, load 1 kg.")
     ends = []
     t_begin = p.now()
     for i in range(10):
@@ -149,7 +149,7 @@ def t4(p):
 
 
 def t5(p):
-    ask("T5 holding with load. 5 bar, load 1.5 kg (or heavier).")
+    ask("T5 holding with load. 5 bar, load 1 kg (or heavier).")
     p.send("angle 30")
     p.wait(3)
     t_begin = p.now()
@@ -164,18 +164,18 @@ def t5(p):
 def t6(p):
     res = {}
     for s in (2, 5):
-        ask(f"T6 stiffness, chamber pressure sum {s} bar. Regulator at 5 bar, load 1.5 kg; have 1 kg extra ready.")
+        ask(f"T6 stiffness, chamber pressure sum {s} bar. Regulator at 5 bar, load 1 kg; have a second plate ready.")
         p.send(f"stiffness {s}")
         p.send("angle 20")
         p.wait(3)
         p.send("off")
         p.wait(0.5)
         a0 = float(np.mean(p.take(since=p.now() - 0.3)[:, 2]))
-        ask("Now hang the extra 1 kg on the arm (gently, do not drop it).")
+        ask("Now put the second plate on the load bolt (gently, the valves are closed).")
         p.wait(1)
         a1 = float(np.mean(p.take(since=p.now() - 0.3)[:, 2]))
         res[f"sum_{s}_bar"] = dict(deflection_deg=round(a0 - a1, 2))
-        ask("Remove the extra 1 kg.")
+        ask("Remove the second plate.")
     p.send(f"stiffness {CFG['p_sum']}")
     res["criterion"] = "clear difference in deflection between 2 and 5 bar"
     a, b = res["sum_2_bar"]["deflection_deg"], res["sum_5_bar"]["deflection_deg"]
@@ -185,8 +185,8 @@ def t6(p):
 
 def t7(p):
     rows = []
-    for kg in (0.5, 1.5, 2.5, 3.5):
-        ask(f"T7 load: hang {kg} kg on the arm. 5 bar.")
+    for kg in (1, 2, 3, 4, 5):
+        ask(f"T7 load: {kg} plate(s) of 1 kg on the arm, alternately left and right. 5 bar.")
         r = t3(p, label=f"T7_{kg}kg")
         rows.append(dict(load_kg=kg, passed=r["passed"]))
         if not r["passed"]:

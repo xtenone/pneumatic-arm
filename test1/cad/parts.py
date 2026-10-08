@@ -121,8 +121,10 @@ def bolt(length, d=8.0):
     return cq.Workplane("XZ").circle(d / 2).extrude(length / 2, both=True)
 
 
-def bottle():
-    return cq.Workplane("XY").circle(45.0).extrude(250.0).translate((0, 0, -250.0))
+def plate():
+    """1 kg dumbbell plate, axis along y (on the load bolt)."""
+    pl = P.PLATE
+    return (cq.Workplane("XZ").circle(pl["d"] / 2).circle(pl["hole"] / 2).extrude(-pl["thickness"]))
 
 
 # --- Assembly ---------------------------------------------------------------------
@@ -173,7 +175,13 @@ def assemble(theta_deg=0.0):
     assy.add(bolt(GAP + 2 * T + 20).translate((rx, 0, rz)), name="bolt_cylinder", color=steel)
     tip = at_hinge(cq.Workplane("XY").box(1, 1, 1).translate((P.ARM_TIP, 0, 0)))
     tx, _, tz = tip.val().Center().toTuple()
-    assy.add(bottle().translate((tx, 0, tz - 60.0)), name="load_bottle", color=cq.Color(0.6, 0.8, 0.95, 0.6))
+    n = max(1, round(P.TIP_MASS / P.PLATE["mass"]))
+    for i in range(n):                    # alternately left and right of the arm, between big washers
+        side, k = (1 if i % 2 == 0 else -1), i // 2
+        y0 = P.ARM["thickness"] / 2 + 2.0 + k * P.PLATE["thickness"]
+        pl = plate().translate((0, y0, 0)) if side > 0 else plate().mirror("XZ").translate((0, -y0, 0))
+        assy.add(pl.translate((tx, 0, tz)), name=f"load_plate_{i + 1}", color=cq.Color(0.18, 0.18, 0.2))
+    assy.add(bolt(60.0).translate((tx, 0, tz)), name="bolt_load", color=steel)
     return assy
 
 

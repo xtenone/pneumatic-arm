@@ -349,11 +349,12 @@
           "estimate": true
         },
         {
-          "what": "1.5 l water bottle + S-hook or string — the load; for T7 extra bottles or bags of sand",
+          "what": "Load: M8×60 bolt, 2 large washers M8×40, nut — for 1 kg dumbbell plates (own, up to 5 for T7)",
           "variant": "",
           "qty": 1,
           "price": 1.5,
-          "estimate": true
+          "estimate": true,
+          "note": "Plates bolted to the arm end: they cannot swing"
         },
         {
           "what": "Plug nipple G1/4 male, matching the compressor coupler",

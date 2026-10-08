@@ -115,9 +115,9 @@ def side_view():
         ax.text(x - 70, z + dz, name, ha="right", va="center", fontsize=8,
                 bbox=dict(fc="white", ec="none", pad=0.5))
     tipx, tipz = hx + P.ARM_TIP, hz
-    ax.plot([tipx, tipx], [tipz, tipz - 60], "k", lw=0.8)
-    ax.add_patch(Rectangle((tipx - 45, tipz - 310), 90, 250, fc="#a9cbe8", ec="k", alpha=0.7))
-    ax.text(tipx, tipz - 185, f"load\n{P.TIP_MASS} kg", ha="center", fontsize=8)
+    ax.add_patch(Circle((tipx, tipz), P.PLATE["d"] / 2, fc="0.25", ec="k", alpha=0.85, zorder=4))
+    ax.add_patch(Circle((tipx, tipz), 4, fc="white", ec="k", zorder=6))
+    ax.text(tipx, tipz - 14, f"{P.TIP_MASS:g} kg", ha="center", va="top", fontsize=8, color="white", zorder=7)
     dim(ax, (P.CHEEK_X[1], hz), (P.CHEEK_X[1], rz), -40, f"{hz - rz:.0f}")
     dim(ax, (hx, 0), (hx, hz), 150, f"{hz:.0f}")
     dim(ax, (hx, hz), (hx + P.ARM_ATTACH, hz), 25, f"{P.ARM_ATTACH:.0f}")
