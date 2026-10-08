@@ -363,10 +363,24 @@ Each test stores its run, plot and outcome in `host/results/`.
 | T5 holding | 5 bar | 1.5 kg | 60 s at 30° | deviation < 1 mm |
 | T6 stiffness | 5 bar | 1.5 + 1 kg | at 20°, valves closed, add 1 kg; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
 | T7 load ratio | 5 bar | 0.5 → 3.5 kg | repeat T3 with increasing load | highest load at which T3 passes |
+| T8 knob and button | 5 bar | 1.5 kg, strapped under the arm end | choose an angle with the knob, press the button: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
 
 The simulation's expectations are in `out/sim/results.json` and in the README. If the
 real measurement differs a lot, that is useful information in itself, for example about
 the cylinder's friction.
+
+**T8, the last test:** the arm goes to the angle chosen with a knob, fast and smoothly.
+The Pico plans a smooth profile (speed and acceleration build up and die out gradually,
+at most 150°/s and 1500°/s²) and pushes ahead with the force that profile needs:
+gravity, the acceleration of arm and load, and the cylinder's friction. Two things
+differ from the other tests:
+- The bottle is strapped under the end of the arm (tape or cable ties) instead of hanging
+  on the hook: a swinging bottle would set the arm swinging too, and the gripper of the
+  real arm also holds its load firmly.
+- The feedforward needs the weight of the load: weigh the bottle and enter it. 20% off is
+  already enough to miss the criteria in the simulation.
+The knob and button need their own parts (order 6 in the bill of materials) and are
+wired to the breadboard; the wiring and the firmware command follow.
 
 **After T7:** fit the flow restrictors between the tee and the fill valves and repeat T3
 with the restrictors ¼, ½ and ¾ closed. This shows what a smaller valve does to speed and

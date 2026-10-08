@@ -320,8 +320,25 @@ simulation, so the tuning from the simulation is exactly what goes onto the Pico
 - **Slow layer, on the PC (program or AI):** sends the target angle and stiffness, and a
   `ping` every 0.2 s. If the Pico misses it for half a second, all valves close.
 
-No feedforward is needed. The delays in the loop are small: valve 2–3.5 ms, a pressure
-wave through 30 cm of tube about 1 ms, and filling a chamber tens of ms.
+For holding and for the steps of T3 no feedforward is needed. The delays in the loop are
+small: valve 2–3.5 ms, a pressure wave through 30 cm of tube about 1 ms, and filling a
+chamber tens of ms.
+
+**Fast and smooth (T8, mode `move`):** the speed-limited target of step 1 starts and stops
+with a jolt, and the controller only pushes once an error has built up: on the moves of
+T8 the arm lags up to 21 mm behind and overshoots up to 9 mm. Mode `move` replaces step 1
+and adds to step 2:
+- **Profile of the arm angle:** a quintic from the current state to the target, so
+  position, speed and acceleration are continuous. Planned in degrees, not in cylinder
+  length: near the top the cylinder's lever is small and the same acceleration in mm
+  would need four times the force. Limits: speed 150°/s, acceleration 1500°/s², and a
+  limit on the jerk, because the valves need time to swap the pressures. A new target
+  during a move starts a new profile from the current speed and acceleration.
+- **Feedforward:** force = (gravity torque + inertia × planned angular acceleration) /
+  lever, plus the seal friction in the direction of motion. The PID only corrects what is
+  left; its D term works on the difference between planned and measured speed.
+- The load must be known (weighed); the arm's own mass and inertia come from
+  `params.py`.
 
 ## Simulation
 
@@ -340,6 +357,7 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 | T2 on/off control (3 bar) | stays 15–25 mm off target: PWM control is needed |
 | T6 stiffness (15 N extra, valves closed) | 14° deflection at 2 bar chamber pressure, 10° at 5 bar |
 | T7 load | target reached up to 3.5 kg (78% load), but within 1 s only around the tuning load (1.5 kg); not at 100% |
+| T8 knob and button | 30° in 0.41 s, largest move (−5° → 50°) 0.69 s; follows the profile within 2.5 mm, overshoot ≤ 1.3 mm, at rest when the profile ends — passed. At 2000°/s² it fails; with the load set 20% wrong as well |
 
 Exact numbers per run: [`../out/sim/results.md`](../out/sim/results.md).
 T7 already shows that the tuning belongs to the load. The arm will probably need tuning
@@ -350,7 +368,7 @@ in T1–T4; after that the model is updated and the control re-tuned.
 
 ## Tests
 
-Tests T0–T7, with criteria, are in [manual.md](manual.md), section 11.
+Tests T0–T8, with criteria, are in [manual.md](manual.md), section 11.
 `host/tests_t0_t7.py` runs them and assesses them with the same analysis as the
 simulation (`host/analysis.py`).
 

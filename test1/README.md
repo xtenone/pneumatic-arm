@@ -27,11 +27,15 @@ with a load on it?**
 **Targets** (test T3): overshoot < 5 mm, settled within 1 s, error < 1 mm. The
 simulation meets them with the current tuning; see the [results](out/sim/results.md).
 
+**Last test** (T8): choose an angle with a knob, press a button, and the arm goes there
+fast and smoothly: in the simulation 30° in 0.4 s, following a smooth profile within
+3 mm, without overshoot worth mentioning.
+
 ## What is in this package
 
 | Folder / file | Contents |
 |---|---|
-| [`docs/manual.md`](docs/manual.md) | **Start here.** Incoming inspection, building, wiring, software, calibration, tests T0–T7, troubleshooting |
+| [`docs/manual.md`](docs/manual.md) | **Start here.** Incoming inspection, building, wiring, software, calibration, tests T0–T8, troubleshooting |
 | [`docs/design.md`](docs/design.md) | Why it is built this way: valves, pneumatics, electronics, mechanics, control, simulation |
 | [`docs/bom.md`](docs/bom.md) | Bill of materials with items, variants, quantities and prices; also as CSV |
 | `out/drawings/` | Side view, cheek and arm dimension drawings, wiring diagram, connection list, pneumatic diagram (PNG + PDF) |
@@ -62,10 +66,10 @@ simulation meets them with the current tuning; see the [results](out/sim/results
 | Part | Status |
 |---|---|
 | Design, CAD, drawings | done |
-| Simulation and tuning | done; T3 passes in simulation |
-| Firmware and PC tools | done, tested with simulated hardware; not yet on a real Pico |
-| Parts | AliExpress ordered 2026-10-04; electronics, compressor and DIY-store parts still to buy |
-| Build and tests T0–T7 | to do |
+| Simulation and tuning | done; T3 and T8 pass in simulation |
+| Firmware and PC tools | done, tested with simulated hardware; runs on the Pico (no sensors yet). T8: controller mode done, knob, button and command to do |
+| Parts | AliExpress ordered 2026-10-04; electronics and compressor received; DIY-store parts and the T8 knob still to buy |
+| Build and tests T0–T8 | to do |
 
 ## Open and free to rebuild
 
