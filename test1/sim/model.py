@@ -26,7 +26,8 @@ def quat_about_neg_y(deg):
     return f"{math.cos(h):.8f} 0 {-math.sin(h):.8f} 0"
 
 
-def build_xml(tip_mass=P.TIP_MASS, theta0=0.0):
+def build_xml(tip_mass=P.TIP_MASS, theta0=0.0, rigid_load=False):
+    """rigid_load: the bottle strapped under the arm end (T8) instead of hanging on the hook."""
     from parts import pose
     p = pose(theta0)
     arm_mass = P.ARM["length"] * P.ARM["height"] * P.ARM["thickness"] * P.ALU_DENSITY
@@ -74,8 +75,8 @@ def build_xml(tip_mass=P.TIP_MASS, theta0=0.0):
       <geom type="mesh" mesh="arm" material="alu" contype="0" conaffinity="0" mass="0"/>
       <site name="attach" pos="{m(P.ARM_ATTACH)} 0 0" size="0.004"/>
       <body name="load" pos="{m(P.ARM_TIP)} 0 0">
-        <joint name="load" type="hinge" axis="0 -1 0" damping="0.05"/>
-        <inertial pos="0 0 -0.15" mass="{tip_mass:.3f}" diaginertia="0.002 0.002 0.001"/>
+        {'' if rigid_load else '<joint name="load" type="hinge" axis="0 -1 0" damping="0.05"/>'}
+        <inertial pos="0 0 {-0.04 if rigid_load else -0.15}" mass="{tip_mass:.3f}" diaginertia="0.002 0.002 0.001"/>
         <geom type="capsule" fromto="0 0 0 0 0 -0.06" size="0.002" material="steel" contype="0" conaffinity="0" mass="0"/>
         <geom type="mesh" mesh="bottle" pos="0 0 -0.06" material="water" contype="0" conaffinity="0" mass="0"/>
       </body>
