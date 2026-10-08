@@ -50,3 +50,6 @@ order,part,variant,qty,price,estimate,link,note,status
 4. DIY store,PTFE tape,,1,1.5,True,,,still to buy
 4. DIY store,Multimeter (if you do not have one),,1,20.0,True,,"Needed for the incoming inspection, coil checks and calibration",still to buy
 5. Compressor (bol.com),Stanley silent compressor DST 100/8/6,"6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W",1,160.0,True,https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/,Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple.,received (2026-10-06)
+"6. T8 knob and button (Tinytronics, NL)","ADC chip MCP3208 (8 channels, 12 bit, SPI, DIP-16)","MCP3208-CI/P; an MCP3008 (10 bit, same pins) also works for the knob",1,4.5,True,,The Pico's three analogue inputs are taken by the position and pressure sensors. The full arm needs more analogue inputs anyway.,still to buy
+"6. T8 knob and button (Tinytronics, NL)","Rotary potentiometer 10 kΩ linear, with knob","B10K, 6 mm shaft, breadboard pins or with wires",1,1.5,True,,Chooses the target angle,still to buy
+"6. T8 knob and button (Tinytronics, NL)","Push button, momentary (normally open)",12 mm tactile switch or panel button,1,0.5,True,,Starts the move,still to buy
