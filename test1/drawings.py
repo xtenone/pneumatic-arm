@@ -5,6 +5,8 @@ Output in out/drawings/ as PNG and PDF.
 import math
 import os
 
+import numpy as np
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -316,12 +318,197 @@ def wiring_list():
     save(fig, "wiring_list")
 
 
+# --- Breadboard layout -------------------------------------------------------------
+# 830-point breadboard seen from above: columns 1–63, rows a–e and f–j, a rail pair on
+# each side. Hole positions in units of 0.1" (2.54 mm).
+BB_ROWS = dict(a=12, b=11, c=10, d=9, e=8, f=5, g=4, h=3, i=2, j=1,
+               top_plus=15, top_gnd=14, bot_gnd=-1, bot_plus=-2)
+# Pico 2 pin numbers (USB to the left, components up: pins 1–20 along row h from the
+# left, pins 21–40 back along row c, so pin 40 is top left)
+PICO_PIN = dict(GP0=1, GP1=2, GP2=4, GP3=5, GP4=6, GP5=7, GP26=31, GP27=32, GP28=34,
+                AGND=33, V3V3=36, GND_TOP=38, GND_BOT=3)
+ULN_COL = 37                 # column of ULN2803A pin 1 / 18 (notch to the left)
+REG_COL = 57                 # LM7805C IN, GND, OUT in columns 57, 58, 59
+DIV_COLS = ((23, 27), (30, 34))   # pressure sensor A, B: signal in, divider node
+
+
+def pico_hole(name):
+    n = PICO_PIN[name]
+    return (n, "h") if n <= 20 else (41 - n, "c")
+
+
+def bb_parts():
+    """Everything on the breadboard: (kind, hole, hole or None, colour, label).
+    kind: jumper, res, cap, wire (off-board wire up out of the drawing)."""
+    gp = {k: f"GP{v}" for k, v in P.PINS.items()}
+    top = lambda col, row: (col, row)  # noqa: E731
+    parts = []
+    # Pico ground to both GND rails
+    c, _ = pico_hole("GND_TOP")
+    parts.append(("jumper", (c, "a"), (c, "top_gnd"), "k", "Pico GND (pin 38) → GND rail"))
+    c, _ = pico_hole("GND_BOT")
+    parts.append(("jumper", (c, "i"), (c, "bot_gnd"), "k", "Pico GND (pin 3) → GND rail"))
+    # valves: Pico → ULN2803A inputs, outputs → black coil wires
+    for k, (key, valve) in enumerate((("fill_a", "V1 fill A"), ("vent_a", "V2 vent A"),
+                                      ("fill_b", "V3 fill B"), ("vent_b", "V4 vent B"))):
+        c, _ = pico_hole(gp[key])
+        parts.append(("jumper", (c, "j"), (ULN_COL + k, "j"), "b", f"{gp[key]} → ULN IN{k + 1} (pin {k + 1})"))
+        parts.append(("wire", (ULN_COL + k, "a"), None, "k", f"{valve} black"))
+    com, hv = ULN_COL + 8, ULN_COL + 11
+    parts.append(("jumper", (com, "j"), (com, "bot_gnd"), "k", "ULN GND (pin 9) → GND rail"))
+    # +24 V after the e-stop: two joined columns, to COM and the red coil wires
+    parts.append(("wire", (hv, "a"), None, "r", "+24 V after e-stop (red 0.5 mm²)"))
+    parts.append(("jumper", (com, "a"), (hv, "b"), "r", "ULN COM (pin 10) → +24 V after e-stop"))
+    parts.append(("jumper", (hv, "e"), (hv + 1, "e"), "r", "joins the two +24 V columns"))
+    for row, valve in (((hv, "c"), "V1"), ((hv, "d"), "V2"), ((hv + 1, "a"), "V3"), ((hv + 1, "b"), "V4")):
+        parts.append(("wire", row, None, "r", f"{valve} red"))
+    # 5 V regulator, fed from the 24 V before the e-stop
+    vin, g, vout = REG_COL, REG_COL + 1, REG_COL + 2
+    parts.append(("wire", (vin, "a"), None, "r", "+24 V before e-stop (red 0.5 mm²)"))
+    parts.append(("cap", (vin, "d"), (g, "d"), "c", "1 µF"))
+    parts.append(("cap", (g, "e"), (vout, "e"), "c", "100 nF"))
+    parts.append(("jumper", (g, "a"), (g, "top_gnd"), "k", "7805 GND → GND rail"))
+    parts.append(("jumper", (vout, "a"), (vout, "top_plus"), "r", "7805 OUT → +5 V rail"))
+    parts.append(("wire", (61, "top_gnd"), None, "k", "adapter minus (black 0.5 mm²)"))
+    parts.append(("jumper", (62, "top_gnd"), (62, "bot_gnd"), "k", "joins both GND rails"))
+    # pressure sensors: signal → 10 kΩ → node → Pico; 3× 47 kΩ (≈ 15 kΩ) node → GND
+    top_k, bot_k = (v / 1000 for v in P.DIVIDER)
+    for (cin, node), key, s in zip(DIV_COLS, ("adc_pa", "adc_pb"), "AB"):
+        pc, _ = pico_hole(gp[key])
+        parts.append(("wire", (cin - 1, "top_plus"), None, "r", f"sensor {s} red (+5 V)"))
+        parts.append(("wire", (cin, "a"), None, "b", f"sensor {s} signal"))
+        parts.append(("wire", (cin + 1, "top_gnd"), None, "k", f"sensor {s} black"))
+        parts.append(("res", (cin, "c"), (node, "c"), "res", f"{top_k:g} kΩ"))
+        parts.append(("res", (node, "a"), (node, "top_gnd"), "res", "3× 47 kΩ"))
+        parts.append(("jumper", (pc, "b"), (node, "b"), "b", f"divider {s} → {gp[key]}"))
+        parts.append(("cap", (pc, "a"), (pc + 0.4, "top_gnd"), "c", ""))
+    # potentiometer: ends to 3V3 and AGND, wiper to the ADC with 100 nF
+    c, _ = pico_hole(gp["adc_pos"])
+    parts.append(("wire", (pico_hole("V3V3")[0], "a"), None, "r", "pot end (3V3)"))
+    parts.append(("wire", (pico_hole("AGND")[0], "a"), None, "k", "pot end (AGND)"))
+    parts.append(("wire", (c, "b"), None, "b", "pot wiper"))
+    parts.append(("cap", (c, "a"), (c + 0.4, "top_gnd"), "c", ""))
+    return parts
+
+
+def breadboard():
+    """Breadboard layout: top view with every part and wire on its hole."""
+    from matplotlib.patches import Wedge
+    colours = dict(r="#d62728", k="#222222", b="#1f5fbf", res="#c8a46e", c="#e8a33d")
+    fig, ax = plt.subplots(figsize=(17, 8.5))
+    Y = BB_ROWS
+
+    def xy(h):
+        return h[0], Y[h[1]]
+    ax.add_patch(FancyBboxPatch((-0.2, -3.0), 64.4, 19.0, boxstyle="round,pad=0.2", fc="#f4f1ea", ec="#999"))
+    ax.add_patch(Rectangle((-0.2, 6.0), 64.4, 1.0, fc="#e2ddd2", ec="none"))
+    for row, y in Y.items():
+        for col in range(1, 64):
+            ax.add_patch(Rectangle((col - 0.18, y - 0.18), 0.36, 0.36, fc="#bbb", ec="none"))
+    for y, colr, text in ((15.55, "r", "+5 V"), (13.45, "b", "GND"), (-0.45, "b", "GND"), (-2.55, "r", "not used")):
+        ax.plot([0.3, 63.7], [y, y], color=colours["r"] if colr == "r" else colours["b"], lw=1)
+        ax.text(64.6, y, text, va="center", fontsize=7.5)
+    for col in (1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60):
+        ax.text(col, 13.1, str(col), ha="center", va="center", fontsize=6, color="#666")
+        ax.text(col, 0.0, str(col), ha="center", va="center", fontsize=6, color="#666")
+    for row in "abcdefghij":
+        ax.text(-0.9, Y[row], row, ha="center", va="center", fontsize=7, color="#666")
+    # Pico (21 × 51 mm, pins in rows c and h)
+    ax.add_patch(FancyBboxPatch((0.45, 2.35), 20.1, 8.3, boxstyle="round,pad=0.1", fc="#2e7d32", ec="k", alpha=0.85))
+    ax.add_patch(Rectangle((-0.9, 5.5), 1.6, 2.0, fc="#aaa", ec="k"))
+    ax.text(10.5, 6.5, "Raspberry Pi Pico 2 W\nUSB → PC (left), components up", ha="center", va="center",
+            color="white", fontsize=9)
+    names = {v: k.replace("V3V3", "3V3").replace("_TOP", "").replace("_BOT", "") for k, v in PICO_PIN.items()}
+    for n in range(1, 41):
+        col, row = (n, "h") if n <= 20 else (41 - n, "c")
+        ax.add_patch(Rectangle((col - 0.22, Y[row] - 0.22), 0.44, 0.44, fc="gold", ec="k", lw=0.4))
+        if n in names:
+            ax.text(col, Y[row] + (-0.75 if row == "c" else 0.75), names[n], ha="center", va="center",
+                    fontsize=5.5, color="white", rotation=90)
+    # ULN2803A across the gap (pin 1 bottom left, notch left)
+    ax.add_patch(Rectangle((ULN_COL - 0.5, 5.3), 8.9, 2.4, fc="#333", ec="k"))
+    ax.add_patch(Wedge((ULN_COL - 0.5, 6.5), 0.45, -90, 90, fc="#f4f1ea"))
+    ax.text(ULN_COL + 4, 6.5, "ULN2803A", ha="center", va="center", color="white", fontsize=8.5)
+    for k in range(9):
+        ax.text(ULN_COL + k, 4.35, str(k + 1), ha="center", fontsize=5.5, color="#333")
+        ax.text(ULN_COL + k, 8.45, str(18 - k), ha="center", fontsize=5.5, color="#333")
+    # LM7805C, legs IN–GND–OUT in row c, text facing the viewer (towards row e)
+    ax.add_patch(Rectangle((REG_COL - 0.9, 10.25), 3.8, 1.1, fc="#333", ec="k"))
+    ax.add_patch(Rectangle((REG_COL - 0.9, 11.35), 3.8, 0.35, fc="#bbb", ec="k"))
+    for k, t in enumerate(("IN", "GND", "OUT")):
+        ax.text(REG_COL + k, 10.75, t, ha="center", va="center", fontsize=5.5, color="white")
+        ax.add_patch(Rectangle((REG_COL + k - 0.2, Y["c"] - 0.2), 0.4, 0.4, fc="#aaa", ec="k", lw=0.4))
+    ax.text(REG_COL + 1, 9.5 - 2.8, "LM7805C\n(text side towards row e)", ha="center", va="top", fontsize=7)
+    ax.text(11.0, 12.8, "← 3× 100 nF, ADC pins to GND", fontsize=6, va="center")
+    ins = ", ".join(f"GP{P.PINS[k]} → pin {i + 1}" for i, k in enumerate(("fill_a", "vent_a", "fill_b", "vent_b")))
+    ax.text(28.5, 2.0, f"valve wires: {ins}", fontsize=7, ha="center", va="center",
+            bbox=dict(fc="#f4f1ea", ec="none", pad=0.5))
+    # parts and wires
+    parts = bb_parts()
+    wires = sorted((p for p in parts if p[0] == "wire"), key=lambda p: (p[1][0], -Y[p[1][1]]))
+    label_x, last = {}, -9.0
+    for p in wires:
+        last = max(p[1][0], last + 1.0)
+        label_x[id(p)] = last
+    bottom_arc = 0
+    for p in parts:
+        kind, a, b, col, label = p
+        x0, y0 = xy(a)
+        if kind == "jumper":
+            x1, y1 = xy(b)
+            if y0 == y1:                     # same row: arc, above the top half, below the bottom half
+                if y0 < 6:
+                    h = -(1.4 + 0.7 * bottom_arc)
+                    bottom_arc += 1
+                else:
+                    h = 1.0 + 0.06 * abs(x1 - x0)
+                t = np.linspace(0, 1, 40)
+                bx = x0 + (x1 - x0) * t
+                by = y0 + 2 * h * t * (1 - t)
+                ax.plot(bx, by, color=colours[col], lw=2.2, solid_capstyle="round")
+            else:
+                ax.plot([x0, x1], [y0, y1], color=colours[col], lw=2.2, solid_capstyle="round")
+            for x, y in ((x0, y0), (x1, y1)):
+                ax.plot(x, y, "o", ms=3.5, color=colours[col])
+        elif kind == "res":
+            x1, y1 = xy(b)
+            ax.plot([x0, x1], [y0, y1], color="#777", lw=1)
+            mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+            w, h = (1.8, 0.5) if y0 == y1 else (0.5, 1.1)
+            ax.add_patch(FancyBboxPatch((mx - w / 2, my - h / 2), w, h, boxstyle="round,pad=0.05",
+                                        fc=colours["res"], ec="k", lw=0.5, zorder=3))
+            if y0 == y1:
+                ax.text(mx, my + 0.4, label, ha="center", va="bottom", fontsize=6.5, zorder=4)
+            else:
+                ax.text(mx + 0.45, my, label, ha="left", va="center", fontsize=6.5, zorder=4)
+        elif kind == "cap":
+            x1, y1 = xy(b)
+            ax.plot([x0, x1], [y0, y1], color="#777", lw=1)
+            mx, my = (x0 + x1) / 2, (y0 + y1) / 2
+            ax.add_patch(Circle((mx, my), 0.3, fc=colours["c"], ec="k", lw=0.5, zorder=3))
+            ax.text(mx + 0.38, my, label, fontsize=5.5, va="center", zorder=4)
+        elif kind == "wire":
+            lx = label_x[id(p)]
+            ax.plot([x0, x0 + (lx - x0) * 0.15, lx, lx], [y0, y0 + 0.6, 17.0, 17.6], color=colours[col], lw=1.6)
+            ax.plot(x0, y0, "o", ms=3.5, color=colours[col])
+            ax.text(lx, 17.8, label, rotation=90, ha="center", va="bottom", fontsize=6.5)
+    ax.set_xlim(-2.5, 67)
+    ax.set_ylim(-4, 31)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    ax.set_title("Breadboard test 1 — top view. Jumpers: red = plus, black = ground, blue = signal. "
+                 "Wires going up leave the board.\nThe Pico runs on USB: nothing on VSYS/VBUS. "
+                 "The 3× 47 kΩ per sensor are soldered into one bundle (≈ 15.7 kΩ).", fontsize=9)
+    save(fig, "breadboard")
+
+
 def main():
     cheek()
     arm()
     side_view()
     pneumatics()
     wiring_list()
+    breadboard()
     try:
         wiring()
     except Exception as e:  # noqa: BLE001

@@ -231,6 +231,7 @@ Diagram: `out/drawings/pneumatics.pdf`. The connection tables are in
 ## 8. Electronics
 
 Diagram: `out/drawings/wiring.png`. Connection list: `out/drawings/wiring_list.png`.
+Breadboard layout (every part on its hole): `out/drawings/breadboard.png`.
 
 **Work in this order and test after each step.** Only plug the 24 V adapter into the
 mains when the steps say so.
