@@ -122,11 +122,14 @@ def main():
     check("ERROR" in msg and abs(cfg["move_w_max"] - 0.9 * w0) < 1e-6, "speed 3 is refused")
     L0 = sensors.read()[0]
     handle("move 30")
-    refs = []
-    for _ in range(50):
-        ctl.update(0.002, *sensors.read())
+    refs, duties = [], []
+    for _ in range(int(control.PREFILL_MAX / 0.002) + 50):
+        duties.append(ctl.update(0.002, *sensors.read()))
         refs.append(ctl.ref_now)
-    check(ctl.mode == control.MOVE and abs(refs[0] - L0) < 0.05, "move 30: the profile starts at the current position")
+    n_fill = int(control.PREFILL_MAX / 0.002) - 1
+    check(all(abs(r - L0) < 0.05 for r in refs[:n_fill]) and duties[0][0] > 0 and duties[0][2] > 0,
+          "move 30: first the pre-fill (both chambers fill, the target stays where the arm is)")
+    check(ctl.mode == control.MOVE and abs(refs[n_fill + 1] - L0) < 0.05, "move 30: the profile starts at the current position")
     check(all(b >= a for a, b in zip(refs, refs[1:])) and L0 < refs[-1] < ctl.ref,
           "move 30: the profile rises smoothly towards the target")
     handle("speed 1")

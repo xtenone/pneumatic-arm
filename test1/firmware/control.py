@@ -79,6 +79,9 @@ class Profile:
         return x, v, a
 
 
+PREFILL_MAX = 0.5           # s, longest pre-fill before the first move (then it starts anyway)
+
+
 class Controller:
     def __init__(self, cfg):
         self.cfg = cfg              # dict from config.py
@@ -100,12 +103,14 @@ class Controller:
         self.plan_t = 0.0           # s since the start of the profile
         self.plan_L = None          # mm, target the profile goes to
         self.v_ref_filt = 0.0       # mm/s, planned speed through the same filter as v_filt
+        self.prefill_t = None       # s in the pre-fill before the first move (None = not filling)
 
     # --- helpers --------------------------------------------------------------
     def set_mode(self, mode, value=None):
         if mode == MOVE and self.mode == MOVE:
             self.ref = value        # new target during a move: replanned from the current profile state
             return
+        self.prefill_t = 0.0 if mode == MOVE else None
         self.mode = mode
         self.plan = None
         self.integral = 0.0
@@ -219,6 +224,24 @@ class Controller:
         lo, hi = c["L_min"] + c["soft_limit"], c["L_max"] - c["soft_limit"]
         target = clamp(self.ref, lo, hi)
         v_ref = a_ref = 0.0
+        if self.mode == MOVE and self.prefill_t is not None:
+            # first move from rest: fill both chambers to the pressures that hold the arm
+            # where it is, then start the profile. Otherwise the arm lags behind the
+            # profile while the air builds up, and then jumps.
+            th = self.angle(clamp(L, lo, hi))
+            r, b = c["hinge_to_rear"], c["hinge_to_attach"]
+            lever = r * b * math.cos(th) / self.length(th)
+            self.force = self.feedforward(math.cos(th), lever, 0.0, 0.0)
+            self.p_des = self._pressures_for_force(self.force)
+            self.prefill_t += dt
+            db = 2 * c["p_deadband"]
+            if ((abs(self.p_des[0] - pa) > db or abs(self.p_des[1] - pb) > db)
+                    and self.prefill_t < PREFILL_MAX):
+                self.ref_now = L
+                fa, va = self._chamber(self.p_des[0], pa)
+                fb, vb = self._chamber(self.p_des[1], pb)
+                return fa, va, fb, vb
+            self.prefill_t = None
         if self.mode == MOVE:
             # smooth profile of the arm angle; a new target starts a new profile from the
             # current one. Planned in degrees, so the limits mean the same at every angle.
