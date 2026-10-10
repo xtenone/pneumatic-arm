@@ -132,15 +132,16 @@ def t3(p, label=None):
     if label:                                   # T7: one run at the load that is on the arm
         p.send("gain 1")
         return t3_run(p, label)
-    # first without load and with softer control (the tuning for 1 kg makes the light arm shake)
-    ask("T3a PWM control without load. Regulator at 5 bar, no plate on the arm.")
+    # first without load, only as a check that everything works (direction, sensors, valves);
+    # softer control, because the tuning for 1 kg makes the light arm shake. Only T3b counts.
+    ask("T3a function check without load. Regulator at 5 bar, no plate on the arm.")
     p.send("gain 0.5")
-    a = t3_run(p, "T3a_pwm_no_load")
+    a = t3_run(p, "T3a_check_no_load")
     p.send("off")
     ask("T3b PWM control with load: put one 1 kg plate on the arm. 5 bar.")
     p.send("gain 1")
     b = t3_run(p, "T3b_pwm_1kg")
-    return dict(no_load=a["passed"], kg1=b["passed"], passed=a["passed"] and b["passed"])
+    return dict(no_load_check=a["passed"], kg1=b["passed"], passed=b["passed"])
 
 
 def t4(p):

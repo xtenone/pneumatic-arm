@@ -368,17 +368,21 @@ Each test stores its run, plot and outcome in `host/results/`.
 | T0 leak test | 3 bar | none (`gain 0.5`) | arm to 20°, all valves closed, measure 60 s | pressure drop < 0.1 bar |
 | T1 valves | 3 bar | – | open each valve for 10 ms, sample the pressure fast | response < 10 ms |
 | T2 on/off | 3 bar | 1 kg | 0° → 30° → −5° with fully open/closed valves only | comes to rest within ±3 mm |
-| T3 PWM control | 5 bar | first none (`gain 0.5`), then 1 kg | 0° → 30° → −5° | overshoot < 5 mm, settled within 1 s, error < 1 mm |
+| T3 PWM control | 5 bar | first none (`gain 0.5`, check only), then 1 kg | 0° → 30° → −5° | with 1 kg: overshoot < 5 mm, settled within 1 s, error < 1 mm |
 | T4 repeatability | 5 bar | 1 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
 | T5 holding | 5 bar | 1 kg | 60 s at 30° | deviation < 1 mm |
 | T6 stiffness | 5 bar | 1 + 1 kg | at 20°, valves closed, add a plate; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
 | T7 load ratio | 5 bar | 1 → 5 kg | repeat T3, one plate more each time | highest load at which T3 passes |
 | T8 fast and smooth | 5 bar | 1 kg; then 2 kg at 80% speed | `move` to preset angles: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
 
-**Without load first:** the arm first moves without a plate (T0, then T3a), only then with
-1 kg. The control is tuned for 1 kg; without load the arm is twelve times easier to turn
-and the same control makes it shake (in the simulation about 7 Hz, ±6 mm). The script
-therefore sends `gain 0.5` for the runs without load, and `gain 1` once the plate is on.
+**Without load first, as a check only:** the arm first moves without a plate (T0, then
+T3a), to check that everything works: valves, sensors, direction. Only then with 1 kg. The
+runs without load have no criteria; the real arm always carries its own weight, so the
+assessment starts at 1 kg.
+- The control is tuned for 1 kg. Without load the arm is twelve times easier to turn, and
+  the same control makes it shake (in the simulation about 12 Hz, ±4 mm).
+- The script therefore sends `gain 0.5` for the runs without load, and `gain 1` once the
+  plate is on.
 
 The simulation's expectations are in `out/sim/results.json` and in the README. If the
 real measurement differs a lot, that is useful information in itself, for example about
