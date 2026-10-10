@@ -349,12 +349,12 @@
           "estimate": true
         },
         {
-          "what": "Load: M8×60 bolt, 2 large washers M8×40, nut — for 1 kg dumbbell plates (own, up to 5 for T7)",
+          "what": "Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7)",
           "variant": "",
           "qty": 1,
           "price": 1.5,
           "estimate": true,
-          "note": "Plates bolted to the arm end: they cannot swing"
+          "note": "Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80)"
         },
         {
           "what": "Plug nipple G1/4 male, matching the compressor coupler",

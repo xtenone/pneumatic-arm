@@ -138,11 +138,22 @@ Drawing: `out/drawings/arm.pdf`.
 📷 Photo of the hinge from above. The arm must sit centred between the cheeks and swing
 freely up and down.
 
-6. **Load:** 1 kg dumbbell plates on an M8×60 bolt through the load hole, between two
-   large washers (M8 × 40 mm), with a nut. One plate for most tests; for more, put them
-   alternately left and right of the arm so it does not twist. If the plate's hole is
-   much bigger than the bolt, centre it with a short piece of 25 mm conduit or a few turns
-   of tape. Tighten well: the plates must not swing or slide.
+6. **Load:** 1 kg dumbbell plates clamped to the arm on a piece of M8 threaded rod
+   through the load hole.
+   - Cut **100 mm** of M8 threaded rod. That is enough for 5 plates (T7): 3 on one side,
+     2 on the other, so the arm does not twist.
+   - Stack from one end: lock nut – large washer – plate(s) – arm – plate(s) – large
+     washer – lock nut. With plates on one side only, put a normal M8 washer against the
+     bare side of the arm.
+   - **Measure the plate's hole first.** The large washer must be at least 10 mm wider
+     than the hole:
+     - hole 25–31 mm: the M8 × 40 mm washers are enough;
+     - larger hole (e.g. 50 mm "Olympic" plates): saw two discs of about Ø80 mm from the
+       plywood leftovers and drill them Ø8.5.
+   - The plate does not need to be centred on the rod: clamped tight it cannot move, and
+     a few mm off centre changes the load by less than 2%.
+   - Tighten well: the plates must not swing or slide. Check the nuts after each test with
+     more plates.
 
 ---
 

@@ -75,7 +75,7 @@ Status: still to buy
 | 2 | Hose clamp 20–32 mm — potentiometer on the cylinder |  | €1.60* |  |
 | 4 | Angle bracket 40×40 + wood screws 4×30 / 4×40 | cheeks and block onto the base plate | €3.20* |  |
 | 2 | F-clamp — clamp the rig to the table edge |  | €12.00* |  |
-| 1 | Load: M8×60 bolt, 2 large washers M8×40, nut — for 1 kg dumbbell plates (own, up to 5 for T7) — Plates bolted to the arm end: they cannot swing |  | €1.50* |  |
+| 1 | Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7) — Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80) |  | €1.50* |  |
 | 1 | Plug nipple G1/4 male, matching the compressor coupler | buy after the compressor arrives | €3.00* |  |
 | 1 | Tube cutter |  | €5.00* |  |
 | 1 | PTFE tape |  | €1.50* |  |
