@@ -76,7 +76,7 @@ Status: still to buy
 | 4 | Angle bracket 40×40 + wood screws 4×30 / 4×40 | cheeks and block onto the base plate | €3.20* |  |
 | 2 | F-clamp — clamp the rig to the table edge |  | €12.00* |  |
 | 1 | Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7) — Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80) |  | €1.50* |  |
-| 1 | Plug nipple G1/4 male, matching the compressor coupler | buy after the compressor arrives | €3.00* |  |
+| 1 | Plug nipple G1/4 male, matching the compressor coupler | EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure) | €3.00* |  |
 | 1 | Tube cutter |  | €5.00* |  |
 | 1 | PTFE tape |  | €1.50* |  |
 | 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration |  | €20.00* |  |
@@ -87,7 +87,7 @@ Status: received (2026-10-06)
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
-| 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
+| 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 53 dB(A) on the label, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
 
 **Total approx. €564** (excluding shipping and import duty).
 

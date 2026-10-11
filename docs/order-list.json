@@ -358,7 +358,7 @@
         },
         {
           "what": "Plug nipple G1/4 male, matching the compressor coupler",
-          "variant": "buy after the compressor arrives",
+          "variant": "EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure)",
           "qty": 1,
           "price": 3.0,
           "estimate": true
@@ -394,7 +394,7 @@
         {
           "url": "https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/",
           "what": "Stanley silent compressor DST 100/8/6",
-          "variant": "6 l, 8 bar, 105 l/min (intake), 59 dB, oil-free, 750 W",
+          "variant": "6 l, 8 bar, 105 l/min (intake), 53 dB(A) on the label, oil-free, 750 W",
           "qty": 1,
           "price": 160.0,
           "estimate": true,
