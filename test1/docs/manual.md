@@ -140,7 +140,7 @@ freely up and down.
 
 6. **Load:** 1 kg dumbbell plates clamped to the arm on a piece of M8 threaded rod
    through the load hole, at most **2 plates** (2 kg).
-   - Cut **100 mm** of M8 threaded rod.
+   - Cut **120 mm** of M8 threaded rod (long enough for the 4-plate experiment below).
    - Saw two discs of about **Ø80 mm** from the plywood leftovers and drill them Ø8.5.
      They clamp the plate whatever the size of its hole (large washers would have to be
      at least 10 mm wider than the hole).
@@ -152,6 +152,11 @@ freely up and down.
      a few mm off centre changes the load by less than 2%.
    - Tighten well: the plates must not swing or slide. Check the nuts after changing
      plates.
+   - **Experiment, once:** 4 plates (2 + 2), outside the normal tests. The 40×3 bar is
+     strong enough (about 20 MPa, buckling sideways only at about 20 kg). But it is
+     much less stiff sideways than upwards. Stop as soon as the arm visibly bends or
+     twists sideways. In the simulation the cylinder does not reach the target at 4 kg
+     (5.5 mm short).
 
 ---
 

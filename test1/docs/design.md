@@ -365,18 +365,18 @@ Results with the current tuning (`out/sim/results.json`, plots in `out/sim/`):
 
 | Test (simulation) | Result |
 |---|---|
-| T3 without load, `gain 0.5` | 0° → 30° and 30° → −5°: overshoot ≤ 1.7 mm, settled in 0.5–0.6 s — passed (in 1 of 3 noise runs; the others settle in 1.1–1.4 s or overshoot 4 mm, without shaking) |
-| T3 without load, `gain 1` | shakes at about 7 Hz, ±6 mm: the tuning for 1 kg is too strong for the bare arm |
-| T3 step 0° → 30° (1 kg) | overshoot 1.5 mm, error 0.3 mm, but within ±1 mm only after 1.5 s — not passed |
-| T3 step 30° → −5° (1 kg) | overshoot 2.6 mm, settled in 0.7 s, error 0.2 mm — passed |
-| T2 on/off control (3 bar) | stays 13–24 mm off target: PWM control is needed |
-| T6 stiffness (one plate added, valves closed) | 9.8° deflection at 2 bar chamber pressure, 6.7° at 5 bar |
-| T7 load | target reached up to 3 kg (68% load); within 1 s at 2 kg, at 1 and 3 kg just too slow; at 4 kg 11 mm short |
-| T8 fast and smooth (preset angles) | 30° in 0.40 s, largest move (−5° → 50°) 0.58 s; follows the profile within 2.5 mm, overshoot ≤ 1.6 mm. Settling: in 1 of 3 runs one move is within ±1.5 mm only 0.32 s after the profile (limit 0.2 s). 2 kg: passes at 80% speed |
+| T3 without load, `gain 0.5` (check only) | 0° → 30°: overshoot 2.7 mm, settled in 0.8 s; 30° → −5°: overshoot 4.8 mm, settled in 1.7 s. Moves without shaking |
+| T3 without load, `gain 1` | shakes, overshoot 7.5–10 mm: the tuning for 1 kg is too strong for the bare arm |
+| T3 step 0° → 30° (1 kg) | overshoot 1.7 mm, settled in 0.5 s, error 0.2 mm — passed |
+| T3 step 30° → −5° (1 kg) | overshoot 3.3 mm, settled in 0.6 s, error 0.3 mm — passed |
+| T2 on/off control (3 bar) | stays 12–24 mm off target: PWM control is needed |
+| T6 stiffness (one plate added, valves closed) | 8.6° deflection at 2 bar chamber pressure, 6.8° at 5 bar |
+| T7 load | 1 and 2 kg pass (settled in 0.5 s). Beyond the test (simulation only): 3 kg reaches the target but settles in 1.4 s; 4 kg stays 5.5 mm short |
+| T8 fast and smooth (preset angles) | 30° in 0.40 s, largest move (−5° → 50°) 0.58 s; follows the profile within 2.5 mm, overshoot ≤ 1.7 mm, settled at most 0.03 s after the profile — passed in all 3 runs. 2 kg: passes at 90% and 80% speed |
 
 The weak point is the last millimetre, not the speed: after a move the arm wanders about
 ±1–1.5 mm before it comes to rest (pressure dead band and seal friction), so the
-settling criteria of T3 and T8 pass or fail by chance. A lower speed does not change
+settling criteria of T3 and T8 are borderline. A lower speed does not change
 this (checked). The real rig shows how large dead band and friction really are; the
 holding behaviour is improved after that.
 
