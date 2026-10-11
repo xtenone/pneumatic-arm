@@ -58,28 +58,28 @@ Status: received (2026-10-07)
 | 2 | Stranded wire 0.5 mm², red, 1 m | SKU 003427 | €2.00 |  |
 | 3 | DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red) — Breadboard wiring: red = plus, black = ground, blue = signal | SKU 002978/002980/002977 | €13.50 |  |
 
-## 4. DIY store
+## 4. DIY store (Hornbach)
 
 Status: still to buy
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
-| 1 | Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block) | DIY stores often cut to size | €15.00* |  |
-| 1 | Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm |  | €8.00* |  |
-| 1 | Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip |  | €3.00* |  |
-| 1 | Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves |  | €4.00* |  |
-| 2 | Ball bearing 608-2RS (8×22×7) — arm hinge | skateboard bearing | €3.00* |  |
-| 2 | Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot |  | €2.00* |  |
+| 1 | Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block) | LIGHTPLY multiplex 18 mm, 122×61 cm (Hornbach), or cut to size | €15.00* | [link](https://www.hornbach.nl/services/hout-op-maat/) |
+| 1 | Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm |  | €8.00* | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/) |
+| 1 | Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip | 20×2 mm, 200 cm (Hornbach has no 20×3) | €3.00* | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/) |
+| 1 | Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves | KAISERTHAL Ø10×1, 100 cm | €4.00* | [link](https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/) |
+| 2 | Ball bearing 608-2RS (8×22×7) — arm hinge | 608-ZZ (metal shields), pack of 4 | €3.00* | [link](https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/) |
+| 2 | Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot | DIN 931 galvanised (pack of 50 online; often loose in store) | €2.00* | [link](https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/) |
 | 2 | Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod |  | €0.40* |  |
 | 2 | Bolt M5×16 + nut — potentiometer rod to the bracket |  | €0.40* |  |
-| 2 | Hose clamp 20–32 mm — potentiometer on the cylinder |  | €1.60* |  |
-| 4 | Angle bracket 40×40 + wood screws 4×30 / 4×40 | cheeks and block onto the base plate | €3.20* |  |
-| 2 | F-clamp — clamp the rig to the table edge |  | €12.00* |  |
-| 1 | Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7) — Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80) |  | €1.50* |  |
+| 2 | Hose clamp 20–32 mm — potentiometer on the cylinder | GEKA W1 20–32 mm, 2 pieces | €1.60* | [link](https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/) |
+| 4 | Angle bracket 40×40 + wood screws 4×30 / 4×40 | STARX versterkingshoek 40×40×40 verzinkt | €3.20* | [link](https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/) |
+| 2 | F-clamp — clamp the rig to the table edge | Lijmklem 50×300 mm | €12.00* | [link](https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/) |
+| 1 | Load: M8 threaded rod (cut 120 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment) — Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size | M8 threaded rod 1 m galvanised + lock nuts DIN 985 | €1.50* | [link](https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html) |
 | 1 | Plug nipple G1/4 male, matching the compressor coupler | EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure) | €3.00* |  |
-| 1 | Tube cutter |  | €5.00* |  |
-| 1 | PTFE tape |  | €1.50* |  |
-| 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration |  | €20.00* |  |
+| 1 | Tube cutter | Leidingschaar kunststof tot 26 mm | €5.00* | [link](https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/) |
+| 1 | PTFE tape | GRIFFON 12 m | €1.50* | [link](https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/) |
+| 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration | PROFILE start 600V | €20.00* | [link](https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/) |
 
 ## 5. Compressor (bol.com)
 

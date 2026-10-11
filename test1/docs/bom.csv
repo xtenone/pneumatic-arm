@@ -33,20 +33,20 @@ order,part,variant,qty,price,estimate,link,note,status
 "3. Electronics (Tinytronics, NL)","Stranded wire 0.5 mm², black, 1 m",SKU 003430,2,1.0,False,,"24 V, e-stop, valves (screw terminals)",received (2026-10-07)
 "3. Electronics (Tinytronics, NL)","Stranded wire 0.5 mm², red, 1 m",SKU 003427,2,1.0,False,,,received (2026-10-07)
 "3. Electronics (Tinytronics, NL)","DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red)",SKU 002978/002980/002977,3,4.5,False,,"Breadboard wiring: red = plus, black = ground, blue = signal",received (2026-10-07)
-4. DIY store,"Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",DIY stores often cut to size,1,15.0,True,,,still to buy
-4. DIY store,"Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm",,1,8.0,True,,,still to buy
-4. DIY store,"Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",,1,3.0,True,,,still to buy
-4. DIY store,"Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves",,1,4.0,True,,,still to buy
-4. DIY store,Ball bearing 608-2RS (8×22×7) — arm hinge,skateboard bearing,2,1.5,True,,,still to buy
-4. DIY store,Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot,,2,1.0,True,,,still to buy
-4. DIY store,Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod,,2,0.2,True,,,still to buy
-4. DIY store,Bolt M5×16 + nut — potentiometer rod to the bracket,,2,0.2,True,,,still to buy
-4. DIY store,Hose clamp 20–32 mm — potentiometer on the cylinder,,2,0.8,True,,,still to buy
-4. DIY store,Angle bracket 40×40 + wood screws 4×30 / 4×40,cheeks and block onto the base plate,4,0.8,True,,,still to buy
-4. DIY store,F-clamp — clamp the rig to the table edge,,2,6.0,True,,,still to buy
-4. DIY store,"Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7)",,1,1.5,True,,Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80),still to buy
-4. DIY store,"Plug nipple G1/4 male, matching the compressor coupler","EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure)",1,3.0,True,,,still to buy
-4. DIY store,Tube cutter,,1,5.0,True,,,still to buy
-4. DIY store,PTFE tape,,1,1.5,True,,,still to buy
-4. DIY store,Multimeter (if you do not have one),,1,20.0,True,,"Needed for the incoming inspection, coil checks and calibration",still to buy
+4. DIY store (Hornbach),"Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)","LIGHTPLY multiplex 18 mm, 122×61 cm (Hornbach), or cut to size",1,15.0,True,https://www.hornbach.nl/services/hout-op-maat/,,still to buy
+4. DIY store (Hornbach),"Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm",,1,8.0,True,https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/,,still to buy
+4. DIY store (Hornbach),"Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip","20×2 mm, 200 cm (Hornbach has no 20×3)",1,3.0,True,https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/,,still to buy
+4. DIY store (Hornbach),"Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves","KAISERTHAL Ø10×1, 100 cm",1,4.0,True,https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/,,still to buy
+4. DIY store (Hornbach),Ball bearing 608-2RS (8×22×7) — arm hinge,"608-ZZ (metal shields), pack of 4",2,1.5,True,https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/,,still to buy
+4. DIY store (Hornbach),Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot,DIN 931 galvanised (pack of 50 online; often loose in store),2,1.0,True,https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/,,still to buy
+4. DIY store (Hornbach),Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod,,2,0.2,True,,,still to buy
+4. DIY store (Hornbach),Bolt M5×16 + nut — potentiometer rod to the bracket,,2,0.2,True,,,still to buy
+4. DIY store (Hornbach),Hose clamp 20–32 mm — potentiometer on the cylinder,"GEKA W1 20–32 mm, 2 pieces",2,0.8,True,https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/,,still to buy
+4. DIY store (Hornbach),Angle bracket 40×40 + wood screws 4×30 / 4×40,STARX versterkingshoek 40×40×40 verzinkt,4,0.8,True,https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/,,still to buy
+4. DIY store (Hornbach),F-clamp — clamp the rig to the table edge,Lijmklem 50×300 mm,2,6.0,True,https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/,,still to buy
+4. DIY store (Hornbach),"Load: M8 threaded rod (cut 120 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment)",M8 threaded rod 1 m galvanised + lock nuts DIN 985,1,1.5,True,https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html,Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size,still to buy
+4. DIY store (Hornbach),"Plug nipple G1/4 male, matching the compressor coupler","EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure)",1,3.0,True,,,still to buy
+4. DIY store (Hornbach),Tube cutter,Leidingschaar kunststof tot 26 mm,1,5.0,True,https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/,,still to buy
+4. DIY store (Hornbach),PTFE tape,GRIFFON 12 m,1,1.5,True,https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/,,still to buy
+4. DIY store (Hornbach),Multimeter (if you do not have one),PROFILE start 600V,1,20.0,True,https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/,"Needed for the incoming inspection, coil checks and calibration",still to buy
 5. Compressor (bol.com),Stanley silent compressor DST 100/8/6,"6 l, 8 bar, 105 l/min (intake), 53 dB(A) on the label, oil-free, 750 W",1,160.0,True,https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/,Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple.,received (2026-10-06)

@@ -1,114 +1,114 @@
 {
   "T3_no_load": {
     "up_0_to_30": {
-      "overshoot_mm": 1.49,
-      "settling_s": 0.544,
+      "overshoot_mm": 2.74,
+      "settling_s": 0.76,
       "error_mm": 0.15,
       "passed": true
     },
     "down_30_to_minus5": {
-      "overshoot_mm": 1.67,
-      "settling_s": 0.636,
-      "error_mm": 0.33,
-      "passed": true
+      "overshoot_mm": 4.82,
+      "settling_s": 1.732,
+      "error_mm": 0.72,
+      "passed": false
     },
-    "air_used_g": 0.92
+    "air_used_g": 1.48
   },
   "T3_no_load_gain_1": {
     "up_0_to_30": {
-      "overshoot_mm": 9.99,
-      "settling_s": 1.98,
-      "error_mm": 3.61,
+      "overshoot_mm": 7.54,
+      "settling_s": 1.984,
+      "error_mm": 3.26,
       "passed": false
     },
     "down_30_to_minus5": {
-      "overshoot_mm": 15.77,
+      "overshoot_mm": 9.97,
       "settling_s": 1.996,
-      "error_mm": 4.86,
+      "error_mm": 3.75,
       "passed": false
     },
-    "air_used_g": 3.86
+    "air_used_g": 3.94
   },
   "T3_pwm": {
     "up_0_to_30": {
-      "overshoot_mm": 1.54,
-      "settling_s": 1.48,
-      "error_mm": 0.33,
-      "passed": false
-    },
-    "down_30_to_minus5": {
-      "overshoot_mm": 2.57,
-      "settling_s": 0.66,
-      "error_mm": 0.23,
+      "overshoot_mm": 1.69,
+      "settling_s": 0.528,
+      "error_mm": 0.24,
       "passed": true
     },
-    "air_used_g": 0.88
+    "down_30_to_minus5": {
+      "overshoot_mm": 3.27,
+      "settling_s": 0.596,
+      "error_mm": 0.31,
+      "passed": true
+    },
+    "air_used_g": 0.77
   },
   "T2_onoff": {
     "up_0_to_30": {
-      "overshoot_mm": 23.74,
+      "overshoot_mm": 23.64,
       "settling_s": 1.984,
-      "error_mm": 24.47,
+      "error_mm": 24.3,
       "passed": false
     },
     "down_30_to_minus5": {
-      "overshoot_mm": 30.02,
+      "overshoot_mm": 29.52,
       "settling_s": 1.996,
-      "error_mm": 13.4,
+      "error_mm": 11.65,
       "passed": false
     },
-    "air_used_g": 1.69
+    "air_used_g": 1.7
   },
   "T7_load": [
     {
       "load_kg": 1.0,
-      "load_pct": 24,
-      "overshoot_mm": 1.54,
-      "settling_s": 1.48,
-      "error_mm": 0.33,
-      "passed": false
+      "load_pct": 23,
+      "overshoot_mm": 1.69,
+      "settling_s": 0.528,
+      "error_mm": 0.24,
+      "passed": true
     },
     {
       "load_kg": 2.0,
-      "load_pct": 46,
-      "overshoot_mm": 2.09,
-      "settling_s": 0.556,
-      "error_mm": 0.43,
+      "load_pct": 45,
+      "overshoot_mm": 1.19,
+      "settling_s": 0.516,
+      "error_mm": 0.38,
       "passed": true
     },
     {
       "load_kg": 3.0,
-      "load_pct": 68,
-      "overshoot_mm": 3.54,
-      "settling_s": 1.42,
-      "error_mm": 0.44,
+      "load_pct": 67,
+      "overshoot_mm": 3.44,
+      "settling_s": 1.38,
+      "error_mm": 0.22,
       "passed": false
     },
     {
       "load_kg": 4.0,
-      "load_pct": 89,
+      "load_pct": 88,
       "overshoot_mm": 0.0,
       "settling_s": 1.984,
-      "error_mm": 10.74,
+      "error_mm": 5.46,
       "passed": false
     },
     {
       "load_kg": 5.0,
-      "load_pct": 111,
+      "load_pct": 110,
       "overshoot_mm": 0.0,
       "settling_s": 1.984,
-      "error_mm": 86.57,
+      "error_mm": 83.15,
       "passed": false
     }
   ],
   "T6_stiffness": [
     {
       "pressure_sum_bar": 2.0,
-      "deflection_deg": 9.81
+      "deflection_deg": 8.62
     },
     {
       "pressure_sum_bar": 5.0,
-      "deflection_deg": 6.74
+      "deflection_deg": 6.77
     }
   ],
   "T8": {
@@ -117,11 +117,11 @@
         "command_s": 0.5,
         "angle": 30.0,
         "profile_s": 0.404,
-        "track_mm": 1.12,
-        "overshoot_mm": 1.14,
+        "track_mm": 1.18,
+        "overshoot_mm": 1.34,
         "settle_after_s": 0.0,
         "command_to_settled_s": 0.404,
-        "error_mm": 0.28,
+        "error_mm": 0.39,
         "new_target_during_move": false,
         "passed": true
       },
@@ -129,11 +129,11 @@
         "command_s": 2.0,
         "angle": -5.0,
         "profile_s": 0.432,
-        "track_mm": 0.99,
-        "overshoot_mm": 1.37,
+        "track_mm": 1.47,
+        "overshoot_mm": 1.32,
         "settle_after_s": 0.0,
         "command_to_settled_s": 0.432,
-        "error_mm": 0.35,
+        "error_mm": 0.25,
         "new_target_during_move": false,
         "passed": true
       },
@@ -141,11 +141,11 @@
         "command_s": 3.5,
         "angle": 50.0,
         "profile_s": 0.584,
-        "track_mm": 1.29,
-        "overshoot_mm": 1.13,
+        "track_mm": 1.56,
+        "overshoot_mm": 1.18,
         "settle_after_s": 0.0,
         "command_to_settled_s": 0.584,
-        "error_mm": 0.3,
+        "error_mm": 0.13,
         "new_target_during_move": false,
         "passed": true
       },
@@ -153,11 +153,11 @@
         "command_s": 5.0,
         "angle": 10.0,
         "profile_s": 0.452,
-        "track_mm": 1.37,
-        "overshoot_mm": 0.91,
+        "track_mm": 2.14,
+        "overshoot_mm": 1.46,
         "settle_after_s": 0.0,
         "command_to_settled_s": 0.452,
-        "error_mm": 0.09,
+        "error_mm": 0.49,
         "new_target_during_move": false,
         "passed": true
       },
@@ -165,118 +165,118 @@
         "command_s": 6.5,
         "angle": 20.0,
         "profile_s": 0.672,
-        "track_mm": 1.03,
-        "overshoot_mm": 23.79,
+        "track_mm": 1.36,
+        "overshoot_mm": 23.69,
         "settle_after_s": 0.0,
         "command_to_settled_s": 0.672,
-        "error_mm": 0.46,
+        "error_mm": 0.34,
         "new_target_during_move": true,
         "passed": true
       }
     ],
     "default": {
-      "track_mm": 2.51,
-      "overshoot_mm": 1.58,
-      "settle_after_s": 0.32,
-      "error_mm": 0.42,
+      "track_mm": 2.44,
+      "overshoot_mm": 1.67,
+      "settle_after_s": 0.028,
+      "error_mm": 0.52,
       "command_to_settled_s": [
         0.404,
-        0.432,
-        0.592,
-        0.772,
+        0.46,
+        0.608,
+        0.452,
         0.672
       ],
-      "replan_track_mm": 1.26,
-      "passed": false
+      "replan_track_mm": 1.36,
+      "passed": true
     },
     "t3_controller": {
-      "track_mm": 19.6,
-      "overshoot_mm": 6.21,
-      "settle_after_s": 0.324,
-      "error_mm": 0.51,
+      "track_mm": 19.75,
+      "overshoot_mm": 6.06,
+      "settle_after_s": 1.04,
+      "error_mm": 0.54,
       "command_to_settled_s": [
-        0.5,
-        0.6,
-        0.704,
-        0.6,
-        0.708
+        0.496,
+        0.604,
+        0.532,
+        1.316,
+        0.716
       ],
-      "replan_track_mm": 19.65,
+      "replan_track_mm": 18.75,
       "passed": false
     },
     "limits": [
       {
         "k": 1.1,
-        "track_mm": 3.0,
-        "overshoot_mm": 2.41,
-        "settle_after_s": 0.048,
-        "error_mm": 0.45,
+        "track_mm": 3.31,
+        "overshoot_mm": 3.06,
+        "settle_after_s": 0.364,
+        "error_mm": 0.49,
         "command_to_settled_s": [
           0.368,
-          0.392,
+          0.46,
           0.58,
-          0.44,
+          0.776,
           0.652
         ],
-        "replan_track_mm": 1.58,
+        "replan_track_mm": 2.18,
         "passed": false
       },
       {
         "k": 1.15,
-        "track_mm": 4.19,
-        "overshoot_mm": 4.06,
+        "track_mm": 3.54,
+        "overshoot_mm": 3.91,
         "settle_after_s": 0.184,
-        "error_mm": 0.57,
+        "error_mm": 0.56,
         "command_to_settled_s": [
           0.352,
-          0.476,
+          0.44,
           0.548,
           0.58,
           0.612
         ],
-        "replan_track_mm": 1.78,
+        "replan_track_mm": 2.02,
         "passed": false
       },
       {
         "k": 1.3,
-        "track_mm": 4.34,
-        "overshoot_mm": 5.06,
-        "settle_after_s": 0.212,
-        "error_mm": 0.45,
+        "track_mm": 5.44,
+        "overshoot_mm": 5.56,
+        "settle_after_s": 0.248,
+        "error_mm": 0.56,
         "command_to_settled_s": [
           0.312,
-          0.492,
-          0.512,
-          0.56,
+          0.496,
+          0.52,
+          0.596,
           0.532
         ],
-        "replan_track_mm": 4.75,
+        "replan_track_mm": 2.87,
         "passed": false
       }
     ],
     "heavier": [
       {
         "k": 1.0,
-        "track_mm": 4.04,
-        "overshoot_mm": 2.09,
-        "settle_after_s": 0.664,
-        "error_mm": 0.85,
+        "track_mm": 3.42,
+        "overshoot_mm": 1.73,
+        "settle_after_s": 0.0,
+        "error_mm": 0.74,
         "command_to_settled_s": [
-          0.412,
+          0.404,
           0.432,
-          1.248,
+          0.584,
           0.452,
           0.672
         ],
-        "replan_track_mm": 3.27,
+        "replan_track_mm": 3.02,
         "passed": false
       },
       {
         "k": 0.9,
-        "track_mm": 3.31,
-        "overshoot_mm": 1.43,
+        "track_mm": 2.85,
+        "overshoot_mm": 1.46,
         "settle_after_s": 0.0,
-        "error_mm": 0.64,
+        "error_mm": 0.54,
         "command_to_settled_s": [
           0.452,
           0.48,
@@ -284,15 +284,15 @@
           0.504,
           0.72
         ],
-        "replan_track_mm": 2.12,
-        "passed": false
+        "replan_track_mm": 2.02,
+        "passed": true
       },
       {
         "k": 0.8,
-        "track_mm": 1.69,
-        "overshoot_mm": 1.19,
+        "track_mm": 1.37,
+        "overshoot_mm": 1.21,
         "settle_after_s": 0.0,
-        "error_mm": 0.57,
+        "error_mm": 0.68,
         "command_to_settled_s": [
           0.508,
           0.54,
@@ -300,71 +300,71 @@
           0.564,
           0.844
         ],
-        "replan_track_mm": 1.31,
+        "replan_track_mm": 1.61,
         "passed": true
       }
     ],
     "load_setting": [
       {
         "load_kg": 0.9,
-        "track_mm": 2.28,
-        "overshoot_mm": 2.37,
-        "settle_after_s": 0.68,
-        "error_mm": 0.46,
-        "command_to_settled_s": [
-          0.404,
-          0.48,
-          0.624,
-          1.132,
-          0.868
-        ],
-        "replan_track_mm": 1.75,
-        "passed": false
-      },
-      {
-        "load_kg": 1.1,
-        "track_mm": 2.03,
-        "overshoot_mm": 1.56,
-        "settle_after_s": 0.936,
-        "error_mm": 0.76,
+        "track_mm": 2.12,
+        "overshoot_mm": 1.58,
+        "settle_after_s": 0.024,
+        "error_mm": 0.68,
         "command_to_settled_s": [
           0.404,
           0.44,
-          0.584,
-          1.388,
-          1.384
+          0.608,
+          0.452,
+          0.672
         ],
-        "replan_track_mm": 1.44,
+        "replan_track_mm": 1.79,
+        "passed": true
+      },
+      {
+        "load_kg": 1.1,
+        "track_mm": 1.94,
+        "overshoot_mm": 1.63,
+        "settle_after_s": 0.32,
+        "error_mm": 0.54,
+        "command_to_settled_s": [
+          0.404,
+          0.432,
+          0.624,
+          0.772,
+          0.864
+        ],
+        "replan_track_mm": 1.33,
         "passed": false
       },
       {
         "load_kg": 0.8,
-        "track_mm": 2.71,
-        "overshoot_mm": 1.72,
-        "settle_after_s": 0.684,
-        "error_mm": 0.46,
+        "track_mm": 3.21,
+        "overshoot_mm": 1.89,
+        "settle_after_s": 0.024,
+        "error_mm": 0.6,
         "command_to_settled_s": [
-          0.404,
-          0.456,
-          0.592,
-          1.136,
-          0.672
+          0.424,
+          0.452,
+          0.608,
+          0.452,
+          0.864
         ],
-        "replan_track_mm": 1.65,
+        "replan_track_mm": 1.41,
         "passed": false
       },
       {
         "load_kg": 1.2,
-        "track_mm": 1.69,
-        "overshoot_mm": 1.51,
+        "track_mm": 2.73,
+        "overshoot_mm": 2.92,
         "settle_after_s": 0.32,
-        "error_mm": 0.74,
+        "error_mm": 0.42,
         "command_to_settled_s": [
           0.404,
-          0.432,
+          0.492,
           0.584,
           0.772,
-          0.864
+          0.672
         ],
         "replan_track_mm": 1.27,
         "passed": false
