@@ -21,7 +21,7 @@ HINGE = (0.0, 420.0)         # arm hinge (2× 608 ball bearings in the cheeks)
 REAR_PIVOT = (0.0, 100.0)    # rear pivot of the cylinder (M8 bolt)
 
 # --- Arm ------------------------------------------------------------------------
-ARM = dict(length=450.0, height=40.0, thickness=5.0)  # aluminium flat bar 40×5
+ARM = dict(length=450.0, height=40.0, thickness=3.0)  # aluminium flat bar 40×3 (Hornbach)
 ARM_BEHIND = 20.0            # arm extends 20 mm behind the hinge hole
 ARM_ATTACH = 150.0           # hinge → clevis bolt
 ARM_TIP = 400.0              # hinge → load bolt (dumbbell plates)
@@ -54,6 +54,7 @@ POT = dict(stroke=175.0, body=(275.0, 22.0, 19.0), offset=24.0,  # offset from t
 # --- Load -----------------------------------------------------------------------
 PLATE = dict(mass=1.0, d=120.0, hole=25.0, thickness=13.0)   # 1 kg dumbbell plate (typical cast iron; measure yours)
 TIP_MASS = 1.0               # kg of plates on the bolt at the arm end, alternately left and right
+MAX_LOAD = 2.0               # kg, most plates test 1 puts on the arm (T6, T7, T8)
 ALU_DENSITY = 2.7e-6         # kg/mm³
 
 # --- Pneumatics -------------------------------------------------------------------

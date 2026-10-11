@@ -200,7 +200,7 @@ def t6(p):
 
 def t7(p):
     rows = []
-    for kg in (1, 2, 3, 4, 5):
+    for kg in (1, 2):                       # at most 2 kg on the test arm (params.MAX_LOAD)
         ask(f"T7 load: {kg} plate(s) of 1 kg on the arm, alternately left and right. 5 bar.")
         r = t3(p, label=f"T7_{kg}kg")
         rows.append(dict(load_kg=kg, passed=r["passed"]))

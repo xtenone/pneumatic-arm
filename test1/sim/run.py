@@ -148,7 +148,7 @@ def scenario_step(mode=control.POSITION, tip_mass=P.TIP_MASS, plot_name="step", 
 
 def scenario_load():
     rows = []
-    for mass in (1.0, 2.0, 3.0, 4.0, 5.0):          # 1 kg dumbbell plates
+    for mass in (1.0, 2.0, 3.0, 4.0, 5.0):          # 1 kg dumbbell plates; beyond MAX_LOAD only in the simulation
         s = Sim(tip_mass=mass)
         s.ctl.set_mode(control.POSITION, L_of(0.0))
 

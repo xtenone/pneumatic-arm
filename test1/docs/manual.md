@@ -122,38 +122,36 @@ Drawings: `out/drawings/cheek.pdf` and `out/drawings/side_view.pdf`.
 
 Drawing: `out/drawings/arm.pdf`.
 
-1. Cut the 40×5 aluminium bar to **450 mm** and file the edges smooth.
+1. Cut the 40×3 aluminium bar to **450 mm** and file the edges smooth.
 2. **Mark the holes** on the centre line (20 mm from the edge):
    - hinge: 20 mm from one end
    - clevis: 150 mm from the hinge hole
    - load bolt: 400 mm from the hinge hole
 3. Centre-punch, drill Ø5 first, then **Ø8.5**, and deburr.
 4. **Spacer sleeves:** cut four pieces of the 10×1 tube:
-   - 2× **15.5 mm** for the arm in the hinge (36 − 5 = 31, split over 2 sides)
+   - 2× **16.5 mm** for the arm in the hinge (36 − 3 = 33, split over 2 sides)
    - 2× **7 mm** for the cylinder's rear pivot (36 − 22 = 14, split)
 5. **Assembly:** push an M8×80 bolt through the bearings and cheeks, with the sleeves and
-   the arm in between: bearing — 15.5 sleeve — arm — 15.5 sleeve — bearing. Tighten the
+   the arm in between: bearing — 16.5 sleeve — arm — 16.5 sleeve — bearing. Tighten the
    lock nut until there is no play but the arm still turns freely.
 
 📷 Photo of the hinge from above. The arm must sit centred between the cheeks and swing
 freely up and down.
 
 6. **Load:** 1 kg dumbbell plates clamped to the arm on a piece of M8 threaded rod
-   through the load hole.
-   - Cut **100 mm** of M8 threaded rod. That is enough for 5 plates (T7): 3 on one side,
-     2 on the other, so the arm does not twist.
-   - Stack from one end: lock nut – large washer – plate(s) – arm – plate(s) – large
-     washer – lock nut. With plates on one side only, put a normal M8 washer against the
-     bare side of the arm.
-   - **Measure the plate's hole first.** The large washer must be at least 10 mm wider
-     than the hole:
-     - hole 25–31 mm: the M8 × 40 mm washers are enough;
-     - larger hole (e.g. 50 mm "Olympic" plates): saw two discs of about Ø80 mm from the
-       plywood leftovers and drill them Ø8.5.
+   through the load hole, at most **2 plates** (2 kg).
+   - Cut **100 mm** of M8 threaded rod.
+   - Saw two discs of about **Ø80 mm** from the plywood leftovers and drill them Ø8.5.
+     They clamp the plate whatever the size of its hole (large washers would have to be
+     at least 10 mm wider than the hole).
+   - Stack from one end: lock nut – plywood disc – plate – arm – (second plate) – plywood
+     disc – lock nut. Put the second plate on the other side of the arm, so the arm does
+     not twist. With one plate, the plywood disc on the bare side goes straight against
+     the arm.
    - The plate does not need to be centred on the rod: clamped tight it cannot move, and
      a few mm off centre changes the load by less than 2%.
-   - Tighten well: the plates must not swing or slide. Check the nuts after each test with
-     more plates.
+   - Tighten well: the plates must not swing or slide. Check the nuts after changing
+     plates.
 
 ---
 
@@ -383,7 +381,7 @@ Each test stores its run, plot and outcome in `host/results/`.
 | T4 repeatability | 5 bar | 1 kg | 10× to 20°, alternately from above and below | spread < ±1 mm |
 | T5 holding | 5 bar | 1 kg | 60 s at 30° | deviation < 1 mm |
 | T6 stiffness | 5 bar | 1 + 1 kg | at 20°, valves closed, add a plate; chamber pressure sum 2 and 5 bar | clearly less deflection at 5 bar |
-| T7 load ratio | 5 bar | 1 → 5 kg | repeat T3, one plate more each time | highest load at which T3 passes |
+| T7 load ratio | 5 bar | 1 → 2 kg | repeat T3 with 1 and with 2 plates | T3 passes at 2 kg |
 | T8 fast and smooth | 5 bar | 1 kg; then 2 kg at 80% speed | `move` to preset angles: 30°, −5°, 50°, 10°, and a new target during a move | per move: following the profile within 3 mm, overshoot < 2 mm, within ±1.5 mm at most 0.2 s after the profile ends, error at rest < 1 mm |
 
 **Without load first, as a check only:** the arm first moves without a plate (T0, then

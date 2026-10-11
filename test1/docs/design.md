@@ -274,7 +274,7 @@ cylinder length to angle. See `out/drawings/side_view.pdf`.
   table, held by two F-clamps; the arm end with the load sticks out beside the table.
 - **Hinge:** an M8 bolt through two 608 ball bearings (skateboard bearings) in the
   cheeks, 420 mm above the base plate. Cheap, available everywhere, and without play.
-- **Arm:** aluminium flat bar 40×5 mm, 450 mm long. The cylinder's clevis attaches
+- **Arm:** aluminium flat bar 40×3 mm, 450 mm long. The cylinder's clevis attaches
   150 mm from the hinge; the load, 1 kg dumbbell plates on an M8 bolt, sits at 400 mm.
   Bolted on, it cannot swing (a hanging bottle would set the arm swinging), and the
   gripper of the real arm also holds its load firmly.
