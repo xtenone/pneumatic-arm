@@ -10,6 +10,7 @@ Status: ordered (2026-10-04)
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
 | 1 | 5× fast 3/2 valve — Including shipping (store with 11 pages of reviews) | VQ110U-5M-M5 | €130.53 | [link](https://www.aliexpress.com/item/1005013133472109.html) |
+| | **Total** | | **€130.53** | |
 
 ## 2. Pneumatics, sensors and driver IC (AliExpress)
 
@@ -37,6 +38,7 @@ Status: ordered (2026-10-04)
 | 1 | Inline flow restrictor 4 mm (2 pieces) — Used after T7 to mimic a smaller valve | 4 mm | €3.36 | [link](https://www.aliexpress.com/item/1005008810108635.html) |
 | 1 | Rod clevis (Y) for MAL20 — Connects the cylinder rod to the arm (test 1) | Y/MA MAL20 | €3.85 | [link](https://www.aliexpress.com/item/1005007235783406.html) |
 | 1 | M5 exhaust silencer (5 pieces) | Short M5/5PCS | €1.64 | [link](https://www.aliexpress.com/item/1005004014973967.html) |
+| | **Total** | | **€148.77*** | |
 
 ## 3. Electronics (Tinytronics, NL)
 
@@ -57,6 +59,7 @@ Status: received (2026-10-07)
 | 2 | Stranded wire 0.5 mm², black, 1 m — 24 V, e-stop, valves (screw terminals) | SKU 003430 | €2.00 |  |
 | 2 | Stranded wire 0.5 mm², red, 1 m | SKU 003427 | €2.00 |  |
 | 3 | DuPont jumper wires male-male 10 cm, 100 pieces (blue, black, red) — Breadboard wiring: red = plus, black = ground, blue = signal | SKU 002978/002980/002977 | €13.50 |  |
+| | **Total** | | **€41.10** | |
 
 ## 4. DIY store (Hornbach)
 
@@ -80,6 +83,7 @@ Status: still to buy
 | 1 | Tube cutter | Leidingschaar kunststof tot 26 mm | €5.00* | [link](https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/) |
 | 1 | PTFE tape | GRIFFON 12 m | €1.50* | [link](https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/) |
 | 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration | PROFILE start 600V | €20.00* | [link](https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/) |
+| | **Total** | | **€83.60*** | |
 
 ## 5. Compressor (bol.com)
 
@@ -88,6 +92,7 @@ Status: received (2026-10-06)
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
 | 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 53 dB(A) on the label, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
+| | **Total** | | **€160.00*** | |
 
 **Total approx. €564** (excluding shipping and import duty).
 

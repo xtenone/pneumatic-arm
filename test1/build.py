@@ -48,18 +48,25 @@ def bom():
              "Generated from `docs/order-list.json` (repository root) by `build.py`. Prices in euro, "
              "* = estimate. Also as [CSV](bom.csv).", ""]
     total = 0.0
-    current = None
+    groups = []                            # [(order, status, [rows])] in order of appearance
     for r in rows:
-        if r["order"] != current:
-            current = r["order"]
-            lines += ["", f"## {current}", "", f"Status: {r['status']}", "",
-                      "| # | Part | Variant | Price | Link |", "|---|---|---|---|---|"]
-        sub = r["qty"] * r["price"]
-        total += sub
-        link = f"[link]({r['link']})" if r["link"] else ""
-        note = f" — {r['note']}" if r["note"] else ""
-        lines.append(f"| {r['qty']} | {r['part']}{note} | {r['variant']} | "
-                     f"€{sub:.2f}{'*' if r['estimate'] else ''} | {link} |")
+        if not groups or groups[-1][0] != r["order"]:
+            groups.append((r["order"], r["status"], []))
+        groups[-1][2].append(r)
+    for order, status, items in groups:
+        lines += ["", f"## {order}", "", f"Status: {status}", "",
+                  "| # | Part | Variant | Price | Link |", "|---|---|---|---|---|"]
+        group_total = 0.0
+        for r in items:
+            sub = r["qty"] * r["price"]
+            group_total += sub
+            link = f"[link]({r['link']})" if r["link"] else ""
+            note = f" — {r['note']}" if r["note"] else ""
+            lines.append(f"| {r['qty']} | {r['part']}{note} | {r['variant']} | "
+                         f"€{sub:.2f}{'*' if r['estimate'] else ''} | {link} |")
+        star = "*" if any(r["estimate"] for r in items) else ""
+        lines.append(f"| | **Total** | | **€{group_total:.2f}{star}** | |")
+        total += group_total
     lines += ["", f"**Total approx. €{total:.0f}** (excluding shipping and import duty).", "",
               "## Tools", ""] + [f"- {g}" for g in d.get("tools", [])]
     with open(os.path.join(HERE, "docs", "bom.md"), "w") as f:
