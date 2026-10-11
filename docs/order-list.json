@@ -268,50 +268,56 @@
       ]
     },
     {
-      "name": "4. DIY store",
+      "name": "4. DIY store (Hornbach)",
       "status": "still to buy",
       "items": [
         {
           "what": "Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",
-          "variant": "DIY stores often cut to size",
+          "variant": "LIGHTPLY multiplex 18 mm, 122×61 cm (Hornbach), or cut to size",
           "qty": 1,
           "price": 15.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/services/hout-op-maat/"
         },
         {
-          "what": "Aluminium flat bar 40×5 mm (or 40×4), 50 cm — the arm",
+          "what": "Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm",
           "variant": "",
           "qty": 1,
           "price": 8.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/"
         },
         {
           "what": "Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",
-          "variant": "",
+          "variant": "20×2 mm, 200 cm (Hornbach has no 20×3)",
           "qty": 1,
           "price": 3.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/"
         },
         {
           "what": "Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves",
-          "variant": "",
+          "variant": "KAISERTHAL Ø10×1, 100 cm",
           "qty": 1,
           "price": 4.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/"
         },
         {
           "what": "Ball bearing 608-2RS (8×22×7) — arm hinge",
-          "variant": "skateboard bearing",
+          "variant": "608-ZZ (metal shields), pack of 4",
           "qty": 2,
           "price": 1.5,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/"
         },
         {
           "what": "Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot",
-          "variant": "",
+          "variant": "DIN 931 galvanised (pack of 50 online; often loose in store)",
           "qty": 2,
           "price": 1.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/"
         },
         {
           "what": "Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod",
@@ -329,32 +335,36 @@
         },
         {
           "what": "Hose clamp 20–32 mm — potentiometer on the cylinder",
-          "variant": "",
+          "variant": "GEKA W1 20–32 mm, 2 pieces",
           "qty": 2,
           "price": 0.8,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/"
         },
         {
           "what": "Angle bracket 40×40 + wood screws 4×30 / 4×40",
-          "variant": "cheeks and block onto the base plate",
+          "variant": "STARX versterkingshoek 40×40×40 verzinkt",
           "qty": 4,
           "price": 0.8,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/"
         },
         {
           "what": "F-clamp — clamp the rig to the table edge",
-          "variant": "",
+          "variant": "Lijmklem 50×300 mm",
           "qty": 2,
           "price": 6.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/"
         },
         {
-          "what": "Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 large washers M8×40, 1 M8 washer — for 1 kg dumbbell plates (own, up to 5 for T7)",
-          "variant": "",
+          "what": "Load: M8 threaded rod (cut 100 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, at most 2)",
+          "variant": "M8 threaded rod 1 m galvanised + lock nuts DIN 985",
           "qty": 1,
           "price": 1.5,
           "estimate": true,
-          "note": "Plates clamped to the arm end: they cannot swing. Washers at least 10 mm wider than the plate's hole (Olympic 50 mm holes: two plywood discs Ø80)"
+          "note": "Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size",
+          "url": "https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html"
         },
         {
           "what": "Plug nipple G1/4 male, matching the compressor coupler",
@@ -365,25 +375,28 @@
         },
         {
           "what": "Tube cutter",
-          "variant": "",
+          "variant": "Leidingschaar kunststof tot 26 mm",
           "qty": 1,
           "price": 5.0,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/"
         },
         {
           "what": "PTFE tape",
-          "variant": "",
+          "variant": "GRIFFON 12 m",
           "qty": 1,
           "price": 1.5,
-          "estimate": true
+          "estimate": true,
+          "url": "https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/"
         },
         {
           "what": "Multimeter (if you do not have one)",
-          "variant": "",
+          "variant": "PROFILE start 600V",
           "qty": 1,
           "price": 20.0,
           "estimate": true,
-          "note": "Needed for the incoming inspection, coil checks and calibration"
+          "note": "Needed for the incoming inspection, coil checks and calibration",
+          "url": "https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/"
         }
       ]
     },
