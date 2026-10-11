@@ -73,6 +73,24 @@ shows that less than about 70% is usable at slow speed, the shoulder goes back t
 Roll is not limiting: at this size more than 200 Nm is available about the arm axis,
 while a block hanging 10 cm beside the axis needs about 15 Nm.
 
+**Stroke reserve at the ends (pneumatic):** choose the stroke longer than the joint's range
+needs, so that the piston never reaches the end of the cylinder.
+- Why: at the end, a chamber is only dead volume (in test 1 about 2.5 cm³). One valve
+  pulse then adds 1–2 bar, so the pressure cannot be dosed and the first move from rest
+  jumps.
+- Rule: the smallest chamber volume should be at least about 7–10 cm³ with VQ110U-class
+  valves. That is about 15 mm of stroke on a Ø20 cylinder; on a Ø50 it is already
+  reached with a few mm, so a reserve of 10–15 mm per end is enough for any size.
+- With the air off, the arm then rests on a **stop on the frame**, not on the cylinder.
+  Place that stop outside the area the cylinder sweeps through. In test 1 there is no
+  room for it between the cheeks.
+- The alternative is extra volume on the small chamber, for example a closed side branch
+  of tube. In the simulation of test 1, 5 cm³ extra on chamber A reduces the jump of the
+  first move from 3.2 to 1.9 mm (1 kg). It costs a little stiffness everywhere.
+- Hydraulic cylinders do not need this reserve: oil hardly compresses, and the valves
+  control flow, not pressure. Excavators use almost the full stroke, with cushioning
+  built into the cylinder ends.
+
 ## Speed
 
 Steady speed lifting with the arm horizontal, flow model as in test 1 (ISO 6358). Filling
