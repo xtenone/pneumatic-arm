@@ -502,7 +502,76 @@ def breadboard():
     save(fig, "breadboard")
 
 
+def cut_plan():
+    """Saw plan for the DIY store: all plywood parts from one 1220 × 610 sheet (through cuts only)."""
+    W, H, k = 1220.0, 610.0, 4.0                     # sheet, saw kerf
+    bl, bw = P.BASE["length"], P.BASE["width"]
+    ch, cd = P.CHEEK["height"], P.CHEEK["depth"]
+    sb = P.SPACER_BLOCK["length"]
+    wood, rest = "#e8d3a8", "#f4f4f4"
+    fig, ax = plt.subplots(figsize=(13, 8))
+    ax.add_patch(Rectangle((0, 0), W, H, fc=rest, ec="k", lw=1.2))
+    # left: cheeks and block strip (cut 1 at x = 450)
+    y = H
+    parts = []
+    for name in ("cheek 1", "cheek 2"):
+        parts.append(((0, y - cd), ch, cd, f"{name}\n{ch:.0f} × {cd:.0f}"))
+        y -= cd + k
+    for i in range(2):
+        parts.append(((i * (sb + k), y - sb), sb, sb, f"block\n{i + 1}"))
+    strip_y = y - sb
+    left_rest = strip_y - k
+    # right: base plate (cut 5 at x = 450 + k + 400, cut 6 at y = 300)
+    bx = ch + k
+    parts.append(((bx, H - bw), bl, bw, f"base plate\n{bl:.0f} × {bw:.0f}"))
+    for (x, yy), w, h, txt in parts:
+        ax.add_patch(Rectangle((x, yy), w, h, fc=wood, ec="k"))
+        ax.text(x + w / 2, yy + h / 2, txt, ha="center", va="center", fontsize=9 if w > 100 else 7)
+    ax.add_patch(Rectangle((2 * (sb + k), strip_y), ch - 2 * (sb + k), sb, fc=rest, ec="k", ls=":"))
+    ax.text(2 * (sb + k) + (ch - 2 * (sb + k)) / 2, strip_y + sb / 2, "rest of the block strip", ha="center",
+            va="center", fontsize=7, color="0.4")
+    ax.text(ch / 2, left_rest / 2, f"leftover {ch:.0f} × {left_rest:.0f}\n(2 discs Ø80 for the load, at home)",
+            ha="center", va="center", fontsize=8, color="0.4")
+    ax.text(bx + bl / 2, (H - bw - k) / 2, f"leftover {bl:.0f} × {H - bw - k:.0f}", ha="center", va="center",
+            fontsize=8, color="0.4")
+    rx = bx + bl + k
+    ax.text(rx + (W - rx) / 2, H / 2, f"leftover\n{W - rx:.0f} × {H:.0f}", ha="center", va="center", fontsize=8,
+            color="0.4")
+    # cut lines with their order
+    cuts = [((ch + k / 2, -15), (ch + k / 2, H + 15), "1"),
+            ((-15, H - cd - k / 2), (ch + 15, H - cd - k / 2), "2"),
+            ((-15, H - 2 * cd - 1.5 * k), (ch + 15, H - 2 * cd - 1.5 * k), "3"),
+            ((-15, strip_y - k / 2), (ch + 15, strip_y - k / 2), "4"),
+            ((sb + k / 2, strip_y - 10), (sb + k / 2, strip_y + sb + 10), "7"),
+            ((2 * sb + 1.5 * k, strip_y - 10), (2 * sb + 1.5 * k, strip_y + sb + 10), "8"),
+            ((rx - k / 2, -15), (rx - k / 2, H + 15), "5"),
+            ((rx + 15, H - bw - k / 2), (bx - 15, H - bw - k / 2), "6")]
+    for (x0, y0), (x1, y1), n in cuts:
+        ax.plot([x0, x1], [y0, y1], color="red", lw=1.0, ls="--")
+        ax.text(x0, y0, n, color="white", fontsize=8, ha="center", va="center", fontweight="bold",
+                bbox=dict(boxstyle="circle,pad=0.25", fc="red", ec="none"))
+    dim(ax, (0, H), (W, H), 45, f"{W:.0f}")
+    dim(ax, (0, 0), (0, H), 55, f"{H:.0f}")
+    dim(ax, (0, 0), (ch, 0), -45, f"{ch:.0f}")
+    dim(ax, (bx, 0), (bx + bl, 0), -45, f"{bl:.0f}")
+    dim(ax, (rx, H - bw), (rx, H), -35, f"{bw:.0f}", side=1)
+    ax.text(0, -150,
+            f"Plywood {P.BASE['thickness']:.0f} mm, one sheet 1220 × 610. Through cuts in the numbered order; "
+            f"saw kerf ≈ {k:.0f} mm, already left between the parts.\n"
+            f"Cut list: 1 base plate {bl:.0f} × {bw:.0f}, 2 cheeks {ch:.0f} × {cd:.0f}, "
+            f"2 blocks {sb:.0f} × {sb:.0f}. Cut both cheeks at the same saw setting, so they are exactly alike.\n"
+            f"If the saw will not take pieces as small as {sb:.0f} × {sb:.0f}: stop after cut 4 and saw the "
+            "2 blocks from the strip at home (cuts 7 and 8). Keep all leftovers.\n"
+            "Dimensions in mm.", fontsize=9, va="top")
+    ax.set_aspect("equal")
+    ax.set_xlim(-90, W + 80)
+    ax.set_ylim(-260, H + 90)
+    ax.axis("off")
+    save(fig, "cut_plan")
+
+
 def main():
+    cut_plan()
     cheek()
     arm()
     side_view()

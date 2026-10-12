@@ -85,7 +85,8 @@ air use).
 
 ## 3. Woodwork: base plate, cheeks and spacer block
 
-Drawings: `out/drawings/cheek.pdf` and `out/drawings/side_view.pdf`.
+Drawings: `out/drawings/cut_plan.pdf` (saw plan for the DIY store), `out/drawings/cheek.pdf`
+and `out/drawings/side_view.pdf`.
 
 1. **Saw** from 18 mm plywood. DIY stores often cut to size for free.
    - base plate 400 × 300 mm
