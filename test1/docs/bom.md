@@ -76,7 +76,7 @@ Status: still to buy
 | 2 | Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod |  | €0.40* |  |
 | 2 | Bolt M5×16 + nut — potentiometer rod to the bracket |  | €0.40* |  |
 | 2 | Hose clamp 20–32 mm — potentiometer on the cylinder | GEKA W1 20–32 mm, 2 pieces | €1.60* | [link](https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/) |
-| 4 | Angle bracket 40×40 + wood screws 4×30 / 4×40 | STARX versterkingshoek 40×40×40 verzinkt | €3.20* | [link](https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/) |
+| 4 | Angle bracket 40×40 + wood screws 4×16 (brackets; 4×30 would go through the 18 mm plywood) and 4 × 4×40 (spacer block) | STARX versterkingshoek 40×40×40 verzinkt | €3.20* | [link](https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/) |
 | 2 | F-clamp — clamp the rig to the table edge | Lijmklem 50×300 mm | €12.00* | [link](https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/) |
 | 1 | Load: M8 threaded rod (cut 120 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment) — Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size | M8 threaded rod 1 m galvanised + lock nuts DIN 985 | €1.50* | [link](https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html) |
 | 1 | Plug nipple G1/4 male, matching the compressor coupler | EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure) | €3.00* |  |
