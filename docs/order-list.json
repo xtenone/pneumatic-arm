@@ -269,136 +269,174 @@
     },
     {
       "name": "4. DIY store (Hornbach)",
-      "status": "still to buy",
+      "status": "list final (2026-10-13), still to buy",
       "items": [
         {
-          "what": "Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block)",
-          "variant": "LIGHTPLY multiplex 18 mm, 122×61 cm (Hornbach), or cut to size",
+          "what": "Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block); cut in the store per test1/out/drawings/cut_plan.pdf",
+          "variant": "LIGHTPLY multiplex ongegrond 122×61 cm, 18 mm (art. 12575696)",
           "qty": 1,
-          "price": 15.0,
-          "estimate": true,
-          "url": "https://www.hornbach.nl/services/hout-op-maat/"
+          "price": 18.24,
+          "estimate": false,
+          "note": "Keep the leftovers: the 2 discs Ø80 for the load come from them",
+          "url": "https://www.hornbach.nl/p/lightply-multiplex-ongegrond-122x61-cm-18-mm/12575696/"
         },
         {
           "what": "Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm",
-          "variant": "",
+          "variant": "KAISERTHAL 40×3 mm, 100 cm (art. 8829133)",
           "qty": 1,
-          "price": 8.0,
-          "estimate": true,
+          "price": 8.8,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/"
         },
         {
-          "what": "Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip",
-          "variant": "20×2 mm, 200 cm (Hornbach has no 20×3)",
+          "what": "Aluminium strip 20×2 mm — potentiometer bracket + mounting strip",
+          "variant": "KAISERTHAL 20×2 mm, 200 cm (art. 8829169; Hornbach has no 20×3)",
           "qty": 1,
-          "price": 3.0,
-          "estimate": true,
+          "price": 3.75,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/"
         },
         {
-          "what": "Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves",
-          "variant": "KAISERTHAL Ø10×1, 100 cm",
+          "what": "Aluminium tube 10×1 mm (8 mm inside) — spacer sleeves",
+          "variant": "KAISERTHAL Ø10×1, 100 cm (art. 8829151)",
           "qty": 1,
-          "price": 4.0,
-          "estimate": true,
+          "price": 1.9,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/"
         },
         {
-          "what": "Ball bearing 608-2RS (8×22×7) — arm hinge",
-          "variant": "608-ZZ (metal shields), pack of 4",
-          "qty": 2,
-          "price": 1.5,
-          "estimate": true,
+          "what": "Ball bearing 608 (8×22×7) — arm hinge, 2 needed",
+          "variant": "TARROX 608-ZZ, pack of 4 (art. 6644713)",
+          "qty": 1,
+          "price": 5.7,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/"
         },
         {
-          "what": "Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot",
-          "variant": "DIN 931 galvanised (pack of 50 online; often loose in store)",
-          "qty": 2,
-          "price": 1.0,
-          "estimate": true,
+          "what": "Bolt M8×80 — hinge and rear pivot, 2 needed",
+          "variant": "REYHER DIN 931 galvanised, pack of 50 (art. 10316952)",
+          "qty": 1,
+          "price": 9.2,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/"
         },
         {
-          "what": "Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod",
-          "variant": "",
-          "qty": 2,
-          "price": 0.2,
-          "estimate": true
+          "what": "Lock nut M8 — hinge, rear pivot and load, 4 needed",
+          "variant": "REYHER DIN 985 galvanised, pack of 100 (art. 10316694)",
+          "qty": 1,
+          "price": 4.05,
+          "estimate": false
         },
         {
-          "what": "Bolt M5×16 + nut — potentiometer rod to the bracket",
-          "variant": "",
-          "qty": 2,
-          "price": 0.2,
-          "estimate": true
+          "what": "Washer M8 — at the M8×80 bolts, 4 needed",
+          "variant": "REYHER DIN 125 8.4 mm galvanised, pack of 100 (art. 10317026)",
+          "qty": 1,
+          "price": 2.0,
+          "estimate": false
+        },
+        {
+          "what": "Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod, 2 needed",
+          "variant": "REYHER DIN 934 galvanised, pack of 100 (art. 10316615)",
+          "qty": 1,
+          "price": 3.5,
+          "estimate": false
+        },
+        {
+          "what": "Bolt M5×16 — potentiometer rod to the bracket, 2 needed",
+          "variant": "REYHER DIN 931 galvanised, pack of 100 (art. 10316723)",
+          "qty": 1,
+          "price": 3.9,
+          "estimate": false
+        },
+        {
+          "what": "Nut M5 — with the M5×16 bolts, 2 needed",
+          "variant": "REYHER DIN 934 galvanised, pack of 100 (art. 10317012)",
+          "qty": 1,
+          "price": 2.25,
+          "estimate": false
         },
         {
           "what": "Hose clamp 20–32 mm — potentiometer on the cylinder",
-          "variant": "GEKA W1 20–32 mm, 2 pieces",
-          "qty": 2,
-          "price": 0.8,
-          "estimate": true,
+          "variant": "GEKA W1 20–32 mm, 2 pieces (art. 1628553)",
+          "qty": 1,
+          "price": 3.25,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/"
         },
         {
-          "what": "Angle bracket 40×40 + wood screws 4×16 (brackets; 4×30 would go through the 18 mm plywood) and 4 × 4×40 (spacer block)",
-          "variant": "STARX versterkingshoek 40×40×40 verzinkt",
+          "what": "Angle bracket 40×40 — cheeks to the base plate",
+          "variant": "STARX versterkingshoek 40×40×40 verzinkt (art. 8067726)",
           "qty": 4,
-          "price": 0.8,
-          "estimate": true,
+          "price": 0.47,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/"
         },
         {
+          "what": "Wood screw 4×16 — angle brackets (4×30 would go through the 18 mm plywood)",
+          "variant": "DRESSELHAUS JD+ 4.0×16 countersunk Torx, pack of 200 (art. 6531151)",
+          "qty": 1,
+          "price": 3.0,
+          "estimate": false
+        },
+        {
+          "what": "Wood screw 4×40 — spacer block, 4 needed",
+          "variant": "HECO Topix-Plus 4.0×40 Torx T20, part thread, pack of 200 (art. 10434571)",
+          "qty": 1,
+          "price": 7.8,
+          "estimate": false
+        },
+        {
           "what": "F-clamp — clamp the rig to the table edge",
-          "variant": "Lijmklem 50×300 mm",
+          "variant": "Lijmklem 50×300 mm (art. 7472827)",
           "qty": 2,
-          "price": 6.0,
-          "estimate": true,
+          "price": 5.25,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/"
         },
         {
-          "what": "Load: M8 threaded rod (cut 120 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment)",
-          "variant": "M8 threaded rod 1 m galvanised + lock nuts DIN 985",
+          "what": "Load: M8 threaded rod (cut 120 mm) with 2 M8 lock nuts and 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment)",
+          "variant": "DRESSELHAUS M8×1 m DIN 976 galvanised (art. 3831308)",
           "qty": 1,
-          "price": 1.5,
-          "estimate": true,
+          "price": 1.3,
+          "estimate": false,
           "note": "Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size",
           "url": "https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html"
         },
         {
           "what": "Plug nipple G1/4 male, matching the compressor coupler",
-          "variant": "EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure)",
+          "variant": "STANLEY Snelkoppeling 1/4M (art. 5873104)",
           "qty": 1,
-          "price": 3.0,
-          "estimate": true
+          "price": 3.95,
+          "estimate": false,
+          "note": "Try it in the compressor coupler: it must click in and come out when the sleeve is pushed",
+          "url": "https://www.hornbach.nl/p/stanley-snelkoppeling-1-4m/5873104/"
         },
         {
           "what": "Tube cutter",
-          "variant": "Leidingschaar kunststof tot 26 mm",
+          "variant": "Leidingschaar kunststof tot 26 mm (art. 8248902)",
           "qty": 1,
-          "price": 5.0,
-          "estimate": true,
+          "price": 13.35,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/"
         },
         {
           "what": "PTFE tape",
-          "variant": "GRIFFON 12 m",
+          "variant": "GRIFFON 12×0.1 mm, 12 m (art. 5229129)",
           "qty": 1,
-          "price": 1.5,
-          "estimate": true,
+          "price": 2.55,
+          "estimate": false,
           "url": "https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/"
         },
         {
-          "what": "Multimeter (if you do not have one)",
-          "variant": "PROFILE start 600V",
+          "what": "Forstner bit 22 mm — bearing seats in the cheeks",
+          "variant": "ALPEN Ø22 mm, 10 mm shank (art. 4049574)",
           "qty": 1,
-          "price": 20.0,
-          "estimate": true,
-          "note": "Needed for the incoming inspection, coil checks and calibration",
-          "url": "https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/"
+          "price": 12.75,
+          "estimate": false,
+          "url": "https://www.hornbach.nl/p/alpen-forstner-boor-o-22-mm/4049574/"
         }
-      ]
+      ],
+      "note": "Prices from hornbach.nl (2026-10-13). Bolts and nuts come in packs online; loose from the bins in the store is cheaper."
     },
     {
       "name": "5. Compressor (bol.com)",
@@ -534,11 +572,12 @@
   "tools": [
     "Jigsaw or hand saw (wood)",
     "Hacksaw and file (aluminium)",
-    "Drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm, 22 mm Forstner bit",
+    "Drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm (22 mm Forstner bit: in the DIY store list)",
     "Screwdrivers, spanners 8, 10, 13 mm, hex keys",
     "Wire stripper, small screwdriver for screw terminals",
     "Soldering iron (only if the Pico comes without header pins)",
     "Safety glasses",
-    "Tape measure, try square, awl or centre punch"
+    "Tape measure, try square, awl or centre punch",
+    "Multimeter"
   ]
 }

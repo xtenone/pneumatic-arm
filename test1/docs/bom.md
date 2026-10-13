@@ -63,27 +63,32 @@ Status: received (2026-10-07)
 
 ## 4. DIY store (Hornbach)
 
-Status: still to buy
+Status: list final (2026-10-13), still to buy
 
 | # | Part | Variant | Price | Link |
 |---|---|---|---|---|
-| 1 | Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block) | LIGHTPLY multiplex 18 mm, 122×61 cm (Hornbach), or cut to size | €15.00* | [link](https://www.hornbach.nl/services/hout-op-maat/) |
-| 1 | Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm |  | €8.00* | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/) |
-| 1 | Aluminium strip 20×3 mm (or 20×2), 30 cm — potentiometer bracket + mounting strip | 20×2 mm, 200 cm (Hornbach has no 20×3) | €3.00* | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/) |
-| 1 | Aluminium tube 10×1 mm (8 mm inside), 50 cm — spacer sleeves | KAISERTHAL Ø10×1, 100 cm | €4.00* | [link](https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/) |
-| 2 | Ball bearing 608-2RS (8×22×7) — arm hinge | 608-ZZ (metal shields), pack of 4 | €3.00* | [link](https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/) |
-| 2 | Bolt M8×80 + 2 washers + M8 lock nut — hinge and rear pivot | DIN 931 galvanised (pack of 50 online; often loose in store) | €2.00* | [link](https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/) |
-| 2 | Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod |  | €0.40* |  |
-| 2 | Bolt M5×16 + nut — potentiometer rod to the bracket |  | €0.40* |  |
-| 2 | Hose clamp 20–32 mm — potentiometer on the cylinder | GEKA W1 20–32 mm, 2 pieces | €1.60* | [link](https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/) |
-| 4 | Angle bracket 40×40 + wood screws 4×16 (brackets; 4×30 would go through the 18 mm plywood) and 4 × 4×40 (spacer block) | STARX versterkingshoek 40×40×40 verzinkt | €3.20* | [link](https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/) |
-| 2 | F-clamp — clamp the rig to the table edge | Lijmklem 50×300 mm | €12.00* | [link](https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/) |
-| 1 | Load: M8 threaded rod (cut 120 mm), 2 M8 lock nuts, 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment) — Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size | M8 threaded rod 1 m galvanised + lock nuts DIN 985 | €1.50* | [link](https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html) |
-| 1 | Plug nipple G1/4 male, matching the compressor coupler | EURO profile, G1/4 male: the compressor has a universal coupler with a knurled sleeve, which takes EURO plugs (take the coupler along to try if unsure) | €3.00* |  |
-| 1 | Tube cutter | Leidingschaar kunststof tot 26 mm | €5.00* | [link](https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/) |
-| 1 | PTFE tape | GRIFFON 12 m | €1.50* | [link](https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/) |
-| 1 | Multimeter (if you do not have one) — Needed for the incoming inspection, coil checks and calibration | PROFILE start 600V | €20.00* | [link](https://www.hornbach.nl/p/profile-digitale-multimeter-start-600v/12057434/) |
-| | **Total** | | **€83.60*** | |
+| 1 | Plywood 18 mm: base plate 400×300, 2 cheeks 450×120, 2 blocks 60×60 (spacer block); cut in the store per test1/out/drawings/cut_plan.pdf — Keep the leftovers: the 2 discs Ø80 for the load come from them | LIGHTPLY multiplex ongegrond 122×61 cm, 18 mm (art. 12575696) | €18.24 | [link](https://www.hornbach.nl/p/lightply-multiplex-ongegrond-122x61-cm-18-mm/12575696/) |
+| 1 | Aluminium flat bar 40×3 mm, 100 cm (cut to 450 mm) — the arm | KAISERTHAL 40×3 mm, 100 cm (art. 8829133) | €8.80 | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-40x3-mm-aluminium-100-cm/8829133/) |
+| 1 | Aluminium strip 20×2 mm — potentiometer bracket + mounting strip | KAISERTHAL 20×2 mm, 200 cm (art. 8829169; Hornbach has no 20×3) | €3.75 | [link](https://www.hornbach.nl/p/kaiserthal-platte-stang-20x2-mm-aluminium-200-cm/8829169/) |
+| 1 | Aluminium tube 10×1 mm (8 mm inside) — spacer sleeves | KAISERTHAL Ø10×1, 100 cm (art. 8829151) | €1.90 | [link](https://www.hornbach.nl/p/kaiserthal-ronde-buis-o-10x1-mm-aluminium-100-cm/8829151/) |
+| 1 | Ball bearing 608 (8×22×7) — arm hinge, 2 needed | TARROX 608-ZZ, pack of 4 (art. 6644713) | €5.70 | [link](https://www.hornbach.nl/p/tarrox-kogellager-608-zz-8-mm-inbouwmaat-22x7-mm-4-stuks/6644713/) |
+| 1 | Bolt M8×80 — hinge and rear pivot, 2 needed | REYHER DIN 931 galvanised, pack of 50 (art. 10316952) | €9.20 | [link](https://www.hornbach.nl/p/reyher-tapbout-zeskant-met-schacht-8x80-mm-din-931-galv-verzinkt-50-stuks/10316952/) |
+| 1 | Lock nut M8 — hinge, rear pivot and load, 4 needed | REYHER DIN 985 galvanised, pack of 100 (art. 10316694) | €4.05 |  |
+| 1 | Washer M8 — at the M8×80 bolts, 4 needed | REYHER DIN 125 8.4 mm galvanised, pack of 100 (art. 10317026) | €2.00 |  |
+| 1 | Nut M8 (standard M8 = M8×1.25) — potentiometer bracket on the rod, 2 needed | REYHER DIN 934 galvanised, pack of 100 (art. 10316615) | €3.50 |  |
+| 1 | Bolt M5×16 — potentiometer rod to the bracket, 2 needed | REYHER DIN 931 galvanised, pack of 100 (art. 10316723) | €3.90 |  |
+| 1 | Nut M5 — with the M5×16 bolts, 2 needed | REYHER DIN 934 galvanised, pack of 100 (art. 10317012) | €2.25 |  |
+| 1 | Hose clamp 20–32 mm — potentiometer on the cylinder | GEKA W1 20–32 mm, 2 pieces (art. 1628553) | €3.25 | [link](https://www.hornbach.nl/p/geka-slangklemmen-w1-20-32-mm-2-stuks/1628553/) |
+| 4 | Angle bracket 40×40 — cheeks to the base plate | STARX versterkingshoek 40×40×40 verzinkt (art. 8067726) | €1.88 | [link](https://www.hornbach.nl/p/starx-versterkingshoek-40x40x40-mm-verzinkt/8067726/) |
+| 1 | Wood screw 4×16 — angle brackets (4×30 would go through the 18 mm plywood) | DRESSELHAUS JD+ 4.0×16 countersunk Torx, pack of 200 (art. 6531151) | €3.00 |  |
+| 1 | Wood screw 4×40 — spacer block, 4 needed | HECO Topix-Plus 4.0×40 Torx T20, part thread, pack of 200 (art. 10434571) | €7.80 |  |
+| 2 | F-clamp — clamp the rig to the table edge | Lijmklem 50×300 mm (art. 7472827) | €10.50 | [link](https://www.hornbach.nl/p/lijmklem-50-x-300-mm/7472827/) |
+| 1 | Load: M8 threaded rod (cut 120 mm) with 2 M8 lock nuts and 2 plywood discs Ø80 from the leftovers — for 1 kg dumbbell plates (own, 2; once 4 as an experiment) — Plates clamped to the arm end: they cannot swing. The plywood discs clamp any hole size | DRESSELHAUS M8×1 m DIN 976 galvanised (art. 3831308) | €1.30 | [link](https://www.hornbach.nl/shop/DREssELHAUS-Draadeind-M8x1-m-DIN-976-galv-verzinkt/3831308/artikel.html) |
+| 1 | Plug nipple G1/4 male, matching the compressor coupler — Try it in the compressor coupler: it must click in and come out when the sleeve is pushed | STANLEY Snelkoppeling 1/4M (art. 5873104) | €3.95 | [link](https://www.hornbach.nl/p/stanley-snelkoppeling-1-4m/5873104/) |
+| 1 | Tube cutter | Leidingschaar kunststof tot 26 mm (art. 8248902) | €13.35 | [link](https://www.hornbach.nl/p/leidingschaar-kunststof-tot-26-mm/8248902/) |
+| 1 | PTFE tape | GRIFFON 12×0.1 mm, 12 m (art. 5229129) | €2.55 | [link](https://www.hornbach.nl/p/griffon-ptfe-tape-12x0-1-mm-lengte-12-m/5229129/) |
+| 1 | Forstner bit 22 mm — bearing seats in the cheeks | ALPEN Ø22 mm, 10 mm shank (art. 4049574) | €12.75 | [link](https://www.hornbach.nl/p/alpen-forstner-boor-o-22-mm/4049574/) |
+| | **Total** | | **€123.62** | |
 
 ## 5. Compressor (bol.com)
 
@@ -94,15 +99,16 @@ Status: received (2026-10-06)
 | 1 | Stanley silent compressor DST 100/8/6 — Quiet enough for indoor testing. For the full arm a 6 l tank may be small; add a buffer tank later. Check the coupler type before buying the plug nipple. | 6 l, 8 bar, 105 l/min (intake), 53 dB(A) on the label, oil-free, 750 W | €160.00* | [link](https://www.bol.com/nl/nl/p/stanley-silent-compressor-dst-100-8-6-olievrij/9200000106192675/) |
 | | **Total** | | **€160.00*** | |
 
-**Total approx. €564** (excluding shipping and import duty).
+**Total approx. €604** (excluding shipping and import duty).
 
 ## Tools
 
 - Jigsaw or hand saw (wood)
 - Hacksaw and file (aluminium)
-- Drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm, 22 mm Forstner bit
+- Drill with wood bits 5 and 8.5 mm, metal bits 5.5 and 8.5 mm (22 mm Forstner bit: in the DIY store list)
 - Screwdrivers, spanners 8, 10, 13 mm, hex keys
 - Wire stripper, small screwdriver for screw terminals
 - Soldering iron (only if the Pico comes without header pins)
 - Safety glasses
 - Tape measure, try square, awl or centre punch
+- Multimeter
